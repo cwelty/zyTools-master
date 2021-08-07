@@ -1,0 +1,4 @@
+{
+    basicOnly: true,
+    discreteMath: true
+}

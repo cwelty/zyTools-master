@@ -1,0 +1,20 @@
+<div class='instructions'>Update the values after rising clk.</div>
+
+<div class='background-image-container'>
+    <div class='register-file-background'/>
+</div>
+
+{{#each registerFileInputClassNames}}
+    <div class='{{this}}'/>
+{{/each}}
+
+{{#range 4}}
+    <input class='register register-{{this}}' maxlength='2' disabled='true'/>
+    <div class='reset-register-button reset-register-button-{{this}}'>&#x21bb;</div>
+{{/range}}
+
+<input class='read-data-a' maxlength='2' disabled/>
+<input class='read-data-b' maxlength='2' disabled/>
+
+<div class='reset-read-button-a'>&#x21bb;</div>
+<div class='reset-read-button-b'>&#x21bb;</div>

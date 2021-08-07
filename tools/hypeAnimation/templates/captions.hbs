@@ -1,0 +1,11 @@
+{{!
+    Make captions HTML.
+    @param {Array} captions The list of captions to print.
+}}
+<ol>
+    {{#each captions}}
+        <li>{{{this}}}</li>
+    {{else}}
+        <li>Alternative text not found. Contact accessibility@zybooks.com for help.</li>
+    {{/each}}
+</ol>

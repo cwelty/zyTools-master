@@ -1,0 +1,9 @@
+{{!
+    Print each level's name and whether that level is checked/selected.
+    @param {Array} of {InspectorLevel} levels The level names and whether each level is checked.
+}}
+<div class='inspector-levels'>
+    {{#each levels}}
+        <label>{{name}}<input name='{{name}}' type='checkbox'{{#if isChecked}} checked{{/if}}></input></label>
+    {{/each}}
+</div>

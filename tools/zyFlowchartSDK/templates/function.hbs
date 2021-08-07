@@ -1,0 +1,36 @@
+{{!
+    Render a program function.
+    @param {Boolean} hasInputOrOutput Whether the function has input or output.
+    @param {Boolean} hasVariables Whether the function has variables.
+    @param {String} functionName The name of the function.
+    @param {Boolean} isCodeCurrentlyShown Whether code is currently shown, or flowchart.
+    @param {Boolean} showFunctionName Whether to show the function name.
+}}
+<div class='program-function'>
+    <div>
+        {{#if showFunctionName}}
+            <div class='function-name'>{{functionName}}</div>
+        {{/if}}
+        <div class='function-container {{#if isCodeCurrentlyShown}}code-container{{else}}flowchart-container{{/if}}'></div>
+    </div>
+    <div class='variables-and-IO-container'>
+        <div class='function-variables-container'>
+            {{#if hasVariables}}
+                <div class='parameter-variables-container'></div>
+                <div class='local-variables-container'></div>
+                <div class='return-variable-container'></div>
+            {{else}}
+                <div class='variable-or-IO-label'>
+                    <p>Variables</p>
+                    <em>{{#if showVariablesNotShownMessage}}Not shown when editing{{else}}None{{/if}}</em>
+                </div>
+            {{/if}}
+        </div>
+        {{#if hasInputOrOutput}}
+            <div class='input-output-container'>
+                <div class='input-container'></div>
+                <div class='output-container'></div>
+            </div>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,407 @@
+@import "../../../zyWeb/less/constants.less";
+
+@table-border:                  1px solid @zyante-gray;
+@transform-angle-of-diagonal:   -45deg;
+@circle-min-height-width:       30px;
+@horizontal-top-for-upper-row:  -112px;
+@horizontal-top-for-lower-row:  -50px;
+@half-circle-width:             72px;
+@horizontal-two-variable-width: 134px;
+@vertical-two-variable-height:  94px;
+@left-for-first-column:         87px;
+@left-for-second-column:        190px;
+@left-for-third-column:         293px;
+@left-for-fourth-column:        396px;
+@horizontal-one-variable-width: 337px;
+@half-circle-left:              47px;
+@one-variable-offset:           8;
+@two-variable-offset:           5;
+@three-variable-offset:         -3;
+
+.kMapAddCircles {
+    font-size: 18px;
+    width:     464px;
+
+    .circle-base-properties {
+        border-radius:  20px;
+        border-width:   2px;
+        border-style:   solid;
+        display:        none;
+        pointer-events: none;
+        position:       absolute;
+    }
+
+    .half-circle-left {
+        border-bottom-left-radius: 0;
+        border-left-style:         none;
+        border-top-left-radius:    0;
+    }
+
+    .half-circle-right {
+        border-bottom-right-radius: 0;
+        border-right-style:         none;
+        border-top-right-radius:    0;
+    }
+
+    .border-color-dark-blue {
+        border-color:  @zyante-dark-blue;
+    }
+
+    .border-color-orange {
+        border-color:  @zyante-orange;
+    }
+
+    .border-color-medium-red {
+        border-color: @zyante-medium-red;
+    }
+
+    .border-color-green {
+        border-color: lighten(@zyante-green, 20%);
+    }
+
+    .circle-drawing-container {
+        position: relative;
+    }
+
+    .zero-variable-circle {
+        .circle-base-properties();
+        height:  @vertical-two-variable-height;
+        left:    @left-for-first-column;
+        top:     @horizontal-top-for-upper-row;
+        width:   @horizontal-one-variable-width;
+    }
+
+    .one-variable-half-circle-left {
+        .circle-base-properties();
+        .half-circle-left();
+        height: @vertical-two-variable-height + (2 * @one-variable-offset);
+        left:   @half-circle-left;
+        top:    @horizontal-top-for-upper-row - @one-variable-offset;
+        width:  @half-circle-width + @one-variable-offset;
+
+        &.index-0-3-4-7 {
+            display: block;
+        }
+    }
+
+    .one-variable-half-circle-right {
+        .circle-base-properties();
+        .half-circle-right();
+        height: @vertical-two-variable-height + (2 * @one-variable-offset);
+        left:   @left-for-fourth-column - @one-variable-offset;
+        top:    @horizontal-top-for-upper-row - @one-variable-offset;
+        width:  @half-circle-width + @one-variable-offset;
+
+        &.index-0-3-4-7 {
+            display: block;
+        }
+    }
+
+    .one-variable-circle {
+        .circle-base-properties();
+
+        &.index-4-5-6-7 {
+            display: block;
+            height:  @circle-min-height-width + (2 * @one-variable-offset);
+            left:    @left-for-first-column - @one-variable-offset;
+            top:     @horizontal-top-for-lower-row - @one-variable-offset;
+            width:   @horizontal-one-variable-width + (2 * @one-variable-offset);
+        }
+
+        &.index-0-1-2-3 {
+            display: block;
+            height:  @circle-min-height-width + (2 * @one-variable-offset);
+            left:    @left-for-first-column - @one-variable-offset;
+            top:     @horizontal-top-for-upper-row - @one-variable-offset;
+            width:   @horizontal-one-variable-width + (2 * @one-variable-offset);
+        }
+
+        &.index-2-3-6-7 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @one-variable-offset);
+            left:    @left-for-third-column - @one-variable-offset;
+            top:     @horizontal-top-for-upper-row - @one-variable-offset;
+            width:   @horizontal-two-variable-width + (2 * @one-variable-offset);
+        }
+
+        &.index-0-1-4-5 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @one-variable-offset);
+            left:    @left-for-first-column - @one-variable-offset;
+            top:     @horizontal-top-for-upper-row - @one-variable-offset;
+            width:   @horizontal-two-variable-width + (2 * @one-variable-offset);
+        }
+
+        &.index-1-2-5-6 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @one-variable-offset);
+            left:    @left-for-second-column - @one-variable-offset;
+            top:     @horizontal-top-for-upper-row - @one-variable-offset;
+            width:   @horizontal-two-variable-width + (2 * @one-variable-offset);
+        }
+    }
+
+    .two-variable-half-circle-left {
+        .circle-base-properties();
+        .half-circle-left();
+        height: @circle-min-height-width;
+        left:   @half-circle-left;
+        width:  @half-circle-width + @two-variable-offset;
+
+        &.index-0-3 {
+            display: block;
+            top:     @horizontal-top-for-upper-row;
+        }
+
+        &.index-4-7 {
+            display: block;
+            top:     @horizontal-top-for-lower-row;
+        }
+    }
+
+    .two-variable-half-circle-right {
+        .circle-base-properties();
+        .half-circle-right();
+        height: @circle-min-height-width;
+        left:   @left-for-fourth-column - @two-variable-offset;
+        width:  @half-circle-width + @two-variable-offset;
+
+        &.index-0-3 {
+            display: block;
+            top:     @horizontal-top-for-upper-row;
+        }
+
+        &.index-4-7 {
+            display: block;
+            top:     @horizontal-top-for-lower-row;
+        }
+    }
+
+    .two-variable-circle {
+        .circle-base-properties();
+
+        &.index-0-1 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-first-column - @two-variable-offset;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-1-2 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-second-column - @two-variable-offset;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-2-3 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-third-column - @two-variable-offset;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-4-5 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-first-column - @two-variable-offset;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-5-6 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-second-column - @two-variable-offset;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-6-7 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-third-column - @two-variable-offset;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width + (2 * @two-variable-offset);
+        }
+
+        &.index-0-4 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @two-variable-offset);
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-upper-row - @two-variable-offset;
+            width:   @circle-min-height-width;
+        }
+
+        &.index-1-5 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @two-variable-offset);
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-upper-row - @two-variable-offset;
+            width:   @circle-min-height-width;
+        }
+
+        &.index-2-6 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @two-variable-offset);
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-upper-row - @two-variable-offset;
+            width:   @circle-min-height-width;
+        }
+
+        &.index-3-7 {
+            display: block;
+            height:  @vertical-two-variable-height + (2 * @two-variable-offset);
+            left:    @left-for-fourth-column;
+            top:     @horizontal-top-for-upper-row - @two-variable-offset;
+            width:   @circle-min-height-width;
+        }
+    }
+
+    .three-variable-circle {
+        .circle-base-properties();
+        height:        @circle-min-height-width + (2 * @three-variable-offset);
+        width:         @circle-min-height-width + (2 * @three-variable-offset);
+
+        &.index-0 {
+            display: block;
+            left:    @left-for-first-column - @three-variable-offset;
+            top:     @horizontal-top-for-upper-row - @three-variable-offset;
+        }
+
+        &.index-1 {
+            display: block;
+            left:    @left-for-second-column - @three-variable-offset;
+            top:     @horizontal-top-for-upper-row - @three-variable-offset;
+        }
+
+        &.index-2 {
+            display: block;
+            left:    @left-for-third-column - @three-variable-offset;
+            top:     @horizontal-top-for-upper-row - @three-variable-offset;
+        }
+
+        &.index-3 {
+            display: block;
+            left:    @left-for-fourth-column - @three-variable-offset;
+            top:     @horizontal-top-for-upper-row - @three-variable-offset;
+        }
+
+        &.index-4 {
+            display: block;
+            left:    @left-for-first-column - @three-variable-offset;
+            top:     @horizontal-top-for-lower-row - @three-variable-offset;
+        }
+
+        &.index-5 {
+            display: block;
+            left:    @left-for-second-column - @three-variable-offset;
+            top:     @horizontal-top-for-lower-row - @three-variable-offset;
+        }
+
+        &.index-6 {
+            display: block;
+            left:    @left-for-third-column - @three-variable-offset;
+            top:     @horizontal-top-for-lower-row - @three-variable-offset;
+        }
+
+        &.index-7 {
+            display: block;
+            left:    @left-for-fourth-column - @three-variable-offset;
+            top:     @horizontal-top-for-lower-row - @three-variable-offset;
+        }
+    }
+
+    .diagonal {
+        border-left:       @table-border;
+        height:            70px;
+        left:              27px;
+        position:          absolute;
+        top:               3px;
+        transform:         rotate(@transform-angle-of-diagonal);
+        -ms-transform:     rotate(@transform-angle-of-diagonal); /* IE 9 */
+        -webkit-transform: rotate(@transform-angle-of-diagonal); /* Opera, Chrome, and Safari */
+    }
+
+    .input-a {
+        position: absolute;
+        top:      33px;
+    }
+
+    .input-b-c {
+        left:     27px;
+        position: absolute;
+        top:      10px;
+    }
+
+    .k-map {
+        td {
+            height:     60px;
+            min-width:  50px;
+            text-align: center;
+
+            &.kmap-cell {
+                border:                @table-border;
+                vertical-align:        middle;
+                width:                 100px;
+                -webkit-touch-callout: none;
+                -webkit-user-select:   none;
+                -khtml-user-select:    none;
+                -moz-user-select:      none;
+                -ms-user-select:       none;
+                user-select:           none;
+
+                &.selected {
+                    background-color: lighten(@zyante-lighter-blue, 10%);
+                    color:            white;
+                }
+            }
+
+            &.kmap-cell:hover:not(.selected):not(.disabled) {
+                background-color: lighten(@zyante-lighter-blue, 25%);
+            }
+
+            &.kmap-cell:not(.disabled) {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .below-k-map {
+        td {
+            height: 160px;
+
+            .feedback-message {
+                font-size:   14px;
+                margin-left: 20px;
+                width:       200px;
+
+                &.display-error-message {
+                    color: @zyante-medium-red;
+                }
+
+                &.display-explanation-message {
+                    color:      @zyante-dark-blue;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .table-header-container {
+        position: relative;
+    }
+
+    button.undo {
+        background-color: white;
+        color:            @zyante-dark-blue;
+        margin-left:      30px;
+    }
+
+    button.undo:hover {
+        background-color: white;
+    }
+}

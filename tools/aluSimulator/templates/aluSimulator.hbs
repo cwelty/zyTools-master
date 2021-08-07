@@ -1,0 +1,69 @@
+{{!
+    Renders the |AluSimulator| tool.
+    @param {String} id The unique identifier of this instance of |AluSimulator|
+    @param {Number} inputSize The size of the data input (number of bits).
+    @param {InputOutputData} selectInput The select input.
+    @param {InputOutputData} aluOutput The ALU data output.
+}}
+<div class='how-to-instructions'><p>Click on the buttons to change the data inputs or control inputs.</p></div>
+
+<div class='data-input-div'>
+    <div id='first-data-input' class='data-input'></div>
+    <div id='second-data-input' class='data-input'></div>
+</div>
+
+<div class='alu-container'>
+    <div class='alu-select-container'>
+        <div class='mux-button-container'>
+            {{#each selectInput.bitNames}}
+                <div class='{{this}}-bit {{../selectInput.name}}-bit button zb-button primary raised'>0</div>
+            {{/each}}
+            <div>
+                <span class='binary-string mux-binary-string'></span>
+                <span class='decimal-value mux-input-decimal-value'></span>
+            </div>
+        </div>
+        <div class='mux-select-input'>
+            <div>→</div>
+            <div>→</div>
+        </div>
+    </div>
+
+    <div class='alu-tool-table'>
+        <div class='mux-selector'>
+            <span>w</span>
+            <span>x</span>
+        </div>
+        <div class='alu-calculator'>
+            <div class='muxes'></div>
+            <div class='adder'></div>
+        </div>
+    </div>
+</div>
+
+<div class='alu-output-data'>
+    <div class='function-table-container'></div>
+
+    <div class='alu-output'>
+        <div>
+            <table class='wire-table'>
+                <tbody>
+                    <tr>
+                        <td class='right always-on width17'></td>
+                        <td class='width10'></td>
+                        <td class='right always-on width11'></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class='led-container'>
+            <input type='checkbox' class='led-output' id='output-led-s1' disabled><label for='output-led-s1' class='led-label'></label>
+            <input type='checkbox' class='led-output' id='output-led-s0' disabled><label for='output-led-s0' class='led-label'></label>
+            <div class='led-values'>
+                <span class='binary-string output-binary-string'></span>
+                <span class='decimal-value output-decimal-value'></span>
+            </div>
+        </div>
+    </div>
+</div>

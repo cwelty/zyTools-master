@@ -1,0 +1,43 @@
+<div style="width: 48px; height: 20px;">
+    <button id="{{name}}startButton{{id}}" class="button">Start</button>
+    <button id="{{name}}stopButton{{id}}" class="button"
+         style="display: none;">Reset
+    </button>
+</div>
+
+<table>
+    <tr>
+        <td style="vertical-align: top;">
+            <div class="code">
+<span>num = </span><span id="{{name}}initVal{{id}}"></span><br />
+<span>while num</span> <span id="{{name}}condOp{{id}}"></span> <span id="{{name}}condVal{{id}}"></span><br />
+    <span class="output-button faded" id="{{name}}outputNum{{id}}"><span>output num</span></span><br />
+    <span>num = num</span> <span id="{{name}}iterOp{{id}}"></span> <span id="{{name}}iterVal{{id}}"></span><br />
+<span class="output-button faded" id="{{name}}outputDone{{id}}">output "Bye."</span>
+            </div>
+        </td>
+        <td style="vertical-align: top; padding-left: 10px; width: 230px">
+            <div id="{{name}}monitor{{id}}" class="monitor">
+                <div id="{{name}}monitorOuterFrame{{id}}" class="monitorOuterFrame"></div>
+                <div id="{{name}}monitorScreen{{id}}" class="monitorScreen"></div>
+                <div id="{{name}}monitorUpperStand{{id}}" class="monitorUpperStand"></div>
+                <div id="{{name}}monitorLowerStand{{id}}"class="monitorLowerStand"></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="height: 10px">
+            <span class="num-value" id="{{name}}numLabel{{id}}">num:<span id="{{name}}num{{id}}"></span></span>
+        </td>
+    </tr>
+</table>
+
+<div class="zyante-progressive-status-bar" id="{{name}}statusBar{{id}}">
+    <div class="zyante-progressive-progress-bar" id="{{name}}progressBar{{id}}"></div>
+</div>
+
+<button id="{{name}}nextButton{{id}}" class="button next-button faded">Next</button>
+<div id="{{name}}feedback{{id}}" style="display: inline;"></div>
+
+<p id="{{name}}time{{id}}"></p>
+

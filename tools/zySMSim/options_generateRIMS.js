@@ -1,0 +1,3 @@
+{
+    generateRIMS: true
+}

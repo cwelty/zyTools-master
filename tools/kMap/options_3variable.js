@@ -1,0 +1,4 @@
+{
+    progressionMode: true,
+    useMultipleParts: true
+}

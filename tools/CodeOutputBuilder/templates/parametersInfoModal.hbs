@@ -1,0 +1,39 @@
+{{!
+    Print documentation for the randomization parameters.
+}}
+<div class="parameters-documentation">
+    Parameters can be used in code, explanations, input, and file names.
+    Two options for parameter randomization: Python and JSON.
+    <h3>Python 2 (preferred option)</h3>
+    Parameter notation: <code>${variable_name}</code>. Included features:
+    <ul>
+        <li><code>random</code> module is already imported.</li>
+        <li><code>pick_from(list, exclusion_list=[])</code>: Randomly returns an element from <code>list</code> that is not in <code>exclusion_list</code></li>
+        <li><code>pick_from_range(start, end, exclusion_list=[])</code>: Randomly returns a number between <code>start</code> and <code>end</code> (both inclusive) that is not in <code>exclusion_list</code></li>
+        <li>Any module or function available in Progression Builder can also be imported.</li>
+    </ul>
+    Example code:
+    <code class='programming-code-output'>numerator = pickFrom([18, 12, 6]) # Returns 18, 12 or 6.
+denominator = pickFromRange(2, 3) # Returns 2 or 3.
+result = numerator / denominator</code>
+    <h3>JSON</h3>
+    Parameter notation: <code>\{{myParameter}}</code>. Use triple braces to avoid escaping, like <code>\{{{myDictionary.key1}}}</code>. Example JSON:
+    <code class='programming-code-output'>{
+    myParameter: 'Simple variable',
+    myDictionary: {
+        key1: '<',
+        key2: 'Value 2'
+    },
+    myList: [ 1, 2, 3 ],
+    myListOfDictionaries: [
+        {
+            first: 'out',
+            second: 'in',
+        },
+        {
+            first: 'in',
+            second: 'out',
+        }
+    ]
+}</code>
+</div>

@@ -1,0 +1,14 @@
+{{!
+    Print label and color options.
+    @param {Array} of {Color} colors The colors to print.
+    @param {String} label The label for the color picker.
+    @param {String} transparentImage The location of the transparent image.
+}}
+<div>
+    <div class='label'>{{label}}</div>
+    <div class='colors-container'>
+        {{#each colors}}
+            <div class='color-option' color='{{colorName}}' style='background-color: {{colorValue}};{{#if isTransparent}} background-image: url("{{../transparentImage}}");{{/if}}'></div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,42 @@
+{{!
+    The base viewer.
+
+    TODO: Refactor common data structures and label/input HBS.
+    @param {Object} probability Stores initial state of the probability input.
+    @param {Number} probability.initial Default probability value.
+    @param {Boolean} probability.editable Whether the probability input is editable.
+    @param {String} probability.label The label for the probability input.
+
+    @param {Object} attempts Stores initial state of the attempts input.
+    @param {Number} attempts.initial Default attempts value.
+    @param {Boolean} attempts.editable Whether the attempts input is editable.
+    @param {String} attempts.label The label for the attempts input.
+
+    @param {Object} repetitions Stores initial state of the repetitions input.
+    @param {Number} repetitions.initial Default repetitions value.
+    @param {Boolean} repetitions.editable Whether the repetitions input is editable.
+    @param {String} repetitions.label The label for the repetitions input.
+}}
+<div class='inputs'>
+    <div>
+        <label for='probability-of-success'>{{probability.label}}</label>
+        <input type='number' name='probability-of-success' min='0' max='1' step='0.01' value='{{probability.initial}}'{{#unless probability.editable}} disabled{{/unless}}>
+    </div>
+    <div>
+        <label for='number-of-attempts'>{{attempts.label}}</label>
+        <input type='number' name='number-of-attempts' min='1' max='50' value='{{attempts.initial}}'{{#unless attempts.editable}} disabled{{/unless}}>
+    </div>
+    <div>
+        <label for='number-of-repetitions'>Number of repetitions</label>
+        <input type='number' name='number-of-repetitions' min='0' max='10000' step='100' value='{{repetitions.initial}}'{{#unless repetitions.editable}} disabled{{/unless}}>
+    </div>
+    <button class='zb-button primary raised simulate'>
+        <span class='title'>Simulate</span>
+    </button>
+    <button class='zb-button secondary reset-inputs'>
+        <span class='title'>Reset inputs</span>
+    </button>
+</div>
+
+<p class='errors'></p>
+<p class='warnings'></p>

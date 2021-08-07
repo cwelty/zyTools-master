@@ -1,0 +1,17 @@
+{{!
+    The general question output shown to the user.
+    
+    Input:
+        * question: Required Object that contains:
+            * instructions:           Required string that is the question prompt.
+            * placeholderText:        Optional string shown to user as placeholder to input field.
+            * helperInstructions:     Optional string shown to user as placeholder to input field.
+            * helperInstructionClass: Required string that is a supported class (see style.less).
+        
+}}
+<div class='instruction'>{{question.instructions}}</div>
+<div class='display'>{{{question.display}}}</div>
+<div class='input-container'>
+    <input type='text' placeholder='{{question.placeholderText}}'></input>
+    <div class='helper-instruction {{question.helperInstructionClass}}'>{{{question.helperInstructions}}}</div>
+</div>

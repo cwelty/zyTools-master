@@ -1,0 +1,124 @@
+// Contains many of the constants used by other classes.
+
+var VM_CONSTANTS = {
+    O_MEM_ADDR: 0xFFFFFFFF,
+    I_MEM_ADDR: 0xFFFFFFFE,
+    INTEGER_REGISTERS: 34,
+    FLOAT_REGISTERS: 32,
+    DEFAULT_SPACE: 0xFFFF,
+    I_BEGIN_INDEX: 0,
+    CODESEG_BEGIN: 5,
+    RESERVED_SPACE: 0xFF,
+    RESERVED_BEGIN: 0,
+    DATASEG_BEGIN: 0xFF,
+    HEAP_BEGIN: 0xFF + 0xFFFF,
+    CODESPACE_SIZE: 0xFFFF,
+    HEAP_SIZE: 0xFFFF,
+    DATASPACE_SIZE: 0xFFFF + 0xFFFF + 0xFF,
+    INITIAL_SP: 0xFFFF + 0xFFFF + 0xFF,
+    SLEEP_QUANTUM: 50000,
+    GUI_UPDATE_DELAY: 50000,
+    VM_BREAK_DELAY: 25000,
+    INSTR_PER_SEC: 5000
+};
+
+var MIPS_REGISTERS = {
+    REG_ZR : 0, REG_AT : 1, REG_V0 : 2, REG_V1 : 3, REG_A0 : 4, REG_A1 : 5, REG_A2 : 6, REG_A3 : 7, REG_T0 : 8,
+    REG_T1 : 9, REG_T2 : 10, REG_T3 : 11, REG_T4 : 12, REG_T5 : 13, REG_T6 : 14, REG_T7 : 15, REG_S0 : 16, REG_S1 : 17,
+    REG_S2 : 18, REG_S3 : 19, REG_S4 : 20, REG_S5 : 21, REG_S6 : 22, REG_S7 : 23, REG_T8 : 24, REG_T9 : 25, REG_K0 : 26,
+    REG_K1 : 27, REG_GP : 28, REG_SP : 29, REG_FP : 30, REG_RA : 31, REG_LO : 32, REG_HI : 33, REG_LAST : 34
+};
+
+var MIPS_OPCODES = {
+    OPC_ADD: 0, OPC_ADDI: 1, OPC_ADDIU: 2, OPC_ADDU: 3,
+    OPC_AND: 4, OPC_ANDI: 5, OPC_BC1T: 6, OPC_BC1F: 7,
+    OPC_BEQ: 8, OPC_BGEZ: 9, OPC_BGEZAL: 10, OPC_BGTZ: 11,
+    OPC_BLEZ: 12, OPC_BLTZ: 13, OPC_BLTZAL: 14, OPC_BNE: 15,
+    OPC_DIV: 16, OPC_DIVU: 17, OPC_J: 18, OPC_JAL: 19,
+    OPC_JALR: 20, OPC_JR: 21, OPC_LB: 22, OPC_LBU: 23,
+    OPC_LH: 24, OPC_LHU: 25, OPC_LW: 26, OPC_LUI: 27,
+    OPC_MFHI: 28, OPC_MFLO: 29, OPC_MTHI: 30, OPC_MTLO: 31,
+    OPC_MFC1: 32, OPC_MTC1: 33, OPC_MULT: 34, OPC_MULTU: 35,
+    OPC_NOOP: 36, OPC_NOT: 37, OPC_OR: 38, OPC_ORI: 39,
+    OPC_SB: 40, OPC_SH: 41, OPC_SLL: 42, OPC_SLLV: 43,
+    OPC_SLT: 44, OPC_SLTI: 45, OPC_SLTU: 46, OPC_SLTIU: 47,
+    OPC_SRA: 48, OPC_SRAV: 49, OPC_SRL: 50, OPC_SRLV: 51,
+    OPC_SUB: 52, OPC_SUBU: 53, OPC_SW: 54, OPC_XOR: 55,
+    OPC_XORI: 56, OPC_ABS_D: 57, OPC_ABS_S: 58, OPC_ADD_D: 59,
+    OPC_ADD_S: 60, OPC_C_EQ_D: 61, OPC_C_EQ_S: 62, OPC_C_LE_D: 63,
+    OPC_C_LE_S: 64, OPC_C_LT_D: 65, OPC_C_LT_S: 66, OPC_CVT_D_S: 67,
+    OPC_CVT_D_W: 68, OPC_CVT_S_D: 69, OPC_CVT_S_W: 70, OPC_CVT_W_D: 71,
+    OPC_CVT_W_S: 72, OPC_DIV_D: 73, OPC_DIV_S: 74, OPC_L_D: 75,
+    OPC_L_S: 76, OPC_MOV_D: 77, OPC_MOV_S: 78, OPC_MUL_D: 79,
+    OPC_MUL_S: 80, OPC_NEG_D: 81, OPC_NEG_S: 82, OPC_S_D: 83,
+    OPC_S_S: 84, OPC_SUB_D: 85, OPC_SUB_S: 86, OPC_NEGU: 87,
+    // VuC Extension:
+    OPC_LA: 88, OPC_BGT: 89, OPC_BGTU: 90, OPC_BGE: 91,
+    OPC_BGEU: 92, OPC_BLT: 93, OPC_BLTU: 94, OPC_BLE: 95,
+    OPC_BLEU: 96, OPC_REM: 97, OPC_REMU: 98,
+    // Additional floating point
+    OPC_C_ULT_D: 99, OPC_C_ULT_S: 100, OPC_MFC1_D: 101, OPC_MTC1_D: 102,
+    OPC_C_ULE_D: 103, OPC_C_ULE_S: 104,
+    // End VuC Extension
+    OPC_LAST: 105
+};
+
+var PINS = {
+    A0 : 0,
+    A1 : 1,
+    A2 : 2,
+    A3 : 3,
+    A4 : 4,
+    A5 : 5,
+    A6 : 6,
+    A7 : 7,
+    B0 : 8,
+    B1 : 9,
+    B2 : 10,
+    B3 : 11,
+    B4 : 12,
+    B5 : 13,
+    B6 : 14,
+    B7 : 15,
+    A : 16,
+    B : 17
+};
+
+var VM_SPEED_OPTIONS = {
+    SLOWEST: 0,
+    SLOW: 1,
+    NORMAL: 2,
+    FAST: 3,
+    FASTEST: 4
+};
+
+var VM_IPP = [
+    1,
+    50,
+    250,
+    500,
+    1000
+];
+
+var VM_RUN_MODE = {
+    c: 0,
+    asm: 1
+};
+
+var ARGUMENT_TYPE = {
+    CONSTANT: 0,
+    REGISTER: 1,
+    ADDRESS: 2,
+    SYMBOL: 3,
+    INVALID: 4
+};
+
+var CONTENT_LENGTH = {
+    byte: 1,
+    half: 2,
+    word: 4
+};
+
+var VERSION = '1.0';
+
+var APP_NAME = 'RIMS';

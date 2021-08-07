@@ -1,0 +1,49 @@
+@import "../../../zyWeb/less/constants.less";
+@progression-builder-font-family: Roboto, sans-serif;
+
+.ProgressionPlayer {
+    div.question-area {
+        .outline(@color) {
+            outline: 2px solid @color;
+        }
+
+        .wrong-answer-outline, .invalid-answer-outline {
+            .outline(@zyante-medium-red);
+        }
+
+        .element {
+            font-family: @progression-builder-font-family;
+            font-weight: 300;
+
+            &.wrong-answer {
+                select, input:not([type="checkbox"]) {
+                    .wrong-answer-outline;
+                }
+
+                &.checkbox-element {
+                    .wrong-answer-outline;
+                }
+            }
+
+            &.invalid-answer {
+                select, input {
+                    .invalid-answer-outline;
+                }
+            }
+        }
+    }
+
+    .zyante-progression-explanation-area p {
+        font-family: @progression-builder-font-family;
+        font-weight: 300;
+        margin: 0 0 10px;
+    }
+
+    .white-space-pre {
+        white-space: pre-wrap;
+    }
+
+    div.zyante-progression-explanation-area .element {
+        white-space: normal;
+    }
+}

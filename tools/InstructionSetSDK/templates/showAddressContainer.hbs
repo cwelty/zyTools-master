@@ -1,0 +1,19 @@
+{{!
+    A modal for the user to select which address to show.
+    @param {ShowAddressContainerOptions} options The options for this address container.
+}}
+<div class='show-address-pop-up'>
+    <div>{{options.upperCaseName}} to show:</div>
+    <input type='text'></input>
+    <div class='invalid-address-message'>
+        <div>Invalid {{options.lowerCaseName}}.</div>
+        {{#if options.validNames}}
+            <div>Valid {{options.lowerCaseNamePlural}}:</div>
+            <div>{{options.validNames}}</div>
+        {{/if}}
+    </div>
+    <div>
+        <button class='md-button show small-button'>Show</button>
+        <button class='md-button cancel small-button'>Cancel</button>
+    </div>
+</div>

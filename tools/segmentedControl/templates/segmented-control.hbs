@@ -1,0 +1,7 @@
+<ul class='segmented-control'>
+    {{#each segments}}
+        <li class='segment-item'>
+           <span class='segment-button arrow-left{{#if selected}} segment-button-selected{{/if}}' data-index='{{index}}'>{{title}}</span>
+       </li>
+    {{/each}}
+</ul>

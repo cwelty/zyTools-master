@@ -1,0 +1,4 @@
+{
+    reduceOnly:        true,
+    multiplyAndDivide: true
+}

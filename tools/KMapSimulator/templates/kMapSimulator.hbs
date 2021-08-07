@@ -1,0 +1,49 @@
+{{! Renders a k-map table.
+    @param {String} xAxisVariablesString The name of the variables in the X axis concatenated.
+    @param {String} yAxisVariablesString The name of the variables in the Y axis concatenated.
+    @param {Number} numRows The number of rows needed in the k-map.
+    @param {Number} numCols The number of cols needed in the k-map.
+    @param {Array<String>} firstRow The contents of the first row (the concatenated possible values of the variables in the x axis).
+    @param {Array<String>} firstColumn The contents of the first column (the concatenated possible values of the variables in the y axis).
+}}
+
+<div class='prompt'>Click cell to toggle between 1 and 0. Simplified expression shown automatically.</div>
+
+<div class='k-map-contents'>
+    <div class='table-header-container'>
+        <div class='diagonal'></div>
+        <div class='input-x-axis'>{{xAxisVariablesString}}</div>
+        <div class='input-y-axis'>{{yAxisVariablesString}}</div>
+    </div>
+
+    <div class='circle-drawing-container'></div>
+
+    <table class='k-map'>
+        <tr>
+            <td></td>
+            {{#each firstRow}}
+                <td>{{this}}</td>
+            {{/each}}
+        </tr>
+        {{#each firstColumn}}
+            <tr>
+                <td>{{this}}</td>
+                {{#range ../numCols}}
+                    <td class='kmap-cell'>
+                        <div class='kmap-cell-contents'>0</div>
+                        <div class='minterm-data'>
+                            <span class='variables'></span>
+                        </div>
+                    </td>
+                {{/range}}
+            </tr>
+        {{/each}}
+    </table>
+</div>
+
+<div class='minterm-container'>y = 0</div>
+
+<div class='last-line'>
+    <button class='md-button zb-button secondary deselect' disabled>Set all to 0</button>
+    <button class='md-button zb-button secondary show-minterms'>Show minterms</button>
+</div>

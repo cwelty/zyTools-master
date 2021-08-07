@@ -1,0 +1,30 @@
+{{!
+    Render an explanation.
+
+    Input:
+        * |specialCaseMessage| is required and HTML.
+        * |registersAndMemory| is required and HTML.
+        * |userInstructionsWithCommentsHTML| is required and HTML.
+        * |isAnswerWrong| is required and a boolean.
+        * |id| is required and a string.
+        * |expectedInstructionsWithCommentsHTML| is required and HTML.
+}}
+{{#if specialCaseMessage}}
+    <span>{{{specialCaseMessage}}}</span>
+    <div class='margin-buttom'></div>
+{{/if}}
+
+<span>Your code with comments:</span>
+<div class='padding-top'>{{{userInstructionsWithCommentsHTML}}}</div>
+
+{{#if registersAndMemory}}
+    <div class='margin-top'>Your code resulted in:</div>
+    <div class='padding-top'>{{{registersAndMemory}}}</div>
+{{/if}}
+
+{{#if isAnswerWrong}}
+    <div class='margin-top solution'>
+        <div>One solution is:</div>
+        <div class='padding-top'>{{{expectedInstructionsWithCommentsHTML}}}</div>
+    </div>
+{{/if}}

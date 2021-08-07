@@ -1,0 +1,4 @@
+{
+    type: 'conserveRegisters',
+    instructionSet: 'MIPSzy'
+}

@@ -1,0 +1,8 @@
+{{!
+    Print the options.
+    @params {Array} optionsArray Array of {Option}. The options to print.
+}}
+{{#each optionsArray}}
+    <h2>{{name}} ({{dataType}})</h2>
+    <pre>{{value}}</pre>
+{{/each}}

@@ -1,0 +1,18 @@
+{{!
+    Contains a single level, may have multiple files.
+    @param {Integer} id The ID of the current progression.
+    @param {Integer} numberOfFiles The number of files of this program.
+    @param {Boolean} useTextarea Whether to print a textarea or div for code writing.
+}}
+<div class='instructions-div'></div>
+
+{{#ifCond numberOfFiles '>' 1}}
+    <div id='segmented-control-container{{../id}}' class='segmented-control'></div>
+{{/ifCond}}
+{{#range numberOfFiles}}
+    {{#if ../useTextarea}}
+        <textarea id='editor-{{this}}-{{../id}}' class='file-editor'></textarea>
+    {{else}}
+        <div id='editor-{{this}}-{{../id}}' class='file-editor'></div>
+    {{/if}}
+{{/range}}

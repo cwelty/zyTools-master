@@ -1,0 +1,12 @@
+{{!
+    Render an explanation.
+    @param {String} explanation The explanation to render.
+    @param {Boolean} shouldRenderGraph Whether to render a graph.
+    @param {String} toolID The tool's unique id.
+}}
+{{{explanation}}}
+
+{{#if shouldRenderGraph}}
+    <div class='graph-label'>Blue points are vertices. Lowest x value is dark blue:</div>
+    <div id='ellipse-graph-{{toolID}}' class='ellipse-graph'></div>
+{{/if}}

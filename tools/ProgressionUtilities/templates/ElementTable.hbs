@@ -1,0 +1,29 @@
+{{!
+    Print a table element.
+    @param {ElementTable} element The table element.
+    @param {Array} of {Array} of {ElementTableCell} element.tableData The table data.
+    @param {Boolean} noCopyButton Whether to withhold the copy button.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}} table table-element{{#if element.isSpreadsheet}} as-spreadsheet{{/if}}' {{{style}}}>
+    <table {{#if element.fixWidth}}class='fix-width'{{/if}}>
+        {{#if element.tableData.data}}
+            <tr>
+                <td>{{element.tableData.data}}</td>
+            </tr>
+        {{else}}
+            {{#each element.tableData as |row|}}
+                <tr>
+                    {{#each row as |cell|}}
+                        <t{{#if cell.isHeader}}h{{else}}d{{/if}} style='{{#each cell.style}}{{@key}}: {{this}};{{/each}}'>{{{cell.contentHTML}}}</t{{#if cell.isHeader}}h{{else}}d{{/if}}>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        {{/if}}
+    </table>
+    {{#unless noCopyButton}}
+        {{#if element.isSpreadsheet}}
+            <button>Copy sheet</button>
+        {{/if}}
+    {{/unless}}
+</div>

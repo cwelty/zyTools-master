@@ -1,0 +1,49 @@
+{{!
+    Render an explanation.
+    @param {String} explanation The explanation for this level.
+    @param {Array} results Array of {TestResult} The results of the tests used for the explanation.
+    @param {Integer} pointsAwarded Number of points awarded for this question.
+    @param {Integer} pointsPossible Number of possible points for this question.
+    @param {Boolean} isExam Whether this tool is an exam.
+}}
+<span class='explanation'>{{{explanation}}}</span>
+{{#if isExam}}
+    <span class='explanation'>Score: {{pointsAwarded}} / {{pointsPossible}}</span>
+{{/if}}
+{{#each results}}
+    <div class='test-result'>
+        {{#unless moreData.userCodeHadError}}
+            {{#unless isCorrect}}
+                {{hintMessage}}
+                {{#if showSpecialCharacterLegend}}
+                    <button class='zb-button secondary thin-title special-character-legend'>
+                        <span class='title'>Special character legend</span>
+                    </button>
+                {{/if}}
+            {{/unless}}
+        {{/unless}}
+        <div class='result-row'>
+            {{#if moreData.input}}
+                <div class='result-label'>Input</div>
+                <div class='result-value'>{{{moreData.input}}}</div>
+            {{/if}}
+        </div>
+        {{#if moreData.userCodeHadError}}
+            <div class='result-row'>
+                <div class='result-label'>Error</div>
+                <div class='result-error'>{{{userAnswer}}}</div>
+            </div>
+        {{else}}
+            <div class='result-row'>
+                <div class='result-label'>Your output</div>
+                <div class='result-value'>{{{userAnswerHTML}}}</div>
+            </div>
+            {{#unless isCorrect}}
+                <div class='result-row'>
+                    <div class='result-label'>Expected output</div>
+                    <div class='result-value'>{{{expectedAnswerHTML}}}</div>
+                </div>
+            {{/unless}}
+        {{/if}}
+    </div>
+{{/each}}

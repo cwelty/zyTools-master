@@ -1,0 +1,11 @@
+{{!
+    @param {Boolean} useTextarea Whether to print a textarea or div for code writing.
+    @param {String} id The id to assign to the solution.
+}}
+<div class='solution-container'>
+    {{#if useTextarea}}
+        <textarea id='{{id}}' class='solution'></textarea>
+    {{else}}
+        <div id='{{id}}' class='solution'></div>
+    {{/if}}
+</div>

@@ -1,0 +1,183 @@
+@import "../../../zyWeb/less/constants.less";
+
+.taskScheduling {
+    .empty-placeholder {
+        height: 0;
+        width:  0;
+    }
+
+    p.instructions {
+        color:      @zyante-dark-blue;
+        font-size:  14px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .task-coloring(@color, @lighten-percent: 0%) {
+        background-color: lighten(@color, @lighten-percent);
+        border-color:     @zyante-gray;
+        color:            @zyante-gray;
+    }
+
+    div.task-banks-container {
+        &.disable {
+            div.task {
+                .task-coloring(@zyante-gray, 70%);
+            }
+        }
+    }
+
+    div.task-order-container, div.task-banks-container {
+        &.disable {
+            div.task {
+                cursor: default;
+            }
+        }
+    }
+
+    .task-placeholder {
+        background-color: @zyante-background-color;
+        border-color:     @zyante-light-gray;
+        box-shadow:       inset 0 1px 2px @zyante-light-gray;
+        cursor:           default;
+    }
+
+    .task-banks-container {
+        text-align: center;
+
+        .task-bank-container {
+            display: inline-block;
+
+            &:not(:first-child) {
+                margin-left: 30px;
+            }
+
+            .task-bank {
+                position: relative;
+                height:   60px;
+                width:    60px;
+
+                .task {
+                    position: absolute;
+
+                    @top-offset:  4px;
+                    @left-offset: -4px;
+                    @z-index-max: 50;
+
+                    &.order-2 {
+                        top:     0 * @top-offset;
+                        left:    0 * @left-offset;
+                        z-index: @z-index-max - 2;
+
+                        &.empty-bank {
+                            .task-placeholder;
+                            z-index: @z-index-max - 3;
+                        }
+                    }
+
+                    &.order-1 {
+                        top:     1 * @top-offset;
+                        left:    1 * @left-offset;
+                        z-index: @z-index-max - 1;
+                    }
+
+                    &.order-0 {
+                        top:     2 * @top-offset;
+                        left:    2 * @left-offset;
+                        z-index: @z-index-max;
+                    }
+                }
+            }
+        }
+    }
+
+    .task {
+        border-style: solid;
+        border-width: 1px;
+        cursor:       pointer;
+        display:      inline-block;
+        padding:      12px 0;
+        margin:       2px;
+        text-align:   center;
+        width:        53px;
+
+        &.type-0 {
+            .task-coloring(rgb(196, 218, 241));
+        }
+
+        &.type-1 {
+            .task-coloring(rgb(208, 231, 200));
+        }
+
+        &.type-2 {
+            .task-coloring(rgb(229, 197, 212));
+        }
+
+        &.hard-coded {
+            cursor: default;
+            .task-coloring(@zyante-gray, 70%);
+        }
+    }
+
+    .task-order-container {
+        margin-top: 30px;
+        text-align: center;
+
+        .task-order {
+            display: inline-block;
+
+            .task-location {
+                display: inline-block;
+
+                &:not(.highlight-task) {
+                    .task-placeholder;
+
+                    &:not(.task) {
+                        border-width: 0;
+                        box-shadow:   0 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .timeline-container {
+        margin-bottom: 30px;
+        text-align:    center;
+
+        .timeline {
+            @line-width:     50px;
+            @triangle-width: 10px;
+
+            display:  inline-block;
+            position: relative;
+            width:    @line-width + @triangle-width;
+
+            .line {
+                border-top: 2px solid @zyante-gray;
+                height:     0;
+                position:   absolute;
+                width:      @line-width;
+            }
+
+            .triangle {
+                background-color: rgba(0, 0, 0, 0);
+                border-color:     transparent rgb(51, 51, 51);
+                border-style:     solid;
+                border-width:     6px @triangle-width 6px 0;
+                height:           0;
+                left:             @line-width;
+                position:         absolute;
+                top:              -5px;
+                transform:        rotate(180deg);
+                width:            0;
+            }
+
+            .label {
+                left:     10px;
+                position: absolute;
+                top:      3px;
+            }
+        }
+    }
+}

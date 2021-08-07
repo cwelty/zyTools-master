@@ -1,0 +1,12 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.placeholder Input box's placeholder.
+}}
+<div class='container'>
+    <div>
+        <div class='prompt'>{{{question.prompt}}}</div>
+        <input type='text' placeholder='{{question.placeholder}}'></input>
+    </div>
+</div>

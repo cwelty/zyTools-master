@@ -1,0 +1,74 @@
+{{!
+    Print the instruction set simulator.
+    @param {String} arrow-down-URL URL to the downward arrow image.
+    @param {String} id The unique identifier for the module.
+    @param {String} registersAndMemoryHTML The HTML for the registers and memory.
+    @param {Array} runSpeeds List of run speeds by name. Ex: Fast.
+    @param {Boolean} [showMachineInstructions] Whether to show the machine instructions.
+    @param {Boolean} [showIntegerIO] Whether to show the integer I/O components.
+    @param {Boolean} [showImportExport] Whether to show the import export section.
+}}
+<div class='editor-container{{#if showMachineInstructions}} narrow{{/if}}{{#if showIntegerIO}} narrow{{/if}}'>
+    <div class='code-editor-container'>
+        <div class='code-running-container'>
+            <div class='code-label'>Assembly</div>
+            <div id='assembly-container-{{id}}' class='code-container'></div>
+            <div class='running-message assembly-running-message'>Running</div>
+        </div>
+        {{#if showMachineInstructions}}
+            <div class='code-running-container'>
+                <div class='code-label'>Machine instructions</div>
+                <div class='instruction-memory-label'>Instruction memory</div>
+                <div id='machine-container-{{id}}' class='code-container'></div>
+                <div class='running-message machine-running-message'>Running</div>
+                <div id='bit-text-segmented-control-{{id}}' class='bit-text-segmented-control'></div>
+                <div class='clear-both'></div>
+            </div>
+        {{/if}}
+    </div>
+    <div class='registers-and-memory-container'>{{{registersAndMemoryHTML}}}</div>
+
+    {{#if showIntegerIO}}
+        <div class='integer-IO-container'>
+            <div class='integer-input-container'></div>
+            <div class='integer-output-container'></div>
+        </div>
+    {{/if}}
+</div>
+
+<div class='controls-container'>
+    <div class='enter-exit-simulation'>
+        {{#if showMachineInstructions}}
+            <button class='md-action-button assemble'>Assemble</button>
+        {{/if}}
+        <button class='md-action-button enter-simulation'>Enter simulation</button>
+        <button class='md-action-button exit-simulation'>Exit simulation</button>
+    </div>
+    <div class='simulation-controls'>
+        <button class='md-action-button orange start-again'>Start again</button>
+        <button class='md-action-button orange step'>Step</button>
+        <button class='md-button orange run'>Run</button>
+        <button class='md-button orange pause'>Pause</button>
+    </div>
+</div>
+
+<div class='compiler-console'></div>
+<div class='unselectable more-options'>More options <img src='{{arrow-down-URL}}' class='arrow'/></div>
+<div class='more-options-container'>
+    <div>
+        <span>Run speed</span>
+        <select class='run-speed'>
+            {{#each runSpeeds}}
+                <option value='{{this}}'>{{this}}</option>
+            {{/each}}
+        </select>
+        <button class='md-button reset {{#if showImportExport}} block-reset {{else}} inline-reset {{/if}}'>Reset to initial</button>
+    </div>
+    {{#if showImportExport}}
+        <div class='import-export-container'>
+            <button class='md-button export'>Export &darr;</button>
+            <button class='md-button import'>Import &uarr;</button>
+            <textarea class='import-export-area'></textarea>
+        </div>
+    {{/if}}
+</div>

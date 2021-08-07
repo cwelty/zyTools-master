@@ -1,0 +1,67 @@
+@import '../../../zyWeb/less/constants.less';
+
+@iframe-height:    300px;
+
+.htmlViewer {
+    .prompt-container {
+        background:     fade(black, 25%);
+        display:        none;
+        height:         100%;
+        margin-left:    -3px;
+        margin-top:     -30px;
+        position:       absolute;
+        text-align:     center;
+        vertical-align: middle;
+        width:          100%;
+        z-index:        2;
+
+        .prompt-message-container {
+            background: white;
+            box-shadow: 5px 4px 10px 0px fade(black, 25%);
+            display:    inline-block;
+            margin-top: 20%;
+            padding:    10px;
+
+            .prompt-text {
+                color:         @zyante-light-blue;
+                font-size:     20px;
+                margin-bottom: 10px;
+            }
+
+            .cancel-button {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    .reset-html {
+        background:  white;
+        color:       @zyante-dark-blue;
+        display:     block;
+        margin-top:  10px;
+    }
+
+    iframe {
+        border:         1px dashed black;
+        height:         @iframe-height;
+        margin-top:     2px;
+        padding-bottom: 4px;
+        width:          500px;
+    }
+
+    div.label {
+        font-weight: bold;
+    }
+
+    .html-viewer-table {
+        display:    block;
+        margin-top: 10px;
+
+        .user-html {
+            font-family: @zyante-code-font;
+            height:      @iframe-height;
+            resize:      none;
+            width:       400px;
+        }
+    }
+}

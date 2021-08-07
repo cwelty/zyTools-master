@@ -1,0 +1,33 @@
+{{!
+    Generate two solutions of x: x = [-b + sqrt([b^2 - 4ac])) / 2a] or x = [-b - sqrt([b^2 - 4ac])) / 2a],
+    where braces indicate the user input.
+    
+    Contains 3 parameters: isExplanation, positiveXValue, and negativeXValue.
+    
+    * isExplanation is a required boolean. If true, then generate an explanation without inputs and using positiveXValue and negativeXValue. 
+    Otherwise, generate the equation in which the user fills in using inputs.
+    
+    * positiveXValue and negativeXValue are required numbers used when isExplanation is true.
+}}
+
+<div class='equation-area'>
+    <span class='equation'>
+        <div class='inline-block'>x =
+            {{#if isExplanation}}
+                <span>{{positiveXValue}}</span>
+            {{else}}
+                <input type='number' class='user-input' min='-99' max='99' disabled/>
+            {{/if}}
+        </div>
+    </span>
+    <span class='or-between-equations'>or</span>
+    <span class='equation'>
+        <div class='inline-block'>x =
+            {{#if isExplanation}}
+                <span>{{negativeXValue}}</span>
+            {{else}}
+                <input type='number' class='user-input' min='-99' max='99' disabled/>
+            {{/if}}
+        </div>
+    </span>
+</div>

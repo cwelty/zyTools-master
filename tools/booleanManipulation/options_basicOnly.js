@@ -1,0 +1,1 @@
+{ basicOnly: true}

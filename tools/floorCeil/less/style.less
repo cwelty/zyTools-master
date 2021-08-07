@@ -1,0 +1,102 @@
+@import "../../../zyWeb/less/constants.less";
+
+@border-style: 2px solid;
+
+.floorCeil {
+    min-width:   460px;
+    font-family: @zyante-font;
+
+    .floorCeil {
+        font-size:  24px;
+        text-align: center;
+    }
+
+    .problem {
+        color:         @zyante-dark-blue;
+        display:       inline-block;
+        margin-bottom: 30px;
+        margin-top:    30px;
+        position:      relative;
+        top:           3px;
+    }
+
+    .instructions {
+        font-size: 14px;
+    }
+
+    .explanation {
+        color:   @zyante-medium-red;
+        display: inline-block;
+
+        .leftBar, .rightBar, .leftBar.fraction, .rightBar.fraction {
+            height:              16px;
+        }
+
+        .leftBar {
+            margin-right: 3px;
+        }
+
+        .rightBar {
+            margin-left: 3px;
+        }
+
+        .problem {
+            color:  @zyante-medium-red;
+            margin: 0;
+
+        }
+    }
+
+    input {
+        width: 94px;
+    }
+
+    .leftBar {
+        border-left: @border-style;
+        display:     inline-block;
+        height:      24px;
+        width:       7px;
+    }
+
+    .rightBar {
+        border-right: @border-style;
+        display:      inline-block;
+        height:       24px;
+        width:        7px;
+    }
+
+    .innerExpression {
+        display:  inline-block;
+        position: relative;
+        top:      -3px;
+    }
+
+    .innerExpression.fraction {
+        top: -6px
+    }
+
+    .leftBar.fraction, .rightBar.fraction {
+        height: 30px;
+    }
+
+    .floor {
+        > .leftBar, > .rightBar {
+            border-bottom: @border-style;
+        }
+    }
+
+    .ceil {
+        > .leftBar, > .rightBar {
+            border-top:   @border-style;
+        }
+    }
+
+    .inline-block {
+        display: inline-block;
+    }
+
+    .zyante-progression-x-mark {
+        .inline-block;
+        vertical-align: top;
+    }
+}

@@ -1,0 +1,4 @@
+{
+    type: 'subMul',
+    instructionSet: 'MIPSzy'
+}

@@ -1,0 +1,3 @@
+{
+    'useProgression': 'true'
+}

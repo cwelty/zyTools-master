@@ -1,0 +1,110 @@
+{{!
+    Print the results of each executed test.
+    @param {String} checkmarkImageURL The URL to the checkmark image.
+    @param {Boolean} error Whether the program produced an error or not.
+    @param {String} errorOutput The error generated.
+    @param {String} explanation The explanation of the solution of this level.
+    @param {Array} tests Array of arrays of {TestResult}. Each element is an array of results with standard output and files output, if any.
+}}
+<div class='explanation'>
+    {{{explanation}}}
+</div>
+{{#if compilerMessage}}
+    <div class='compile-output-header'>Compilation {{#if hasCompilerError}}error{{else}}warning{{/if}}:</div>
+    <div class='error-output'><p class='error-message'>{{compilerMessage}}</p></div>
+    {{#if showErrorMessageHintAboutLineNumbers}}
+        <div>Note: Although the reported line number is in the uneditable part of the code, the error actually exists in your code. Tools often don't recognize the problem until reaching a later line.</div>
+    {{/if}}
+
+{{else}}
+    {{#each tests}}
+        <div class='test test-{{@index}}'>
+
+            {{#each this}}
+                {{#if @first}}
+                    <div class='test-header'>
+                        <div class='test-title-container'>{{moreData.testNumber}}: Compare output</div>
+                        <i class='expand-button material-icons zb-icon grey med'>keyboard_arrow_up</i>
+                    </div>
+                {{/if}}
+
+                <div class='test-body'>
+                    {{#unless isCorrect}}
+                        <div class='test-result-information'>
+                            {{#if moreData.errorOutput}}
+                                <div class='error-output'><p class='error-message'>{{{moreData.errorOutput}}}</p></div>
+                            {{/if}}
+
+                            {{hintMessage}}
+                            {{#if showSpecialCharacterLegend}}
+                                <button class='zb-button secondary thin-title special-character-legend'>
+                                    <span class='title'>Special character legend</span>
+                                </button>
+                            {{/if}}
+                        </div>
+                    {{/unless}}
+
+                    {{#if moreData.input}}
+                        <div class='output-row-result'>
+                            <div class='explanation-description'>Input</div>
+                            <div class='output'>{{moreData.input}}</div>
+                        </div>
+                    {{/if}}
+
+                    <div class='output-row-result'>
+                        <div class='explanation-description'>
+                            {{#if isCorrect}}
+                                <img src='{{../../checkmarkImageURL}}' />
+                            {{else}}
+                                <span class='zyante-progression-x-mark'>&#x2716;</span>
+                            {{/if}}
+
+                            {{#ifCond @key '===' 'standardOutput'}}
+                                Your output
+                            {{else}}
+                                Your {{@key}}
+                            {{/ifCond}}
+                        </div>
+
+                        {{#if moreData.isEmptyUserOutput}}
+                            <div class='no-output-message'>
+                                {{#ifCond @key '===' 'standardOutput'}}
+                                    Your program produced no output
+                                {{else}}
+                                    Your program produced an empty {{@key}}
+                                {{/ifCond}}
+                            </div>
+                        {{else}}
+                            <div class='output'>{{{userAnswerHTML}}}</div>
+                        {{/if}}
+                    </div>
+
+                    {{#unless isCorrect}}
+                        <div class='output-row-result'>
+                            <div class='explanation-description'>
+                                {{#ifCond @key '===' 'standardOutput'}}
+                                    Expected output
+                                {{else}}
+                                    Expected {{@key}}
+                                {{/ifCond}}
+                            </div>
+
+                            {{#if moreData.isEmptyExpectedOutput}}
+                                <div class='no-output-message'>
+                                    {{#ifCond @key '===' 'standardOutput'}}
+                                        Solution expected no output
+                                    {{else}}
+                                        Solution expected an empty {{@key}}
+                                    {{/ifCond}}
+                                </div>
+                            {{else}}
+                                <div class='output'>{{{expectedAnswerHTML}}}</div>
+                            {{/if}}
+
+                        </div>
+                    {{/unless}}
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+{{/if}}

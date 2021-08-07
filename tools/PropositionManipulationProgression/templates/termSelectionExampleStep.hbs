@@ -1,0 +1,15 @@
+{{!
+    Render a step in the term selection example.
+    @param {TermSelection} step The step to render.
+}}
+{{#with step}}
+    <div class='instruction-container'>
+        <div class='instruction'>
+            {{numbering}}. Below, select&nbsp;{{{termHTML}}}&nbsp;from&nbsp;
+            <button class='md-action-button compact' disabled>{{{lawSideHTML}}}</button>
+        </div>
+    </div>
+    <div class='expression-container'>
+        <div class='expression normal-cursor colored'>{{{expressionHTML}}}</div>
+    </div>
+{{/with}}

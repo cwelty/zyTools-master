@@ -1,0 +1,149 @@
+@import "../../../zyWeb/less/constants.less";
+
+button.small-button {
+    height: 25px;
+    padding-left:  8px;
+    padding-right: 5px;
+}
+
+div.show-address-pop-up {
+    @input-width: 170px;
+    width: @input-width;
+
+    input {
+        width: @input-width;
+    }
+
+    div.invalid-address-message > div:first-child {
+        color: @zyante-medium-red;
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
+}
+
+table.development-environment {
+    & > tbody > tr > td {
+        vertical-align: top;
+
+        &:not(:first-of-type) {
+            padding-left: 20px;
+        }
+    }
+
+    table.interactive-code {
+        font-family:  @zyante-code-font;
+        font-size: 16px;
+
+        td.label {
+            width: 70px;
+        }
+
+        td.instruction {
+            align-items: center;
+            display: flex;
+            padding: 5px 0;
+
+            div {
+                align-items: center;
+                display: flex;
+
+                &:first-of-type {
+                    justify-content: flex-end;
+                    min-width: 50px;
+                    text-align: right;
+                }
+
+                &:not(:first-of-type){
+                    margin-left: 15px;
+                }
+
+                input {
+                    text-align: right;
+                }
+            }
+        }
+
+        &.no-labels td.label {
+            display: none;
+        }
+    }
+
+    td.color-border {
+        &.registers table.memoryCells td.bytes-value {
+            border-color: @zyante-accent-orange;
+        }
+
+        &.memory table.memoryCells td.bytes-value {
+            border-color: @zyante-dark-blue;
+            border-width: 2px;
+        }
+    }
+
+    div.storage-container {
+        color: @zyante-gray;
+        position: relative;
+
+        table.memoryCells td {
+            &.storage-name, &.bytes-value {
+                text-align: center;
+            }
+
+            @bytes-value-width: 80px;
+            &.bytes-value {
+                border: 1px solid @zyante-gray;
+                height: 22px;
+                padding: 0 5px;
+                width: @bytes-value-width;
+
+                input {
+                    text-align: right;
+                    width: (@bytes-value-width - 5px);
+                }
+
+                &.highlight-bytes-value {
+                    background-color: lighten(@zyante-light-yellow, 20%);
+                }
+            }
+
+            &.bytes-name, &.bytes-label {
+                font-size: 12px;
+            }
+
+            &.bytes-name {
+                padding-right: 5px;
+                text-align: right;
+            }
+
+            &.bytes-label {
+                padding-left: 5px;
+            }
+        }
+
+        button.add-address {
+            position: absolute;
+        }
+    }
+}
+
+table.instructions-with-comments > tbody > tr {
+    &:not(:first-of-type) td {
+        padding-top: 8px;
+    }
+
+    td {
+        vertical-align: top;
+
+        &:not(:first-of-type) {
+            padding-left: 20px;
+        }
+
+        &:last-of-type {
+            font-size:      12px;
+            vertical-align: middle;
+        }
+
+        pre.disabled {
+            color: @zyante-cancel-gray;
+        }
+    }
+}

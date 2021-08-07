@@ -1,0 +1,4 @@
+{
+    type:           'sltAndBranchPseudo',
+    instructionSet: 'MIPSzy'
+}

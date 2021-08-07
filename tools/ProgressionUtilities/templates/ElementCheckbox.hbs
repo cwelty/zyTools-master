@@ -1,0 +1,10 @@
+{{!
+    Print a checkbox element.
+    @param {ElementCheckbox} element The checkbox to print.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}} zb-checkbox checkbox-element label-present orange' {{{style}}}>
+    <input type="checkbox" value="false">
+        <label>{{{element.labelHTML}}}</label>
+    </input>
+</div>

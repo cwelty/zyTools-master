@@ -1,0 +1,25 @@
+{{!
+    Render the assessment method options.
+    @param {Number} tolerancePercentage The percentage of tolerance to allow in the numerical assessment method.
+    @param {Number} absoluteTolerance The absolute tolerance to allow in the numerical assessment method.
+    @param {Boolean} caseSensitiveChecked Whether matching should be case sensitive in the string match assessment method.
+}}
+<div class='radio-buttons-container'>
+    <div>Assessment method</div>
+    <div>
+        <input id='string-match-option' type='radio' name='assessment-method-options' value='stringMatch' />
+        <label for='string-match-option'>String match</label>
+        <div class='assessment-properties'>
+            <input id='case-sensitive-checkbox' type='checkbox' {{#if caseSensitive}}checked{{/if}} />
+            <label for='case-sensitive-checkbox'>Case sensitive</label>
+        </div>
+    </div>
+    <div>
+        <input id='tolerance-percentage-option' type='radio' name='assessment-method-options' value='numericalMatch' />
+        <label for='tolerance-percentage-option'>Tolerance %: <input id='tolerance-percentage' type='number' min='0' max='99' size='5' value='{{tolerancePercentage}}' /></label>
+    </div>
+    <div>
+        <input id='absolute-tolerance-option' type='radio' name='assessment-method-options' value='numericalMatch' />
+        <label for='absolute-tolerance-option'>Absolute tolerance: <input id='absolute-tolerance' type='number' min='0' max='99' size='5' step='0.01' value='{{absoluteTolerance}}' /></label>
+    </div>
+</div>

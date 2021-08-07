@@ -1,0 +1,20 @@
+{{!
+    Print the initial files.
+    @param {Boolean} hasMultipleFiles Whether there are multiple files.
+    @param {Array} initialFiles Array of {File}. The initial files to render.
+}}
+<p>Initial code to modify is below:</p>
+{{#if hasMultipleFiles}}
+    <ul>
+        {{#each initialFiles}}
+            <li>
+                <p>{{filename}}</p>
+                <pre>{{code}}</pre>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    {{#each initialFiles}}
+        <pre>{{code}}</pre>
+    {{/each}}
+{{/if}}

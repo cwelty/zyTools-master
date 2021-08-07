@@ -1,0 +1,63 @@
+@import "../../../zyWeb/less/constants.less";
+
+@factor-option-default-background-color:  white;
+@factor-option-selected-background-color: @zyante-dark-blue;
+
+.factorExpression {
+    .expression-to-factor-area {
+        margin-bottom: 15px;
+        
+        .expression-to-factor {
+            font-size:     28px;
+        }
+        
+        .factoring-hint {
+            font-size: 16px;
+        }
+    }
+    
+    .factor-area {
+        text-align: center;
+        width:      500px;
+    }
+    
+    .factored-option {
+        background-color: @factor-option-default-background-color;
+        color:            @zyante-dark-blue;
+        margin:           0 auto;
+        outline:          2px solid @zyante-dark-blue;
+        width:            50%;
+        
+        &:hover {
+            background-color: lighten(@factor-option-selected-background-color, 20%);
+            color:            white;
+            
+            &.disabled {
+                background-color: @factor-option-default-background-color;
+                color:            @zyante-dark-blue;
+                cursor:           default;
+            }
+        }
+        
+        &.selected {
+            background-color:     @factor-option-selected-background-color;
+            color:                white;
+            
+            &:hover {
+                background-color: @factor-option-selected-background-color;
+            }
+            
+            &.disabled {
+                color:            white;
+            }
+        }
+    }
+    
+    .factored-option-1, .factored-option-2 {
+        margin-bottom: 30px;
+    }
+    
+    .multiplication-symbol {
+        font-size: 20px;
+    }
+}

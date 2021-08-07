@@ -1,0 +1,142 @@
+<zyAnimator id="" caption="" height="546px" width="600px" selectedInstr="0" selectedObj="none" numObjsEverCreated="78" loadOnDemand="false">
+<!-- Last modified Thu Oct 15 2015 12:17:40 GMT-0700 (PDT) with version 2.15.6.17 -->
+<zyObjects>
+   <zyObject objNum="24" objType="box" objName="Object 2: Box" top="91px" left="200px" useConstrainedProportions="false" height="240px" width="200px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="25" objType="box" objName="Object 8: Box" top="140px" left="170px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-green">
+   </zyObject>
+   <zyObject objNum="26" objType="box" objName="Object 10: Box" top="104px" left="170px" border-radius="1px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-green">
+   </zyObject>
+   <zyObject objNum="27" objType="box" objName="Object 16: Box" top="220px" left="170px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-orange">
+   </zyObject>
+   <zyObject objNum="28" objType="box" objName="Object 17: Box" top="184px" left="170px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-orange">
+   </zyObject>
+   <zyObject objNum="29" objType="box" objName="Object 20: Box" top="61px" left="298px" background-color="zyAnimator-green" useConstrainedProportions="false" height="30px" width="3px" border-width="0px" border-style="none" border-color="zyAnimator-green">
+   </zyObject>
+   <zyObject objNum="30" objType="box" objName="Object 22: Box" top="300px" left="170px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-gray">
+   </zyObject>
+   <zyObject objNum="31" objType="box" objName="Object 23: Box" top="264px" left="170px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="30px" border-width="0px" border-style="none" border-color="zyAnimator-gray">
+   </zyObject>
+   <zyObject objNum="32" objType="box" objName="Object 27: Box" top="333px" left="260px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="30px" width="3px" border-width="0px" border-style="none" border-color="zyAnimator-orange">
+   </zyObject>
+   <zyObject objNum="33" objType="box" objName="Object 29: Box" top="333px" left="336px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="30px" width="3px" border-width="0px" border-style="none" border-color="zyAnimator-gray">
+   </zyObject>
+   <zyObject objNum="34" objType="box" objName="Object 31: Box" top="70px" left="292px" background-color="zyAnimator-green" useConstrainedProportions="false" height="2px" width="15px" border-width="0px" border-style="none" border-color="zyAnimator-black" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="35" objType="box" objName="Object 32: Box" top="105px" left="174px" background-color="zyAnimator-green" useConstrainedProportions="false" height="2px" width="14px" border-width="0px" border-style="none" border-color="zyAnimator-green" transformDeg="-60">
+   </zyObject>
+   <zyObject objNum="36" objType="box" objName="Object 33: Box" top="184px" left="174px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="2px" width="14px" border-width="0px" border-style="none" border-color="zyAnimator-black" transformDeg="-60">
+   </zyObject>
+   <zyObject objNum="37" objType="box" objName="Object 34: Box" top="264px" left="174px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="2px" width="14px" border-width="0px" border-style="none" border-color="zyAnimator-black" transformDeg="-60">
+   </zyObject>
+   <zyObject objNum="38" objType="box" objName="Object 35: Box" top="344px" left="330px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="2px" width="15px" border-width="0px" border-style="none" border-color="zyAnimator-black" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="39" objType="box" objName="Object 36: Box" top="344px" left="254px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="2px" width="15px" border-width="0px" border-style="none" border-color="zyAnimator-black" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="40" objType="text" objName="8" top="61px" left="307px" font-size="10px" font-family="arial, sans-serif">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="41" objType="text" objName="Object 38: Text" top="332px" left="346px" font-size="10px" font-family="arial, sans-serif">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="42" objType="text" objName="Object 39: Text" top="332px" left="270px" font-size="10px" font-family="arial, sans-serif">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="43" objType="text" objName="Object 40: Text" top="109px" left="176px" font-size="10px" font-family="arial, sans-serif">
+      <text>2</text>
+   </zyObject>
+   <zyObject objNum="44" objType="text" objName="Object 41: Text" top="189px" left="176px" font-size="10px" font-family="arial, sans-serif">
+      <text>2</text>
+   </zyObject>
+   <zyObject objNum="45" objType="text" objName="2" top="269px" left="176px" font-size="10px" font-family="arial, sans-serif">
+      <text>2</text>
+   </zyObject>
+   <zyObject objNum="46" objType="text" objName="W_data: " top="34px" left="258px" font-family="arial, sans-serif">
+      <text>W_data: </text>
+   </zyObject>
+   <zyObject objNum="47" objType="text" objName="W_addr: 99" top="94px" left="72px" font-family="arial, sans-serif">
+      <text>W_addr: </text>
+   </zyObject>
+   <zyObject objNum="48" objType="text" objName="Object 45: Text" top="130px" left="72px" font-family="arial, sans-serif">
+      <text>W_en: </text>
+   </zyObject>
+   <zyObject objNum="49" objType="text" objName="RA_addr: 99" top="174px" left="72px" font-family="arial, sans-serif">
+      <text>RA_addr: </text>
+   </zyObject>
+   <zyObject objNum="50" objType="text" objName="RA_en: 1" top="210px" left="72px" font-family="arial, sans-serif">
+      <text>RA_en: </text>
+   </zyObject>
+   <zyObject objNum="51" objType="text" objName="RB_addr: 99" top="254px" left="72px" font-family="arial, sans-serif">
+      <text>RB_addr: </text>
+   </zyObject>
+   <zyObject objNum="52" objType="text" objName="RB_en: 1" top="290px" left="72px" font-family="arial, sans-serif">
+      <text>RB_en: </text>
+   </zyObject>
+   <zyObject objNum="53" objType="text" objName="Reg0: " top="170px" left="271px" font-family="arial, sans-serif">
+      <text>Reg1: </text>
+   </zyObject>
+   <zyObject objNum="54" objType="text" objName="Object 51: Text" top="218px" left="271px" font-family="arial, sans-serif">
+      <text>Reg2: </text>
+   </zyObject>
+   <zyObject objNum="55" objType="text" objName="Reg2: " top="266px" left="271px" font-family="arial, sans-serif">
+      <text>Reg3: </text>
+   </zyObject>
+   <zyObject objNum="56" objType="text" objName="Reg3:" top="122px" left="271px" font-family="arial, sans-serif">
+      <text>Reg0: </text>
+   </zyObject>
+   <zyObject objNum="57" objType="text" objName="RA_data: 99" top="370px" left="196px" font-family="arial, sans-serif">
+      <text>RA_data: </text>
+   </zyObject>
+   <zyObject objNum="58" objType="text" objName="RB_data: 99" top="370px" left="320px" font-family="arial, sans-serif">
+      <text>RB_data:</text>
+   </zyObject>
+   <zyObject objNum="59" objType="box" objName="Object 56: Box" top="101px" left="191px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="60" objType="box" objName="Object 57: Box" top="107px" left="191px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="61" objType="box" objName="Object 58: Box" top="137px" left="191px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="62" objType="box" objName="Object 59: Box" top="143px" left="191px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="63" objType="box" objName="Object 60: Box" top="181px" left="191px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="64" objType="box" objName="Object 61: Box" top="187px" left="191px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="65" objType="box" objName="Object 62: Box" top="217px" left="191px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="66" objType="box" objName="Object 63: Box" top="223px" left="191px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="67" objType="box" objName="Object 64: Box" top="261px" left="191px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="68" objType="box" objName="Object 65: Box" top="267px" left="191px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="69" objType="box" objName="Object 66: Box" top="297px" left="191px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="70" objType="box" objName="Object 67: Box" top="303px" left="191px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="71" objType="box" objName="Object 68: Box" top="85px" left="298px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="120">
+   </zyObject>
+   <zyObject objNum="72" objType="box" objName="Object 69: Box" top="85px" left="291px" border-radius="20px" background-color="zyAnimator-green" useConstrainedProportions="false" height="3px" width="10px" border-width="0px" border-style="none" transformDeg="60">
+   </zyObject>
+   <zyObject objNum="73" objType="box" objName="Object 70: Box" top="358px" left="258px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="12px" border-width="0px" border-style="none" transformDeg="120">
+   </zyObject>
+   <zyObject objNum="74" objType="box" objName="Object 71: Box" top="358px" left="253px" border-radius="20px" background-color="zyAnimator-orange" useConstrainedProportions="false" height="3px" width="12px" border-width="0px" border-style="none" transformDeg="60">
+   </zyObject>
+   <zyObject objNum="75" objType="box" objName="Object 72: Box" top="358px" left="334px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="12px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="120">
+   </zyObject>
+   <zyObject objNum="76" objType="box" objName="Object 73: Box" top="358px" left="329px" border-radius="20px" background-color="zyAnimator-gray" useConstrainedProportions="false" height="3px" width="12px" border-width="0px" border-style="none" border-color="zyAnimator-gray" transformDeg="60">
+   </zyObject>
+   <zyObject objNum="77" objType="box" objName="Object 77: Box" top="317px" left="199px" background-color="zyAnimator-blue" useConstrainedProportions="false" height="2px" width="14px" border-width="0px" border-style="none" border-color="zyAnimator-blue" transformDeg="45">
+   </zyObject>
+   <zyObject objNum="78" objType="box" objName="Object 78: Box" top="327px" left="199px" background-color="zyAnimator-blue" useConstrainedProportions="false" height="2px" width="14px" border-width="0px" border-style="none" border-color="zyAnimator-blue" transformDeg="-45">
+   </zyObject>
+</zyObjects>
+<zyInstructions>
+   <zyInstruction instrType="step1">
+      <text>Edit caption for this step</text>
+   </zyInstruction>
+   <zyInstruction instrType="startStep">
+      <text>Edit caption for this step</text>
+   </zyInstruction>
+</zyInstructions>
+</zyAnimator>

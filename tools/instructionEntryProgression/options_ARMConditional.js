@@ -1,0 +1,4 @@
+{
+    type: 'conditional',
+    instructionSet: 'ARM'
+}

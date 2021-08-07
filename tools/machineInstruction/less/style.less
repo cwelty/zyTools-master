@@ -1,0 +1,321 @@
+@import (reference) "../../../zyWeb/less/constants.less";
+@import (reference) "../../../zyWeb/less/utilities.less";
+
+.machineInstruction {
+  .container-table {
+      tr {
+          vertical-align: top;
+      }
+
+      .machine-instruction-container-cell {
+          width: 320px;
+      }
+  }
+
+  .try-instructions {
+      display:       block;
+      margin-bottom: 5px;
+  }
+
+  .reset-button {
+      background: white;
+      color:      @zyante-dark-blue;
+      float:      none;
+
+      &:hover {
+          background: white;
+      }
+  }
+
+  .remove-arrow {
+      -webkit-appearance: none;
+      -moz-appearance:    none;
+      appearance:         none;
+      border:             none;
+  }
+
+  .container-label {
+      font-weight: bold;
+      display:     block;
+  }
+
+  .prompt-container {
+      background:     fade(black, 25%);;
+      display:        none;
+      height:         100%;
+      margin-left:    -3px;
+      margin-top:     -30px;
+      position:       absolute;
+      text-align:     center;
+      vertical-align: middle;
+      width:          100%;
+      z-index:        2;
+
+      .prompt-message-container {
+          background: white;
+          box-shadow: 5px 4px 10px 0px fade(black, 25%);
+          display:    inline-block;
+          margin-top: 25%;
+          padding:    10px;
+
+          .prompt-text {
+              color:         @zyante-light-blue;
+              font-size:     20px;
+              margin-bottom: 10px;
+          }
+
+          .input-textbox {
+              font-size: 20px;
+              width:     50px;
+          }
+
+          .invalid-entry {
+              outline: 2px solid @zyante-medium-red;
+          }
+
+          .prompt-warning {
+              color: @zyante-medium-red;
+          }
+
+          .cancel-button {
+              margin-right: 15px;
+          }
+      }
+  }
+
+  // Table row heights
+  @border-height:                 2px;
+  @table-row-height:              38px;
+  @table-row-height-with-outline: @table-row-height + 2px;
+
+  .machine-instruction-container {
+      display:      inline-block;
+      white-space:  nowrap;
+
+      .machine-instructions {
+          .unselectable;
+          border-collapse: collapse;
+          display:         inline-block;
+          font-family:     courier;
+
+          tr {
+              background-color: @zyante-lighter-orange;
+              border:           @border-height solid @zyante-orange;
+              height:           @table-row-height-with-outline;
+              vertical-align:   middle;
+
+              td {
+                  min-height: 30px;
+
+                  .op-text {
+                      background-color: transparent;
+                      border:           1px dashed @zyante-lighter-blue;
+                      box-shadow:       none;
+                      color:            @zyante-gray;
+                      font-family:      courier;
+                      font-size:        20px;
+                      height:           25px;
+                  }
+
+                  .op-code-text {
+                      .unselectable;
+                      .op-text;
+                      padding-left: 4px;
+                      width:        60px;
+
+                      &:disabled {
+                          .remove-arrow;
+                          padding-left: 10px;
+                      }
+                  }
+
+                  .operand-text {
+                      .unselectable;
+                      .op-text;
+                      padding-left: 6px;
+                      width:        70px;
+
+                      &:disabled {
+                          .remove-arrow;
+                          padding-left: 8px;
+                      }
+                  }
+
+                  .text-toggle-cotainer {
+                      width:          65px;
+                      vertical-align: top;
+                  }
+
+                  input.op-code-text {
+                      padding-left: 10px;
+                  }
+              }
+
+              .data-line {
+                  text-align: center;
+
+                  .data-at-memory {
+                      color:          black;
+                      font-size:      20px;
+                      letter-spacing: 4px;
+                  }
+              }
+          }
+
+          .termination-line {
+              td {
+                  color:        black;
+                  font-size:    20px;
+
+                  .text-terminate {
+                    background-color: transparent;
+                    border:           none;
+                    box-shadow:       none;
+                    color:            black;
+                    font-family:      courier;
+                    font-size:        20px;
+                    height:           25px;
+                  }
+
+                  .op-code-text-terminate {
+                      .unselectable;
+                      .text-terminate;
+                      padding-left: 4px;
+                      width:        60px;
+
+                      &:disabled {
+                          padding-left: 10px;
+                      }
+                  }
+
+                  .operand-text-terminate {
+                      .unselectable;
+                      .text-terminate;
+                      padding-left: 6px;
+                      width:        70px;
+
+                      &:disabled {
+                          .remove-arrow;
+                          padding-left: 11px;
+                      }
+                  }
+              }
+          }
+
+          .highlighted-line {
+              background-color: lighten(@zyante-light-blue, 17%);
+          }
+      }
+  }
+
+  .human-readable-instructions {
+      display:        inline-block;
+      font-size:      20px;
+      width:          auto;
+
+      tr {
+          height:         @table-row-height-with-outline;
+          vertical-align: middle;
+
+          td {
+
+              .data-decimal-value {
+                  color:     @zyante-dark-blue;
+                  font-size: 20px;
+                  opacity:   0.5;
+              }
+          }
+      }
+  }
+
+  .memory-locations {
+      display:     inline-block;
+      font-size:   20px;
+      font-weight: bold;
+      margin-top:  20px;
+      opacity:     0.5;
+      width:       50px;
+
+      tr {
+        height:         @table-row-height-with-outline;
+        vertical-align: middle;
+      }
+  }
+
+  .output-console {
+      height: 75px;
+      resize: none;
+      width:  290px;
+  }
+
+  .io-labels {
+      color:       @zyante-cancel-gray;
+      font-size:   20px;
+      font-weight: bold;
+  }
+
+  .run-container {
+      height:     135px;
+      margin-top: 5px;
+
+      .button-container {
+          display: inline-block;
+      }
+
+      .output-container {
+          display: block;
+      }
+  }
+
+  .assembly-instructor-container {
+      display: inline-block;
+      height:  320px + @border-height;
+
+      .assembly-instructions {
+          background:    @code-background-color;
+          margin-bottom: 96px + @border-height;
+          width:         365px;
+
+          .assembly-line {
+              color:          black;
+              font-size:      20px;
+              font-family:    courier;
+              height:         40px;
+              vertical-align: middle;
+
+              .assembly-op-code {
+                  padding-left: 5px;
+              }
+          }
+
+          .assembly-op {
+              width: 80px;
+          }
+
+          .assembly-op-code-text, .assembly-operand-text {
+              background:   transparent;
+              border:       none;
+              margin-left:  -3px;
+              padding-left: 4px;
+
+              &:disabled {
+                  .remove-arrow;
+                  color:        black;
+                  padding-left: 8px;
+              }
+
+              &.hidden {
+                  visibility: hidden;
+              }
+          }
+
+          .stop-code {
+              padding-left: 5px;
+          }
+      }
+
+      .highlighted-line {
+          background-color: @zyante-lighter-orange;
+      }
+  }
+}

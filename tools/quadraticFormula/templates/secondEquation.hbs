@@ -1,0 +1,55 @@
+{{!
+    Generate a partially solved quadratic formula of the form: ([-b] +/- sqrt([b^2] - [4ac])) / [2a], where braces indicate the user input.
+    
+    Contains 5 parameters: isExplanation, negativeBValue, bValueSquared, fourAValueCValue, and divisor.
+    
+    * isExplanation is a required boolean. If true, then generate an explanation without inputs and using negativeBValue, bValueSquared,
+    fourAValueCValue, and divisor. Otherwise, generate the equation in which the user fills in using inputs.
+    
+    * negativeBValue, bValueSquared, fourAValueCValue, and divisor are required numbers used when isExplanation is true.
+}}
+
+<div class='equation-area'>
+    <div class='equation'>
+        <div class='inline-block offset-vertical-alignment'>x =</div>
+        <div class='inline-block'>
+            {{#if isExplanation}}
+                <div class="numerator explanation"><!--
+            {{else}}
+                <div class="numerator"><!--
+            {{/if}}
+                {{#if isExplanation}}
+                    --><span>{{negativeBValue}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' placeholder='-b' min='-99' max='99' disabled/><!--
+                {{/if}}
+                --> &plusmn; <!--
+                --><span class="radical">&radic;</span><!--
+                {{#if isExplanation}}
+                    --><span class="inside-radical explanation"><!--
+                {{else}}
+                    --><span class="inside-radical"><!--
+                {{/if}}
+                    {{#if isExplanation}}
+                        --><span>{{bValueSquared}}</span><!--
+                    {{else}}
+                        --><input type='number' class='user-input' placeholder='b^2' min='-99' max='99' disabled/><!--
+                    {{/if}}
+                    --> &#8211; <!--
+                    {{#if isExplanation}}
+                        --><span>{{fourAValueCValue}}</span><!--
+                    {{else}}
+                        --><input type='number' class='user-input' placeholder='4ac' min='-99' max='100' disabled/><!--
+                    {{/if}}
+                --></span><!--
+            --></div><!--
+            --><div><!--
+                {{#if isExplanation}}
+                    --><span>{{divisor}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' placeholder='2a' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div>
+        </div>
+    </div>
+</div>

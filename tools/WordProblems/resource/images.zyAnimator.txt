@@ -1,0 +1,73 @@
+<zyAnimator id="869b2401-3ba2-413b-ad4b-9c561c3ec0b4" caption="" height="502px" width="600px" selectedInstr="none" selectedObj="none" numObjsEverCreated="27" loadOnDemand="false">
+<!-- Last modified Wed Jan 06 2016 16:44:44 GMT-0800 (PST) with version 2.15.6.17 -->
+<zyObjects>
+   <zyObject objNum="3" objType="box" objName="Object 14: Box" top="88px" left="381px" border-radius="154px" useConstrainedProportions="false" height="100px" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="4" objType="box" objName="Object 5: Box" top="46px" left="246px" useConstrainedProportions="false" height="32px" width="60px">
+   </zyObject>
+   <zyObject objNum="5" objType="box" objName="Object 4: Box" top="46px" left="138px" useConstrainedProportions="false" height="32px" width="60px">
+   </zyObject>
+   <zyObject objNum="6" objType="text" objName="Home" top="54px" left="150px" font-family="arial, sans-serif">
+      <text>Home</text>
+   </zyObject>
+   <zyObject objNum="7" objType="text" objName="Store" top="54px" left="259px" font-family="arial, sans-serif">
+      <text>Store</text>
+   </zyObject>
+   <zyObject objNum="8" objType="box" objName="Object 6: Box" top="51px" left="201px" background-color="zyAnimator-black" useConstrainedProportions="false" height="2px" width="46px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="9" objType="triangle" objName="Object 7: Triangle" top="46px" left="238px" background-color="zyAnimator-black" transformDeg="180">
+   </zyObject>
+   <zyObject objNum="10" objType="box" objName="Object 8: Box" top="73px" left="201px" background-color="zyAnimator-black" useConstrainedProportions="false" height="2px" width="46px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="11" objType="triangle" objName="Object 9: Triangle" top="68px" left="200px" background-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="12" objType="text" objName="d" top="34px" left="216px" font-family="arial, sans-serif">
+      <text>d</text>
+   </zyObject>
+   <zyObject objNum="13" objType="text" objName="Object 11: Text" top="72px" left="217px" font-family="arial, sans-serif">
+      <text>d</text>
+   </zyObject>
+   <zyObject objNum="14" objType="box" objName="Object 12: Box" top="126px" left="358px" background-color="zyAnimator-white" useConstrainedProportions="false" height="32px" width="60px">
+   </zyObject>
+   <zyObject objNum="15" objType="text" objName="Object 13: Text" top="134px" left="370px" font-family="arial, sans-serif">
+      <text>Home</text>
+   </zyObject>
+   <zyObject objNum="16" objType="triangle" objName="Object 15: Triangle" top="117px" left="380px" background-color="zyAnimator-black" transformDeg="270">
+   </zyObject>
+   <zyObject objNum="17" objType="text" objName="d" top="128px" left="484px" font-family="arial, sans-serif">
+      <text>d</text>
+   </zyObject>
+   <zyObject objNum="18" objType="box" objName="Object 18: Box" top="286px" left="78px" useConstrainedProportions="false" height="32px" width="60px">
+   </zyObject>
+   <zyObject objNum="19" objType="text" objName="Object 19: Text" top="294px" left="90px" font-family="arial, sans-serif">
+      <text>Home</text>
+   </zyObject>
+   <zyObject objNum="20" objType="box" objName="Object 20: Box" top="286px" left="280px" useConstrainedProportions="false" height="32px" width="60px">
+   </zyObject>
+   <zyObject objNum="21" objType="text" objName="Object 21: Text" top="294px" left="295px" font-family="arial, sans-serif">
+      <text>Park</text>
+   </zyObject>
+   <zyObject objNum="22" objType="box" objName="Object 22: Box" top="303px" left="141px" background-color="zyAnimator-black" useConstrainedProportions="false" height="2px" width="61px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="23" objType="triangle" objName="Object 23: Triangle" top="298px" left="202px" background-color="zyAnimator-black" transformDeg="180">
+   </zyObject>
+   <zyObject objNum="24" objType="text" objName="biked" top="286px" left="154px" font-family="arial, sans-serif">
+      <text>biked</text>
+   </zyObject>
+   <zyObject objNum="25" objType="box" objName="Object 25: Box" top="303px" left="210px" background-color="zyAnimator-black" useConstrainedProportions="false" height="2px" width="61px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="26" objType="triangle" objName="Object 26: Triangle" top="298px" left="271px" background-color="zyAnimator-black" transformDeg="180">
+   </zyObject>
+   <zyObject objNum="27" objType="text" objName="Object 27: Text" top="286px" left="216px" font-family="arial, sans-serif">
+      <text>walked</text>
+   </zyObject>
+</zyObjects>
+<zyInstructions>
+   <zyInstruction instrType="step1">
+      <text></text>
+   </zyInstruction>
+   <zyInstruction instrType="startStep">
+      <text></text>
+   </zyInstruction>
+</zyInstructions>
+</zyAnimator>

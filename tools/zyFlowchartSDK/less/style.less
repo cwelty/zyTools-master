@@ -1,0 +1,249 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zyFlowchartSDK {
+    div.flowchart-canvas {
+        overflow: auto;
+        padding: 1px;
+
+        svg {
+            display: block;
+            padding: 2px;
+
+            text {
+                white-space: pre;
+
+                &.edge-label {
+                    font-variant: small-caps;
+                }
+            }
+        }
+    }
+
+    div.variables-container {
+        overflow-x: auto;
+
+        td:first-child {
+            text-align: center;
+            width: 80px;
+        }
+
+        @padding-size: 8px;
+        &:not(.no-arrays) {
+            td.variable-type-container {
+                border-left: 3px solid transparent;
+                padding-left: @padding-size;
+
+                &.array-divider {
+                    border-left-color: @array-color;
+                }
+            }
+        }
+
+        @zyanimator-orange: rgb(217, 133, 80);
+        @zyanimator-light-orange: rgb(244, 217, 191);
+
+        td.variable-value {
+            border: 2px solid @zyanimator-orange;
+            background-color: @zyanimator-light-orange;
+
+            &.highlight-value {
+                background-color: @zyante-featured-background-color;
+            }
+        }
+
+        td.variable-name {
+            padding: 0 @padding-size;
+        }
+
+        td.variable-size-comment {
+            color: @zyante-light-gray;
+
+            span {
+                position: relative;
+                top: -1px;
+            }
+        }
+
+        .variable-type {
+            color: @zyante-light-gray;
+        }
+
+        @array-color: @zyante-light-blue;
+        span.array-name {
+            color: @array-color;
+        }
+    }
+
+    div.program-function {
+        display: flex;
+        flex-direction: row;
+
+        div.function-name {
+            color: @zyante-dark-blue;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        div.flowchart-container {
+            display: flex;
+            padding: 1px;
+        }
+
+        div.code-container {
+            border: 1px solid @zyante-light-gray;
+            min-height: 300px;
+            text-align: left;
+
+            &.disabled {
+                opacity: 0.75;
+                pointer-events: none;
+
+                .ace_editor {
+                    background-color: #eee;
+                }
+            }
+
+            div.ace_editor {
+                height: 100%;
+
+                .ace_gutter {
+                    border-right: 1px solid @zyante-light-gray;
+                }
+
+                .ace_breakpoint {
+                    background: lighten(@zyante-dark-blue, 35%);
+                    border-radius: 0 20px 20px 0;
+                    box-shadow: 0px 0px 1px 1px @zyante-dark-blue inset;
+                }
+            }
+
+            textarea {
+                font-family: monospace;
+                height: 100%;
+                resize: none;
+                width: 100%;
+            }
+        }
+
+        @spacing: 15px;
+        div.variables-and-IO-container {
+            margin-left: @spacing;
+
+            div.function-variables-container, div.input-output-container {
+                padding-left: @spacing;
+
+                & > div:not(:empty) {
+                    margin-bottom: @spacing;
+                }
+            }
+
+            div.function-variables-container {
+                border-left: 1px solid transparent;
+                margin-bottom: 2 * @spacing;
+            }
+
+            div.input-output-container {
+                border-left: 1px solid @zyante-light-gray;
+                border-top: 1px solid @zyante-light-gray;
+                padding-top: @spacing;
+            }
+        }
+    }
+
+    div.variable-or-IO-label {
+        margin-bottom: 2px;
+        text-align: left;
+
+        em {
+            font-size: 12px;
+        }
+    }
+
+    @component-height: 50px;
+    @box-shadow: inset 1px 1px 1px 0px @zyante-light-gray;
+    div.numerical-input {
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        -webkit-box-shadow: @box-shadow;
+        -moz-box-shadow: @box-shadow;
+        background-color: white;
+        border: 1px solid @zyante-light-gray;
+        box-shadow: @box-shadow;
+        height: @component-height;
+        overflow-y: scroll;
+        padding: 2px;
+        width: inherit;
+
+        &[contenteditable=false] {
+            background-color: @zyante-featured-background-color;
+            color: rgb(132, 36, 172);
+
+            span.consumed {
+                color: darken(@zyante-light-gray, 20%);
+            }
+        }
+
+        &:focus {
+            .box-shadow-and-border(@zyante-dark-blue);
+            outline: none;
+        }
+    }
+
+    pre.numerical-output {
+        color: rgb(30, 200, 30);
+    }
+
+    div.output-container {
+        div.textarea-console-container {
+            display: flex;
+        }
+
+        div.console {
+            box-sizing: border-box;
+            display: block;
+            max-height: 2 * @component-height;
+            min-height: @component-height;
+            overflow-y: scroll;
+            width: 100%;
+
+            &::-webkit-scrollbar {
+                background: transparent;
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #bdbdbd;
+            }
+        }
+    }
+
+    div.segmented-function-control:not(:empty) {
+        margin-bottom: 8px;
+    }
+
+    div.segmented-language-control ul {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    div.flowchart-program-container {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+
+        div.flowchart-program.use-border {
+            border: 1px solid @zyante-cancel-gray;
+            padding: 6px;
+        }
+
+        div.error-message {
+            background: lighten(@zyante-medium-red, 60%);
+            border: 1px solid @zyante-medium-red;
+            border-radius: 3px;
+            color: @zyante-medium-red;
+            overflow-wrap: break-word;
+            padding: 3px;
+            white-space: pre-wrap;
+        }
+    }
+}

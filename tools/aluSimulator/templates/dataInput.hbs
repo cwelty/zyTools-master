@@ -1,0 +1,32 @@
+{{!
+    Renders a data input.
+    @param {InputOutputData} input The data input to render.
+}}
+<div class='input-data-container'>
+    <div class='input-container {{input.name}}-input'>
+        {{#each input.bitNames}}
+            <div class='{{this}}-bit {{../input.name}}-bit button zb-button primary raised'>0</div>
+        {{/each}}
+        <div>
+            <span class='binary-string {{input.name}}-binary-string'></span>
+            <span class='decimal-value {{input.name}}-input-decimal-value'></span>
+        </div>
+    </div>
+    <table class='wire-table'>
+        <tbody>
+            <tr>
+                <td></td>
+                {{#range 2}}<td class='bottom {{../input.name}}1b i0 i1 i2 i3'></td>{{/range}}
+                <td class='bottom right {{input.name}}1r {{input.name}}1b i0 i1 i2 i3'></td>
+                {{#range 4}}<td></td>{{/range}}
+                <td class='right {{input.name}}0r i0 i1 i2 i3'></td>
+                {{#range 3}}<td class='bottom {{../input.name}}0b i0 i1 i2 i3'></td>{{/range}}
+            </tr>
+            <tr>
+                <td class='right {{input.name}}1r i0 i1 i2 i3'></td>
+                {{#range 10}}<td></td>{{/range}}
+                <td class='right {{input.name}}0r i0 i1 i2 i3'></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

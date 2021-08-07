@@ -1,0 +1,4 @@
+{
+    useHLSMQuestions: true,
+    useMultipleParts: true
+}

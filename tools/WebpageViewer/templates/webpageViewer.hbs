@@ -1,0 +1,35 @@
+{{!
+    Print the webpage viewer.
+    @param {String} id Identifier for this module.
+    @param {Boolean} hasMultipleShownFiles Whether there are multiple shown files.
+    @param {Boolean} haveExpectedContent Whether to render the expected content iframe.
+    @param {Number} numberOfShownFiles The number of shown files.
+    @param {Boolean} isNotStacked Whether the iFrames should be stacked.
+    @param {String} renderButtonLabel The label given to the render button.
+    @param {String} outputLabel The label at heading of each web page.
+}}
+<div>
+    {{#if hasMultipleShownFiles}}
+        <div id='segmented-control-{{id}}'></div>
+    {{/if}}
+    {{#range numberOfShownFiles}}
+        <div id='editor-{{this}}-{{../id}}' class='file-editor'></div>
+    {{/range}}
+</div>
+<div>
+    <button class='button render-webpage'>{{renderButtonLabel}}</button>
+    <button class='reset blue-text-white-background-button'>Reset code</button>
+</div>
+
+<div class='webpage-container{{#if isNotStacked}} not-stacked{{#if haveExpectedContent}} half-width{{/if}}{{/if}}'>
+    <div class='webpage-label'>Your {{outputLabel}}</div>
+    <div class='iframe-container user-iframe-container'></div>
+</div><!--
+
+{{#if haveExpectedContent}}
+    --><div class='webpage-container{{#if isNotStacked}} half-width not-stacked{{else}} add-margin-top{{/if}}'>
+        <div class='webpage-label'>Expected {{outputLabel}}</div>
+        <div class='iframe-container expected-iframe-container'></div>
+    </div><!--
+{{/if}}
+-->

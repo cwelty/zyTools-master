@@ -1,0 +1,144 @@
+{{! This is the template for the machine instruction simulator}}
+<div>
+    <button class='reset-button button'>Reset</button>
+    <div class='prompt-container reset-prompt'>
+        <div class='prompt-message-container'>
+            <div class='prompt-text'>Reset this activity?</div>
+            <button class='cancel-button button'>Cancel</button>
+            <button class='confirm-button button'>Confirm</button>
+        </div>
+    </div>
+
+    <div class='prompt-container enter-value-prompt'>
+        <div class='prompt-message-container'>
+            <div class='prompt-text'>Enter a value between 0 and 99.</div>
+            <input type='text' maxlength='2' class='input-textbox'/>
+            <button class='enter-input button'>Enter</button>
+            <div class='prompt-warning'></div>
+        </div>
+    </div>
+</div>
+<table class='container-table'>
+    <tbody>
+        <tr>
+            {{#if showAssembly}}
+                <td>
+                     {{> assemblyCodeBlock}}
+                </td>
+            {{/if}}
+
+            <td class='machine-instruction-container-cell'>
+                <div class='machine-instruction-container'>
+                    <div class='container-label'>Machine instructions</div>
+                    <table class='machine-instructions'>
+                        <tbody>
+                            {{! Prints 4 editable instruction lines}}
+                            {{#loopWithBinaryIndexOutput 4 2 0 0}}
+                                <tr class='instruction-line'>
+                                    <td class='op-code'>
+                                        {{#unless ../showAssembly}}
+                                            <select class='op-code-text opCode{{this.index}}' line='{{this.index}}'>
+                                                {{#loopWithBinaryIndexOutput 4 2 0 0}}
+                                                    <option value='{{binaryIndex}}'>{{binaryIndex}}</option>
+                                                {{/loopWithBinaryIndexOutput}}
+                                            </select>
+                                        {{else}}
+                                            <input class='op-code-text opCode{{this.index}}' line='{{this.index}}' value='00' disabled/>
+                                        {{/unless}}
+                                    </td>
+
+                                    {{! Prints operands}}
+                                    {{#loopWithBinaryIndexOutput 3 3 0 this.index}}
+                                        <td class='op'>
+                                            {{#unless ../../showAssembly}}
+                                                <select class='operand-text operand{{this.index}}{{this.outerIndex}}' line='{{this.outerIndex}}' operand='{{this.index}}' disabled>
+                                                    <option value='000' selected>000</option>
+                                                    {{#loopWithBinaryIndexOutput 3 3 5 0}}
+                                                        <option value='{{binaryIndex}}'>{{binaryIndex}}</option>
+                                                    {{/loopWithBinaryIndexOutput}}
+                                                </select>
+                                            {{else}}
+                                                <input class='operand-text operand{{this.index}}{{this.outerIndex}}' line='{{this.outerIndex}}' operand='{{this.index}}' value='000' disabled/>
+                                            {{/unless}}
+                                        </td>
+                                    {{/loopWithBinaryIndexOutput}}
+                                </tr>
+                            {{/loopWithBinaryIndexOutput}}
+
+                            {{! Enforce a non-editable termination line}}
+                            <tr class='termination-line instruction-line'>
+                                <td class='op-code'>
+                                    <input class='op-code-text-terminate' value='00' disabled/>
+                                </td>
+                                {{#loopWithBinaryIndexOutput 3 3 1 0}}
+                                    <td class='op{{index}}'>
+                                        <input class='operand-text-terminate' value='000' disabled/>
+                                    </td>
+                                {{/loopWithBinaryIndexOutput}}
+                            </tr>
+
+                            {{! These are data memory locations}}
+                            {{#loopWithBinaryIndexOutput 3 3 5 0}}
+                                <tr>
+                                    <td colspan='4' class='data-line'>
+                                        <span class='data-at-memory location-{{binaryIndex}}'>00000000000</span>
+                                    </td>
+                                </tr>
+                            {{/loopWithBinaryIndexOutput}}
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <div class='memory-container'>
+                    {{! Memory location labels}}
+                    <table class='memory-locations'>
+                        <tbody>
+                            {{#loopWithBinaryIndexOutput 8 3 0 0}}
+                                <tr>
+                                    <td>{{binaryIndex}}</td>
+                                </tr>
+                            {{/loopWithBinaryIndexOutput}}
+                        </tbody>
+                    </table>
+                    {{! Human readable translation of machine instructions}}
+                    <table class='human-readable-instructions'>
+                        <tbody>
+                            {{#unless showAssembly}}
+                                {{#loopWithBinaryIndexOutput 5 3 0 0}}
+                                    <tr>
+                                        <td class='instruction-action'>Stop</td>
+                                    </tr>
+                                {{/loopWithBinaryIndexOutput}}
+                            {{/unless}}
+                            {{#loopWithBinaryIndexOutput 3 3 5 0}}
+                                <tr>
+                                    <td>
+                                        <span class='data-decimal-value decimal-{{binaryIndex}}'>0</span>
+                                    </td>
+                                </tr>
+                            {{/loopWithBinaryIndexOutput}}
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr class='run-container'>
+            <td>
+                <div class='button-container'>
+                    <button class='step-run button'>Run first instruction</button>
+                    <span class='run-all-container'>
+                        <span> or </span>
+                        <button class='run-button button' type='button'>Run all</button>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class='output-container'>
+                    <div class='io-labels'>Output</div>
+                    <textarea type='text' class='output-console' disabled></textarea>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

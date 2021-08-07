@@ -1,0 +1,11 @@
+{{!
+    Render an input field for a new incorrect option in a dropdown element.
+    @param {String} incorrectOption The value of the incorrect option
+}}
+<div class='zb-input-container value-present info incorrect-option-container'>
+    <i class='zb-icon material-icons med'>drag_handle</i>
+    <input class='incorrect-option' type='text' value='{{incorrectOption}}'>
+    <button class='clear-icon zb-button icon-button left {{#unless incorrectOption}}hide-button{{/unless}}' tabindex='-1'>
+        <i aria-hidden='false' class='button-icon material-icons zb-icon grey med'>clear</i>
+    </button>
+</div>

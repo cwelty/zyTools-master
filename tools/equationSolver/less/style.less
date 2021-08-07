@@ -1,0 +1,63 @@
+@import "../../../zyWeb/less/constants.less";
+
+.equationSolver {
+    min-height: 400px;
+    width: 600px;
+
+    table {
+        td {
+            border: 0px;
+        }
+    }
+    .token {
+        margin-left: 4px;
+    }
+    .start-new-equation {
+        bottom: 5px;
+        display: none; 
+        position: absolute;
+    }
+    .disabled {
+        border: 0px;
+    }
+    .caption {
+        color: black;
+        max-width: 400px;
+        padding: 0px;
+    }
+    .constant {
+        color: @zyante-dark-blue;
+    }
+    .x {
+        color: @zyante-orange;
+    }
+    .coefficent { 
+        color: @zyante-orange;
+    }
+    .do-step {
+        margin-bottom: 40px;
+    }
+    .error-container {
+        color: @zyante-red;
+        display: none;
+    }
+
+    .padded {
+        padding-top: 5px;
+    }
+    #instructions {
+        font-size: 14px;
+        list-style-type: none;
+        margin-bottom: 0px;
+        padding: 0px;
+    }
+    #instructions li {
+        display: inline-block;
+    }
+    #instructions li:first-child {
+        margin: 0px;
+    }
+    input {
+        width: 240px;
+    }
+}

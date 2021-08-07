@@ -1,0 +1,173 @@
+@import "../../../zyWeb/less/constants.less";
+
+@input-padding: 2px;
+@input-ports-left: 85px;
+@input-ports-long-vertical-offset: 44px;
+@input-ports-margin-top: -307px;
+@input-ports-short-vertical-offset: 36px;
+@input-width: 30px;
+@read-button-margin-top: -33px;
+@read-data-margin-top: -31px;
+@register-boxes-left: 252px;
+@register-boxes-margin-top: -280px;
+@register-buttons-left: 295px;
+@register-buttons-margin-top: -282px;
+@register-vertical-offset: 48px;
+
+.registerFile {
+    font-family: @zyante-font;
+    width: 430px;
+
+    .instructions {
+        color: @zyante-light-blue;
+        font-size: 16px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .background-image-container {
+        margin-bottom: 380px;
+    }
+
+    .register-file-background {
+        background-repeat: no-repeat;
+        height: 360px;
+        left: 11px;
+        position: absolute;
+        width: 335px;
+    }
+
+    .write-data {
+        left: 258px;
+        margin-top: -367px;
+        position: absolute;
+    }
+
+    .address-style(@short-offset-multiplier, @long-offset-multiplier) {
+        left: @input-ports-left;
+        margin-top: @input-ports-margin-top + (@short-offset-multiplier * @input-ports-short-vertical-offset) + (@long-offset-multiplier * @input-ports-long-vertical-offset);
+        position: absolute;
+    }
+
+    .write-address {
+        .address-style(0, 0);
+    }
+
+    .write-enable {
+        .address-style(1, 0);
+    }
+
+    .read-address-a {
+        .address-style(1, 1);
+    }
+
+    .read-enable-a {
+        .address-style(2, 1);
+    }
+
+    .read-address-b {
+        .address-style(2, 2);
+    }
+
+    .read-enable-b {
+        .address-style(3, 2);
+    }
+
+    input.incorrect-input {
+        outline: 2px solid @zyante-medium-red;
+
+        &:disabled {
+            outline: 2px solid @zyante-medium-red;
+        }
+    }
+
+    .read-data-style {
+        border: 1px solid @zyante-gray;
+        margin-top: @read-data-margin-top;
+        padding: @input-padding;
+        position: absolute;
+        width: @input-width;
+    }
+
+    .read-data-a {
+        .read-data-style();
+        left: 202px;
+    }
+
+    .read-data-b {
+        .read-data-style();
+        left: 324px;
+    }
+
+    .register-style(@offset-multiplier) {
+        left: @register-boxes-left;
+        margin-top: @register-boxes-margin-top + (@offset-multiplier * @register-vertical-offset);
+        padding: @input-padding;
+        position: absolute;
+        width: @input-width;
+    }
+
+    .register-0 {
+        .register-style(0);
+    }
+
+    .register-1 {
+        .register-style(1);
+    }
+
+    .register-2 {
+        .register-style(2);
+    }
+
+    .register-3 {
+        .register-style(3);
+    }
+
+    .button-disabled {
+        cursor: default;
+    }
+
+    .reset-button-style {
+        cursor: pointer;
+        font-family: Lucida Sans Unicode;
+        font-size: 24px;
+        position: absolute;
+    }
+
+    .reset-register-button-style(@offset-multiplier) {
+        .reset-button-style;
+        left: @register-buttons-left;
+        margin-top: @register-buttons-margin-top + (@offset-multiplier * @register-vertical-offset);
+    }
+
+    .reset-register-button-0 {
+        .reset-register-button-style(0);
+    }
+
+    .reset-register-button-1 {
+        .reset-register-button-style(1);
+    }
+
+    .reset-register-button-2 {
+        .reset-register-button-style(2);
+    }
+
+    .reset-register-button-3 {
+        .reset-register-button-style(3);
+    }
+
+    .reset-read-button-style {
+        .reset-button-style;
+        margin-top: @read-button-margin-top;
+    }
+
+    .reset-read-button-a {
+        .reset-read-button-style;
+        left: 240px;
+    }
+
+    .reset-read-button-b {
+        .reset-read-button-style;
+        left: 362px;
+    }
+}

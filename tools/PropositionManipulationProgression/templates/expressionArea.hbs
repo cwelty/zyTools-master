@@ -1,0 +1,103 @@
+{{!
+    Render the expression area.
+    @param {ExpressionArea} expressionArea The expression area to render.
+    @param {String} manipulationName The name of the manipulation.
+}}
+{{#with expressionArea}}
+    <div class='expression-area'>
+        {{#each instructions}}
+            {{#with this}}
+                {{#if isShown}}
+                    <div class='instruction-container'>
+                        <div class='instruction{{#if isDisabled}} disabled{{/if}}'>
+                            {{#if numbering}}{{numbering}}.{{/if}}
+                            {{#if text}}
+                                {{text}}
+                            {{else}}
+                                Select&nbsp;{{{termHTML}}}&nbsp;from&nbsp;
+                                <button class='md-action-button compact' disabled>{{{lawSideHTML}}}</button>
+                                &nbsp;below
+
+                                {{#if isDisabled}}{{else}}
+                                    <button class='md-button compact show-me-how'>Show me how</button>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/if}}
+            {{/with}}
+        {{/each}}
+
+        {{#each expressionContainers}}
+            <div class='expression-container'>
+                {{#with this}}
+                    <div class='expression{{#if isDisabled}} disabled{{/if}}{{#if isColored}} colored{{/if}}'>{{{html}}}</div>
+                    {{#with undoButton}}
+                        {{#if isShown}}
+                            <button class='md-button undo'{{#if isDisabled}} disabled{{/if}}>
+                                {{! Repeated ifCond to be compatible with both 1.0 and 2.0}}
+                                Undo {{#ifCond ../../../../expressionType '===' 'proposition'}}law{{else}}{{#ifCond ../../../expressionType '===' 'proposition'}}law{{else}}property{{/ifCond}}{{/ifCond}}
+                            </button>
+                        {{/if}}
+                    {{/with}}
+                    {{#with nextButton}}
+                        {{#if isShown}}
+                            <div><button class='md-action-button compact next-term'{{#if isDisabled}} disabled{{/if}}>Next term</button></div>
+                        {{/if}}
+                    {{/with}}
+                    {{#with applyButton}}
+                        {{#if isShown}}
+                            {{#ifCond ../../../../manipulationName '===' 'reverseOrComplement'}}
+                                <div class='complement-buttons-area'>
+                                    <p class='complement-apply'>Complement to apply</p>
+                                    <div>
+                                        <button id='x' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>x+x'</button>
+                                        <button id='y' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>y+y'</button>
+                                        <button id='z' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>z+z'</button>
+                                    </div>
+                                </div>
+                            {{else}}
+                                {{! Repeated ifCond to be compatible with both 1.0 and 2.0}}
+                                {{#ifCond ../../../manipulationName '===' 'reverseOrComplement'}}
+                                    <div class='complement-buttons-area'>
+                                        <p class='complement-apply'>Complement to apply</p>
+                                        <div>
+                                            <button id='x' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>x+x'</button>
+                                            <button id='y' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>y+y'</button>
+                                            <button id='z' class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>z+z'</button>
+                                        </div>
+                                    </div>
+                                {{else}}
+                                    <div>
+                                        <button class='md-action-button compact apply'{{#if isDisabled}} disabled{{/if}}>
+                                            {{! Repeated ifCond to be compatible with both 1.0 and 2.0}}
+                                            Apply {{#ifCond ../../../../../../expressionType '===' 'proposition'}}law{{else}}{{#ifCond ../../../expressionType '===' 'proposition'}}law{{else}}property{{/ifCond}}{{/ifCond}}
+                                        </button>
+                                    </div>
+                                {{/ifCond}}
+                            {{/ifCond}}
+                        {{/if}}
+                    {{/with}}
+                {{/with}}
+            </div>
+        {{/each}}
+
+        {{#with cancelButton}}
+            {{#if isShown}}
+                <button class='md-button cancel'{{#if isDisabled}} disabled{{/if}}>
+                    {{! Repeated ifCond to be compatible with both 1.0 and 2.0}}
+                    Cancel {{#ifCond ../expressionType '===' 'proposition'}}law{{else}}{{#ifCond ../../../expressionType '===' 'proposition'}}law{{else}}property{{/ifCond}}{{/ifCond}}
+                </button>
+            {{/if}}
+        {{/with}}
+
+        <div class='error-message-container'>
+            <div class='error-message'>{{errorMessage}}</div>
+            {{#with okButton}}
+                {{#if isShown}}
+                    <button class='md-action-button ok'{{#if isDisabled}} disabled{{/if}}>OK</button>
+                {{/if}}
+            {{/with}}
+        </div>
+    </div>
+{{/with}}

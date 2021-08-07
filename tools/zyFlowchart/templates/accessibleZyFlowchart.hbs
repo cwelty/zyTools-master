@@ -1,0 +1,31 @@
+{{!
+    Render an accessible version of the zyFlowchart.
+    @param {String} code The program code.
+    @param {String} errorMessage The error message.
+    @param {String} input The input to the program.
+    @param {String} output The program output.
+    @param {String} portLanguage The language to port to.
+    @param {String} portedCode The code ported to.
+}}
+<p>Program:</p>
+<pre>{{code}}</pre>
+
+{{#if input}}
+    <p>Input to program:</p>
+    <pre>{{input}}</pre>
+{{/if}}
+
+{{#if output}}
+    <p>Output from program:</p>
+    <pre>{{output}}</pre>
+{{/if}}
+
+{{#if errorMessage}}
+    <p>Runtime error:</p>
+    <pre>{{errorMessage}}</pre>
+{{/if}}
+
+{{#if portLanguage}}
+    <p>Ported to {{portLanguage}}:</p>
+    <pre>{{portedCode}}</pre>
+{{/if}}

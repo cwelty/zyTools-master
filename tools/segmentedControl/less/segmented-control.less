@@ -1,0 +1,57 @@
+@import "../../../zyWeb/less/constants.less";
+
+.section-content-container, .custom-tool {
+    ul.segmented-control {
+        background-color: white;
+        display:          table;
+        height:           26px;
+        list-style-type:  none;
+        margin:           0 auto;
+        margin-bottom:    20px;
+        padding:          1px;
+
+        li.segment-item {
+            border:       1px solid @zyante-dark-blue;
+            float:        left;
+            height:       100%;
+            margin:       0;
+            margin-right: -1px;
+
+            span.segment-button {
+                background-color: white;
+                color:            @zyante-dark-blue;
+                cursor:           pointer;
+                display:          block;
+                font-size:        12px;
+                line-height:      26px;
+                padding:          0 5px;
+                text-align:       center;
+
+                &.segment-button-selected {
+                    background-color: @zyante-dark-blue;
+                    color:            white;
+                }
+            }
+        }
+
+        &.disabled {
+            cursor: default;
+
+            li.segment-item {
+                border-color: @zyante-gray;
+                opacity:      0.5;
+
+                span.segment-button {
+                    background-color: white;
+                    color:            @zyante-gray;
+                    cursor:           default;
+
+                    &.segment-button-selected {
+                        background-color: @zyante-gray;
+                        color:            white;
+                    }
+                }
+            }
+        }
+    }
+}

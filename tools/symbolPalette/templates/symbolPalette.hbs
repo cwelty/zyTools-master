@@ -1,0 +1,19 @@
+{{!
+    |symbols| is required and a list of symbols. Each symbol is a string.
+}}
+
+<div class='symbol-palette'>
+    <table>
+        <tbody>
+            {{#each symbols}}
+                <tr>
+                    {{#each this}}
+                        <td>
+                            <button class='button'>{{this}}</button>
+                        </td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,11 @@
+{{!
+    Render an input field for a correct answer in short answer elements.
+    @param {String} correctAnswer The current correct answer set.
+    @param {Integer} index The index of this correct answer in the array of correct answers.
+}}
+<div class='zb-input-container value-present info correct-answer-container-{{index}}'>
+    <input class='correct-answer correct-answer-{{index}}' type='text' placeholder='Leave blank for none' value='{{correctAnswer}}'>
+    <button class='clear-icon zb-button icon-button left {{#unless correctAnswer}}hide-button{{/unless}}' tabindex='-1'>
+        <i aria-hidden='false' class='button-icon material-icons zb-icon grey med'>clear</i>
+    </button>
+</div>

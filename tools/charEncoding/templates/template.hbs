@@ -1,0 +1,18 @@
+<div class='charEncoding' id='charEncoding{{id}}'>
+    <table>
+        <tbody>
+            <tr>
+                {{#if isPython}}
+                    <td>Type a character: <span class='addMargin'>ord('</span><input id='charInput{{id}}' class='input' type='text' maxlength='1' size='2' value='A' autocorrect='off' autocapitalize='off'>')</td>
+                    <td class='output'>Encoded number: <input id='asciiOutput{{id}}' type='text' disabled='disabled' size='5' value='65'></td>
+                {{else}}
+                    <td>Type a character: <span class='addMargin'></span><input id='charInput{{id}}' class='input' type='text' maxlength='1' size='2' value='A' autocorrect='off' autocapitalize='off'></td>
+                    {{#if showBitCode}}
+                        <td class='output'>ASCII bit code: <input id='asciiBitOutput{{id}}' type='text' disabled='disabled' size='8' value='1000001'></td>
+                    {{/if}}
+                    <td class='output'>ASCII number: <input id='asciiOutput{{id}}' type='text' disabled='disabled' size='5' value='65'></td>
+                {{/if}}
+            </tr>
+        </tbody>
+    </table>
+</div>

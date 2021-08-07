@@ -1,0 +1,414 @@
+<zyAnimator id="HlsmDpForDataOpsInAction" caption="Datapath support for data operation in an action." height="434px" width="628px" selectedInstr="none" selectedObj="none" numObjsEverCreated="123" loadOnDemand="true">
+<!-- Last modified Tue Sep 30 2014 16:20:45 GMT-0700 (PDT) with version 2.14.9.12 -->
+<zyObjects>
+   <zyObject objNum="127" objType="box" objName="Object 127: Box" top="186px" left="462px" opacity="0" background-color="zyAnimator-light-orange" height="68px" width="80px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="125" objType="box" objName="Object 125: Box" top="86px" left="477px" opacity="0" background-color="zyAnimator-light-orange" height="128px" width="80px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="124" objType="box" objName="Object 124: Box" top="106px" left="429px" opacity="0" background-color="zyAnimator-light-orange" height="140px" width="76px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="16" objType="box" objName="Object 124: Box" top="167px" left="233px" opacity="0" background-color="zyAnimator-orange" width="40px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="17" objType="box" objName="Object 125: Box" top="285px" left="217px" opacity="0" background-color="zyAnimator-orange" width="57px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="18" objType="box" objName="Object 31: Box" top="79px" left="409px" opacity="0" height="256px" width="192px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="19" objType="box" objName="Object 113: Box" top="125px" left="90px" border-radius="100px" height="17px" width="17px" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="20" objType="text" objName="Object 114: Text" top="118px" left="87px" font-size="20px" transformDeg="116">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="21" objType="box" objName="Object 106: Box" top="285px" left="19px" opacity="0" background-color="zyAnimator-orange" width="57px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="22" objType="box" objName="Object 111: Box" top="128px" left="228px" border-radius="100px" height="17px" width="17px" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="23" objType="box" objName="Object 103: Box" top="167px" left="234px" opacity="0" background-color="zyAnimator-orange" width="36px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="24" objType="box" objName="Object 102: Box" top="167px" left="22px" opacity="0" background-color="zyAnimator-orange" width="36px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="25" objType="box" objName="Object 101: Box" top="79px" left="86px" opacity="0" background-color="zyAnimator-orange" width="32px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="26" objType="box" objName="Object 100: Box" top="57px" left="90px" opacity="0" background-color="zyAnimator-orange" width="32px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="27" objType="box" objName="Object 17: Box" top="246px" left="234px" border-radius="100px" height="17px" width="17px" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="28" objType="box" objName="Object 1: Box" top="135px" left="54px" border-radius="100px" background-color="zyAnimator-white" height="34px" width="50px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="29" objType="box" objName="Object 2: Box" top="135px" left="186px" border-radius="100px" background-color="zyAnimator-white" height="34px" width="50px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="30" objType="box" objName="Object 3: Box" top="247px" left="186px" border-radius="100px" background-color="zyAnimator-white" height="34px" width="50px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="31" objType="text" objName="Object 7: Text" top="57px" left="33px" font-size="12px">
+      <text>Inputs: b, D(8)</text>
+   </zyObject>
+   <zyObject objNum="32" objType="text" objName="Object 8: Text" top="78px" left="33px" font-size="12px">
+      <text>Outputs: T(8)</text>
+   </zyObject>
+   <zyObject objNum="33" objType="box" objName="Object 9: Box" top="140px" left="38px" background-color="zyAnimator-black" height="2px" width="15px" border-width="0px" border-style="none" transformDeg="33">
+   </zyObject>
+   <zyObject objNum="34" objType="text" objName="Object 10: Text" top="128px" left="47px" font-size="20px" transformDeg="33">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="35" objType="box" objName="Object 11: Box" top="154px" left="111px" background-color="zyAnimator-black" height="2px" width="76px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="36" objType="text" objName="Object 12: Text" top="137px" left="105px" font-size="20px">
+      <text>&lt;</text>
+   </zyObject>
+   <zyObject objNum="37" objType="text" objName="A" top="144px" left="66px" font-size="12px">
+      <text>RawL</text>
+   </zyObject>
+   <zyObject objNum="38" objType="text" objName="Object 5: Text" top="144px" left="195px" font-size="12px">
+      <text>RawH</text>
+   </zyObject>
+   <zyObject objNum="39" objType="text" objName="Object 6: Text" top="256px" left="192px" font-size="12px">
+      <text>BoostL</text>
+   </zyObject>
+   <zyObject objNum="40" objType="text" objName="Object 18: Text" top="236px" left="232px" font-size="20px" transformDeg="129">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="41" objType="text" objName="Object 19: Text" top="234px" left="257px" font-size="12px">
+      <text>b&apos;</text>
+   </zyObject>
+   <zyObject objNum="42" objType="text" objName="Object 21: Text" top="167px" left="22px" font-size="12px">
+      <text>T = D;</text>
+   </zyObject>
+   <zyObject objNum="43" objType="text" objName="Object 22: Text" top="167px" left="234px" font-size="12px">
+      <text>T = D;</text>
+   </zyObject>
+   <zyObject objNum="44" objType="text" objName="Object 23: Text" top="284px" left="217px" font-size="12px">
+      <text>T = D + 5;</text>
+   </zyObject>
+   <zyObject objNum="45" objType="box" objName="Object 24: Box" top="121px" left="479px" opacity="0" height="40px" width="72px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="46" objType="box" objName="Object 25: Box" top="262px" left="467px" opacity="0" height="40px" width="72px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="47" objType="text" objName="Object 26: Text" top="121px" left="494px" opacity="0" font-size="10px">
+      <text>A</text>
+   </zyObject>
+   <zyObject objNum="48" objType="text" objName="Object 27: Text" top="121px" left="529px" opacity="0" font-size="10px">
+      <text>B</text>
+   </zyObject>
+   <zyObject objNum="49" objType="text" objName="Object 28: Text" top="124px" left="503px" opacity="0" font-size="17px">
+      <text>+</text>
+   </zyObject>
+   <zyObject objNum="50" objType="text" objName="Object 29: Text" top="146px" left="511px" opacity="0" font-size="10px">
+      <text>S</text>
+   </zyObject>
+   <zyObject objNum="51" objType="box" objName="Object 30: Box" top="193px" left="464px" opacity="0" height="40px" width="72px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="52" objType="text" objName="Object 32: Text" top="314px" left="544px" opacity="0" font-size="12px">
+      <text>Datapath</text>
+   </zyObject>
+   <zyObject objNum="53" objType="text" objName="Object 33: Text" top="193px" left="480px" opacity="0" font-size="10px">
+      <text>I1</text>
+   </zyObject>
+   <zyObject objNum="54" objType="text" objName="Object 34: Text" top="193px" left="509px" opacity="0" font-size="10px">
+      <text>I0</text>
+   </zyObject>
+   <zyObject objNum="55" objType="text" objName="Object 35: Text" top="217px" left="505px" opacity="0" font-size="10px">
+      <text>2x1</text>
+   </zyObject>
+   <zyObject objNum="56" objType="text" objName="Object 36: Text" top="206px" left="467px" opacity="0" font-size="10px">
+      <text>s</text>
+   </zyObject>
+   <zyObject objNum="57" objType="text" objName="Object 37: Text" top="217px" left="493px" opacity="0" font-size="10px">
+      <text>y</text>
+   </zyObject>
+   <zyObject objNum="58" objType="text" objName="Object 38: Text" top="262px" left="491px" opacity="0" font-size="10px">
+      <text>D</text>
+   </zyObject>
+   <zyObject objNum="59" objType="text" objName="Object 39: Text" top="286px" left="491px" opacity="0" font-size="10px">
+      <text>Q</text>
+   </zyObject>
+   <zyObject objNum="60" objType="box" objName="Object 41: Box" top="289px" left="468px" opacity="0" background-color="zyAnimator-blue" height="2px" width="13px" border-width="0px" border-style="none" border-color="zyAnimator-blue" transformDeg="30">
+   </zyObject>
+   <zyObject objNum="61" objType="box" objName="Object 42: Box" top="295px" left="468px" opacity="0" background-color="zyAnimator-blue" height="2px" width="13px" border-width="0px" border-style="none" border-color="zyAnimator-blue" transformDeg="-30">
+   </zyObject>
+   <zyObject objNum="62" objType="text" objName="Object 43: Text" top="275px" left="495px" opacity="0" font-size="10px">
+      <text>T_reg</text>
+   </zyObject>
+   <zyObject objNum="63" objType="text" objName="Object 44: Text" top="266px" left="469px" opacity="0" font-size="10px">
+      <text>ld</text>
+   </zyObject>
+   <zyObject objNum="64" objType="box" objName="Object 45: Box" top="305px" left="497px" opacity="0" background-color="zyAnimator-black" height="17px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="65" objType="box" objName="Object 46: Box" top="318px" left="497px" opacity="0" background-color="zyAnimator-black" height="12px" width="2px" border-width="0px" border-style="none" transformDeg="53">
+   </zyObject>
+   <zyObject objNum="66" objType="box" objName="Object 47: Box" top="314px" left="497px" opacity="0" background-color="zyAnimator-black" height="37px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="67" objType="text" objName="Object 48: Text" top="354px" left="486px" opacity="0" font-size="12px">
+      <text>T</text>
+   </zyObject>
+   <zyObject objNum="68" objType="box" objName="Object 50: Box" top="107px" left="534px" opacity="0" background-color="zyAnimator-black" height="12px" width="2px" border-width="0px" border-style="none" transformDeg="53">
+   </zyObject>
+   <zyObject objNum="69" objType="box" objName="Object 51: Box" top="102px" left="534px" opacity="0" background-color="zyAnimator-black" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="70" objType="text" objName="Object 53: Text" top="315px" left="503px" opacity="0" font-size="10px">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="71" objType="text" objName="Object 54: Text" top="103px" left="541px" opacity="0" font-size="10px">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="72" objType="text" objName="Object 55: Text" top="84px" left="529px" opacity="0" font-size="12px">
+      <text>5</text>
+   </zyObject>
+   <zyObject objNum="73" objType="box" objName="Object 56: Box" top="214px" left="390px" opacity="0" background-color="zyAnimator-black" height="2px" width="75px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="74" objType="text" objName="Object 57: Text" top="203px" left="358px" opacity="0" font-size="12px">
+      <text>T_s</text>
+   </zyObject>
+   <zyObject objNum="75" objType="box" objName="Object 59: Box" top="273px" left="390px" opacity="0" background-color="zyAnimator-black" height="2px" width="78px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="76" objType="text" objName="Object 60: Text" top="262px" left="352px" opacity="0" font-size="12px">
+      <text>T_ld</text>
+   </zyObject>
+   <zyObject objNum="77" objType="box" objName="Object 61: Box" top="237px" left="497px" opacity="0" background-color="zyAnimator-black" height="25px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="78" objType="box" objName="Object 62: Box" top="243px" left="497px" opacity="0" background-color="zyAnimator-black" height="12px" width="2px" border-width="0px" border-style="none" transformDeg="53">
+   </zyObject>
+   <zyObject objNum="79" objType="box" objName="Object 63: Box" top="107px" left="499px" opacity="0" background-color="zyAnimator-black" height="15px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="80" objType="text" objName="Object 64: Text" top="238px" left="504px" opacity="0" font-size="10px">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="81" objType="box" objName="Object 65: Box" top="165px" left="516px" opacity="0" background-color="zyAnimator-black" height="30px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="82" objType="box" objName="Object 66: Box" top="171px" left="516px" opacity="0" background-color="zyAnimator-black" height="12px" width="2px" border-width="0px" border-style="none" transformDeg="53">
+   </zyObject>
+   <zyObject objNum="83" objType="text" objName="Object 67: Text" top="166px" left="523px" opacity="0" font-size="10px">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="84" objType="box" objName="Object 68: Box" top="107px" left="441px" opacity="0" background-color="zyAnimator-black" height="2px" width="59px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="85" objType="box" objName="Object 70: Box" top="104px" left="436px" opacity="0" border-radius="100px" background-color="zyAnimator-black" height="8px" width="8px" border-width="0px" border-style="none" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="86" objType="box" objName="Object 71: Box" top="179px" left="483px" opacity="0" background-color="zyAnimator-black" height="15px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="87" objType="box" objName="Object 72: Box" top="86px" left="439px" opacity="0" background-color="zyAnimator-black" height="12px" width="2px" border-width="0px" border-style="none" transformDeg="53">
+   </zyObject>
+   <zyObject objNum="88" objType="box" objName="Object 73: Box" top="100px" left="439px" opacity="0" background-color="zyAnimator-black" height="80px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="89" objType="box" objName="Object 108: Box" top="239px" left="94px" border-radius="100px" height="17px" width="17px" border-color="zyAnimator-black">
+   </zyObject>
+   <zyObject objNum="90" objType="text" objName="Object 74: Text" top="80px" left="446px" opacity="0" font-size="10px">
+      <text>8</text>
+   </zyObject>
+   <zyObject objNum="91" objType="text" objName="Object 75: Text" top="41px" left="434px" opacity="0" font-size="12px">
+      <text>D</text>
+   </zyObject>
+   <zyObject objNum="92" objType="box" objName="Object 76: Box" top="179px" left="440px" opacity="0" background-color="zyAnimator-black" height="2px" width="44px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="93" objType="box" objName="Object 77: Box" top="62px" left="439px" opacity="0" background-color="zyAnimator-black" height="44px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="94" objType="box" objName="Object 80: Box" top="247px" left="54px" border-radius="100px" background-color="zyAnimator-white" height="34px" width="50px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="95" objType="text" objName="Object 81: Text" top="256px" left="58px" font-size="12px">
+      <text>BoostH</text>
+   </zyObject>
+   <zyObject objNum="96" objType="text" objName="Object 82: Text" top="176px" left="85px" font-size="12px">
+      <text>b</text>
+   </zyObject>
+   <zyObject objNum="97" objType="text" objName="Object 83: Text" top="284px" left="18px" font-size="12px">
+      <text>T = D + 5;</text>
+   </zyObject>
+   <zyObject objNum="98" objType="box" objName="Object 90: Box" top="265px" left="106px" background-color="zyAnimator-black" height="2px" width="76px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="99" objType="text" objName="Object 91: Text" top="249px" left="177px" font-size="20px">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="100" objType="text" objName="Object 92: Text" top="227px" left="74px" font-size="20px" transformDeg="-90">
+      <text>&lt;</text>
+   </zyObject>
+   <zyObject objNum="101" objType="box" objName="Object 93: Box" top="172px" left="81px" background-color="zyAnimator-black" height="71px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="102" objType="text" objName="Object 94: Text" top="228px" left="117px" font-size="12px">
+      <text>b</text>
+   </zyObject>
+   <zyObject objNum="103" objType="text" objName="Object 95: Text" top="246px" left="145px" font-size="12px">
+      <text>b&apos;</text>
+   </zyObject>
+   <zyObject objNum="104" objType="box" objName="Object 96: Box" top="176px" left="216px" background-color="zyAnimator-black" height="72px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="105" objType="text" objName="Object 97: Text" top="161px" left="213px" font-size="20px" transformDeg="90">
+      <text>&lt;</text>
+   </zyObject>
+   <zyObject objNum="106" objType="text" objName="Object 98: Text" top="225px" left="219px" font-size="12px">
+      <text>b</text>
+   </zyObject>
+   <zyObject objNum="107" objType="text" objName="Object 99: Text" top="134px" left="168px" font-size="12px">
+      <text>b&apos;</text>
+   </zyObject>
+   <zyObject objNum="108" objType="text" objName="Object 107: Text" top="95px" left="503px" opacity="0" font-size="12px">
+      <text>D + 5</text>
+   </zyObject>
+   <zyObject objNum="109" objType="text" objName="Object 109: Text" top="231px" left="91px" font-size="20px" transformDeg="129">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="110" objType="text" objName="Object 110: Text" top="117px" left="251px" font-size="12px">
+      <text>b</text>
+   </zyObject>
+   <zyObject objNum="111" objType="text" objName="Object 112: Text" top="120px" left="225px" font-size="20px" transformDeg="129">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="112" objType="text" objName="Object 115: Text" top="113px" left="113px" font-size="12px">
+      <text>b&apos;</text>
+   </zyObject>
+   <zyObject objNum="113" objType="text" objName="(8)" top="41px" left="443px" opacity="0" color="zyAnimator-gray" font-size="12px">
+      <text>(8)</text>
+   </zyObject>
+   <zyObject objNum="114" objType="text" objName="Object 117: Text" top="354px" left="493px" opacity="0" color="zyAnimator-gray" font-size="12px">
+      <text>(8)</text>
+   </zyObject>
+   <zyObject objNum="115" objType="text" objName="Object 119: Text" top="129px" left="512px" opacity="0" color="zyAnimator-gray" font-size="12px">
+      <text>(8)</text>
+   </zyObject>
+   <zyObject objNum="116" objType="text" objName="Object 120: Text" top="217px" left="522px" opacity="0" color="zyAnimator-gray" font-size="10px">
+      <text>(8)</text>
+   </zyObject>
+   <zyObject objNum="117" objType="text" objName="Object 121: Text" top="276px" left="525px" opacity="0" color="zyAnimator-gray" font-size="10px">
+      <text>(8)</text>
+   </zyObject>
+   <zyObject objNum="118" objType="box" objName="Object 122: Box" top="151px" left="468px" opacity="0" background-color="zyAnimator-black" height="60px" width="2px" border-width="0px" border-style="none" transformDeg="90">
+   </zyObject>
+   <zyObject objNum="119" objType="box" objName="Object 123: Box" top="181px" left="497px" opacity="0" background-color="zyAnimator-black" height="81px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="120" objType="text" objName="&gt;" top="61px" left="436px" opacity="0" font-size="20px" transformDeg="90">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="121" objType="text" objName="Object 125: Text" top="333px" left="494px" opacity="0" font-size="20px" transformDeg="90">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="122" objType="text" objName="Object 126: Text" top="256px" left="401px" opacity="0" font-size="20px">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="123" objType="text" objName="Object 127: Text" top="198px" left="401px" opacity="0" font-size="20px">
+      <text>&gt;</text>
+   </zyObject>
+</zyObjects>
+<zyInstructions>
+   <zyInstruction instrType="step1">
+      <text>Datapath will support any operations involving data.</text>
+   </zyInstruction>
+   <zyInstruction instrType="fade" objNum="18" timeLabel="0.2" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="52" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="26" timeLabel="0.2" opacity="40"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="25" timeLabel="-" opacity="40"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="91" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="93" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="87" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="90" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="67" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="66" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="65" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="70" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="113" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="114" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="120" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="121" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>Each data output requires a register to hold the output&apos;s value.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="26" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="46" timeLabel="0.2" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="62" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="58" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="59" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="63" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="61" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="60" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="75" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="76" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="64" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="117" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="122" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="move" objNum="108" timeLabel="-" top="193" left="502"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>Support RawL&apos;s state action by instantiating a wire from D to T_reg.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="25" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="24" timeLabel="0.2" opacity="40"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="88" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="118" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="119" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="124" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>Support BoostH&apos;s state action of D + 5 by instantiating an adder.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="24" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="124" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="21" timeLabel="0.2" opacity="40"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="45" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="115" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="47" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="48" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="49" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="50" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="125" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="85" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="84" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="79" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="72" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="69" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="68" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="71" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="81" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="83" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="82" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="108" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>Support T = D + 5 by instantiating a mux, because T_reg now has two possible input sources.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="125" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="118" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="119" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="108" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="51" timeLabel="0.2" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="127" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="116" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="54" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="53" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="56" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="57" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="55" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="73" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="74" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="92" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="86" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="123" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="77" timeLabel="0.1" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="78" timeLabel="-" opacity="100"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="80" timeLabel="-" opacity="80"></zyInstruction>
+   <zyInstruction instrType="move" objNum="66" timeLabel="-" top="314" left="497"></zyInstruction>
+   <zyInstruction instrType="move" objNum="65" timeLabel="-" top="318" left="497"></zyInstruction>
+   <zyInstruction instrType="move" objNum="70" timeLabel="-" top="315" left="504"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>The actions of RawH and BoostL are already supported by the datapath.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="21" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="127" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="16" timeLabel="0.2" opacity="40"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="17" timeLabel="-" opacity="40"></zyInstruction>
+   <zyInstruction instrType="step">
+      <text>Since wire size is shown, component sizes are clear and are typically not shown.</text>
+    </zyInstruction>
+   <zyInstruction instrType="fade" objNum="17" timeLabel="0.2" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="16" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="21" timeLabel="0" opacity="0"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="115" timeLabel="1" opacity="0"></zyInstruction>
+   <zyInstruction instrType="move" objNum="115" timeLabel="-" top="129" left="604"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="116" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="move" objNum="116" timeLabel="-" top="217" left="606"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="117" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="move" objNum="117" timeLabel="-" top="280" left="609"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="114" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="move" objNum="114" timeLabel="-" top="347" left="604"></zyInstruction>
+   <zyInstruction instrType="fade" objNum="113" timeLabel="-" opacity="0"></zyInstruction>
+   <zyInstruction instrType="move" objNum="49" timeLabel="0" top="124" left="511"></zyInstruction>
+   <zyInstruction instrType="move" objNum="55" timeLabel="-" top="217" left="517"></zyInstruction>
+   <zyInstruction instrType="move" objNum="62" timeLabel="-" top="275" left="508"></zyInstruction>
+   <zyInstruction instrType="move" objNum="67" timeLabel="-" top="353" left="492"></zyInstruction>
+   <zyInstruction instrType="startStep">
+      <text></text>
+   </zyInstruction>
+</zyInstructions>
+</zyAnimator>

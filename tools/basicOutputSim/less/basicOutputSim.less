@@ -1,0 +1,36 @@
+@import "../../../zyWeb/less/constants.less";
+
+@basic-output-sim-code-font-size: 18px;
+
+.basicOutputSim {
+    padding-bottom: 10px;
+    padding-left:   5px;
+    
+    .basic-output-sim-table {
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            padding:    2px;
+            text-align: left;
+        }
+    }
+
+    div.basic-output-sim-code {
+        display:     inline-block;
+        font-family: @zyante-code-font;
+        font-size:   @basic-output-sim-code-font-size;
+        padding-top: 4px;
+    }
+    
+    div.console {
+        font-size: @basic-output-sim-code-font-size;
+    }
+    
+    div.error-message {
+        display:    inline-block;
+        font-size:  @basic-output-sim-code-font-size;
+        font-style: italic;
+    }
+}

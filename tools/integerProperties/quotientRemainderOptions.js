@@ -1,0 +1,3 @@
+{
+    questionType: 'quotientRemainder'
+}

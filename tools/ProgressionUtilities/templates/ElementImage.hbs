@@ -1,0 +1,9 @@
+{{!
+    Print an image element.
+    @param {ElementImage} element The image to print.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}}' {{{style}}}>
+    <img alt='Image loading...'
+         class="{{#if element.keepHeightRatio}}keep-height-ratio {{/if}}{{#if element.keepWidthRatio}}keep-width-ratio{{/if}}"/>
+</div>

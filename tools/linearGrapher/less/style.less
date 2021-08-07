@@ -1,0 +1,98 @@
+@import "../../../zyWeb/less/constants.less";
+
+.linearGrapher {
+    @variable-m-color: @zyante-dark-blue;
+    @variable-b-color: @zyante-orange;
+
+    .m-label {
+        color:       @variable-m-color;
+        font-weight: bold;
+    }
+
+    .b-label {
+        color:       @variable-b-color;
+        font-weight: bold;
+    }
+
+    .m-value {
+        display:    inline-block;
+        text-align: right;
+        width:      37px;
+    }
+
+    .b-value {
+        display:     inline-block;
+        margin-left: 7px;
+        width:       18px;
+    }
+
+    .equation-container {
+        margin-top: 10px;
+        text-align: center;
+        width:      100%;
+
+        .function-y {
+            font-size:     20px;
+            font-weight:   bold;
+            padding-right: 30px;
+        }
+
+        .operator-spacing {
+            display:     inline;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    }
+
+    .slider-container {
+        font-size: 20px;
+        margin:    17px 10px 10px 10px;
+
+        .slider-style {
+            border-radius: 0;
+            display:      inline-block;
+            height:       20px;
+            margin-right: 20px;
+            width:        100px;
+        }
+
+        .slider-handle-style {
+            border-radius: 0;
+            cursor:        pointer;
+            height:        30px;
+            width:         30px;
+        }
+
+        .variable-m-slider {
+            .slider-style;
+
+            .ui-slider-handle {
+                background: @variable-m-color;
+                .slider-handle-style;
+            }
+        }
+
+        .variable-b-slider {
+            .slider-style;
+
+            .ui-slider-handle {
+                background: @variable-b-color;
+               .slider-handle-style;
+            }
+        }
+
+        .slider-label {
+            display:     inline-block;
+            font-weight: bold;
+        }
+    }
+
+    .canvases {
+        position: relative;
+        height:   400px;
+        width:    400px;
+
+        .canvas {
+            position: absolute;
+        }
+    }
+}

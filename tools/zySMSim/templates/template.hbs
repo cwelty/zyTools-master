@@ -1,0 +1,74 @@
+<div class='rims-c-code'>
+<textarea class='rims-c-code-text'></textarea>
+<button class='rims-c-code-close button'>Close</button>
+</div>
+<div id='SMToolContainer_{{id}}' class='zy-sm-sim'>
+{{#if isProgressionTool}}
+    <div id='progressionPrompt_{{id}}' class='progression-prompt'></div>
+{{/if}}
+<div id='controls_{{id}}' class='controls'>
+    <button id='simulateButton_{{id}}' type='button' class='button simulate-margin'>Simulate</button>
+    <button id='pauseButton_{{id}}' type='button' class='button pause-margin'>Pause</button>
+    <button id='insertStateButton_{{id}}' type='button' class='button insert-state-button'>Insert state</button>
+    <button id='insertTransitionButton_{{id}}' type='button' class='button'>Insert transition</button>
+    <button id='deleteButton_{{id}}' type='button' class='delete-button button'>Delete</button>
+</div>
+<div class='middle-container'>
+
+<div id='inputContainer_{{id}}' class='input-menu'>
+</div>
+<div id='canvasTab_{{id}}' class='canvas-tab'>
+    {{#if isProgressionTool}}
+
+    {{else}}
+        <ul><li><a href='#drawingArea_{{id}}'>StateMachine1</a></li>
+            <li><a href='#drawingArea_{{id}}'>+</a></li>
+        </ul>
+    {{/if}}
+    <canvas id='drawingArea_{{id}}' width='550' height='330' class='sm-tool-canvas'></canvas>
+</div>
+<div id='outputContainer_{{id}}' class='output-container'>
+</div>
+<div class='internal-variable-container'>
+    <div id='internalBlockI_{{id}}' class='output-block'><div class='internal-variable-label'>Variables</div><div id='iLabel_{{id}}' class='output-label'>I(8)</div><input id='internalI_{{id}}' class='output-field' disabled='disabled' maxlength='3'></div>
+    <div id='internalBlockJ_{{id}}' class='output-block'><div id='jLabel_{{id}}' class='output-label'>J(8)</div><input id='internalJ_{{id}}' class='output-field' disabled='disabled' maxlength='3'></div>
+</div>
+<div class='sidemenu sidemenu-margin'>
+    <div class='period-container'>
+        <div class='period-label'>Period:</div><textarea id='period_{{id}}' class='period textfield' maxlength='6' rows='1'>1000</textarea><span class='ms-label'>ms</span>
+    </div>
+    <div class='state-info-label'>State/transition info</div>
+	<div class='state-name-container'><div class='state-name-label'>Name</div><textarea id='stateName_{{id}}' class='state-name' maxlength='10'></textarea></div>
+	</br>
+	<div class='init-state-check'>
+        <input type='checkbox' id='initStateCheck_{{id}}' value='init'>
+        <label for='initStateCheck_{{id}}'>Initial state</label>
+    </div>
+	</br>
+	<div id='stateActionsContainer_{{id}}' class='action-container'>Actions
+	<textarea id='stateActions_{{id}}' class='action textfield'></textarea>
+	</div>
+	</br>
+	<div id='stateConditionsContainer_{{id}}' class='condition-container'>Condition
+	<textarea id='stateConditions_{{id}}' class='condition textfield'></textarea>
+	</div>
+</div>
+</div>
+<div class='bottom-container'>
+<div class='test-vector-button-container'>
+    <button id='testVectorButton_{{id}}' class='button'>Use test vectors</button>
+</div>
+<button id='exportToRimsButton_{{id}}' class='export-to-rims-button button'>Export to RIMS</button>
+<button id='exportButton_{{id}}' type='button' class='button export-button'>Export</button>
+<button id='importButton_{{id}}' type='button' class='button'>Import</button>
+<select id='exampleDrop_{{id}}'>
+<option>Lo hi</option>
+<option>Flight attendant</option>
+<option>Pacemaker</option>
+</select><br/>
+<textarea id='testVectorWindow_{{id}}' class='test-vector-window textfield'></textarea>
+<textarea id='JSONImportExport_{{id}}' class='JSON-import-export textfield' rows='4' cols='50' placeholder='Paste design here.'>
+</textarea>
+
+</div>
+</div>

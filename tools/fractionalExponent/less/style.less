@@ -1,0 +1,115 @@
+@import "../../../zyWeb/less/constants.less";
+
+.fractionalExponent {
+    width: 450px;
+
+    .expression-area {
+        font-size:   20px;
+        height:      80px;
+        padding-top: 10px;
+        text-align:  center;
+
+        @inside-radical-side-padding: 5px;
+        .inside-radical {
+            display:       inline-block;
+            padding-left:  @inside-radical-side-padding;
+            padding-right: @inside-radical-side-padding;
+        }
+
+        .equal-sign {
+            padding-left:  5px;
+            padding-right: 5px;
+        }
+
+        .final-answer-with-fractional-exponent {
+            left:     -24px;
+            position: relative;
+            top:      10px;
+
+            .fraction-exponent {
+                font-size: 16px;
+                left:      25px;
+                position:  relative;
+                top:       -30px;
+            }
+
+            .inside-radical {
+                border-top:  2px solid @zyante-gray;
+                padding-top: 13px;
+                position:    relative;
+                top:         -14px;
+            }
+
+            .radical {
+                font-size:   59px;
+                font-weight: 100;
+                left:        9px;
+                position:    relative;
+            }
+        }
+
+        input {
+            font-size:     16px;
+            margin-bottom: 0px;
+            text-align:    center;
+            width:         35px;
+        }
+
+        .numerator {
+            border-bottom: 1px solid black;
+            margin-bottom: 5px;
+        }
+
+        .reduced-expression-with-fractional-exponent {
+            .fraction-exponent {
+                font-size: 16px;
+                left:      20px;
+                position:  relative;
+                top:       -15px;
+            }
+
+            .inside-radical {
+                border-top:  2px solid @zyante-gray;
+                padding-top: 3px;
+            }
+
+            .radical {
+                font-size: 30px;
+                left:      6px;
+                position:  relative;
+            }
+        }
+
+        .superscript-input {
+            display:  inline-block;
+            position: relative;
+            top:      -10px;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        .unreduced-expression-with-fractional-exponent {
+            .fraction-exponent {
+                font-size: 16px;
+                left:      25px;
+                position:  relative;
+                top:       -33px;
+            }
+
+            .inside-radical {
+                border-top:  2px solid @zyante-gray;
+                display:     inline-block;
+                padding-top: 3px;
+            }
+
+            .radical {
+                font-size:   68px;
+                font-weight: 100;
+                left:        8px;
+                position:    relative;
+            }
+        }
+    }
+}

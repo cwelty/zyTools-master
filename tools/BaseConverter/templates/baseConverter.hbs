@@ -1,0 +1,61 @@
+{{!
+    Print the base converter.
+    @param {Array} supportedBases List of bases supported by this module.
+    @param {Number} numberOfDigits How many digits the user can interact with.
+    @param {Array} exponentOfDigits List of exponent values from largest to smallest. Ex: 7..0
+    @param {Array} productValueOfDigits List of product operations to get the decimal equivalent. Ex: '1*128','0*64'..'1*0'
+    @param {Boolean} oneBase Whether to convert from just one base or allow changing bases.
+    @param {Number} [defaultBase=2] The default base for the convertor.
+}}
+<div id='base-div'>
+    <div class='base-select-and-reset-container'>
+        <select class='base-select' {{#if oneBase}}style='display: none'{{/if}}>
+            {{#if oneBase}}
+                <option value='{{defaultBase}}'>Base-{{defaultBase}}</option>
+            {{else}}
+                {{#each supportedBases}}
+                    <option value='{{this}}'>Base-{{this}}</option>
+                {{/each}}
+            {{/if}}
+        </select>
+
+        <button class='reset inverted-blue-button'>Reset</button>
+    </div>
+
+    <table>
+        <tr>
+            {{#range numberOfDigits}}
+                <td colspan='2'>
+                    <button class='bin-button md-action-button' value='0'></button>
+                    <input class='input-number' name='value'>
+                </td>
+                <td></td>
+            {{/range}}
+        </tr>
+
+        <tr class='base-row'>
+            {{#each exponentOfDigits}}
+                <td class='base' colspan='2'><span class='base-value'></span><sup>{{this}}</sup></td>
+                <td></td>
+            {{/each}}
+        </tr>
+
+        <tr class='digit-decimal-values-container'></tr>
+
+        <tr>
+            {{#each productValueOfDigits}}
+                <td class='sum' colspan='2'>{{this}}</td>
+                {{#if @last}}
+                    <td>=</td>
+                {{else}}
+                    <td>+</td>
+                {{/if}}
+            {{/each}}
+            <td class='decimal-value-result'></td>
+        </tr>
+        <tr>
+            <td colspan='24'></td>
+            <td class='decimal-value-label'>(decimal value)</td>
+        </tr>
+    </table>
+</div>

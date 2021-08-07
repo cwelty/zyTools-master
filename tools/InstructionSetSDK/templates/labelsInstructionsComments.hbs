@@ -1,0 +1,17 @@
+{{!
+    Render an array of (label, instruction, and comment).
+
+    Input:
+        * |labelsInstructionsComments| is required and an array of objects. Each object contains:
+            * |label|, |instruction|, and |comment| are required and a string.
+            * |isDisabled| is required and a boolean.
+}}
+<table class='instructions-with-comments'>
+    {{#each labelsInstructionsComments}}
+        <tr>
+            <td><pre class='explanation-code'>{{#if label}}{{label}}:{{/if}}</pre></td>
+            <td><pre class='explanation-code{{#if isDisabled}} disabled{{/if}}'>{{instruction}}</pre></td>
+            <td><pre class='explanation-code'>{{comment}}</pre></td>
+        </tr>
+    {{/each}}
+</table>

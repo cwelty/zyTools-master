@@ -1,0 +1,116 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+.CodingProgression {
+    @coding-progression-width: 900px;
+
+    .instructions-div {
+        margin-bottom: 10px;
+        max-width: @coding-progression-width;
+        white-space: pre-wrap;
+    }
+
+    .file-editor {
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,.14), 0 2px 2px 0 rgba(0,0,0,.098), 0 1px 5px 0 rgba(0,0,0,.084);
+        width: @coding-progression-width;
+    }
+
+    textarea.file-editor {
+        height: 300px;
+        margin-top: 15px;
+    }
+
+    .disabled {
+        opacity: 0.75;
+    }
+
+    .error-output {
+        background-color: @zyante-background-color;
+        border: 1px solid @zyante-featured-background-color;
+        margin: 10px 0;
+        overflow-x: auto;
+        padding: 4px;
+
+        p {
+            font-family: @zyante-code-font;
+            color: @zyante-darker-blue;
+            white-space: pre;
+        }
+    }
+
+    .explanation {
+        color: @zyante-gray;
+        display: inline;
+    }
+
+    .compile-output-header {
+        color: #546e7a;
+        font-weight: 400;
+        margin-top: 16px;
+    }
+
+    .test {
+        border-top: 1px solid @zyante-featured-background-color;
+        max-width: @coding-progression-width;
+        padding-top: 8px;
+
+        .test-header {
+            cursor: pointer;
+            display: flex;
+            font-weight: 400;
+            margin: 8px 0;
+
+            img {
+                object-fit: contain;
+            }
+
+            .test-title-container {
+                align-items: center;
+                color: #546e7a;
+                margin-left: 4px;
+            }
+        }
+
+        .test-body {
+            margin-left: 20px;
+
+            div {
+                margin-bottom: 8px;
+            }
+        }
+
+        div.output-row-result {
+            align-items: center;
+            display: flex;
+
+            div.explanation-description {
+                margin-right: 10px;
+                text-align: right;
+                min-width: 160px;
+            }
+
+            div.no-output-message {
+                font-size: 13px;
+                font-style: italic;
+            }
+
+            // Style copied from the zyLabs diff in 2.0. In the future we might have constants for this.
+            div.output {
+                background-color: #f5f5f5;
+                border: 1px solid rgba(189, 189, 189, .5);
+                border-radius: 2px;
+                font-family: @zyante-code-font;
+                line-height: 1.4;
+                margin: 0;
+                max-height: 250px;
+                overflow: auto;
+                padding: 4px 10px;
+                white-space: pre;
+            }
+        }
+    }
+
+    .solution {
+        width: 750px;
+    }
+}

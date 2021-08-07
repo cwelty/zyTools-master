@@ -1,0 +1,5 @@
+Click
+colorama
+subprocess32
+requests
+awscli

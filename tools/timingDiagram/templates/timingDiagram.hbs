@@ -1,0 +1,87 @@
+<div class='timing-container'>    
+    <div class='gate-image-container'>
+        <div class='gate-inputs-and'>
+            <div class='a-gate-input'>
+                <div class='gate-label'>a</div><hr/>
+            </div>
+            <div class='b-gate-input'>
+                <div class='gate-label'>b</div><hr/>
+            </div>
+        </div>
+        <img id='and-gate-{{id}}' src='' class='gate-image'>
+        <div class='gate-outputs'>
+            <hr/><div class='gate-label'>y</div>
+        </div>
+    </div>
+    <div class='gate-image-container'>
+        <div class='gate-inputs-or'>
+            <div class='a-gate-input'>
+                <div class='gate-label'>a</div><hr/>
+            </div>
+            <div class='b-gate-input'>
+                <div class='gate-label'>b</div><hr/>
+            </div>
+        </div>
+        <img id='or-gate-{{id}}' src='' class='gate-image'>
+        <div class='gate-outputs'>
+            <hr/><div class='gate-label'>y</div>
+        </div>
+    </div>
+    <div class='gate-image-container srd'>
+        <img id='sr-{{id}}' src='' class='gate-image'>
+    </div>
+    <div class='gate-image-container srd'>
+        <img id='d-{{id}}' src='' class='gate-image'>
+    </div>
+
+    <div class='gate-image-container hlsm'>
+        <img id='hlsm0-{{id}}' src='' class='gate-image'>
+    </div>
+    <div class='gate-image-container hlsm'>
+        <img id='hlsm1-{{id}}' src='' class='gate-image'>
+    </div>
+    <div class='context-text' id='equation-{{id}}'></div>
+
+    <table class='diagram-table' align='center'>
+        <tr>
+            <td id='a0-label-{{id}}' class='context-text label'>A0</td>
+            <td class='diagram-canvas-container input-canvas'>
+                <canvas id='A0-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+                <div class='input-container'>{{#each signalIndexes}}<input type='text' id='inta0-{{this}}-{{../id}}' index='{{this}}' class='int-input-segment' maxlength='2' onClick='this.select();' value='0' />{{/each}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td id='a1-label-{{id}}' class='context-text label'>A1</td>
+            <td class='diagram-canvas-container input-canvas'>
+                <canvas id='A1-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+                <div class='input-container'>{{#each signalIndexes}}<input type='text' id='inta1-{{this}}-{{../id}}' index='{{this}}' class='int-input-segment' maxlength='2' onClick='this.select();' value='0' />{{/each}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td id='a2-label-{{id}}' class='context-text label'>A2</td>
+            <td class='diagram-canvas-container input-canvas'>
+                <canvas id='A2-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+            </td>
+        </tr>
+        <tr>
+            <td id='a3-label-{{id}}' class='context-text label'>A3</td>
+            <td class='diagram-canvas-container input-canvas'>
+                <canvas id='A3-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+            </td>
+        </tr>
+        <tr>
+            <td id='b0-label-{{id}}' class='context-text output-label label'>B0</td><!--
+            --><td class='diagram-canvas-container output-canvas'><!--
+                --><canvas id='B0-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+                <div class='output-container'>{{#each signalIndexes}}<input type='text' id='intb0-{{this}}-{{../id}}' index='{{this}}' class='int-output-segment' maxlength='2' onClick='this.select();' value='0' /><span id='b0-{{this}}-{{../id}}' index='{{this}}' class='output-segment'></span>{{/each}}</div>
+            </td>
+        </tr>
+        <tr>
+                <td id='expected-label-{{id}}' class='context-text output-label label'>Expected B0</td><!--
+                --><td class='diagram-canvas-container output-canvas'><!--
+                    --><canvas id='expected-diagram-{{id}}' height='{{canvasHeight}}' width='{{canvasWidth}}' class='diagram-canvas'></canvas>
+                    <div class='output-container'>{{#each signalIndexes}}<input type='text' id='intb0-{{this}}-{{../id}}' index='{{this}}' class='int-output-segment' maxlength='2' onClick='this.select();' value='0' /><span id='expected-{{this}}-{{../id}}' index='{{this}}' class='output-segment'></span>{{/each}}</div>
+                </td>
+            </tr>
+    </table>
+</div>

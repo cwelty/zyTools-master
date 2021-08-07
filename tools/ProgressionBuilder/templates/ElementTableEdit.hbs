@@ -1,0 +1,53 @@
+{{!
+    Print a table element.
+    @param {Boolean} isFirstRowHeader Whether the first row of the generated table will be a header row or not.
+    @param {Boolean} isFirstColumnHeader Whether the first column of the generated table will be a header column or not.
+    @param {Boolean} isSpreadsheet Whether to treat the table as a spreadsheet.
+    @param {Boolean} isUsingList Whether the table is created with a two-dimensional list.
+    @param {String} listName The name of the Python list defining the table.
+    @param {Integer} rows The number of rows of the table.
+    @param {Integer} cols The number of columns of the table.
+}}
+<div class='table-modal'>
+    <div id='header-cells-container'>
+        <input id='header-row' type='checkbox'{{#if isFirstRowHeader}} checked{{/if}}>
+        <label for='header-row'>Use a header row?</label>
+        <input id='header-col' type='checkbox'{{#if isFirstColumnHeader}} checked{{/if}}>
+        <label for='header-col'>Use a header column?</label>    </div>
+    <div>
+        <input id='as-spreadsheet' type='checkbox'{{#if isSpreadsheet}} checked{{/if}}>
+        <label for='as-spreadsheet'>As spreadsheet</label>
+    </div>
+    <div id='use-list-container'>
+        <input id='use-list' type='checkbox' {{#if isUsingList}}checked{{/if}}>
+        <label for='use-list'>Use a two-dimensional Python list variable.</label>
+        <div id='table-list-name-container' class='zb-input-container label-present info value-present'>
+            <label for='table-list-name'>Table data</label>
+            <input id='table-list-name' type='text' placeholder='Ex: ${table_values}' value='{{listName}}'>
+        </div>
+    </div>
+    <div id='manual-data'>
+        <div id='number-of-cells-container'>
+            <div class='labels-container'>
+                <label for='number-of-rows'>Number of rows:</label>
+                <label for='number-of-columns'>Number of columns:</label>
+            </div>
+            <div class='row-col-input-container'>
+                <input id='number-of-rows' type='number' min='2' max='20' placeholder='Ex: 2' value='{{rows}}'>
+                <input id='number-of-columns' type='number' min='2' max='20' placeholder='Ex: 2' value='{{cols}}'>
+            </div>
+        </div>
+        <div id='cell-property-segmented-control'></div>
+        <div id='table-content-container'></div>
+        <div id='table-width-container'></div>
+        <div id='table-fill-color-container'>
+            <p>Supported colors: default, blue, green, and orange. Or, enter a Python variable, like: ${cell_color}</p>
+            <div></div>
+        </div>
+    </div>
+
+    <div class='preview-container'>
+        <h3>Preview</h3>
+        <div class='preview-table-object'></div>
+    </div>
+</div>

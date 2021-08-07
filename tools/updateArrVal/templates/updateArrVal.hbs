@@ -1,0 +1,44 @@
+<div class="updateArrVal" id="updateArrVal{{id}}">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <p id="arrayUpdate_instructions{{id}}" class="instructions">Update myItems with the given code.</p>
+                </td>
+                <td>
+                    <p id="arrayUpdate_explanation{{id}}" class="explanation"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="memory-table">
+                        <tr>
+                            <td></td>
+                            <td class="memory-array-name">myItems</td>
+                        </tr>
+                        {{#each addressIndexes}}
+                            <tr>
+                                <td class="memory-address">{{this}}</td>
+                                <td class="memory-data"><div id="arrayUpdate_mem{{this}}{{../id}}" class="memory-data-student"></div></td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </td>
+                <td>
+                    <table id="arrayUpdate_corrMemTable{{id}}" class="memory-table">
+                        <tr>
+                            <td></td>
+                            <td class="memory-array-name">myItems</td>
+                        </tr>
+                        {{#each addressIndexes}}
+                            <tr>
+                                <td class="memory-address">{{this}}</td>
+                                <td class="memory-data"><div id="arrayUpdate_corrMem{{this}}{{../id}}"></div></td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+</div>

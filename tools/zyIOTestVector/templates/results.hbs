@@ -1,0 +1,29 @@
+<div class='table'>
+    <table>
+        <tbody>
+            {{#if hasInput}}
+                {{#each inputs}}
+                    <tr>
+                        <td>{{name}}</td>
+                        {{#each values}}
+                        <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+            {{/if}}
+            <tr>
+                <td>Expected {{outputName}}</td>
+                {{#each expectedOutputs}}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+
+            <tr>
+                <td>Your {{outputName}}</td>
+                {{#each actualOutputs}}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
+</div>

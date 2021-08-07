@@ -1,0 +1,28 @@
+@import "../../../zyWeb/less/constants.less";
+
+div.propositionTable {
+    width: 705px;
+
+    table {
+        margin: 0 auto;
+        text-align: center;
+
+        input.truth-value {
+            margin-bottom: 0;
+            text-align: center;
+
+            &.wrong-value {
+                .box-shadow-and-border(@zyante-medium-red);
+            }
+
+            &.invalid-value {
+                .box-shadow-and-border(@zyante-yellow);
+            }
+        }
+    }
+
+    p.instructions {
+        font-size: 26px;
+        text-align: center;
+    }
+}

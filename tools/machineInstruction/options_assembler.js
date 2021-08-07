@@ -1,0 +1,1 @@
+{ 'assemblerMode': true }

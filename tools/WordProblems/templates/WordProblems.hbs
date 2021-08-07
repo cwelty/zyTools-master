@@ -1,0 +1,8 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+}}
+<div class='prompt'>{{{question.prompt}}}</div>
+{{{question.inputPrefix}}}
+<input type='{{#if question.answerIsNumber}}number{{else}}text{{/if}}' placeholder='{{question.placeholder}}' size='{{question.inputSize}}'></input>
+{{{question.inputPostfix}}}

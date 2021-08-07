@@ -1,0 +1,80 @@
+<div class='builder'>
+    <div class='flex-row progression-level-container'>
+        <div>
+            <label for='caption'>Caption:</label>
+            <input id='caption' class='caption-container' type='text'>
+        </div>
+        <div>
+            <label for='language'>Language:</label>
+            <select id='language' class='ember-power-select-trigger'>
+                <option value='c'>C</option>
+                <option value='cpp' selected='selected'>C++</option>
+                <option value='java'>Java</option>
+                <option value='python'>Python 2</option>
+                <option value='python3'>Python 3</option>
+                <option value='zyPseudocode'>Coral</option>
+                <option value='zyFlowchartZyPseudocode'>Flowchart + Coral</option>
+                <option value='zyFlowchart'>Flowchart</option>
+            </select>
+        </div>
+        <div class='highlight-new zb-checkbox blue label-present right'>
+            <input id='{{id}}-highlight-new' type='checkbox' value='false' aria-label='Highlight new lines'>
+            <label for='{{id}}-highlight-new' aria-hidden='true'>Highlight new lines</label>
+        </div>
+    </div>
+    <div class='flex-row'>
+
+        <div>
+            <button class='new zb-button primary'>
+                <i aria-hidden='true' class='zb-icon material-icons med'>refresh</i>
+                <span class='title'>Begin new</span>
+            </button>
+        </div>
+
+        <div>
+            <button class='undo zb-button secondary' disabled>
+                <i aria-hidden='true' class='zb-icon material-icons med'>undo</i>
+            </button>
+            <button class='redo zb-button secondary' disabled>
+                <i aria-hidden='true' class='zb-icon material-icons med'>redo</i>
+            </button>
+        </div>
+
+        <div>
+            <button class='run zb-button primary raised'>
+                <i aria-hidden='true' class='zb-icon material-icons med'>play_circle_outline</i>
+                <span class='title'>Run</span>
+            </button>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class='flex-row main-container'>
+        <div class='levels-and-files-container'>
+        </div>
+
+        <div class='levels-content-container'>
+        </div>
+    </div>
+
+    <div class='container'>
+        <button class='export zb-button secondary'><span class='title'>Export ↓</span></button>
+        <button class='import zb-button secondary'><span class='title'>Import ↑</span></button>
+        <p class='zb-message-container success'>Copied to clipboard!</p>
+        <div>
+            <textarea class='import-export zb-text-area' autocorrect='off' spellcheck='false' rows='6'></textarea>
+        </div>
+    </div>
+</div>
+
+<div class='player'>
+    <button class='back-to-builder zb-button primary'>
+        <i aria-hidden='true' class='zb-icon grey material-icons med'>arrow_back</i>
+        <span class='title'>Back to builder</span>
+    </button>
+    <div class='tool'>
+        <div id='player-{{id}}' class='codeOutput'></div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{{!
+    Render multiple choice questions.
+    @param {Array} questions Array of {Object}. The question object is defined in README.md.
+}}
+{{#each questions}}
+    <div class='question-set-question multiple-choice-question'>
+        <div class='setup'>
+            <div class='label'>{{this.questionNumber}})</div>
+            <div class='text'>{{{this.question}}}</div>
+        </div>
+
+        <ul class='choices'>
+            {{#each this.choices}}
+                <li>
+                    <md-radio-button class='md-default-theme md-accent'>
+                        <div class='md-container'>
+                            <div class='md-off'></div>
+                            <div class='md-on'></div>
+                            <div class='md-ripple-container'></div>
+                        </div>
+                        <div class='md-label'>{{{this.name}}}</div>
+                    </md-radio-button>
+                </li>
+            {{/each}}
+        </ul>
+
+        <div class='explanation'>
+            <div>
+                <span class='explanation-message'></span>
+            </div>
+        </div>
+    </div>
+{{/each}}

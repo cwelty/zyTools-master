@@ -1,0 +1,28 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.promptLeftSide The prompt's left side of functions.
+    @param {String} question.promptRightSide The prompt's right side of functions.
+    @param {String} question.inputPrefix A prefix for the input box.
+    @param {String} question.placeholder Input box's placeholder.
+}}
+<div class='prompt'>
+    {{#if question.prompt}}
+        {{{question.prompt}}}
+        </div>
+        {{{question.inputPrefix}}}
+        <input type='text' placeholder='{{question.placeholder}}'></input>
+    {{else}}
+        <table>
+            <tr class='prompt-row'>
+                <td class='function-left-side'>{{{question.promptLeftSide}}}</td>
+                <td class='function-right-side'>{{{question.promptRightSide}}}</td>
+            </tr>
+            <tr class='answer-row'>
+                <td class='function-left-side'>{{{question.inputPrefix}}}</td>
+                <td><input type='text' placeholder='{{question.placeholder}}'></input></td>
+            </tr>
+        </table>
+    </div>
+{{/if}}

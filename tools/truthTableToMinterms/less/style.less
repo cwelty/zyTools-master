@@ -1,0 +1,59 @@
+@import "../../../zyWeb/less/constants.less";
+
+.truthTableToMinterms {
+    font-size: 14px;
+    
+    div.middle-container {
+        text-align: center;
+        width:      496px;
+        
+        div.equation {
+            margin-top: 20px;
+            
+            span.equation-field-label, input {
+                display:   inline-block;
+                font-size: 24px;
+            }
+        }
+        
+        table.truth-table {
+            margin-left:  auto;
+            margin-right: auto;
+        
+            tr:nth-of-type(2) {
+                td {
+                    border-top-color: @zyante-gray;
+                }
+            }
+        
+            td {
+                border-top-color: @zyante-light-gray;
+                border-top-style: solid;
+                border-top-width: 1px;
+                min-width:        47px;
+                
+                &.wrong-answer {
+                    background-color: @zyante-medium-red;
+                    color:            white;
+                }
+            }
+            
+            td, th {
+                font-weight: normal;
+                padding:     5px;
+                text-align:  center;
+                
+                &.result {
+                    border-left-color: @zyante-gray;
+                    border-left-style: solid;
+                    border-left-width: 1px;
+                    
+                    &.invisible {
+                        border-left: 0;
+                        visibility:  hidden;
+                    }
+                }
+            }
+        }
+    }
+}

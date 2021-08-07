@@ -1,0 +1,43 @@
+@import "../../../zyWeb/less/constants.less";
+
+.restrictedEditor {
+    .keyframe-animation (@animation-name, @duration) {
+        -webkit-animation: @animation-name @duration;
+        -moz-animation:    @animation-name @duration;
+        -o-animation:      @animation-name @duration;
+        animation:         @animation-name @duration;
+    }
+    
+    .gutter-flash-frames {
+        0% { 
+            background-color: white;
+            color:            black;
+        }
+        10% {
+            background-color: @zyante-green;
+            color:            white;
+        }
+        80% {
+            background-color: @zyante-green;
+            color:            white;
+        }
+        100% { 
+            background-color: white;
+            color:            black;
+        }
+    }
+
+    @-webkit-keyframes gutter-highlight-flash-anim { .gutter-flash-frames; }
+    @-moz-keyframes gutter-highlight-flash-anim {    .gutter-flash-frames; }
+    @-o-keyframes gutter-highlight-flash-anim {      .gutter-flash-frames; }
+    @keyframes gutter-highlight-flash-anim {         .gutter-flash-frames; }
+
+    .gutter-highlight {
+        background-color: white;
+        color:            black;
+
+        &.gutter-highlight-flash {
+            .keyframe-animation(gutter-highlight-flash-anim, 4s);
+        }
+    }
+}

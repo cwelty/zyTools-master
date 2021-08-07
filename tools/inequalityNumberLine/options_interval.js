@@ -1,0 +1,3 @@
+{
+    notation: 'interval'
+}

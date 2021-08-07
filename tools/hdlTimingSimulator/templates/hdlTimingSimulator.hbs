@@ -1,0 +1,67 @@
+{{! Handlebars template for the HDL timing simulator tool }}
+<div class='hdl-module-container'>
+    {{#if isVerilog}}
+        {{> verilogCodeBlock}}
+    {{/if}}
+    {{#if isVHDL}}
+        {{> vhdlCodeBlock}}
+    {{/if}}
+</div>
+
+<button class='load-all-timing-combinations'>Load sample inputs</button>
+{{! Input signals}}
+<div class='timing-diagram-container timing-input-signal-container'>
+    Inputs: <span class='instruction-in-label'>click waveform to edit</span>
+    {{#inputs}}
+        <div class='timing-container' id='timing-signal-line-{{this.signal}}'>
+            <div class='timing-signal-identifier'>
+                {{this.signal}}
+            </div>
+            <div class='signal-frequency-container'>
+                <span class='signal-high-frequency-label'>1</span>
+                <span class='signal-low-frequency-label'>0</span>
+            </div>
+
+            {{#timeSteps ../numberOfCycles}}
+                <input class='timing-diagram-segment' id='{{../signal}}{{this.timeSegment}}' type='checkbox' {{this.checked}}/>
+                <label class='time-segment-label' for='{{../signal}}{{this.timeSegment}}'></label>
+            {{/timeSteps}}
+        </div>
+    {{/inputs}}
+
+    <div class='time-labels'>
+        {{#timeLabels numberOfCycles}}
+            <span class='time-label'>{{this}}</span>
+        {{/timeLabels}}
+    </div>
+</div>
+
+<button class='run-hdl-timing-simulator'>Run</button>
+<span class='timing-simulator-message-area'></span>
+
+{{! Output signals}}
+<div class='timing-diagram-container'>
+    Output:
+    {{#outputs}}
+        <div class='timing-container stale-output' id='timing-signal-line-{{this.signal}}'>
+            <div class='timing-signal-identifier'>
+                {{this.signal}}
+            </div>
+            <div class='signal-frequency-container'>
+                <span class='signal-high-frequency-label'>1</span>
+                <span class='signal-low-frequency-label'>0</span>
+            </div>
+
+            {{#timeSteps ../this.numberOfCycles}}
+                <input class='timing-diagram-segment' id='{{../signal}}{{this.leftLabel}}' type='checkbox' disabled/>
+                <label class='time-segment-label' for='{{../signal}}{{this.leftLabel}}'></label>
+            {{/timeSteps}}
+        </div>
+    {{/outputs}}
+
+    <div class='time-labels'>
+        {{#timeLabels numberOfCycles}}
+            <span class='time-label'>{{this}}</span>
+        {{/timeLabels}}
+    </div>
+</div>

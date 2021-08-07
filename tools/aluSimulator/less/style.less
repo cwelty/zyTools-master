@@ -1,0 +1,373 @@
+@import "../../../zyWeb/less/constants.less";
+
+@bus-label-degree: -50deg;
+@border-line-color: #b0bec5; // This is blue-gray-200 in 2.0
+@border-style: 1px solid @border-line-color;
+@component-border-style: 1px solid black;
+
+@keyframes activateRight {
+    0% {
+        box-shadow: black 0 0 0 0;
+    }
+    100% {
+        box-shadow: black 1px 0 0 0;
+    }
+}
+
+@keyframes activateBottom {
+    0% {
+        box-shadow: black 0 0 0 0;
+    }
+    100% {
+        box-shadow: black 0 1px 0 0;
+    }
+}
+
+@keyframes activateBoth {
+    0% {
+        box-shadow: black 0 0 0 0;
+    }
+    100% {
+        box-shadow: black 1px 1px 0 0;
+    }
+}
+
+.aluSimulator {
+    div.data-input-div {
+        display: flex;
+        margin-left: 241px;
+
+        #first-data-input {
+            margin-right: 135px;
+        }
+
+        .input-data-container {
+            margin: auto;
+            text-align: center;
+            width: 173px;
+
+            table {
+                margin-left: -10px;
+            }
+        }
+    }
+
+    .input-container {
+        border: @component-border-style;
+        padding: 5px;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+
+        .button {
+            height: 9px;
+            line-height: 9px;
+            padding: 16px;
+            width: 9px;
+        }
+    }
+
+    div.alu-container {
+        display: flex;
+
+        div.alu-select-container {
+            padding: 148px 5px 0 0;
+            white-space: nowrap;
+
+            .mux-labels {
+                display: inline-block;
+                text-align: center;
+                vertical-align: top;
+                width: 10px;
+            }
+
+            .mux-select-input {
+                display: inline-block;
+            }
+
+            .mux-button-container {
+                .input-container;
+                display: inline-block;
+                width: 43px;
+
+                div {
+                    display: block;
+
+                    &:not(:first-child) {
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    table.wire-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        height: auto;
+        text-align: center;
+        width: 100%;
+
+        tr {
+            height: 10px;
+        }
+
+        td {
+            min-height: 5px;
+            min-width: 10px;
+
+            &.height18 {
+                height: 18px;
+            }
+            &.height25 {
+                height: 25px;
+            }
+            &.height26 {
+                height: 26px;
+            }
+            &.height27 {
+                height: 27px;
+            }
+            &.height29 {
+                height: 29px;
+            }
+            &.height40 {
+                height: 40px;
+            }
+
+            &.min-width-11 {
+                min-width: 11px;
+            }
+            &.width10 {
+                width: 10px;
+            }
+            &.width11 {
+                width: 11px;
+            }
+            &.width13 {
+                width: 13px;
+            }
+            &.width15 {
+                width: 15px;
+            }
+            &.width17 {
+                width: 17px;
+            }
+            &.width20 {
+                width: 20px;
+            }
+            &.always-on-r {
+                box-shadow: black 1px 0px 0 0;
+            }
+            &.always-on {
+                &.right {
+                    box-shadow: black 1px 0px 0 0;
+                }
+                &.bottom {
+                    box-shadow: black 0px 1px 0 0;
+                }
+                &.right.bottom {
+                    box-shadow: black 1px 1px 0 0;
+                }
+            }
+            &.right {
+                border-right: @border-style;
+            }
+            &.bottom {
+                border-bottom: @border-style;
+            }
+            &.component-right {
+                border-right: @component-border-style;
+            }
+            &.component-bottom {
+                border-bottom: @component-border-style;
+            }
+
+            &.activate-right {
+                animation-name: activateRight;
+                animation-duration: 0.300s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+                animation-timing-function: linear;
+            }
+            &.activate-bottom {
+                animation-name: activateBottom;
+                animation-duration: 0.300s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+                animation-timing-function: linear;
+            }
+            &.activate-both {
+                animation-name: activateBoth;
+                animation-duration: 0.300s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+                animation-timing-function: linear;
+            }
+
+            &.operation-carry {
+                color: @zyanimator-gray;
+            }
+
+            &.color {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .alu-tool-table {
+        border: @component-border-style;
+        display: flex;
+        margin-right: 20px;
+
+        .mux-selector {
+            display: grid;
+            margin-top: 175px;
+            margin-bottom: 280px;
+            padding: 0 3px;
+        }
+
+        .alu-output {
+            display: inline-block;
+            padding: 2px;
+            width: auto;
+        }
+
+        .alu-calculator {
+            min-height: 200px;
+            min-width: 400px;
+            padding-right: 16px;
+
+            div.muxes {
+                display: flex;
+            }
+
+            div.adder {
+                margin-top: -1px;
+            }
+
+            table.table-4x1-mux {
+                width: 20%
+            }
+        }
+    }
+
+    div.alu-output-data {
+        display: inline-flex;
+        height: 80px;
+        margin-left: 96px;
+
+        .function-table-container {
+            background: white;
+            box-shadow: 1px 1px 3px 0 grey;
+            font-size: 16px;
+            height: 160px;
+            left: -80px;
+            position: relative;
+            text-align: center;
+            top: -190px;
+            width: 182px;
+
+            .function-table {
+                position: absolute;
+                z-index: 1;
+
+                thead tr:first-child {
+                    font-weight: bold;
+                }
+
+                thead tr:last-child {
+                    border-bottom: @component-border-style;
+                }
+
+                td {
+                    padding: 2px 10px;
+
+                    &:nth-child(2) {
+                        border-right: @component-border-style;
+                    }
+                    &:last-child {
+                        text-align: left;
+                    }
+                }
+            }
+
+            .table-highlight {
+                background-color: lighten(@zyante-green, 30%);
+                height: 26px;
+                position: relative;
+                top: 53px;
+                width: 182px;
+                z-index: 0;
+            }
+        }
+
+        .alu-output {
+            margin-left: 177px;
+            width: fit-content;
+
+            .led-container {
+                border: @component-border-style;
+                padding: 5px 15px;
+                width: fit-content;
+
+                .led-output {
+                    display: none;
+
+                    & + .led-label {
+                        background-color: white;
+                        border: @component-border-style;
+                        border-radius: 50%;
+                        display: inline-block;
+                        height: 20px;
+                        position: static;
+                        width: 20px;
+                    }
+
+                    &:checked + .led-label {
+                        background-color: #f3d47c; // This is $highlight-yellow in 2.0
+                    }
+                }
+
+                .led-values {
+                    margin: auto;
+                    width: fit-content;
+                }
+            }
+        }
+    }
+
+    .decimal-value {
+        color: @zyante-cancel-gray;
+    }
+
+    .binary-string {
+        display: inline-block;
+    }
+
+    .and-gate {
+        border: @component-border-style;
+        border-radius: 0 0 30px 30px;
+        height: 25px;
+        width: 20px;
+    }
+
+    .connector:after {
+        background-color: black;
+        border: @component-border-style;
+        border-color: black;
+        border-radius: 20px;
+        content: "";
+        display: block;
+        height: 4px;
+        margin: 3px 0 0 10px;
+        position: absolute;
+        width: 4px;
+    }
+
+    .inverter {
+        margin-left: -1px;
+        position: absolute;
+        width: 15px;
+    }
+}

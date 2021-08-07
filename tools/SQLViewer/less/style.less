@@ -1,0 +1,75 @@
+@import "../../../zyWeb/less/constants.less";
+
+.SQLViewer {
+    @editor-height: 300px;
+    @editor-width: 900px;
+
+    .editor-container {
+        height: @editor-height;
+        width: @editor-width;
+    }
+
+    .under-editor {
+        margin-top: 5px;
+
+        .inline {
+            display: flex;
+            height: 36px;
+
+            & > * {
+                margin-right: 30px;
+            }
+
+            .reset-message {
+                display: none;
+                margin: 0;
+                padding: 7px 8px;
+            }
+
+            .processing {
+                display: none;
+                margin: auto 24px;
+            }
+        }
+
+        #results {
+            background-color: @zyante-featured-background-color;
+            border: 1px solid @zyante-light-gray;
+            border-radius: 2px;
+            box-sizing: border-box;
+            display: none;
+            margin-top: 5px;
+            min-height: @editor-height;
+            padding: 4px 10px;
+            width: @editor-width;
+
+            &.error-output {
+                border-left: 4px solid @zyante-error-red;
+            }
+
+            .clickable {
+                cursor: pointer;
+            }
+
+            table {
+                display: block;
+                margin: 10px 0;
+                max-width: fit-content;
+                overflow: auto;
+
+                td {
+                    white-space: pre;
+                }
+
+                span.null {
+                    color: #999;
+                }
+            }
+
+            div.query-name-container {
+                max-height: 115px;
+                min-width: 500px;
+            }
+        }
+    }
+}

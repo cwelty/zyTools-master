@@ -1,0 +1,40 @@
+<div>
+    <table>
+        <colgroup>
+            <col width='400'>
+            <col min-width='150'>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>Question</th>
+                <th>Your answer</th>
+            </tr>
+            {{#each questions}}
+                <tr class='question-row'>
+                    <td>
+                        <div class='question-problem'>{{this.questionNumber}}. {{{this.question}}}</div>
+                    </td>
+                    {{#if this.isMultipleChoice}}
+                        <td class='multiple-choice-answer-container'>
+                            {{#each this.choices}}
+                                <div class='question-choice button-unselected'>
+                                    {{#if this.isCode}}
+                                        <pre><code>{{{this.content}}}</code></pre>
+                                    {{else}}
+                                        {{{this.content}}}
+                                    {{/if}}
+                                </div>
+                            {{/each}}
+                        </td>
+                    {{else}}
+                        <td>
+                            <div class='question-answer-area'>
+                                <input type='text' class='question-answer-textarea min-width-text-area' spellcheck='false' autocapitalize='off' autocorrect='off' rows='1' cols='5'></input>
+                            </div>
+                        </td>
+                    {{/if}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

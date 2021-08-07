@@ -1,0 +1,4 @@
+{
+    type: 'expressions',
+    instructionSet: 'MIPSzy'
+}

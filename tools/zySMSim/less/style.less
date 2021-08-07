@@ -1,0 +1,309 @@
+@import "../../../zyWeb/less/constants.less";
+
+.user-select(@value) {
+    -moz-user-select:     @value;
+    -ms-user-select:      @value;
+    -o-user-select:       @value;
+    -webkit-user-select:  @value;
+    user-select:          @value;
+}
+
+.zySMSim{
+    .user-select(none);
+    overflow-x: auto;
+    overflow-y: hidden;
+    .sm-tool-canvas {
+        display:     inline-block;
+        left:        0;
+        margin-left: 10px;
+        position:    relative;
+        top:         5px;
+    }
+
+    .action {
+        .user-select(text);
+        border:      1px solid @zyante-gray;
+        display:     block;
+        font-family: @zyante-code-font;
+        font-size:   16px;
+        height:      90px;
+        margin-top:  5px;
+        overflow:    scroll;
+        resize:      none;
+        width:       200px;
+    }
+
+    .action-container {
+        display:        inline-block;
+        height:         auto;
+        margin-top:     15px;
+        vertical-align: top;
+        width:          auto;
+    }
+
+    .bottom-container {
+        display:  inline-block;
+        left:     93px;
+        position: relative;
+    }
+
+    .canvas-tab {
+        cursor:        pointer;
+        display:       inline-block;
+        height:        390px;
+        margin-bottom: 5px;
+        width:         600px;
+
+        &.progression {
+            border: 1px solid @zyante-gray;
+        }
+    }
+
+    .canvas-tab li .ui-icon-close {
+        cursor: pointer;
+        float:  left;
+        margin: .4em .2em 0 0;
+    }
+
+    .condition {
+        .user-select(text);
+        border:      1px solid @zyante-gray;
+        display:     block;
+        font-family: @zyante-code-font;
+        font-size:   16px;
+        height:      90px;
+        overflow:    scroll;
+        resize:      none;
+        width:       200px;
+    }
+
+    .condition-container {
+        display:        inline-block;
+        height:         auto;
+        margin-top:     15px;
+        vertical-align: top;
+        width:          auto;
+    }
+
+    .controls {
+        height:        auto;
+        margin-bottom: 10px;
+        width:         747px;
+    }
+
+    .delete-button {
+        margin-left: 70px;
+    }
+
+    .drop {
+        .user-select(none);
+        background-color: @zyante-orange;
+        border-width:     0;
+        color:            #FFF;
+        cursor:           pointer;
+        display:          inline-block;
+        padding:          12px 20px;
+        text-align:       center;
+    }
+
+    .export-button {
+        margin-left: 70px;
+    }
+
+    .export-to-rims-button {
+        display:  none;
+        left:     0;
+        position: relative;
+        top:      0;
+    }
+
+    .init-state-check {
+        display:        inline-block;
+        left:           0px;
+        margin-top:     15px;
+        position:       relative;
+        vertical-align: top;
+        width:          140px;
+    }
+
+    .input-menu {
+        display:        inline-block;
+        font-family:    @zyante-code-font;
+        left:           0;
+        margin-top:     50px;
+        position:       relative;
+        top:            0;
+        vertical-align: top;
+    }
+
+    .insert-state-button {
+        margin-left: 75px;
+    }
+
+    .internal-variable-label {
+        border-top:  1px solid @zyante-gray;
+        font-family: @zyante-font;
+    }
+
+    .middle-container {
+        display: inline-block;
+        .user-select(none);
+        width:   1035px;
+    }
+
+    .ms-label {
+        left:     -12px;
+        position: relative;
+    }
+
+    .output-container {
+        display:        inline-block;
+        font-family:    @zyante-code-font;
+        left:           0;
+        margin-top:     50px;
+        pointer-events: none;
+        position:       relative;
+        top:            0;
+        vertical-align: top;
+    }
+
+    .pause-margin {
+        margin-right: 12px;
+    }
+
+    .period {
+        .user-select(text);
+        display:        inline-block;
+        height:         30px;
+        margin-left:    15px;
+        margin-right:   15px;
+        overflow:       hidden;
+        position:       relative;
+        resize:         none;
+        top:            0;
+        vertical-align: middle;
+        width:          75px;
+    }
+
+    .period-container {
+        display:       inline-block;
+        margin-bottom: 25px;
+        margin-top:    5px;
+    }
+
+    .period-label {
+        display: inline-block;
+    }
+
+    .progression-prompt {
+        .user-select(text);
+        color:         @zyante-dark-blue;
+        font-size:     26px;
+        margin-bottom: 10px;
+        text-align:    center;
+    }
+
+    .rims-c-code {
+        border: 1px solid gray;
+        background-color: white;
+        display:          none;
+        font-family:      @zyante-code-font;
+        height:           600px;
+        position:         absolute;
+        width:            800px;
+        z-index:          10002;
+    }
+
+    .rims-c-code-close {
+        position:      relative;
+        margin-top: 5px;
+        left:          50%;
+    }
+
+    .rims-c-code-text {
+        height: 80%;
+        resize: none;
+        width:  95%;
+    }
+
+    .sidemenu {
+        display:        inline-block;
+        margin-left:    15px;
+        position:       relative;
+        top:            -50px;
+        vertical-align: top;
+    }
+
+    .sidemenu-margin {
+        margin-left: 30px;
+    }
+
+    .simulate-margin {
+        margin-right: 38px;
+    }
+
+    .state-info-label {
+        color: @zyante-dark-blue;
+    }
+
+    .state-name {
+        .user-select(text);
+        border:   1px solid @zyante-gray;
+        display:  inline-block;
+        height:   18px;
+        left:     0;
+        overflow: hidden;
+        position: relative;
+        resize:   none;
+        top:      0;
+        width:    150px;
+    }
+
+    .state-name-container {
+        display:        inline-block;
+        margin-top:     15px;
+        vertical-align: top;
+    }
+
+    .state-name-label {
+        display:      inline-block;
+        margin-right: 5px;
+    }
+
+    .test-vector-button-container {
+        display: inline-block;
+        width:   180px;
+    }
+
+    .test-vector-window {
+        .user-select(text);
+        border:     1px solid @zyante-gray;
+        display:    inline-block;
+        height:     150px;
+        left:       0;
+        margin-top: 10px;
+        overflow:   scroll;
+        position:   relative;
+        resize:     none;
+        top:        0;
+        visibility: hidden;
+        width:      250px;
+    }
+
+    .JSON-import-export {
+        .user-select(text);
+        display:    inline-block;
+        height:     150px;
+        left:       0;
+        margin-top: 10px;
+        position:   relative;
+        resize:     none;
+        top:        0;
+        width:      342px;
+    }
+
+    .zy-sm-sim {
+        width: 970px;
+    }
+
+}

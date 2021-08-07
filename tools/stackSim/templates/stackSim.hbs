@@ -1,0 +1,17 @@
+<table>
+    <tr>
+        <td></td>
+        {{#each stackIndex}}
+        <td>{{this}}</td>
+        {{/each}}
+    </tr>
+    <tr>
+        <td>S</td>
+        {{#each stackIndex}}
+            <td class="cell"><span></span></td>
+        {{/each}}
+    </tr>
+</table>
+<div class="cntr">S.top = <span id="stackCntr_{{id}}">0</span></div>
+<button class="button push">Push(S, <input id="val{{id}}" type="number" min="0" max="99" step="1" value="55">)</button> <button class="button pop">POP(S)</button> <button class="popped-value"><span></span></button>
+<div class="output"><span id="output{{id}}"></span></div>

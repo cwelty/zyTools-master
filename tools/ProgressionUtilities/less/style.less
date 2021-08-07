@@ -1,0 +1,144 @@
+@import "../../../zyWeb/less/constants.less";
+
+div.question-area, div.zyante-progression-explanation-area, div.preview-container {
+    .zyante-progression-explanation {
+        p {
+            margin-bottom: 0;
+
+            &:first-child {
+                display: inline;
+            }
+        }
+
+        img {
+            display: block;
+        }
+    }
+
+    .element {
+        font-family: Roboto,sans-serif;
+
+        input {
+            font-family: Roboto, sans-serif;
+            font-weight: 300;
+        }
+
+        table {
+            background: @progression-builder-table-background;
+            border: @progression-builder-table-border;
+            border-collapse: collapse;
+            height: 100%;
+            line-height: 1;
+            margin: 0 auto;
+            white-space: pre;
+            width: 100%;
+
+            &.fix-width {
+                table-layout: fixed;
+            }
+
+            th, td {
+                border: @progression-builder-table-cell-border;
+                box-sizing: border-box;
+                width: auto;
+            }
+
+            td {
+                padding: 8px;
+            }
+
+            th {
+                background-color: @progression-builder-table-header-background;
+                font-weight: 300;
+                padding: 5px;
+            }
+        }
+
+        &.as-spreadsheet {
+            & > table {
+                table-layout: fixed;
+
+                td {
+                    background-color: white;
+                }
+
+                th, td {
+                    height: 1em;
+                    text-align: center;
+                    vertical-align: bottom;
+                }
+
+                tr > th:first-child {
+                    width: 8%;
+                }
+
+                th {
+                    color: @zyante-expired-gray;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+div.question-area {
+    position: relative;
+
+    .element {
+        position: absolute;
+
+        img {
+            height: 100%;
+            width:  100%;
+        }
+
+        .keep-height-ratio {
+            height: auto;
+        }
+
+        .keep-width-ratio {
+            width: auto;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        &.zb-checkbox {
+            align-items: center;
+            display: flex;
+
+            label {
+                margin: 0;
+                white-space: pre-wrap;
+                width: fit-content;
+            }
+        }
+
+        &.as-spreadsheet > button {
+            font-size: 16px;
+        }
+
+        &.text-element {
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+    }
+
+    div {
+        &.dropdown, &.short-answer {
+            padding: 5px;
+
+            select {
+                font-weight: 300;
+            }
+        }
+
+        &.short-answer {
+            input[type="text"], input[type="number"] {
+                box-sizing: content-box;
+                padding: 1px;
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+#include "RIMS.h"
+volatile int TimerFlag = 0;
+void TimerISR() {
+   TimerFlag = 1;
+}
+
+enum SM1_STATES { SM1_SMStart, SM1_Lo, SM1_Hi} SM1_STATE;
+void Tick_LoHi() {
+   switch(SM1_STATE) {
+      case SM1_SMStart:
+         if (1) {
+            SM1_STATE = SM1_Lo;
+            B=0;
+         }
+         break;
+      case SM1_Lo:
+         if (A{{inputBit}}) {
+            SM1_STATE = SM1_Hi;
+         }
+         else if (!A{{inputBit}}) {
+            SM1_STATE = SM1_Lo;
+         }
+         else {
+            SM1_STATE = SM1_Lo;
+         }
+         break;
+      case SM1_Hi:
+         if (!A{{inputBit}}) {
+            SM1_STATE = SM1_Lo;
+         }
+         else if (A{{inputBit}}) {
+            SM1_STATE = SM1_Hi;
+         }
+         else {
+            SM1_STATE = SM1_Hi;
+         }
+         break;
+      default:
+         SM1_STATE = SM1_Lo;
+         break;
+   }
+   switch(SM1_STATE) {
+      case SM1_SMStart:
+
+         break;
+      case SM1_Lo:
+         B{{outputBit}} = 0;
+         break;
+      case SM1_Hi:
+         B{{outputBit}} = 1;
+         break;
+   }
+}
+
+int main(){
+   int LoHiElapsedTime = 1000;
+   int periodGCD = 1000;
+   TimerSet(periodGCD);
+   TimerOn();
+   while(1){
+      if (LoHiElapsedTime >= 1000){
+         Tick_LoHi();
+         LoHiElapsedTime = 0;
+      }
+      LoHiElapsedTime += 1000;
+      while(!TimerFlag);
+      TimerFlag=0;
+   }
+}

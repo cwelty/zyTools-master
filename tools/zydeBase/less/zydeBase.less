@@ -1,0 +1,134 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zydeBase {
+    @zyde-height: 300px;
+
+    width: 900px;
+
+    &.homepage-width {
+        width: 740px;
+
+        .container {
+            width: 42%;
+        }
+
+        .editor {
+            width: 57%;
+        }
+    }
+
+    .all-elements {
+        height:   100%;
+        position: relative;
+    }
+
+    .error {
+        color: @zyante-red;
+    }
+
+    .container {
+        float:       left;
+        height:      100%;
+        margin-left: 2px;
+        width:       49%;
+    }
+
+    .stacked-container {
+        height: 100%;
+        width:  100%;
+    }
+
+    .editor {
+        border:     1px solid @zyante-light-gray;
+        box-sizing: border-box;
+        float:      left;
+        height:     @zyde-height;
+        width:      50%;
+    }
+
+    .stacked-editor {
+        height: @zyde-height;
+        width:  100%;
+    }
+
+    .input {
+        box-sizing: border-box;
+        height:     75px;
+        resize:     none;
+        width:      100%;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    pre.output {
+        font-family: @zyante-code-font;
+        font-size:   14px;
+        height:      225px;
+        margin:      0px;
+        position:    relative;
+        white-space: normal;
+        width:       100%;
+
+        &.full-height {
+            height: @zyde-height;
+        }
+    }
+
+    div.output {
+        background-color: @zyante-featured-background-color;
+        height:           100%;
+        overflow-y:       auto;
+        white-space:      pre-wrap;
+        width:            100%;
+    }
+
+    .ace_hidden-cursors {
+        opacity: 0;
+    }
+
+    .button {
+        font-family: @zyante-font;
+    }
+
+    .text-button {
+        font-family: @zyante-font;
+        position:    relative;
+    }
+
+    .run-button {
+        margin-top:     4px;
+        position:       absolute;
+        top:            -10%;
+        z-index:        1;
+
+        &.input-disabled {
+            top: -1%;
+        }
+    }
+
+    .button.disabled, .reset-button.disabled {
+        background-color: black;
+        border-color:     @zyante-light-gray;
+        color:            @zyante-light-gray;
+        opacity:          1.0;
+    }
+
+    .reset-button {
+        margin-top:     1px;
+        position:       absolute;
+        right:          25px;
+        z-index:        1001;
+
+        &.non-stacked-input-enabled {
+            margin-left: -100px;
+            margin-top:  180px;
+        }
+
+        &.non-stacked-input-disabled {
+            margin-left: -95px;
+            margin-top:  260px;
+        }
+    }
+}

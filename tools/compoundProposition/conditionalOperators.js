@@ -1,0 +1,4 @@
+{
+    useShortAnswer:          true,
+    useConditionalOperators: true
+}

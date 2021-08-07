@@ -1,0 +1,55 @@
+@import "../../../zyWeb/less/constants.less";
+
+.stackSim {
+    
+    table {
+        text-align: center;
+        
+        td {
+            height: 30px;
+            width: 28px;
+        }
+        
+        .cell {
+            background-color: @zyante-light-gray;
+            border: 2px solid black;
+            
+            span {
+                background-color: white;
+                color: @zyante-dark-blue;
+                font-weight: bold;
+                
+                &.old {
+                    background-color: @zyante-light-gray;
+                }
+            }
+        }
+    }
+    
+    .cntr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    input {
+        text-align: center;
+        width: 38px;
+    }
+    
+    .pop {
+        margin-left: 20px;
+    }
+    
+    .output {
+        height: 20px;
+        color: @zyante-medium-red;
+    }
+    
+    .popped-value {
+        color: @zyante-dark-blue;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        width: 40px;
+    }
+}

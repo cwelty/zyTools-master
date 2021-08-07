@@ -1,0 +1,43 @@
+{{!
+    Output a Storage object, such as a Registers or Memory.
+    @param {BytesToPrint} bytes The bytes in storage to print.
+    @param {Boolean} editable Whether the addresses are editable.
+    @param {String} storageName The name of this storage.
+}}
+<div class='storage-container'>
+    <table class='memoryCells'>
+        <tbody>
+            <tr>
+                <td class='storage-name' colspan='2'>{{storageName}}</td>
+            </tr>
+
+            {{#each bytes}}
+                <tr>
+                    <td class='bytes-name'>{{address}}</td>
+                    <td class='bytes-value{{#if ../highlightChanges}}{{#if wasWrittenTo}} highlight-bytes-value{{/if}}{{/if}} {{className}}'>
+                        {{#if ../editable}}
+                            {{#if isReadOnly}}
+                                {{value}}
+                            {{else}}
+                                <input type='number' value='{{value}}' address='{{address}}'></input>
+                            {{/if}}
+                        {{else}}
+                            {{value}}
+                        {{/if}}
+                    </td>
+                    <td class='bytes-label'>{{label}}</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td></td>
+                    <td>Each has value 0</td>
+                    <td></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    {{#if editable}}
+        <button class='md-button small-button add-address'>+</button>
+    {{/if}}
+</div>

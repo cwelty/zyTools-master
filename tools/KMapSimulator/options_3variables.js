@@ -1,0 +1,3 @@
+{
+    numberOfVariables: '3',
+}

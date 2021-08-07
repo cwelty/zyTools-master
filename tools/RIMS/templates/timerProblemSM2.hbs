@@ -1,0 +1,85 @@
+#include "RIMS.h"
+volatile int TimerFlag = 0;
+void TimerISR() {
+   TimerFlag = 1;
+}
+
+enum SM2_STATES { SM2_SMStart, SM2_s0, SM2_s1, SM2_s2} SM2_STATE;
+void Tick_HiLo2() {
+   switch(SM2_STATE) {
+      case SM2_SMStart:
+         if (1) {
+            SM2_STATE = SM2_s0;
+         }
+         break;
+      case SM2_s0:
+         if (A{{inputBitOne}} && !A{{inputBitTwo}}) {
+            SM2_STATE = SM2_s1;
+         }
+         else if (!A{{inputBitOne}} && A{{inputBitTwo}}) {
+            SM2_STATE = SM2_s2;
+         }
+         else if ((!A{{inputBitOne}} && !A{{inputBitTwo}}) || (A{{inputBitOne}} && A{{inputBitTwo}})) {
+            SM2_STATE = SM2_s0;
+         }
+         else {
+            SM2_STATE = SM2_s0;
+         }
+         break;
+      case SM2_s1:
+         if (!(A{{inputBitOne}} && !A{{inputBitTwo}})) {
+            SM2_STATE = SM2_s0;
+         }
+         else if (A{{inputBitOne}} && !A{{inputBitTwo}}) {
+            SM2_STATE = SM2_s1;
+         }
+         else {
+            SM2_STATE = SM2_s1;
+         }
+         break;
+      case SM2_s2:
+         if (!(!A{{inputBitOne}} && A{{inputBitTwo}})) {
+            SM2_STATE = SM2_s0;
+         }
+         else if (!A{{inputBitOne}} && A{{inputBitTwo}}) {
+            SM2_STATE = SM2_s2;
+         }
+         else {
+            SM2_STATE = SM2_s2;
+         }
+         break;
+      default:
+         SM2_STATE = SM2_s0;
+         break;
+   }
+   switch(SM2_STATE) {
+      case SM2_SMStart:
+
+         break;
+      case SM2_s0:
+         B = 0;
+         break;
+      case SM2_s1:
+         B{{outputBitOne}} = 1;
+         break;
+      case SM2_s2:
+         B{{outputBitTwo}} = 1;
+         break;
+   }
+}
+
+int main(){
+   int HiLo2ElapsedTime = 500;
+   int periodGCD = 500;
+   TimerSet(periodGCD);
+   TimerOn();
+   while(1){
+      if (HiLo2ElapsedTime >= 500){
+         Tick_HiLo2();
+         HiLo2ElapsedTime = 0;
+      }
+      HiLo2ElapsedTime += 500;
+      while(!TimerFlag);
+      TimerFlag=0;
+   }
+}

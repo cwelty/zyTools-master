@@ -1,0 +1,4 @@
+{
+    type: 'logical',
+    instructionSet: 'ARM'
+}

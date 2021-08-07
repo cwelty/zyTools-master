@@ -1,0 +1,35 @@
+<div>
+    <div id="{{name}}penUpButton{{id}}" class="button instr-button">Pen up</div>
+    <div id="{{name}}penDownButton{{id}}" class="button instr-button">Pen down</div>
+    <div id="{{name}}forwardButton{{id}}" class="button instr-button">Forward</div>
+    <div id="{{name}}turnButton{{id}}" class="button instr-button">Turn left</div>
+    <div id="{{name}}clearButton{{id}}" class="button instr-button right">Clear</div>
+</div>
+
+<div id="{{name}}inputGetter{{id}}" class="input-form hidden">
+    <label for="{{name}}inputNum{{id}}"></label>
+    <input type="number" id="{{name}}inputNum{{id}}" value="100" name="quantity" maxlength="4" size="4" />
+    <div id="{{name}}enterButton{{id}}" class="button input-button">Enter</div>
+</div>
+
+<table class="draw-container">
+    <tr>
+        <td>
+            <ul id="{{name}}instructionList{{id}}" class="sortable-list">
+                <li>Pen down <span>✖</span></li>
+                <li>Forward 100 <span>✖</span></li>
+                <li>Left 120 <span>✖</span></li>
+                <li>Forward 100 <span>✖</span></li>
+                <li>Left 120 <span>✖</span></li>
+                <li>Forward 100 <span>✖</span></li>
+            </ul>
+        </td>
+        <td>
+            <div class='canvas-container'>
+                <div id="{{name}}runButton{{id}}" class="button play-button">Run</div>
+                <canvas id="{{name}}drawCanvas{{id}}" class="canvas" width="600px" height="325px"></canvas>
+                <div id="{{name}}pen{{id}}" class="pen"></div>
+            </div>
+        </td>
+    </tr>
+</table>

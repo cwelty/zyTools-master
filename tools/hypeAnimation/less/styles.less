@@ -1,0 +1,35 @@
+.hypeAnimation {
+    div.captions-area {
+        padding-left: 16px;
+
+        div.view-captions-button-and-arrow-container {
+            align-items: center;
+            display: flex;
+
+            button.view-captions {
+                font-size: 12px;
+                padding: 0;
+                text-transform: inherit;
+            }
+
+            img.view-captions-arrow {
+                cursor: pointer;
+                height: 24px;
+                padding-left: 8px;
+                top: 8px;
+                width: 24px;
+            }
+        }
+
+        ol {
+            counter-reset: elementcounter;
+            list-style-type: none;
+            padding: 0;
+
+            li:before {
+                content: "Step " counter(elementcounter) ": ";
+                counter-increment: elementcounter;
+            }
+        }
+    }
+}

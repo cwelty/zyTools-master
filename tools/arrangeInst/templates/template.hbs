@@ -1,0 +1,46 @@
+{{!
+    Render the instructions and monitor.
+    @param {String} arrowURL The URL to find the arrow image.
+    @param {String} id A unique ID for this tool.
+    @param {Array} programInstructions Array of {Object}. The list of instructions.
+    @param {Boolean} useNewStyling Whether to use the new styling.
+    @param {Array} variables Array of {String}. The list of variable names.
+}}
+<div class='{{#if useNewStyling}}new-styling{{/if}}'>
+    <div class='button run-button'>Run program</div>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class='code-box'>
+                        <div>
+                            <ul class='sortable-list instructions-container'>
+                                {{#each programInstructions}}
+                                    <li class='{{sortable}}{{#if @first}} first{{/if}}'><span>{{code}}</span></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class='line-highlight'></div>
+                    </div>
+                </td>
+
+                {{#if useNewStyling}}<td><img src='{{arrowURL}}'/></td>{{/if}}
+
+                <td class='variable-output'>
+                    <div>
+                        {{#each variables}}
+                            <div id='{{this}}-label-{{../id}}' class='value-label'><span>{{this}}</span>:</div>
+                        {{/each}}
+                    </div>
+                    <div>
+                        <div class='monitor-frame monitor-outer-frame'>
+                            <div class='monitor-screen'></div>
+                            <div class='monitor-frame monitor-stand1'></div>
+                            <div class='monitor-frame monitor-stand2'></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

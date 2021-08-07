@@ -1,0 +1,59 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zyFlowchart {
+
+    // Needed for fullscreen.
+    &:not(.accessible-view) {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    div.controls-container {
+        display: flex;
+        margin-top: 25px;
+
+        button {
+            margin-right: 15px;
+
+            &.enter-execution, &.exit-execution {
+                margin-right: 30px;
+                width: 180px;
+            }
+
+            &.run, &.pause {
+                width: 95px;
+            }
+
+            &.md-button.orange {
+                color: @zyante-orange;
+
+                &:disabled {
+                    color: @zyante-cancel-gray;
+                }
+            }
+        }
+
+        div.execution-speed-container {
+            font-size: 12px;
+
+            label {
+                display: block;
+            }
+        }
+    }
+
+    div.error-message {
+        background: lighten(@zyante-medium-red, 60%);
+        border: 1px solid @zyante-medium-red;
+        border-radius: 3px;
+        color: @zyante-medium-red;
+        margin-top: 10px;
+        padding: 3px;
+
+        &:empty {
+            display: none;
+        }
+    }
+}

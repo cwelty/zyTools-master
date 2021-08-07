@@ -1,0 +1,33 @@
+{{!
+    Print the instructions and bar chart.
+    @param {Number} numberOfBars The number of bars to print.
+    @param {Boolean} useDots Whether the chart will be a dot chart.
+    @param {Array} yAxisTickLabels Array of {yAxisTick}. Labels along the y-axis.
+}}
+<div class='instructions'>
+    <div>Draw the {{#if useDots}}dot plot{{else}}bar chart{{/if}} for:</div>
+    <div class='custom-instructions'></div>
+</div>
+<div class='barChart'>
+    <div class='x-axis'></div>
+
+    {{#range numberOfBars}}
+        <div class='x-axis-label x-axis-label-{{this}}'></div>
+        {{#unless ../useDots}}<div class='bar-label bar-label-{{this}}'></div>{{/unless}}
+        <div class='bar-gripper bar-gripper-{{this}}'>
+            <div class='gripper'>
+                <div class='gripper-line'></div>
+                <div class='gripper-line'></div>
+                <div class='gripper-line'></div>
+            </div>
+        </div>
+        <div class='bar bar-{{this}}{{#if ../useDots}} use-dots{{/if}}'></div>
+
+        {{#unless ../useDots}}<div class='expected-bar-label expected-bar-label-{{this}}'></div>{{/unless}}
+        <div class='expected-bar expected-bar-{{this}}{{#if ../useDots}} use-dots{{/if}}'></div>
+    {{/range}}
+
+    {{#each yAxisTickLabels}}
+        <div class='y-axis-ticks y-axis-ticks-{{index}}'>{{label}}</div>
+    {{/each}}
+</div>

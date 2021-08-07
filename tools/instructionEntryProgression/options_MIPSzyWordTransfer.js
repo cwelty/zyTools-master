@@ -1,0 +1,4 @@
+{
+    type: 'wordTransfer',
+    instructionSet: 'MIPSzy'
+}

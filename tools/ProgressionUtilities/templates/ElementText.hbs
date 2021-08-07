@@ -1,0 +1,6 @@
+{{!
+    Print a text element.
+    @param {ElementText} element The text to print.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}} text-element' {{{style}}}>{{{element.html}}}</div>

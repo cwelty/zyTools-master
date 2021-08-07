@@ -1,0 +1,4 @@
+{
+    useComponents: true,
+    useGates: false
+}

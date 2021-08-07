@@ -1,0 +1,35 @@
+{{!
+    Render a code output layout.
+    @param {Number} id The unique identifier for the module.
+    @param {Boolean} isCodeZyFlowchart Whether the code is zyFlowchart.
+}}
+<div class='tool-container'>
+    <div class='console character-sizing'>x</div>
+    <p id='prompt'>Type the program's output.</p>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    {{#if isCodeZyFlowchart}}
+                        <div class='program-container'></div>
+                    {{else}}
+                        <div id='segmented-control-container{{id}}' class='segmented-control'></div>
+                        <div class='code'></div>
+                    {{/if}}
+                </td>
+                {{#unless isCodeZyFlowchart}}
+                    <td class='console-container'>
+                        <div class='IO-container'>
+                            <div class='input-container'>
+                                <div class='IO-label'>Input</div>
+                                <div class='input-div'></div>
+                            </div>
+                            <div class='IO-label'>Output</div>
+                            <textarea class='console' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false' aria-label="The program's output"></textarea>
+                        </div>
+                    </td>
+                {{/unless}}
+            </tr>
+        </tbody>
+    </table>
+</div>

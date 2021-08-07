@@ -1,0 +1,20 @@
+<table class='{{tableClassName}}'>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each records}}
+            <tr>
+                {{! |this| is a record in |records| }}
+                {{#each this}}
+                    {{! |this| is a field in a record in |records| }}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

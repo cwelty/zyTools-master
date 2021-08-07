@@ -1,0 +1,40 @@
+@import "../../../zyWeb/less/constants.less";
+
+@memory-background-color: @zyante-lighter-orange;
+@margin-size:              20px;
+
+.setEquation {
+    font-family: @zyante-font;
+    font-size:   18px;
+    width:       460px;
+
+    .center-container {
+        text-align: center;
+    }
+
+    .given-sets {
+        color:         @zyante-dark-blue;
+        display:       inline-block;
+        margin-top:    @margin-size;
+        margin-bottom: @margin-size;
+        text-align:    center;
+        
+        div {
+            margin-bottom: 10px;
+            text-align:    left;
+        }
+    }
+
+    .problem-container {
+        .center-container;
+        margin-bottom: 30px;
+
+        div, input {
+            display: inline-block;
+        }
+    }
+    
+    .negated {
+        border-top: 1px solid;
+    }
+}

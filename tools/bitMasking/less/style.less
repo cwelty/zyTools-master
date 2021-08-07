@@ -1,0 +1,79 @@
+@import "../../../zyWeb/less/constants.less";
+
+@bit-width: 18px;
+
+.bitMasking {
+    width: 495px;
+    
+    .bit-mask {
+        width: @bit-width;
+    }
+    
+    .bitwise-operator-lookup {
+        margin-left: 15px;
+        
+        .bitwise-operator-lookup-table {
+            margin-left: 20px;
+        
+            td {
+                border-right: 1px solid @zyante-gray;
+                width: 40px;
+            }
+        
+            td:last-child {
+                border-right: none;
+            }
+        }
+    }
+    
+    .highlighted-yellow {
+        background-color: lighten(@zyante-yellow, 20%);
+        color: @zyante-gray;
+        opacity: 1;
+    }
+    
+    .highlighted-blue {
+        background-color: lighten(@zyante-light-blue, 30%);
+        color: @zyante-gray;
+        opacity: 1;
+    }
+    
+    .non-interactive-button {
+        background-color: @zyante-featured-background-color;
+        color: @zyante-gray;
+        cursor: default;
+        width: @bit-width;
+    }
+    
+    .non-interactive-button:hover {
+        background-color: @zyante-featured-background-color;
+    }
+    
+    .table-wrapper {
+        display: inline-block;
+        vertical-align: top;
+        
+        table {
+            text-align: center;
+        
+            .bitwise-operator {
+                font-size: 20px;
+                width: 30px;
+            }
+        
+            .bottom-row {
+                td {
+                    padding-top: 5px;
+                }
+            }
+        
+            .middle-row {
+                border-bottom: 1px solid @zyante-gray;
+            
+                td {
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+}

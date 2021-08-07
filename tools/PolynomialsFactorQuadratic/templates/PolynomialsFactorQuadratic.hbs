@@ -1,0 +1,29 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.inputPrefix A prefix for the input box.
+    @param {String} question.inputPostfix A postfix for the input box.
+    @param {Boolean} question.needScratchPad Whether the question would benefit from having a scratchpad for calculations.
+    @param {String} question.placeholder Input box's placeholder.
+    @param {Boolean} question.isLongAnswer The answer is a long one.
+    @param {String} question.toolID The tool's unique id.
+}}
+<div class='container'>
+    <div>
+        <div class='prompt'>{{{question.prompt}}}</div>
+        {{{question.inputPrefix}}}
+        {{#if question.isLongAnswer}}
+            <input class='long-answer' type='text' placeholder='{{question.placeholder}}'></input>
+        {{else}}
+            <input class='short-answer' type='text' placeholder='{{question.placeholder}}'></input>
+        {{/if}}
+        {{{question.inputPostfix}}}
+    </div>
+    {{#if question.needScratchPad}}
+        <div>
+            <textarea id='{{question.toolID}}-scratchpad' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'
+                      rows='6' cols='28' placeholder='Scratch pad - This area is not graded.'></textarea>
+        </div>
+    {{/if}}
+</div>

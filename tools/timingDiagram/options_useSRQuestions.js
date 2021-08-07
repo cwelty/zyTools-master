@@ -1,0 +1,4 @@
+{
+    useSRQuestions: true,
+    useMultipleParts: true
+}

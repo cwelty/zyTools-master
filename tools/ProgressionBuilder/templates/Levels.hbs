@@ -1,0 +1,67 @@
+{{!
+    Print each level and each question within that level.
+    @param {Array} of {Level} levels The levels to be printed.
+    @param {String} editCodeWhiteImageURL URL for the edit code image in white.
+    @param {String} addWhiteImageURL URL for the add image in white.
+    @param {String} deleteWhiteImageURL URL for the delete image in white.
+    @param {String} downArrowWhiteImageURL URL for the down arrow image in white.
+    @param {String} duplicateWhiteImageURL URL for the duplicate image in white.
+    @param {String} upArrowWhiteImageURL URL for the up arrow image in white.
+    @param {String} addBlueImageURL URL for the add image in blue.
+    @param {String} deleteBlueImageURL URL for the delete image in blue.
+    @param {String} duplicateBlueImageURL URL for the duplicate image in blue.
+    @param {String} editCodeBlueImageURL URL for the edit code image in blue.
+}}
+<div class='edit-global-code-container'>
+    <div>Global code</div>
+    <div class='edit-global-code'>
+        <img src={{editCodeWhiteImageURL}}>
+    </div>
+</div>
+{{#each levels}}
+    <div class='level-container' level-index='{{@index}}'>
+        <div class='level-label-container{{#if isSelected}} selected{{/if}}'>
+            <div class='collapse-level'>
+                <img src='{{#if isCollapsed}}{{../../downArrowWhiteImageURL}}{{../downArrowWhiteImageURL}}{{else}}{{../../upArrowWhiteImageURL}}{{../upArrowWhiteImageURL}}{{/if}}'>
+            </div>
+            <div class='level'>{{name}}</div>
+            <div class='level-button-container'>
+                <div class='duplicate-level'>
+                    <img src={{../duplicateWhiteImageURL}}>
+                </div>
+                <div class='edit-level-code'>
+                    <img src={{../editCodeWhiteImageURL}}>
+                </div>
+                <div class='delete-level'>
+                    <img src={{../deleteWhiteImageURL}}>
+                </div>
+            </div>
+        </div>
+        {{#unless isCollapsed}}
+            <div class='questions-container'>
+                {{#each questions}}
+                    <div class='question-container'>
+                        <div class='question{{#if isSelected}} selected{{/if}}'>{{name}}</div>
+                        <div class='button-containers'>
+                            <div class='duplicate-question'><img src={{../../../duplicateBlueImageURL}}{{../../duplicateBlueImageURL}}></div>
+                            <div class='edit-code'><img src={{../../../editCodeBlueImageURL}}{{../../editCodeBlueImageURL}}></div>
+                            <div class='delete-question'><img src={{../../../deleteBlueImageURL}}{{../../deleteBlueImageURL}}></div>
+                        </div>
+                    </div>
+                {{/each}}
+                <div class='add-question-container'>
+                    <div class='add-question-clickable-area'>
+                        <div class='add-question'><img src={{../../addBlueImageURL}}{{../addBlueImageURL}}></div>
+                        <div>Add question</div>
+                    </div>
+                </div>
+            </div>
+        {{/unless}}
+    </div>
+{{/each}}
+<div class='add-level-container'>
+    <div class='add-level-clickable-area'>
+        <div class='add-level'><img src={{addWhiteImageURL}}></div>
+        <div>Add level</div>
+    </div>
+</div>

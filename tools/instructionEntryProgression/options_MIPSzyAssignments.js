@@ -1,0 +1,4 @@
+{
+    type: 'assignments',
+    instructionSet: 'MIPSzy'
+}

@@ -1,0 +1,58 @@
+<div class='progression-container'>
+    <div class='progression-message'></div>
+    <div class='progression-image'>
+        <div class='progression-sm1'>
+            <img class='progression-sm1-image'/>
+            <div class='dynamic-html'/>
+        </div>
+        <div class='progression-sm2'>
+            <img class='progression-sm2-image'/>
+            <div class='dynamic-html'/>
+        </div>
+        <div class='progression-sm3'>
+            <img class='progression-sm3-image'/>
+            <div class='dynamic-html'/>
+        </div>
+    </div>
+</div>
+<div class='middle-container'>
+    <div id='inputContainer_{{id}}' class='input-container'></div>
+    <div id='codeView_{{id}}' class='code-view'></div>
+    <div id='outputContainer_{{id}}' class='output-container'></div>
+    <div class='controls-container'>
+        <div class='top-controls'>
+            <div class='run-controls'>
+                <button class='compile button control-button'>Compile</button>
+                <button class='run button control-button'>Run</button>
+                <button class='stop button control-button'>Stop</button>
+            </div>
+            <div class='simulation-controls'>
+                <button class='continue button control-button'>Continue</button>
+                <button class='break button control-button'>Break</button>
+                <button class='step button'>Step</button>
+            </div>
+            <div class='speed-container'>
+                <div class='speed-label'>Simulation speed:</div>
+                <select class='speed'>
+                    <option value='0'>Slowest</option>
+                    <option value='1'>Slow</option>
+                    <option value='2'>Normal</option>
+                    <option value='3'>Fast</option>
+                    <option value='4'>Fastest</option>
+                </select>
+            </div>
+        </div>
+        <div class='bottom-controls'>
+            <div class='timing-info'>
+                <canvas class='timer-bar' width='200' height='20'></canvas>
+                <div class='elapsed-time'>0.00 s</div>
+            </div>
+            <button class='button generate-timing-diagram'>Generate timing diagram</button>
+        </div>
+        <textarea class='console' readonly></textarea>
+    </div>
+</div>
+<div id='RITS-window-{{id}}' class='RITS-window'></div>
+<button class='memory-button button'>Get memory snapshot</button>
+<div class='memory-view'>00000000 00000000</div>
+<div class='register-view'></div>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta http-equiv='X-UA-Compatible' content='IE=11'>
+    <title>Brute force test</title>
+    <meta name='description' content=''>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='icon' href='../assets/favicon.ico'>
+    <link rel='stylesheet' type='text/css' href='../css/application.css'>
+    <link href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i' rel='stylesheet' crossorigin='anonymous'>
+    <script type='text/javascript' src='https://mathjax.zybooks.com/2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML' id='mathjax'></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+    <script type='text/javascript' src='https://learn.zybooks.com/assets/ace/ace.js'></script>
+    <script type='text/javascript' src='../vendor/require.js'></script>
+    <script type='text/javascript' src='../vendor/common.js'></script>
+    <script type='text/javascript' src='../vendor/core.min.js'></script>
+    <script type='text/javascript' src='../vendor/md5.min.js'></script>
+    <script type='text/javascript' src='../vendor/handlebars.runtime.js'></script>
+    <script type='text/javascript' src='../vendor/rsvp.js'></script>
+    <script type='text/javascript' src='../vendor/zyWebEventManager.js'></script>
+    <script type='text/javascript' src='../vendor/zyWebResourceManager.js'></script>
+    <script type='text/javascript' src='../vendor/zyWebErrorManager.js'></script>
+    <script type='text/javascript' src='../vendor/zyWebUtilities.js'></script>
+    <script type='text/javascript' src='../vendor/zyWebParentResource.js'></script>
+    <script type='text/javascript' src='../vendor/skulpt.min.js'></script>
+    <script type='text/javascript' src='../vendor/skulpt-stdlib.js'></script>
+    <script type='text/javascript' src='../vendor/qUnit/qunit-1.20.0.min.js'></script>
+    <script type='text/javascript' src='../vendor/qUnit/unitTestUtilities.js'></script>
+    <link rel='stylesheet' type='text/css' href='../vendor/qUnit/qunit-1.20.0.min.css'>
+    <link rel='stylesheet' type='text/css' href='./style.css'>
+
+    <script>
+        Ember = {};
+        Ember.RSVP = RSVP;
+
+        var parentResource = require('zyWebParentResource');
+        var resourceManager = require('zyWebResourceManager');
+
+        resourceManager.downloadResourcesFromLive = true;
+        resourceManager.localTools = TOOL_DEPENDENCIES;
+        resourceManager.localVendors = VENDOR_DEPENDENCIES;
+    </script>
+</head>
+<body>
+    <header class='top-toolbar'>
+        <div class='left-buttons'>
+            <div class='zb-breadcrumbs'>
+                <button class='menu-button zb-button grey icon-button left'>
+                    <i aria-hidden='false' class='zb-icon grey material-icons med'>menu</i>
+                </button>
+                <div class='logo'>
+                    <img width='83px' height='22px' src='../assets/logo.svg'>
+                </div>
+                <ul class='bread-crumbs'>
+                    Brute force test
+                </ul>
+            </div>
+        </div>
+        <div class='right-buttons'>
+            <p class='sign-in-message zb-message-container' style='padding: 8px;'>Sign in to run code
+                <button class='sign-in-button zb-button'>Sign in</button>
+            </p>
+        </div>
+    </header>
+    <div class='route-container zybook-chapter-section-page no-margin-left'>
+        <nav class='zb-nav-menu'></nav>
+            <section class='section-container'>
+                <nav class='section-nav'></nav>
+
+                <div>
+                    <article class='zybook-section zb-card'>
+                        <div class='zb-card-content'>
+                            <div class='section-header-row'>
+                                <h1 class='zybook-section-title'>Brute force test</h1>
+                            </div>
+
+                            <div>
+                                <label for='payloads-json'>Payloads JSON file:</label>
+                                <input id='payloads-json' type='file' accept='application/JSON'>
+                            </div>
+
+                            <div class='activity-instructions'>
+                                <button type='button' id='start-loading' class='zb-button primary raised' disabled>Start</button>
+                                <label for='hide-tool'>Hide tool</label>
+                                <input id='hide-tool' type='checkbox'>
+                                <label for='iterations'>Iterations per resource:</label>
+                                <input id='iterations' type='number' value='1' min='1'>
+                            </div>
+                            <hr>
+
+                            <div class='interactive-activity-container custom-content-resource participation large'>
+                                <div class='activity-title-bar'>
+                                    <span class='activity-type'>
+                                        <div class='type'>tool</div>
+                                        <div class='label'>test</div>
+                                    </span>
+                                    <div class='separator'></div>
+                                    <div class='activity-description'>
+                                        <div class='activity-title'>
+                                            TESTING
+                                        </div>
+                                        <div class='title-bar-chevron-container'>
+                                            <div class='zb-chevron title-bar-chevron blue large check filled'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='activity-payload'>
+
+                                    <div class='content-resource custom-resource-payload'>
+                                        <div class='custom-tool-container'>
+                                            <div id='0'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class='content-resource html-resource html-content-resource'>
+                                <div id='summary'>
+                                    <h3>Summary</h3>
+                                    <button id='download-button' class='zb-button secondary' disabled>Download errors as CSV file</button>
+                                </div>
+                                <div>
+                                    Resources remaining in this iteration:
+                                    <span class='remaining'>0</span>
+                                    out of
+                                    <span class='total'>0</span>
+                                    . Iteration number:
+                                    <span class='iteration'>1</span>
+                                </div>
+                                <div class='crashed-tools'></div>
+                            </div>
+
+                            <script type='text/javascript' src='./brute_force.js'></script>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <script>
+            (function() {
+                $('button.menu-button').click(() => {
+                    $('div.zybook-chapter-section-page').toggleClass('no-margin-left');
+                });
+                $('div.right-buttons').hide();
+            })();
+        </script>
+    </body>
+</html>

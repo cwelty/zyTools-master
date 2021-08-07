@@ -1,0 +1,262 @@
+@import "../../../zyWeb/less/constants.less";
+
+.RIMS {
+    font-family: @zyante-font;
+    width: 800px;
+    .ace_gutter-cell.ace_breakpoint{
+        border-radius: 20px 0px 0px 20px;
+        box-shadow:    0px 0px 6px 6px @zyante-orange inset;
+    }
+
+    @code-border: 1px solid @zyante-light-gray;
+    div.ace_gutter {
+        border-right: @code-border;
+    }
+
+    .code-view {
+        border:  @code-border;
+        display: inline-block;
+        height:  325px;
+        width:   650px;
+    }
+
+    .console {
+        display:   block;
+        font-size: 12px;
+        height:    140px;
+        resize:    none;
+        width:     735px;
+    }
+
+    .control-button {
+        display:      inline-block;
+        margin-right: 10px;
+    }
+
+    .controls-container {
+        display:        inline-block;
+        vertical-align: top;
+    }
+
+    .input-container {
+        display:        inline-block;
+        vertical-align: top;
+    }
+
+    .generate-timing-diagram {
+        margin-bottom:  5px;
+        margin-left:    5px;
+        vertical-align: top;
+    }
+
+    .memory-view {
+        overflow-y: auto;
+        height:     200px;
+    }
+
+    .output-container {
+        display:        inline-block;
+        position:       relative;
+        top:            -10px;
+        vertical-align: top;
+    }
+
+    .progression-image {
+        text-align: center;
+    }
+
+    .progression-message {
+        color:      @zyante-dark-blue;
+        font-size:  20px;
+        height:     50px;
+        text-align: center;
+    }
+
+    .progression-sm1 {
+        font-family: @zyante-code-font;
+        font-size:   16px;
+        position:    relative;
+
+        .state1-self-condition {
+            position: absolute;
+            left:     270px;
+            top:      22px;
+        }
+
+        .state1-action {
+            position: absolute;
+            left:     240px;
+            top:      132px;
+        }
+
+        .state1-transition {
+            position: absolute;
+            left:     415px;
+            top:      65px;
+        }
+
+        .state2-self-condition {
+            position: absolute;
+            left:     580px;
+            top:      30px;
+        }
+
+        .state2-action {
+            position: absolute;
+            left:     548px;
+            top:      140px;
+        }
+
+        .state2-transition {
+            position: absolute;
+            left:     408px;
+            top:      146px;
+        }
+    }
+
+    .progression-sm2 {
+        font-family: @zyante-code-font;
+        font-size:   16px;
+        position:    relative;
+
+        .state1-self-condition {
+            position: absolute;
+            left:     90px;
+            top:      121px;
+        }
+
+        .state1-action {
+            position: absolute;
+            left:     250px;
+            top:      220px;
+        }
+
+        .state1-transition1 {
+            position: absolute;
+            left:     388px;
+            top:      156px;
+        }
+
+        .state1-transition2 {
+            position: absolute;
+            left:     250px;
+            top:      80px;
+        }
+
+        .state2-self-condition {
+            position: absolute;
+            left:     542px;
+            top:      122px;
+        }
+
+        .state2-action {
+            position: absolute;
+            left:     550px;
+            top:      225px;
+        }
+
+        .state2-transition {
+            position: absolute;
+            left:     373px;
+            top:      213px;
+        }
+
+        .state3-self-condition {
+            position: absolute;
+            left:     400px;
+            top:      -18px;
+        }
+
+        .state3-action {
+            position: absolute;
+            left:     409px;
+            top:      85px;
+        }
+
+        .state3-transition {
+            position: absolute;
+            left:     393px;
+            top:      120px;
+        }
+    }
+
+    .progression-sm3 {
+        font-family: @zyante-code-font;
+        font-size:   16px;
+        position:    relative;
+
+        .state1-self-condition {
+            position: absolute;
+            left:     270px;
+            top:      28px;
+        }
+
+        .state1-action {
+            position: absolute;
+            left:     255px;
+            top:      126px;
+        }
+
+        .state1-transition {
+            position: absolute;
+            left:     422px;
+            top:      61px;
+        }
+
+        .state2-self-condition {
+            position: absolute;
+            left:     580px;
+            top:      28px;
+        }
+
+        .state2-action {
+            position: absolute;
+            left:     548px;
+            top:      126px;
+        }
+
+        .state2-transition {
+            position: absolute;
+            left:     415px;
+            top:      122px;
+        }
+    }
+
+    .RITS-window {
+        display:  none;
+        position: absolute;
+        top:      0;
+    }
+
+    .run-controls {
+        display:       inline-block;
+        margin-bottom: 15px;
+    }
+
+    .simulation-controls {
+        display:       inline-block;
+        margin-bottom: 15px;
+    }
+
+    .speed {
+        display: inline-block;
+    }
+
+    .speed-container {
+        display:       inline-block;
+        margin-bottom: 15px;
+    }
+
+    .speed-label {
+        display: inline-block;
+    }
+
+    .step-line {
+        background-color: @zyante-dark-blue;
+        position:         absolute;
+    }
+
+    .timing-info {
+        display: inline-block;
+    }
+}

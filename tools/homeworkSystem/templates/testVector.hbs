@@ -1,0 +1,47 @@
+{{#unless hidden}}
+    <div class='test-vector'>
+        {{#unless ../aborted}}
+            <div class='icon'>
+                {{#if ../../spinning}}
+                    <div class='test-vector-spinner'></div>
+                {{else}}
+                    {{#if ../../../pass}}
+                        <img src='{{../../checkmarkImageURL}}' />
+                    {{else}}
+                        <span class='x-mark'>&#x2716;</span>
+                    {{/if}}
+                {{/if}}
+            </div>
+
+            <div class='hint'>{{../../description}}</div>
+
+            {{#unless ../../collapsed}}
+                {{#if ../../../whitespaceDiffers}}
+                    <div class='whitespace-differs-message'><a class='whitespace-differs' href='https://www.zybooks.com/coding-ca-notes/#Whitespace' target='_blank'>Whitespace differs</a>; see green (missing whitespace) or red (extra whitespace) boxes below.</div>
+                {{/if}}
+                <table class='explanation-table'>
+                    <tr>
+                        {{#unless ../../../pass}}
+                            <td class='explanation-description'>Expected {{../../../../vectorType}}:</td>
+                            {{#if ../../expected}}
+                                <td><div class='output expected-output'>{{{../../expected}}}</div></td>
+                            {{else}}
+                                <td><div class='no-output-message'>This test case should produce no output</div></td>
+                            {{/if}}
+                        {{/unless}}
+                    </tr>
+                    <tr>
+                        <td class='explanation-description'>Your {{../../vectorType}}:</td>
+                        {{#if ../../actual}}
+                            <td><div class='output user-output'>{{{../../actual}}}</div></td>
+                        {{else}}
+                            <td><div class='no-output-message'>Your program produced no output</div></td>
+                        {{/if}}
+                    </tr>
+                </table>
+            {{/unless}}
+        {{else}}
+            <div class='hint no-cursor'>Tests aborted.</div>
+        {{/unless}}
+    </div>
+{{/unless}}

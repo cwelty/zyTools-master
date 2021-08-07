@@ -1,0 +1,22 @@
+{{!
+    Print the base converter.
+    @param {Number} maxDecimalNumber The maximum decimal number the tool supports.
+}}
+<div class='container'>
+    <div class='prompt'>
+        <p class="title">Edit either box</p>
+    </div>
+    <div class='input-boxes'>
+        <div class="binary">
+            <p class="label">Binary</p>
+            <input class='binary-input' type='number'></input>
+            <p class="binary-invalid feedback">Valid characters are 0 or 1.</p>
+        </div>
+        <span class="arrows">&rlarr;</span>
+        <div class="decimal">
+            <p class="label">Decimal</p>
+            <input class='decimal-input' type='number' max='{{maxDecimalNumber}}'></input>
+            <p class="decimal-invalid feedback">Valid characters are 0-9.</p>
+        </div>
+    </div>
+</div>

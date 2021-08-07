@@ -1,0 +1,19 @@
+<table>
+    <tbody>
+        <tr>
+            <td>Type a string (up to 6 characters): <input id="stringInput{{id}}" class="input" type="text" maxlength="6" size="6" value="Julia" autocorrect="off" autocapitalize="off"></td>
+            <td>Memory
+                <table border="1">
+                    <tbody>
+                        {{#each memoryIndexes}}
+                            <tr>
+                                <td>50{{this}}</td>
+                                <td><input id="Str2mem{{this}}{{../id}}" class="output" type="text" disabled="disabled" size="4" autocorrect="off" autocapitalize="off"></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+<div class='instructions-div'>
+    {{{instructions}}}
+</div>
+
+<div id='editor-container{{id}}' class='editor-container'>{{initialProgram}}</div>
+
+<div id='run-button{{id}}' class='button run-button'>Run</div>
+<div id='all-tests-passed-label{{id}}' class='all-tests-passed-label hidden'>
+  <img src='{{checkmarkImageURL}}' />
+  All tests passed
+</div>
+
+<div id='non-editable-area-error-message{{id}}' class='non-editable-area-error-message'></div>
+
+<div id='spinner{{id}}' class='spinner'></div>
+<div id='results-area{{id}}' class='results-area'>
+    <div class='results-status'></div>
+    <div class='warning'>
+        <div class='warning-icon'></div>
+        <div class='warning-text'></div>
+    </div>
+    <div class='results-list'></div>
+    <div class='error-output'></div>
+</div>

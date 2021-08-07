@@ -1,0 +1,286 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zyDigSim {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select:    none; /* Firefox */
+    -ms-user-select:     none; /* IE10+ */
+    -o-user-select:      none;
+    user-select:         none;
+    position:            relative;
+
+    .bottom-buttons {
+        margin-top: 10px;
+    }
+
+    .component-input {
+        color:      @zyante-dark-blue;
+        font:       @zyante-font;
+        height:     40px;
+        position:   absolute;
+        text-align: center;
+        width:      40px;
+        z-index:    1;
+    }
+
+    .delete-selected-items-button{
+        margin-bottom: 15px;
+    }
+
+    .example-drop {
+        display:     inline-block;
+        margin-left: 30px;
+    }
+
+    .gate-pointer {
+        cursor: pointer;
+    }
+
+    .generated-text {
+        font-family: Comic\ Sans\ MS;
+        font-size:   12px;
+    }
+
+    .import-button {
+        display:     inline-block;
+        margin-left: 30px;
+    }
+
+    .JSON-import-export {
+        margin-top: 10px;
+        resize:     none;
+    }
+
+    .label {
+        background-color: transparent;
+        border:           none;
+        color:            @zyante-dark-blue;
+        font-size:        14pt;
+        height:           auto;
+        outline:          none;
+        overflow:         hidden;
+        padding:          2.5px;
+        position:         absolute;
+        resize:           none;
+        width:            auto;
+    }
+
+    .legend-canvas {
+        position:           absolute;
+        box-shadow:         0 0 5px @zyante-gray; /* all latest browser */
+        -moz-box-shadow:    0 0 5px @zyante-gray; /* Firefox older version*/
+        -webkit-box-shadow: 0 0 5px @zyante-gray; /* Chrome/Safari older version */
+        pointer-events:     none;
+        z-index:            1;
+    }
+
+    .logic-canvas-container {
+        border:         1px solid @zyante-light-gray;
+        display:        inline-block;
+        height:         480px;
+        overflow:       scroll;
+        position:       relative;
+        vertical-align: top;
+        width:          640px;
+    }
+
+    .logic-context-menu-container {
+        background-color: white;
+        border:           1px solid gray;
+        box-shadow:       2px 2px 1px gray;
+        display:          none;
+        position:         absolute;
+        width:            125px;
+    }
+
+    .logic-context-menu-item:hover {
+        background-color: gray;
+    }
+
+    .logic-context-menu-items {
+        background-color: white;
+        list-style:       none;
+        margin:           5px;
+        padding:          0;
+    }
+
+    .middle-container-cover {
+        &.active {
+            opacity: 0.3;
+        }
+
+        .middle-container {
+            position: relative;
+        }
+    }
+
+    .problem1.assign1 {
+        left:     217px;
+        position: absolute;
+        top:      65px;
+    }
+
+    .problem2.assign1 {
+        left:     170px;
+        position: absolute;
+        top:      25px;
+    }
+
+    .problem2.assign2 {
+        left:     170px;
+        position: absolute;
+        top:      130px;
+    }
+
+    .problem3.assign1 {
+        left:     96px;
+        position: absolute;
+        top:      50px;
+    }
+
+    .problem3.assign2 {
+        left:     307px;
+        position: absolute;
+        top:      50px;
+    }
+
+    .problem3.assign3 {
+        left:     92px;
+        position: absolute;
+        top:      167px;
+    }
+
+    .problem3.assign4 {
+        left:     280px;
+        position: absolute;
+        top:      167px;
+    }
+
+    .problem4.assign1 {
+        left:     96px;
+        position: absolute;
+        top:      50px;
+    }
+
+    .problem4.assign2 {
+        left:     307px;
+        position: absolute;
+        top:      50px;
+    }
+
+    .problem4.assign3 {
+        left:     92px;
+        position: absolute;
+        top:      167px;
+    }
+
+    .problem4.assign4 {
+        left:     280px;
+        position: absolute;
+        top:      167px;
+    }
+
+    .problem5.assign1 {
+        left:     150px;
+        position: absolute;
+        top:      65px;
+    }
+
+    .problem5.assign2 {
+        left:     150px;
+        position: absolute;
+        top:      167px;
+    }
+
+    .problem5.condition1 {
+        left:     235px;
+        position: absolute;
+        top:      0px;
+    }
+
+    .problem5.condition2 {
+        left:     160px;
+        position: absolute;
+        top:      100px;
+    }
+
+    .problem5.condition3 {
+        left:     235px;
+        position: absolute;
+        top:      200px;
+    }
+
+    .problem5.condition4 {
+        left:     235px;
+        position: absolute;
+        top:      125px;
+    }
+
+    .progression-container {
+        margin-bottom: 10px;
+        text-align:    center;
+    }
+
+    .progression-image {
+        vertical-align: middle;
+    }
+
+    .progression-image-container {
+        display:        inline-block;
+        position:       relative;
+        text-align:     center;
+        vertical-align: middle;
+        width:          345px;
+    }
+
+    .progression-prompt {
+        color:          @zyante-dark-blue;
+        display:        inline-block;
+        font-size:      20px;
+        height:         30px;
+        text-align:     center;
+        vertical-align: middle;
+        width:          385px;
+    }
+
+    .reset-button {
+        background-color: white;
+        color:            @zyante-dark-blue;
+    }
+
+    .reset-button:hover:not(.disabled) {
+        background-color: white;
+    }
+
+    .toolbox-canvas {
+        vertical-align: top;
+    }
+
+    .toolbox-container {
+        display:     inline-block;
+        margin-left: 5px;
+        position:    relative;
+        text-align:  left;
+        width:       200px;
+
+        div.instruction-label {
+            color:     @zyante-dark-blue;
+            font-size: 12px;
+        }
+    }
+
+    .user-variable {
+        font-style: italic;
+    }
+
+    .undo-button {
+        margin-bottom: 15px;
+    }
+
+    .zyante-progression-explanation-area {
+        user-select: text;
+
+        td {
+            text-align: center;
+        }
+    }
+}

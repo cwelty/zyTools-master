@@ -1,0 +1,3 @@
+{
+    useAccessible: true
+}

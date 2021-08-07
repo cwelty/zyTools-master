@@ -1,0 +1,43 @@
+@import "../../../zyWeb/less/constants.less";
+
+.graphReading {
+    width: 430px;
+
+    div.graph-container {
+        margin-left: -20px;
+        width:       415px;
+
+        div.graph {
+            pointer-events: none;
+        }
+    }
+
+    .instructions-and-input-container {
+        font-size:     24px;
+        margin-bottom: 15px;
+        margin-top:    -35px;
+        text-align:    center;
+
+        input {
+            width: 80px;
+        }
+
+        .instructions {
+            color: @zyante-dark-blue;
+        }
+    }
+
+    div.jqplot-xaxis-tick, div.jqplot-yaxis-tick {
+        font-size: 12px;
+
+        &.highlight-tick {
+            font-size:   18px;
+            font-weight: bold;
+        }
+    }
+
+    div.jqplot-xaxis-label, div.jqplot-yaxis-label {
+        font-size:   18px;
+        font-weight: bold;
+    }
+}

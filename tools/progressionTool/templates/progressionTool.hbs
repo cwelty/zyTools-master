@@ -1,0 +1,49 @@
+{{!
+    The progression tool's typical structural items.
+    @param {Boolean} canLevelJump Whether the user can jump between levels.
+    @param {Boolean} isExam Whether the progression is an exam or CA.
+    @param {Integer} numberOfSegments The number of levels.
+    @param {String} toolSpecificCSS The CSS of the zyTool.
+    @param {String} toolSpecificHTML The HTML of the zyTool.
+}}
+
+{{{toolSpecificCSS}}}
+
+<div class='zyante-progression-modal-cover'>
+    {{#unless isExam}}
+        <div class='zyante-progression-start-reset-buttons-container'>
+            <button class='zyante-progression-start-button button'>Start</button>
+            <button class='zyante-progression-reset-button button'>Jump to level 1</button>
+        </div>
+    {{/unless}}
+
+    <div class='zyante-progression-tool-specific-outlet{{#if isExam}} is-exam{{/if}}'>
+        {{{toolSpecificHTML}}}
+    </div>
+
+    {{#unless isExam}}
+        <div class='zyante-progression-status-bar'>
+            {{#rangeOneIndexed numberOfSegments}}
+                <div>{{this}}</div>
+            {{/rangeOneIndexed}}
+        </div>
+    {{/unless}}
+
+    <div class='check-next-container'>
+        <div><button class='zyante-progression-check-button button'>Check</button></div>
+        <div><button class='zyante-progression-next-button button'>Next</button></div>
+        <div><button class='zyante-progression-try-again button'>Try again</button></div>
+        <div><button class='zyante-progression-show-solution button'>Show solution</button></div>
+        <div class='zyante-progression-spinner'></div>
+        <div class='zyante-progression-is-done correct'><b>Done</b>.{{#if canLevelJump}} Click any level to practice more. Completion is preserved.{{/if}}</div>
+    </div>
+    <div class='zyante-progression-explanation-area'>
+        <span class='zyante-progression-x-mark' role='img' aria-label='Incorrect'>&#x2716;</span>
+        <img class='zyante-progression-checkmark' alt='Correct'>
+        <span class='zyante-progression-explanation'></span>
+    </div>
+    <div class='zyante-progression-solution-area'>
+        <div>Solution</div>
+        <div class='solution'></div>
+    </div>
+</div>

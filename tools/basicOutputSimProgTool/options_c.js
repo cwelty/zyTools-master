@@ -1,0 +1,1 @@
+{ 'language': 'c', 'skipNewlineLevel': true }

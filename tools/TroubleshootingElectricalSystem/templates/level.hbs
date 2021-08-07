@@ -1,0 +1,114 @@
+{{!
+    Render a level.
+    @param {Component} brokenComponent The broken component.
+    @param {Array} components Array of {Component}. List of components in the electrical system.
+    @param {Number} currentLevel The current level being rendered.
+    @param {Array} experiments Array of {Experiment}. List of experiments user can run.
+    @param {Boolean} isDoneWithLevel Whether the broken component has been found.
+    @param {Boolean} isAnyTestRunning Whether any test is currently running.
+    @param {Number} numberOfLevels The number of levels in the tool.
+    @param {Number} totalScore The user's total score.
+}}
+<div class='instructions'>An electrical system stopped working. Find the broken component.{{#ifCond currentLevel '>' 1}} Each test takes the indicated time.{{/ifCond}}{{#ifCond currentLevel '>' 2}} Each hypothesis has the indicated likelihood of being validated.{{/ifCond}}</div>
+
+<div class='level-container'>Level {{currentLevel}} of {{numberOfLevels}}</div>
+
+<div class='troubleshooting-container'>
+    <div class='electrical-system-container'>
+        <div class='electrical-system-label'>Electrical system</div>
+        <div class='electrical-system-sub-label small-note'>(Click a component to create a hypothesis)</div>
+        <div class='electrical-system'>
+            <span class='right-arrow'></span>
+            {{#each components}}
+                {{#ifCond ../isAnyTestRunning '||' ../isDoneWithLevel}}
+                    <button class='button component disabled' disabled>{{../label}}</button>
+                {{else}}
+                    <button class='button component'>{{../label}}</button>
+                {{/ifCond}}
+            {{/each}}
+            <span class='right-arrow'></span>
+        </div>
+    </div>
+
+    {{#if experiments.length}}
+        <table>
+            <tbody>
+                <tr>
+                    <th>Hypothesis</th>
+                    <th>Test</th>
+                    {{#ifCond currentLevel '>' 1}}
+                        <th>Test time</th>
+                    {{/ifCond}}
+                    {{#ifCond currentLevel '>' 2}}
+                        <th>Likelihood</th>
+                    {{/ifCond}}
+                    <th></th>
+                    <th>Result</th>
+                </tr>
+
+                {{#each experiments}}
+                    <tr>
+                        <td><button class='button component disabled' disabled>{{component.label}}</button> is broken</td>
+                        <td>
+                            <div class='small-note'>Conducts?</div>
+                            <div>
+                                <span class='right-arrow'></span>
+                                <button class='button component disabled' disabled>{{component.label}}</button>
+                                <span class='right-arrow'></span>
+                            </div>
+                        </td>
+                        {{#ifCond ../currentLevel '>' 1}}
+                            <td>{{../component.time}}</td>
+                        {{/ifCond}}
+                        {{#ifCond ../currentLevel '>' 2}}
+                            <td>{{decimalToPercent ../component.likelihood}}</td>
+                        {{/ifCond}}
+                        <td>
+                            {{#ifCond result '||' ../isDoneWithLevel}}
+                                <button class='button run-test disabled' disabled>Run test</button>
+                            {{else}}
+                                {{#if ../../isAnyTestRunning}}
+                                    <button class='button run-test disabled' disabled>Run test</button>
+                                {{else}}
+                                    <button class='button run-test'>Run test</button>
+                                {{/if}}
+                            {{/ifCond}}
+                        </td>
+                        <td class='result-column'>
+                            <div class='result-label{{#if isRunningTest}} running-test{{/if}}'>{{result}}</div>
+                            <div class='result-note-label'>{{resultNote}}</div>
+                        </td>
+                    </tr>
+                    {{#ifCond testFinishedRunning '&&' component.isBroken}}
+                        <tr>
+                            <td class='cause-found-container' colspan='6'>
+                                Cause found:
+                                <button class='button component disabled' disabled>{{../component.label}}</button>
+                                is broken
+                            </td>
+                        </tr>
+                    {{/ifCond}}
+                {{/each}}
+            </tbody>
+        </table>
+    {{/if}}
+</div>
+
+<div class='footer'>
+    <div class='score-container'>
+        Your score:
+        <div class='total-score'>{{totalScore}}</div>
+        <div class='small-note'>(lower is better)</div>
+    </div>
+
+    {{#if isDoneWithLevel}}
+        <div class='done-container'>
+            {{#ifCond currentLevel '<' numberOfLevels}}
+                <button class='button next-level'>Next level</button>
+            {{else}}
+                <div class='done-label'>Done</div>
+                <button class='button play-again'>Try again?</button>
+            {{/ifCond}}
+        </div>
+    {{/if}}
+</div>

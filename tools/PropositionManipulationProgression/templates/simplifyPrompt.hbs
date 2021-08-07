@@ -1,0 +1,6 @@
+{{!
+    Generate a prompt to simplify an expression. Ex: Simplify (¬r∧q)∨(¬r∧¬q) to ¬r
+    @param {String} initialExpression The initial expression that is to be simplified.
+    @param {String} finalExpression The final expression.
+}}
+{{#ifCond type '===' 'expand'}}Expand{{else}}Simplify{{/ifCond}} <span class='expression'>{{{initialExpression}}}</span> to{{#ifCond type '===' 'expand'}} sum-of-minterms form{{/ifCond}} <span class='expression'>{{finalExpression}}</span>

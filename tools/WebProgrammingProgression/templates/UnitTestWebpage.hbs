@@ -1,0 +1,214 @@
+{{!
+    Render a webpage to use for unit testing.
+    @param {Array} unitTests The unit tests to run.
+    @param {String} webpage The webpage to render.
+    @param {String} webpageAsString The webpage as a single-line string for use in unit testing.
+    @param {String} webpageName The name of the webpage.
+}}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+<script>
+    // Add hidden jQuery support for the author-defined unit tests.
+    window.$$$ = window.$;
+    window.$ = undefined;
+
+    // Log each unit test result.
+    var zyResults = [];
+
+    /**
+        Record the test result.
+        @method zyTest
+        @param {Object} value The value to test.
+        @param {String} message The test's message.
+        @param {Boolean} [suppressAfterIfFail=false] Whether the test is critical.
+        @param {Boolean} [isConsoleTest=false] Whether this test is testing the console.log.
+        @return {void}
+    */
+    function zyTest(value, message, suppressAfterIfFail, isConsoleTest) {
+        zyResults.push({
+            isConsoleTest: isConsoleTest || false,
+            message: message,
+            suppressAfterIfFail: suppressAfterIfFail || false,
+            value: (value == null) ? '' : value,
+        });
+
+        if (zyNumberOfTestsBeforeDone && (zyResults.length === zyNumberOfTestsBeforeDone)) {
+            zyTestsAreDone();
+        }
+    }
+
+    /**
+        Test the console log.
+        @method zyTestConsoleLog
+        @param {String} message The test's message.
+        @param {Boolean} [suppressAfterIfFail=false] Whether the test is critical.
+        @return {void}
+    */
+    function zyTestConsoleLog(message, suppressAfterIfFail) {
+        zyTest(zyConsoleLog, message, suppressAfterIfFail, true);
+    }
+
+    /**
+        Test if the given value is defined.
+        @method zyTestIfDefined
+        @param {Object} value The value to test.
+        @param {String} message The test's message.
+        @return {void}
+    */
+    function zyTestIfDefined(value, message) {
+        var result = (value == null) ? 'Not defined' : 'Defined';
+
+        zyTest(result, message, true);
+    }
+
+    /**
+        Test the given tag name for the given CSS style name.
+        @method zyTestStyleOfTag
+        @param {String} styleName The CSS style name to test.
+        @param {String} tagName The tag name to test.
+        @param {Boolean} [suppressAfterIfFail=false] Whether the test is critical.
+        @return {void}
+    */
+    function zyTestStyleOfTag(styleName, tagName, suppressAfterIfFail) {
+        zyTest(
+            $$$(tagName).css(styleName),
+            'Testing ' + styleName + ' of <' + tagName + '> tag',
+            suppressAfterIfFail
+        );
+    }
+
+    /**
+        Get the post-rendering text from the DOM element.
+        @method zyGetTextPostRendering
+        @param {Object} element The DOM element to get the text.
+        @return {String} The text post rendering.
+    */
+    function zyGetTextPostRendering(element) {
+        return element ? element.innerText : '';
+    }
+
+    var zyWebpageAsString = '{{{webpageAsString}}}';
+
+    /**
+        Send the results back to the tool.
+        @method zyTestsAreDone
+        @return {void}
+    */
+    function zyTestsAreDone() {
+        parent.postMessage({
+            results: zyResults,
+            webpageName: '{{webpageName}}',
+        }, '*');
+    }
+
+    /**
+        Report an error and end the tests.
+        @method zyReportErrorMessage
+        @param {String} message The error message to report.
+        @return {void}
+    */
+    function zyReportErrorMessage(message) {
+        zyResults.push({
+            hadError: true,
+            errorMessage: message,
+        });
+
+        zyTestsAreDone();
+    }
+
+    /**
+        Override onerror to capture the errors as part of the zyResults.
+        @method onerror
+        @param {String} message The error message.
+        @param {String} source The file with the error.
+        @param {Number} lineNumber The line number in the source where the error occurred.
+        @return {Boolean} Whether the allow the error to bubble up.
+    */
+    window.onerror = function(message, source, lineNumber) {
+        var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        var isIE11 = (/Trident\/7\./).test(navigator.userAgent);
+        var isEdge = navigator.userAgent.indexOf('Edge') >= 0;
+        var needsOffset = isFirefox || isIE11 || isEdge;
+        var offset = 169;
+
+        zyReportErrorMessage('(line ' + (needsOffset ? (lineNumber - offset) : lineNumber) + ') ' + message);
+        return true;
+    };
+
+    // List of the strings passed to window.prompt().
+    var zyPrompts = [];
+
+    // List of input values that are read by window.prompt().
+    var zyInputs = [];
+
+    /**
+        Override prompt to return the first element in an array instead of generating a pop-up.
+        @method prompt
+        @param {String} string The message to prompt to the user.
+        @return {String} The first value of the array |zyInputs|.
+    */
+    window.prompt = function(string) {
+        zyPrompts.push(string);
+        return zyInputs.length ? zyInputs.shift() : null;
+    };
+
+    // String of values displayed via console.log.
+    var zyConsoleLog = '';
+
+    /**
+        Override console.log to store the string in |zyConsoleLog|.
+        @method console.log
+        @param {String} string The output.
+        @return {void}
+    */
+    window.console.log = function(string) {
+        zyConsoleLog += string + '\n';
+    };
+
+    var zyNumberOfTestsBeforeDone = null;
+
+    /**
+        Declare there are asynchronous tests and specify the total number of tests.
+        @method zyAsync
+        @param {Number} numberOfTests The number of tests that must complete before all testing is complete.
+        @return {void}
+    */
+    function zyAsync(numberOfTests) {
+        zyNumberOfTestsBeforeDone = numberOfTests;
+    }
+
+    $$$(document).ready(function() {
+
+        // If |zyRunUnitTests| doesn't exist, then the webpage probably ate the script tags.
+        if (typeof zyRunUnitTests === 'undefined') {
+            zyReportErrorMessage('Error in HTML structure, such as missing a closing tag.');
+        }
+        else {
+            zyRunUnitTests();
+        }
+    });
+</script>
+
+{{{webpage}}}
+
+<script>
+
+    /**
+        Run each unit test.
+        @method zyRunUnitTests
+        @return {void}
+    */
+    function zyRunUnitTests() {
+        {{#each unitTests}}
+            (function() {
+                zyPrompts = [];
+                zyInputs = [];
+                zyConsoleLog = '';
+                {{{this}}}
+            })();
+        {{/each}}
+        if (!zyNumberOfTestsBeforeDone) {
+            zyTestsAreDone();
+        }
+    }
+</script>

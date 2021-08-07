@@ -1,0 +1,26 @@
+{{!
+    Generate part showing the order of the tasks.
+    @param {Array of Object} taskOrder The tasks in order.
+    @param {Array of String} taskTypes The type of task is represented by a letter.
+
+    Note: Redundancy is deliberate below as zyWeb 1.0 to 2.0 had breaking changes for handlebars.
+}}
+<div class='task-order'><!--
+    {{#each taskOrder}}
+        {{#if isTaskLocation}}
+            --><div class='task task-location'>
+                <select>
+                    <option value=""></option>
+                    {{#each ../../taskTypes}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                    {{#each ../taskTypes}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div><!--
+        {{else}}
+            --><div class='task hard-coded'>{{taskType}}</div><!--
+        {{/if}}
+    {{/each}}
+--></div>

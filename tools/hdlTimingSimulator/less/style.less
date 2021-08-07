@@ -1,0 +1,242 @@
+@import "../../../zyWeb/less/buttons.less";
+
+.hdlTimingSimulator {
+    // Sets the line widths and font marker sizes
+    @frequency-label-color:   @zyante-light-gray;
+    @timing-line-marker:      1px dashed @zyante-light-gray;
+    @timing-line:             2px solid black;
+    @timing-marker-font-size: 15px;
+
+    // Wraps a collection of timing lines
+    .timing-diagram-container {
+        margin-bottom: 25px;
+    }
+
+    // Output is no longer valid for current inputs
+    .timing-container.stale-output {
+
+        .timing-diagram-segment:disabled {
+
+            & + label.time-segment-label {
+                border-bottom: none;
+                border-left:   @timing-line-marker;
+                border-right:  none;
+                border-top:    none;
+                height:        32px;
+
+                & + .timing-diagram-segment {
+                    & + .time-segment-label {
+                        border-left: @timing-line-marker;
+                    }
+                }
+
+                &:last-of-type {
+                    border-right: @timing-line-marker;
+                }
+            }
+        }
+    }
+
+    // Wrapper for timing diagram 
+    .timing-container {
+        .unselectable();
+        height:      45px;
+        margin:      0 10px;
+        white-space: nowrap;
+
+        // Signal identifier label 
+        .timing-signal-identifier {
+            display:        inline-block;
+            margin-bottom:  25px;
+            vertical-align: middle;
+        }
+
+        // High/low frequency label container
+        .signal-frequency-container {
+            display:      inline-block;
+            margin-right: 2px;
+
+            // High frequency label (1) 
+            .signal-high-frequency-label {
+                color:         @frequency-label-color;
+                display:       block;
+                font-size:     10px;
+                margin-bottom: 10px;
+            }
+
+            // Low frequency label (0) 
+            .signal-low-frequency-label {
+                color:     @frequency-label-color;
+                display:   block;
+                font-size: 10px;
+            }
+        }
+
+        // Invisible checkbox used to store high/low signals
+        .timing-diagram-segment {
+            display: none;
+
+            // Disabled timing segment 
+            &:disabled + .time-segment-label {
+                cursor: initial;
+            }
+
+            // Label associated with unchecked checkbox 
+            + .time-segment-label {
+                .unselectable();
+                border-bottom: @timing-line;
+                border-left:   @timing-line-marker;
+                cursor:        pointer;
+                display:       inline-block;
+                height:        30px;
+                margin-left:   -5px;
+                width:         50px;
+
+                // Left marker label 
+                .left-label {
+                    padding: 2px 0 0 0;
+                }
+
+                // Right marker label 
+                .right-label {
+                    padding: 2px 0 0 2px;
+                }
+
+                // Right neighbor is a high signal _-
+                & + .timing-diagram-segment:checked + .time-segment-label {
+                    border-left: @timing-line;
+                    width:       49px;
+
+                    // Right marker label 
+                    .right-label {
+                        padding: 0 0 0 1px;
+                    }
+                }
+            }
+
+            // Label associated with checked checkbox 
+            &:checked + .time-segment-label {
+                border-bottom: none;
+                border-top:    @timing-line;
+
+                // Left marker label 
+                .left-label {
+                    padding: 0;
+                }
+
+                // Right marker label 
+                .right-label {
+                    padding: 0 0 0 2px;
+                }
+
+                & + .timing-diagram-segment + .time-segment-label {
+                    border-left: @timing-line;
+                    width:       49px;
+
+                    // Right marker label 
+                    .right-label {
+                        padding: 2px 0 0 1px;
+                    }
+                }
+
+                // Right neighbor is a low signal -_
+                & + .timing-diagram-segment:checked + .time-segment-label {
+                    border-left: @timing-line-marker;
+                    width:       50px;
+
+                    // Right marker label 
+                    .right-label {
+                        padding: 0 0 0 2px;
+                    }
+                }
+            }
+        }
+
+        // Last timing segment needs a right marker 
+        .timing-diagram-segment:last-of-type {
+
+            // Last marker has a high signal, account for border width
+            &:checked + .time-segment-label {
+                border-right: @timing-line-marker;
+                width:        49px;
+            }
+
+            // Last marker has a low signal 
+            & + .time-segment-label {
+                border-right: @timing-line-marker;
+            }
+
+        }
+    }
+
+    // Code block wrapper 
+    .hdl-module-container {
+        background-color: rgb(179, 217, 254);
+        padding:          10px 0 0 10px;
+
+        .hdl-semicolon-end {
+            font-size:   16px;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+    }
+
+    // Contains code snippets 
+    .hdl-skeleton-code {
+        display: inline;
+    }
+
+    // Contains initial code chunk for a code snippet 
+    .hdl-skeleton-code-chunk {
+        margin-top: 0;
+    }
+
+    // User input for code 
+    .hdl-combinational-logic-input {
+        resize: none;
+    }
+
+    // Colorized HDL code markers 
+    .hdl-colorize {
+        color: @zyante-dark-blue;
+    }
+
+    // Alert prompts for the user 
+    .timing-simulator-message-area {
+        color:      @zyante-medium-red;
+        display:    block;
+        min-height: 20px;
+        min-width:  200px;
+    }
+
+    // Run button for HDL timing tool 
+    .run-hdl-timing-simulator {
+        .button();
+        margin-bottom: 10px;
+    }
+
+    // Load all input combinations button 
+    .load-all-timing-combinations {
+        .inverted-button();
+        color: @zyante-light-blue;
+        float: right;
+    }
+
+    // Time step labels for a group of timing lines
+    .time-labels {
+        margin-left: 26px;
+
+        // Each individual timing label
+        .time-label {
+            display: inline-block;
+            width:   46px;
+        }
+    }
+    
+    // Instruction in the "Inputs" label
+    .instruction-in-label {
+        color:      #AAA;
+        font-size:  12px;
+        font-style: italic;
+    }
+}

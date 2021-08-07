@@ -1,0 +1,23 @@
+{{! Context assumes numberOfBitsInNibble is an integer}}
+
+<div class='pane'>
+    <p>Match the <span class='instruction-hex-value'>decimal value</span> in binary.</p>
+    <div class='hex-wrapper'>
+        <div class='hex-value'></div>
+    </div>
+    <table class='bits'>
+        <tbody>
+            <tr>
+                {{#range numberOfBitsInNibble}}
+                    <td><button class='button clickable-bit'>{{this}}</button></td>
+                {{/range}}
+            </tr>
+            <tr>
+                {{#range numberOfBitsInNibble}}
+                    <td><button class='button disabled correct-answer-bits' disabled='disabled'>{{this}}</button></td>
+                {{/range}}
+            </tr>
+        </tbody>
+    </table>
+    <div class="decimal-equivalent">0</div>
+</div>

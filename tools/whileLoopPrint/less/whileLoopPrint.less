@@ -1,0 +1,132 @@
+@import "../../../zyWeb/less/constants.less";
+
+@monitor-font:         @zyante-code-font;
+@monitor-frame-color1: rgb(121, 121, 121);
+@monitor-frame-color2: rgb(160, 160, 160);
+@monitor-screen-color: rgb(245, 245, 255);
+
+
+.whileLoopPrint {
+  padding: 5px;
+
+  .code {
+    background-color: @zyante-light-blue;
+    display:          inline-block;
+    font-family:      @zyante-font;
+    height:           160px;
+    margin-top:       40px;
+    vertical-align:   top;
+    width:            250px;
+
+    span {
+      color:      black;
+      font-size:  16px;
+      text-align: left;
+    }
+  }
+
+  .output-button {
+    background-color: @zyante-accent-orange;
+    border-radius:    4px;
+    color:            white;
+    cursor:           pointer;
+    padding:          2px;
+  }
+
+  .shown {
+    opacity: 1.0;
+  }
+  .faded {
+    opacity: 0.5;
+  }
+  .hidden {
+    opacity: 0.0;
+  }
+
+  .monitor-text {
+    display:        inline-block;
+    font-family:    @monitor-font;
+    font-size:      16px;
+    line-height:    100%;
+    position:       absolute;
+    text-align:     left;
+    vertical-align: top;
+    z-index:        1;
+  }
+
+  .monitor-text-wrong {
+    background-color: @zyante-pale-orange;
+    display:          inline-block;
+    font-family:      @monitor-font;
+    font-size:        16px;
+    line-height:      100%;
+    padding-right:    10px;
+    padding-left:     10px;
+    position:         absolute;
+    text-align:       left;
+    vertical-align:   top;
+    z-index:          1;
+  }
+
+  .monitor {
+    display: inline-block;
+    height: 200px;
+    position: absolute;
+  }
+
+  .monitorOuterFrame {
+    background-color: @monitor-frame-color1;
+    border-radius:    11px;
+    display:          inline-block;
+    height:           180px;
+    position:         absolute;
+    width:            211px;
+  }
+
+  .monitorScreen {
+    background-color: @monitor-screen-color;
+    border:           1px solid @monitor-frame-color2;
+    display:          inline-block;
+    height:           160px;
+    left:             10px;
+    position:         absolute;
+    top:              10px;
+    width:            186px;
+  }
+
+  .monitorUpperStand {
+    background-color: @monitor-frame-color1;
+    border:           1px solid @monitor-frame-color2;
+    display:          inline-block;
+    height:           8px;
+    left:             60px;
+    position:         absolute;
+    top:              180px;
+    width:            82px;
+  }
+
+  .monitorLowerStand {
+    background-color: @monitor-frame-color1;
+    border:           1px solid @monitor-frame-color2;
+    display:          inline-block;
+    height:           8px;
+    left:             40px;
+    position:         absolute;
+    top:              190px;
+    width:            120px;
+  }
+
+  .feedback-correct {
+    color: @zyante-green;
+  }
+
+  .feedback-incorrect {
+    color: @zyante-red;
+  }
+
+  .num-value {
+    left: 200px;
+    position: relative;
+  }
+
+}

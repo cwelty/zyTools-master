@@ -1,0 +1,33 @@
+@import '../../../zyWeb/less/constants.less';
+
+.identifierValidator {
+    font-family: @zyante-font;
+    height:      100%;
+    text-align:  center;
+    width: 600px;
+
+    .button {
+        margin-left: 10px;
+    }
+
+    .identifier-feedback {
+        margin-top: 15px;
+        word-wrap: break-word;
+
+        .invalid-identifier {
+            color: @zyante-red;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .valid-identifier {
+            color: @zyante-green;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .highlighted-violation {
+            background-color: @zyante-light-yellow;
+        }
+    }
+}

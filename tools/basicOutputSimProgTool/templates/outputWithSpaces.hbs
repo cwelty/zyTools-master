@@ -1,0 +1,13 @@
+{{!
+    Print an example with the spaces highlighted.
+    |exampleOutputObject| is required and an array, in which each element is an object with:
+        * |isSpace| is required and a bool.
+        * |value| is required and a string.
+}}<!--
+-->{{#each exampleOutputObject}}<!--
+    {{#if isSpace}}
+        --><span class='highlight-space'> </span><!--
+    {{else}}
+        -->{{value}}<!--
+    {{/if}}
+-->{{/each}}

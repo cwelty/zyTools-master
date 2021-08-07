@@ -1,0 +1,17 @@
+{{!
+    Generate an explanation and feedback for a wrong answer.
+    @param {String} expectedOutput The HTML diff of the expected output.
+    @param {String} explanation The explanation to print.
+    @param {String} userOutput The HTML diff of the user's output.
+}}
+{{explanation}}
+<table class='explanation-table'>
+    <tr>
+        <td class='explanation-description'>Yours</td>
+        <td><div class='output expected-output'>{{{userOutput}}}</div></td>
+    </tr>
+    <tr>
+        <td class='explanation-description'>Expected</td>
+        <td><div class='output user-output'>{{{expectedOutput}}}</div></td>
+    </tr>
+</table>

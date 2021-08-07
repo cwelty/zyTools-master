@@ -1,0 +1,41 @@
+{{! This is the template for the assembly code block}}
+<div class='assembly-instructor-container'>
+    <div class='container-label'>Assembly instructions</div>
+    <table class='assembly-instructions'>
+        <tbody>
+        {{! Prints 4 editable assembly instruction lines}}
+        {{#loopWithBinaryIndexOutput 4 2 0 0}}
+            <tr class='assembly-line'>
+                <td class='assembly-op-code'>
+                    <select class='assembly-op-code-text assemblyOpCode{{this.index}}' line='{{this.index}}'>
+                        <option value='00'>Stop</option>
+                        <option value='01'>Input</option>
+                        <option value='10'>Output</option>
+                        <option value='11'>Add</option>
+                    </select>
+                </td>
+
+                {{! Prints operands for each line of code}}
+                {{#loopWithBinaryIndexOutput 3 3 0 this.index}}
+                    <td class='assembly-op{{i}}'>
+                        <select class='assembly-operand-text hidden assemblyOperand{{this.index}}{{this.outerIndex}}' line='{{this.outerIndex}}' operand='{{this.index}}' disabled>
+                            <option value='000' selected></option>
+                            <option value='101'>M[5]</option>
+                            <option value='110'>M[6]</option>
+                            <option value='111'>M[7]</option>
+                        </select>
+                    </td>
+                {{/loopWithBinaryIndexOutput}}
+            </tr>
+        {{/loopWithBinaryIndexOutput}}
+
+        {{! All programs must end with a termination line}}
+        <tr class='stop-line assembly-line'>
+            <td class='assembly-op-code' colspan='4'>
+                <div class='stop-code'>Stop</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class='run-assembler button'>Run assembler</button>
+</div>

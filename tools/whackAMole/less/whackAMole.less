@@ -1,0 +1,58 @@
+@import "../../../zyWeb/less/constants.less";
+
+@hole-height-width: 40px;
+@selected-hole-height-width: 35px;
+@border-td-height-width: 50px;
+
+.whackAMole {
+    .board {
+        margin: 0 auto;
+        
+        td {
+            height: @border-td-height-width;
+            width:  @border-td-height-width;
+        }
+    }
+    
+    .hole {
+        border-color:  @zyante-gray;
+        border-radius: 50px;
+        border-style:  solid;
+        border-width:  2px;
+        float:         left;
+        height:        @hole-height-width;
+        margin:        2px;
+        width:         @hole-height-width;
+    }
+    
+    .mole {
+        cursor: pointer;
+    }
+    
+    .selected {
+        background-position: center;
+        border-color:        @zyante-dark-blue;
+        border-radius:       50px;
+        border-style:        solid;
+        border-width:        5px;
+        height:              @selected-hole-height-width;
+        float:               left;
+        margin:              2px;
+        width:               @selected-hole-height-width;
+        
+        &.correct {
+            border-color: @zyante-green;
+        }
+    
+        &.wrong {
+            border-color: lighten(@zyante-medium-red, 10%);
+        }
+    }
+    
+    .instructions {
+        height:        20px;
+        font-size:     18px;
+        margin-bottom: 10px;
+        text-align:    center;
+    }
+}

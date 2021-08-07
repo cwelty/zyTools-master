@@ -1,0 +1,28 @@
+<table class='truth-table'>
+    <tbody>
+        <tr>
+            {{#each variables}}
+                <th>{{this}}</th>
+            {{/each}}
+        
+            <th class='result'>{{yText}}</th>
+            <th class='result'>Your {{yText}}</th>
+        </tr>
+        
+        {{#each rows}}
+            <tr>
+                {{#each truthValues}}
+                    <td>{{this}}</td>
+                {{/each}}
+                
+                <td class='result'>{{expectedY}}</td>
+                
+                {{#if yourY.isWrong}}
+                    <td class='your-y result wrong-answer'>{{yourY.value}}</td>
+                {{else}}
+                    <td class='your-y result'>{{yourY.value}}</td>
+                {{/if}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+{{!
+    Render a modal for showing the expected webpage.
+    @param {String} encodedWebpage The webpage as encoded text.
+}}
+<div class='webpages-container'>
+    <div class='webpage-container'>
+        <div class='iframe-container'>
+            <iframe src='data:text/html;charset=utf-8,{{encodedWebpage}}'></iframe>
+        </div>
+    </div>
+</div>

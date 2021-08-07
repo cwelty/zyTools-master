@@ -1,0 +1,51 @@
+@import "../../../zyWeb/less/constants.less";
+
+.audioWaveform {
+    @toolWidth: 400px;
+    
+    div.center-contents-container {
+        position:   relative;
+        text-align: center;
+        width:      400px;
+        
+        div.attribution {
+            font-size:  10px;
+            margin-top: 30px;
+        }
+    
+        div.microphone-status {
+            font-size:     12px;
+            font-style:    italic;
+            margin-top:    10px;
+        }
+    
+        div.waveform-container {
+            border:        1px solid @zyante-light-gray;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            position:      relative;
+            text-align:    left;
+        }
+        
+        div.waveform-error-message {
+            left:       0;
+            position:   absolute;
+            text-align: center;
+            width:      400px;
+            
+            &.song-error {
+                top: 119px;
+            }
+            
+            &.microphone-source-no-volume {
+                top: 129px;
+            }
+        }
+    }
+    
+    div.note {
+        font-size:  12px;
+        margin-top: 20px;
+        width:      @toolWidth;
+    }
+}

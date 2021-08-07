@@ -1,0 +1,51 @@
+<zyAnimator id="HlsmDpForDataOpInCondition" caption="Datapath support for data operations in transition conditions. " height="466px" width="684px" selectedInstr="0" selectedObj="none" numObjsEverCreated="57" loadOnDemand="true">
+<!-- Last modified Thu Dec 04 2014 13:21:30 GMT-0800 (PST) with version 2.14.9.12 -->
+<zyObjects>
+   <zyObject objNum="-31" objType="box" objName="Object 55: Box" top="182px" left="190px" opacity="0" background-color="zyAnimator-orange" width="28px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="11" objType="box" objName="Object 48: Box" top="162px" left="194px" opacity="0" background-color="zyAnimator-orange" width="28px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="14" objType="box" objName="Object 1: Box" top="158px" left="298px" border-radius="100px" background-color="zyAnimator-white" height="40px" width="53px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="15" objType="text" objName="Alarm" top="169px" left="315px" font-size="12px" text-align="center">
+      <text>s0</text>
+   </zyObject>
+   <zyObject objNum="16" objType="box" objName="Object 3: Box" top="266px" left="298px" border-radius="100px" background-color="zyAnimator-white" height="40px" width="53px" border-color="zyAnimator-blue">
+   </zyObject>
+   <zyObject objNum="17" objType="text" objName="Object 4: Text" top="277px" left="316px" font-size="12px">
+      <text>s1</text>
+   </zyObject>
+   <zyObject objNum="18" objType="text" objName="Object 6: Text" top="161px" left="136px" font-size="12px">
+      <text></text>
+   </zyObject>
+   <zyObject objNum="19" objType="text" objName="Object 7: Text" top="161px" left="136px" font-size="12px">
+      <text>Outputs: T(8)</text>
+   </zyObject>
+   <zyObject objNum="20" objType="box" objName="Object 8: Box" top="156px" left="290px" background-color="zyAnimator-black" width="2px" border-width="0px" border-style="none" transformDeg="-63">
+   </zyObject>
+   <zyObject objNum="21" objType="text" objName="Object 9: Text" top="151px" left="292px" font-size="21px" transformDeg="21">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="24" objType="box" objName="Object 13: Box" top="200px" left="319px" background-color="zyAnimator-black" height="65px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="25" objType="text" objName="Object 14: Text" top="189px" left="329px" font-size="21px" transformDeg="90">
+      <text>&lt;</text>
+   </zyObject>
+   <zyObject objNum="26" objType="text" objName="Object 15: Text" top="246px" left="316px" font-size="21px" transformDeg="90">
+      <text>&gt;</text>
+   </zyObject>
+   <zyObject objNum="27" objType="box" objName="Object 16: Box" top="204px" left="332px" background-color="zyAnimator-black" height="63px" width="2px" border-width="0px" border-style="none">
+   </zyObject>
+   <zyObject objNum="50" objType="text" objName="Object 45: Text" top="13px" left="398px" opacity="0" font-size="12px">
+      <text>E</text>
+   </zyObject>
+</zyObjects>
+<zyInstructions>
+   <zyInstruction instrType="step1">
+      <text>Datapath supports any data input or output.</text>
+   </zyInstruction>
+   <zyInstruction instrType="startStep">
+      <text></text>
+   </zyInstruction>
+</zyInstructions>
+</zyAnimator>

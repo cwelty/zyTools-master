@@ -1,0 +1,54 @@
+<div class='wordprocessor-container'>
+    <div class='tool-top-toolbar'>
+        <select class='select-toolbar font-format' command='formatblock'>
+            <option value='h5'>Title</option>
+            <option value='h1'>Heading 1</option>
+            <option value='h2'>Heading 2</option>
+            <option value='h6'>Subtitle</option>
+            <option value='p' selected>Normal</option>
+            <option value='' class='hidden-option'></option>
+        </select>
+
+        <select class='select-toolbar font-face' command='fontname'>
+            <option value='Helvetica' selected>Helvetica</option>
+            <option value='Arial'>Arial</option>
+            <option value='Courier New'>Courier New</option>
+            <option value='Times New Roman'>Times New Roman</option>
+            <option value='' class='hidden-option'></option>
+        </select>
+
+        <select class='select-toolbar font-size' command='fontsize'>
+            <option value='1'>8 pt</option>
+            <option value='2'>10 pt</option>
+            <option value='3' selected>12 pt</option>
+            <option value='4'>16 pt</option>
+            <option value='6'>20 pt</option>
+            <option value='8'>40 pt</option>
+            <option value='' class='hidden-option'></option>
+        </select>
+
+        <label>
+            <span class='font-foreground-color'>A</span><input type='color' class='select-toolbar color-select fore-ground' command='forecolor'/>
+        </label>
+
+        <label>
+            <span class='font-background-color'>A</span><input type='color' class='select-toolbar color-select back-ground' value='#ffffff' command='backcolor'/>
+        </label>
+    </div>
+
+    <div  class='bottom-toolbar-container'>
+        <span class='bold-button toolbar-button' title='Bold' command='bold'>B</span>
+        <span class='italic-button toolbar-button' title='Italic' command='italic'>I</span>
+        <span class='underline-button toolbar-button' title='Underline' command='underline'>U</span>
+
+        <img class='toolbar-button' title='Left align' command='justifyleft' src='{{leftAlignImage}}'/>
+        <img class='toolbar-button' title='Center align' command='justifycenter' src='{{centerImage}}'/>
+        <img class='toolbar-button' title='Right align' command='justifyright' src='{{rightAlignImage}}'/>
+        <img class='toolbar-button' title='Numbered list' command='insertorderedlist' src='{{olImage}}'/>
+        <img class='toolbar-button' title='Dotted list' command='insertunorderedlist' src='{{ulImage}}'/>
+        <img class='toolbar-button' title='Add indentation' command='indent' src='{{indentImage}}'/>
+        <img class='toolbar-button' title='Delete indentation' command='outdent' src='{{outdentImage}}'/>
+    </div>
+
+    <div class='text-contents' contenteditable='true'>{{textContents}}</div>
+</div>

@@ -1,0 +1,25 @@
+{{!
+    Render a separate div for each function in the executor.
+    @param {String} errorMessage The error message to show to the user.
+    @param {Array} functions Array of {ProgramFunction}. The functions in the program.
+    @param {Boolean} isUsingMultipleLanguages Whether multiple languages are used.
+    @param {String} segmentedLanguageControlId An id for the language segmented control.
+    @param {String} segmentedFunctionControlId An id for the function segmented control.
+}}
+<div class='flowchart-program-container'>
+    <div class='flowchart-program{{#if isUsingMultipleLanguages}} use-border{{/if}}'>
+        {{#if functions.length}}
+            <div id='{{segmentedFunctionControlId}}' class='segmented-function-control'></div>
+        {{/if}}
+
+        {{#each functions}}
+            <div class='function-container'></div>
+        {{/each}}
+    </div>
+    {{#if isUsingMultipleLanguages}}
+        <div id='{{segmentedLanguageControlId}}' class='segmented-language-control'></div>
+    {{/if}}
+    {{#if errorMessage}}
+        <div class='error-message'>{{errorMessage}}</div>
+    {{/if}}
+</div>

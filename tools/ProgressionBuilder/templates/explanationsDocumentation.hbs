@@ -1,0 +1,33 @@
+{{!
+    Print documentation for the explanations.
+}}
+<div class="explanations-documentation">
+    <p>Explanations support inserting Python variables, images, and spreadsheets.</p>
+    <ul class="no-indent">
+        <li class="no-indent"><strong>Python variable:</strong> Write the variable name as: ${my_variable}</li>
+        <li class="no-indent"><strong>Image:</strong> Notation is <code>[image &lt;width&gt; &lt;height&gt;](&lt;google-id&gt;)</code>. Optional: width and height. Ex:
+            <ul class="no-indent">
+                <li class="no-indent"><strong>Default width and height:</strong> <code>[image](google-id)</code></li>
+                <li class="no-indent"><strong>Explicit width (200) and height (100):</strong> <code>[image 200 100](google-id)</code></li>
+                <li class="no-indent"><strong>Explicit width only (200):</strong> <code>[image 200](google-id)</code></li>
+                <li class="no-indent"><strong>Explicit height only (100):</strong> <code>[image 0 100](google-id)</code></li>
+            </ul>
+        </li>
+        <li class="no-indent"><strong>Table:</strong> Notation is <code>[table &lt;hrow&gt; &lt;hcol&gt; &lt;width&gt; &lt;height&gt; &lt;font-size&gt;][&lt;contents&gt;]</code>. Optional: hrow, hcol, width, height, and font-size. hrow and hcol indicate if the first row and/or column are headers respectively. contents has an ampersand (&amp;) between columns and newline between rows. Ex:
+            <ul class="no-indent">
+                <li class="no-indent"><strong>header row, 300 width, 150 height, 18 font:</strong> <code>[table hrow 300 150 18][...]</code></li>
+                <li class="no-indent"><strong>2x2 table:</strong> <pre><code>[table][11&amp;21
+12&amp;22]</code></pre></li>
+            </ul>
+        </li>
+        <li class="no-indent"><strong>Spreadsheet:</strong> Notation is <code>[spreadsheet &lt;width&gt; &lt;height&gt; &lt;font-size&gt;][&lt;contents&gt;][&lt;fill-colors&gt;]</code>. Optional: width, height, font-size, and fill-colors. contents and fill-colors have an ampersand (&amp;) between columns and newline between rows. Ex:
+            <ul class="no-indent">
+                <li class="no-indent"><strong>300 width, 150 height, 18 font:</strong> <code>[spreadsheet 300 150 18][...][...]</code></li>
+                <li class="no-indent"><strong>2x2 spreadsheet with content named with the cell address:</strong> <pre><code>[spreadsheet][a1&amp;b1
+a2&amp;b2]
+[default&amp;blue
+orange&amp;green]</code></pre></li>
+            </ul>
+        </li>
+    </ul>
+</div>

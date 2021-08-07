@@ -1,0 +1,11 @@
+{{!
+    Renders the database.
+    @param {Integer} numberOfTables The number of tables in the DB.
+}}
+<div class='flex-row align-items-center'>
+    <h3 class='clickable'>Database ({{numberOfTables}} table{{#ifCond numberOfTables '===' 1}}{{else}}s{{/ifCond}})</h3>
+    <button aria-label='Click to collapse' class='toggle-button zb-button icon-button left'>
+        <i aria-hidden='true' class='database-icon material-icons zb-icon blue-grey med'>expand_less</i>
+    </button>
+</div>
+<div id='database-output' class='table'></div>

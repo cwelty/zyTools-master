@@ -1,0 +1,721 @@
+<p id="prompt">Click a class to see available {{functionsOrMethods}} and data for that class.</p>
+<table class="inheritance-table">
+    <colgroup>
+        <col style="width:550px">
+        <col style="width:400px">
+    </colgroup>
+    <tbody>
+        <tr>
+            <th>Inheritance tree</th>
+            <th>Selected class pseudocode</th>
+        </tr>
+        <tr>
+            <td style="text-align:center; background-color: #ffffff;">
+                <button id="inheritanceTree_class1_{{id}}" class="button classLabel highlighted class1">{{item}}</button><br/>
+                <img class="45deg_up_right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="45deg_up_left"><br/>
+                <button id="inheritanceTree_class2_{{id}}" class="button classLabel class2" style="color: white;">{{produce}}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="inheritanceTree_class3_{{id}}" class="button classLabel class5" style="color: white;">{{book}}</button><br/>
+                <img class="45deg_up_right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="45deg_up_left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="45deg_up_right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img class="45deg_up_left"><br/>
+                <button id="inheritanceTree_class4_{{id}}" class="button classLabel class3">{{fruit}}</button>
+                <button id="inheritanceTree_class5_{{id}}" class="button classLabel class4">{{dairy}}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="inheritanceTree_class6_{{id}}" class="button classLabel class6">{{textbook}}</button>
+                <button id="inheritanceTree_class7_{{id}}" class="button classLabel class7">{{audiobook}}</button>
+            </td>
+            <td id="inheritanceTree_pseudocode_{{id}}"></td>
+        </tr>
+    </tbody>
+</table>
+<table id="inheritanceTree_selectedClassCodeTable_{{id}}" class="inheritance-table">
+    <tr>
+        <th>Selected class code</th>
+    </tr>
+    <tr>
+        <td id="inheritanceTree_selectedClassCode_{{id}}"></td>
+    </tr>
+</table>
+
+<!--------- html color coded -------------->
+
+<div id="cpp_baseClass_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+
+
+
+
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+
+
+</pre>
+</div>
+
+<div id="cpp_baseClass_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> GenericItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetName<span style="color:#808030; ">(</span><span style="color:#603000; ">string</span> newName<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> itemName <span style="color:#808030; ">=</span> newName<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetQuantity<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> newQty<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> itemQuantity <span style="color:#808030; ">=</span> newQty<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> PrintItem<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+         <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;</span><span style="color:#808030; ">&lt;</span> itemName <span style="color:#808030; ">&lt;</span><span style="color:#808030; ">&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; "> </span><span style="color:#800000; ">"</span>
+              <span style="color:#808030; ">&lt;</span><span style="color:#808030; ">&lt;</span> itemQuantity
+              <span style="color:#808030; ">&lt;</span><span style="color:#808030; ">&lt;</span> endl<span style="color:#800080; ">;</span>
+      <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#603000; ">string</span> itemName<span style="color:#800080; ">;</span>
+      <span style="color:#800000; font-weight:bold; ">int</span> itemQuantity<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_baseClass_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+
+
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+
+
+
+
+</pre>
+</div>
+
+<div id="java_baseClass_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> GenericItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; font-weight:bold; ">String</span> itemName<span style="color:#800080; ">;</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; ">int</span> itemQuantity<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setName<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> newName<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      itemName <span style="color:#808030; ">=</span> newName<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setQuantity<span style="color:#808030; ">(</span><span style="color:#bb7977; ">int</span> newQty<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      itemQuantity <span style="color:#808030; ">=</span> newQty<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> printItem<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span>itemName <span style="color:#808030; ">+</span> <span style="color:#0000e6; ">" "</span> <span style="color:#808030; ">+</span>
+                         itemQuantity<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_baseClass_pseudocode_{{id}}" style="display: none;">
+<pre style="color: white; background: white;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+
+
+
+
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+
+
+</pre>
+</div>
+
+<div id="python_baseClass_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Item<span style="color:#808030; ">:</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>name <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">''</span>
+        self<span style="color:#808030; ">.</span>quantity <span style="color:#808030; ">=</span> <span style="color:#008c00; ">0</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_name<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> nm<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>name <span style="color:#808030; ">=</span> nm
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_quantity<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> qnty<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>quantity <span style="color:#808030; ">=</span> qnty
+
+    <span style="color:#800000; font-weight:bold; ">def</span> display<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#696969; font-weight:bold; "># print name, quantity</span>
+
+</pre>
+</div>
+
+
+
+
+<div id="cpp_derivedClass1a_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class2">void SetExpiration(string newDate)</span>
+   <span class="class2">string GetExpiration()</span>
+
+
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class2">string expirationDate;</span>
+
+</pre>
+</div>
+
+<div id="cpp_derivedClass1a_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> ProduceItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> GenericItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetExpiration<span style="color:#808030; ">(</span><span style="color:#603000; ">string</span> newDate<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> expirationDate <span style="color:#808030; ">=</span> newDate<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#603000; ">string</span> GetExpiration<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> expirationDate<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#603000; ">string</span> expirationDate<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass1a_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class2">private String expirationDate;</span>
+
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class2">public void setExpiration(String newDate)</span>
+   <span class="class2">public String getExpiration()</span>
+
+
+</pre>
+</div>
+
+<div id="java_derivedClass1a_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> ProduceItem <span style="color:#800000; font-weight:bold; ">extends</span> GenericItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; font-weight:bold; ">String</span> expirationDate<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setExpiration<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> newDate<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      expirationDate <span style="color:#808030; ">=</span> newDate<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> getExpiration<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> expirationDate<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass1a_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class2">def set_expiration(self, expir):</span>
+    <span class="class2">def get_expiration(self):</span>
+
+
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class2">self.expiration</span>
+
+</pre>
+</div>
+
+<div id="python_derivedClass1a_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Produce<span style="color:#808030; ">(</span>Item<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Item<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>expiration <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">''</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_expiration<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> expir<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>expiration <span style="color:#808030; ">=</span> expir
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_expiration<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.expiration
+</pre>
+</div>
+
+
+
+
+<div id="cpp_derivedClass1b_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class5">void SetTitle(string newTitle)</span>
+   <span class="class5">string GetTitle()</span>
+
+
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class5">string bookTitle;</span>
+
+</pre>
+</div>
+
+<div id="cpp_derivedClass1b_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> BookItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> GenericItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetTitle<span style="color:#808030; ">(</span><span style="color:#603000; ">string</span> newTitle<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> bookTitle <span style="color:#808030; ">=</span> newTitle<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#603000; ">string</span> GetTitle<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> bookTitle<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#603000; ">string</span> bookTitle<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass1b_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class5">private String bookTitle;</span>
+
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class5">public void setTitle(String newTitle)</span>
+   <span class="class5">public String getTitle()</span>
+
+
+</pre>
+</div>
+
+<div id="java_derivedClass1b_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> BookItem <span style="color:#800000; font-weight:bold; ">extends</span> GenericItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; font-weight:bold; ">String</span> bookTitle<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setTitle<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> newTitle<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      bookTitle <span style="color:#808030; ">=</span> newTitle<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> getTitle<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> bookTitle<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass1b_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class5">def set_title(self, ttl):</span>
+    <span class="class5">def get_title(self):</span>
+
+
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class5">self.title</span>
+
+</pre>
+</div>
+
+<div id="python_derivedClass1b_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Book<span style="color:#808030; ">(</span>Item<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Item<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>title <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">''</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_title<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> ttl<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>title <span style="color:#808030; ">=</span> ttl
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_title<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.title
+</pre>
+</div>
+
+
+
+
+<div id="cpp_derivedClass2a_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class2">void SetExpiration(string newDate)</span>
+   <span class="class2">string GetExpiration()</span>
+   <span class="class3">void SetHasSeeds(bool withSeeds)</span>
+   <span class="class3">bool GetHasSeeds()</span>
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class2">string expirationDate;</span>
+   <span class="class3">bool hasSeeds;</span>
+</pre>
+</div>
+
+<div id="cpp_derivedClass2a_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> FruitItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> ProduceItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetHasSeeds<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">bool</span> withSeeds<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> hasSeeds <span style="color:#808030; ">=</span> withSeeds<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#800000; font-weight:bold; ">bool</span> GetHasSeeds<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> hasSeeds<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">bool</span> hasSeeds<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2a_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class2">private String expirationDate;</span>
+   <span class="class3">private boolean hasSeeds;</span>
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class2">public void setExpiration(String newDate)</span>
+   <span class="class2">public String getExpiration()</span>
+   <span class="class3">public void setHasSeeds(boolean withSeeds)</span>
+   <span class="class3">public boolean getHasSeeds()</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2a_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> FruitItem <span style="color:#800000; font-weight:bold; ">extends</span> ProduceItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; ">boolean</span> hasSeeds<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setHasSeeds<span style="color:#808030; ">(</span><span style="color:#bb7977; ">boolean</span> withSeeds<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      hasSeeds <span style="color:#808030; ">=</span> withSeeds<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">boolean</span> getHasSeeds<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> hasSeeds<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2a_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class2">def set_expiration(self, expir):</span>
+    <span class="class2">def get_expiration(self):</span>
+    <span class="class3">def set_has_seeds(self, sds):</span>
+    <span class="class3">def get_has_seeds(self):</span>
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class2">self.expiration</span>
+    <span class="class3">self.has_seeds</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2a_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Fruit<span style="color:#808030; ">(</span>Produce<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Produce<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>has_seeds <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">True</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_has_seeds<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> sds<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>has_seeds <span style="color:#808030; ">=</span> sds
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_has_seeds<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.has_seeds
+</pre>
+</div>
+
+
+
+
+<div id="cpp_derivedClass2b_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class2">void SetExpiration(string newDate)</span>
+   <span class="class2">string GetExpiration()</span>
+   <span class="class4">void SetPercentageFat(int newPercent)</span>
+   <span class="class4">int GetPercentageFat()</span>
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class2">string expirationDate;</span>
+   <span class="class4">int percentFat;</span>
+</pre>
+</div>
+
+<div id="cpp_derivedClass2b_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> DairyItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> ProduceItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetPercentageFat<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> newPercent<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> percentageFat <span style="color:#808030; ">=</span> newPercent<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#800000; font-weight:bold; ">int</span> GetPercentageFat<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> percentageFat<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">int</span> percentageFat<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2b_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class2">private String expirationDate;</span>
+   <span class="class4">private int percentageFat;</span>
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class2">public void setExpiration(String newDate)</span>
+   <span class="class2">public String getExpiration()</span>
+   <span class="class4" style="color:#000000">public void setPercentageFat(int newPercent)</span>
+   <span class="class4" style="color:#000000">public int getPercentageFat()</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2b_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> DairyItem <span style="color:#800000; font-weight:bold; ">extends</span> ProduceItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; ">int</span> percentageFat<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setPercentageFat<span style="color:#808030; ">(</span><span style="color:#bb7977; ">int</span> newPercent<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      percentageFat <span style="color:#808030; ">=</span> newPercent<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">int</span> getPercentageFat<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> percentageFat<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2b_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class2">def set_expiration(self, expir):</span>
+    <span class="class2">def get_expiration(self):</span>
+    <span class="class4">def set_percent_fat(self, percent_fat):</span>
+    <span class="class4">def get_percent_fat(self):</span>
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class2">self.expiration</span>
+    <span class="class4">self.percent_fat</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2b_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Dairy<span style="color:#808030; ">(</span>Produce<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Produce<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>percent_fat <span style="color:#808030; ">=</span> percent_fat
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_percent_fat<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> percent_fat<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>percent_fat <span style="color:#808030; ">=</span> percent_fat
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_percent_fat<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.percent_fat
+</pre>
+</div>
+
+
+
+
+<div id="cpp_derivedClass2c_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class5">void SetTitle(string newTitle)</span>
+   <span class="class5">string GetTitle()</span>
+   <span class="class6">void SetEdition(string newEdition)</span>
+   <span class="class6">string GetEdition()</span>
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class5">string bookTitle;</span>
+   <span class="class6">string editionName;</span>
+</pre>
+</div>
+
+<div id="cpp_derivedClass2c_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> TextbookItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> BookItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetEdition<span style="color:#808030; ">(</span><span style="color:#603000; ">string</span> newEdition<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> editionName <span style="color:#808030; ">=</span> newEdition<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#603000; ">string</span> GetEdition<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> editionName<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#603000; ">string</span> editionName<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2c_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class5">private String bookTitle;</span>
+   <span class="class6">private String editionName;</span>
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class5">public void setTitle(String newTitle)</span>
+   <span class="class5">public String getTitle()</span>
+   <span class="class6">public void setEdition(String newEdition)</span>
+   <span class="class6">public string getEdition()</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2c_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> TextbookItem <span style="color:#800000; font-weight:bold; ">extends</span> BookItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; font-weight:bold; ">String</span> editionName<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setEdition<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> newEdition<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      editionName <span style="color:#808030; ">=</span> newEdition<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> getEdition<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> editionName<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2c_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class5">def set_title(self, ttl):</span>
+    <span class="class5">def get_title(self):</span>
+    <span class="class6">def set_edition(self, edition):</span>
+    <span class="class6">def get_edition(self):</span>
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class5">self.title</span>
+    <span class="class6">self.edition</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2c_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Textbook<span style="color:#808030; ">(</span>Book<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Book<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>edition <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">''</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_edition<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> edition<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>edition <span style="color:#808030; ">=</span> edition
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_edition<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.edition
+</pre>
+</div>
+
+
+<div id="cpp_derivedClass2d_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">public:</span>
+   <span class="class1">void SetName(string newName)</span>
+   <span class="class1">void SetQuantity(int newQty)</span>
+   <span class="class1">void PrintItem()</span>
+   <span class="class5">void SetTitle(string newTitle)</span>
+   <span class="class5">string GetTitle()</span>
+   <span class="class7">void SetReader(string newReader)</span>
+   <span class="class7">string GetReader()</span>
+<span style="color: black">private:</span>
+   <span class="class1">string itemName;</span>
+   <span class="class1">int itemQuantity;</span>
+   <span class="class5">string bookTitle;</span>
+   <span class="class7">string readerName;</span>
+</pre>
+</div>
+
+<div id="cpp_derivedClass2d_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">class</span> AudiobookItem <span style="color:#800080; ">:</span> <span style="color:#800000; font-weight:bold; ">public</span> BookItem <span style="color:#800080; ">{</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">public</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#800000; font-weight:bold; ">void</span> SetReader<span style="color:#808030; ">(</span><span style="color:#603000; ">string</span> newReader<span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> readerName <span style="color:#808030; ">=</span> newReader<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+      <span style="color:#603000; ">string</span> GetReader<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span>
+         <span style="color:#800080; ">{</span> <span style="color:#800000; font-weight:bold; ">return</span> readerName<span style="color:#800080; ">;</span> <span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+<span style="color:#e34adc; ">&nbsp;&nbsp;&nbsp;</span><span style="color:#800000; font-weight:bold; ">private</span><span style="color:#e34adc; ">:</span>
+      <span style="color:#603000; ">string</span> readerName<span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span><span style="color:#800080; ">;</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2d_pseudocode_{{id}}" style="display: none;">
+    <pre style="color:#ffffff;background:#ffffff;"><span style="color: black">private:</span>
+   <span class="class1">private String itemName;</span>
+   <span class="class1">private int itemQuantity;</span>
+   <span class="class5">private String bookTitle;</span>
+   <span class="class7">private String readerName;</span>
+<span style="color: black">public:</span>
+   <span class="class1">public void setName(String newName)</span>
+   <span class="class1">public void setQuantity(int newQty)</span>
+   <span class="class1">public void printItem()</span>
+   <span class="class5">public void setTitle(String newTitle)</span>
+   <span class="class5">public String getTitle()</span>
+   <span class="class7">public void setReader(String newReader)</span>
+   <span class="class7">public string getReader()</span>
+</pre>
+</div>
+
+<div id="java_derivedClass2d_code_{{id}}" style="display: none;">
+    <pre style="color:#000000;background:#efefef;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> AudiobookItem <span style="color:#800000; font-weight:bold; ">extends</span> BookItem <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">private</span> <span style="color:#bb7977; font-weight:bold; ">String</span> readerName<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setReader<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> newReader<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      readerName <span style="color:#808030; ">=</span> newReader<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> getReader<span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+      <span style="color:#800000; font-weight:bold; ">return</span> readerName<span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2d_pseudocode_{{id}}" style="display: none;">
+<pre style="color:#ffffff;background:#ffffff;">
+    <span class="class1">def set_name(self, nm):</span>
+    <span class="class1">def set_quantity(self, qnty):</span>
+    <span class="class1">def display(self):</span>
+    <span class="class5">def set_title(self, ttl):</span>
+    <span class="class5">def get_title(self):</span>
+    <span class="class7">def set_reader(self, reader):</span>
+    <span class="class7">def get_reader(self):</span>
+<span style="color: black">Data attributes:</span>
+    <span class="class1">self.name</span>
+    <span class="class1">self.quantity</span>
+    <span class="class5">self.title</span>
+    <span class="class7">self.reader</span>
+</pre>
+</div>
+
+<div id="python_derivedClass2d_code_{{id}}" style="display: none;">
+<pre style="color:#000000; background:#ffffff;"><span style="color:#800000; font-weight:bold; ">class</span> Audiobook<span style="color:#808030; ">(</span>Book<span style="color:#808030; ">):</span>
+    <span style="color:#800000; font-weight:bold; ">def</span> <span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        Book<span style="color:#808030; ">.</span><span style="color:#e34adc; ">__init__</span><span style="color:#808030; ">(</span>self<span style="color:#808030; ">)</span>
+        self<span style="color:#808030; ">.</span>reader <span style="color:#808030; ">=</span> <span style="color:#0000e6; ">''</span>
+
+    <span style="color:#800000; font-weight:bold; ">def</span> set_reader<span style="color:#808030; ">(</span>self<span style="color:#808030; ">,</span> reader<span style="color:#808030; ">):</span>
+        self<span style="color:#808030; ">.</span>reader <span style="color:#808030; ">=</span> reader
+
+    <span style="color:#800000; font-weight:bold; ">def</span> get_reader<span style="color:#808030; ">(</span>self<span style="color:#808030; ">):</span>
+        <span style="color:#800000; font-weight:bold; ">return</span> self.reader
+</pre>
+</div>

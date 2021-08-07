@@ -1,0 +1,17 @@
+{{!
+    A file row, can be dragged to reorder files. Contains a button to edit the filename.
+    @param {String} filename The name of the file.
+    @param {Boolean} isSelected Whether the file is currently selected.
+}}
+<div class='file-row row'>
+    <i aria-hidden='true' class='drag zb-icon material-icons med'>drag_handle</i>
+    <button class='file-name zb-button {{#if isSelected}}selected{{/if}}'>
+        <span class='file'>{{filename}}</span>
+    </button>
+    <button class='file-rename zb-button secondary'>
+        <i aria-hidden='true' class='zb-icon material-icons med'>edit</i>
+    </button>
+    <button class='file-remove zb-button warn'>
+        <i aria-hidden='true' class='zb-icon material-icons med'>clear</i>
+    </button>
+</div>

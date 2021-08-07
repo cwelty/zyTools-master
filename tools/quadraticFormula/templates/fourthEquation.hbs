@@ -1,0 +1,73 @@
+{{!
+    Generate partially solved quadratic formulas of the form: x = ([-b] + sqrt([b^2 - 4ac])) / [2a] or x = ([-b] - sqrt([b^2 - 4ac])) / [2a],
+    where braces indicate the user input.
+    
+    Contains 4 parameters: isExplanation, negativeBValue, reducedRadical, and divisor.
+    
+    * isExplanation is a required boolean. If true, then generate an explanation without inputs and using negativeBValue, reducedRadical, and divisor. 
+    Otherwise, generate the equation in which the user fills in using inputs.
+    
+    * negativeBValue, reducedRadical, and divisor are required numbers used when isExplanation is true.
+}}
+
+<div class='equation-area'>
+    <span class='equation'>
+        <div class='inline-block offset-vertical-alignment'>x =</div>
+        <div class='inline-block'>
+            {{#if isExplanation}}
+                <div class="numerator explanation"><!--
+            {{else}}
+                <div class="numerator"><!--
+            {{/if}}
+                {{#if isExplanation}}
+                    --><span>{{negativeBValue}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+                --> + <!--
+                {{#if isExplanation}}
+                    --><span>{{reducedRadical}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div><!--
+            --><div><!--
+                {{#if isExplanation}}
+                    --><span>{{divisor}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div>
+        </div>
+    </span>
+    <span class='offset-vertical-alignment or-between-equations'>or</span>
+    <span class='equation'>
+        <div class='inline-block offset-vertical-alignment'>x =</div>
+        <div class='inline-block'>
+            {{#if isExplanation}}
+                <div class="numerator explanation"><!--
+            {{else}}
+                <div class="numerator"><!--
+            {{/if}}
+                {{#if isExplanation}}
+                    --><span>{{negativeBValue}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+                --> &#8211; <!--
+                {{#if isExplanation}}
+                    --><span>{{reducedRadical}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div><!--
+            --><div><!--
+                {{#if isExplanation}}
+                    --><span>{{divisor}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div>
+        </div>
+    </span>
+</div>

@@ -1,0 +1,268 @@
+@import "../../../zyWeb/less/constants.less";
+
+.color-codings {
+    span {
+        &.mark-color-1 {
+            color: @zyante-pale-orange;
+        }
+
+        &.mark-color-2 {
+            color: lighten(@zyante-lighter-blue, 10%);
+        }
+
+        &.mark-color-3 {
+            color: lighten(@zyante-yellow, 5%);
+        }
+    }
+}
+
+@expression-font-size: 26px;
+.expression-container-styles {
+    div.expression-container {
+        align-items: center;
+        display: flex;
+        height: 35px;
+        margin-bottom: 5px;
+        margin-left: 20px;
+
+        div.expression {
+            color: @zyante-cancel-gray;
+            font-size: @expression-font-size;
+
+            &:not(.disabled) {
+                color: @zyante-dark-blue;
+                font-weight: bold;
+            }
+
+            &.colored {
+                .color-codings;
+            }
+        }
+
+        button {
+            margin-left: 15px;
+        }
+
+        div.complement-buttons-area {
+            margin-left: 30px;
+            text-align: center;
+
+            p.complement-apply {
+                margin-bottom: 3px;
+            }
+
+            button {
+                margin: 0 auto;
+                text-transform: none;
+            }
+        }
+    }
+}
+
+@instruction-font-size: 20px;
+.instruction-container-styles {
+    div.instruction-container {
+        align-items:      center;
+        background-color: transparent;
+        display:          flex;
+        height:           40px;
+
+        div.instruction {
+            .color-codings;
+
+            align-content: center;
+            color:         @zyante-gray;
+            display:       flex;
+            font-size:     @instruction-font-size;
+
+            &.disabled {
+                color: @zyante-cancel-gray;
+            }
+
+            @image-size: 16px;
+            img {
+                cursor:      pointer;
+                height:      @image-size;
+                margin-left: 5px;
+                width:       @image-size;
+            }
+
+            button {
+                text-transform: none;
+            }
+        }
+    }
+}
+
+.PropositionManipulationProgression, .PropositionManipulationProgression-modal {
+    div.term-selection-example {
+        .expression-container-styles;
+        .instruction-container-styles;
+
+        div.label {
+            font-size:     @instruction-font-size;
+            margin-bottom: 5px;
+        }
+
+        span.mark-underline {
+            text-decoration: underline;
+        }
+
+        button.ok {
+            margin-top: 15px;
+        }
+
+        p {
+            font-size: @instruction-font-size;
+        }
+
+        ul li {
+            .color-codings;
+
+            font-size: 16px;
+            margin-left: 0;
+        }
+    }
+}
+
+.PropositionManipulationProgression {
+    button.compact {
+        height: auto;
+        padding: 3px 6px;
+    }
+
+    div.prompt {
+        color:         @zyante-cancel-gray;
+        font-size:     22px;
+        margin-bottom: 20px;
+
+        &:not(.disabled) {
+            color: @zyante-gray;
+
+            span.expression {
+                font-weight: bold;
+            }
+        }
+
+        span.expression {
+            font-size: @expression-font-size;
+            padding:   0 3px;
+        }
+    }
+
+    div.work-area {
+        display: flex;
+
+        span.mark-bold {
+            font-weight: bold;
+        }
+
+        div.expression-area {
+            .expression-container-styles;
+            .instruction-container-styles;
+
+            div.expression:not(.disabled) {
+                cursor: pointer;
+            }
+
+            button.show-me-how{
+                margin-left: 25px;
+            }
+
+            button.cancel {
+                margin-top: 15px;
+            }
+
+            div.error-message-container {
+                align-items: center;
+                display:     flex;
+                margin-top:  15px;
+
+                div.error-message {
+                    color:     @zyante-medium-red;
+                    font-size: 18px;
+                    max-width: 225px;
+                }
+
+                button {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        div.laws-area {
+            .color-codings;
+
+            border:        1px solid @zyante-light-gray;
+            border-radius: 3px;
+            margin-left:   15px;
+            padding:       5px;
+
+            &.disabled {
+                color: @zyante-cancel-gray;
+            }
+
+            div.title {
+                font-size:     22px;
+                margin-bottom: 7px;
+                text-align:    center;
+                width:         100%;
+            }
+
+            div.law-panels-container {
+                display: flex;
+
+                div.law-panel {
+                    &:not(:first-of-type) {
+                        border-left:  1px solid @zyante-light-gray;
+                        margin-left:  12px;
+                        padding-left: 12px;
+                    }
+
+                    .margin-bottom-except-last {
+                        margin-bottom: 10px;
+
+                        &:last-of-type {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    div.category-container {
+                        .margin-bottom-except-last;
+
+                        div.category-name {
+                            font-size:     11px;
+                            font-weight:   bold;
+                            margin-bottom: 3px;
+                        }
+
+                        div.law-container {
+                            .margin-bottom-except-last;
+
+                            align-content: center;
+                            display:       flex;
+                            flex-wrap:     nowrap;
+
+                            div {
+                                margin: auto;
+                            }
+
+                            button {
+                                text-transform: none;
+                            }
+
+                            div.law-side {
+                                text-align: center;
+                            }
+
+                            div.between-law-sides {
+                                text-align: center;
+                                width:      20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

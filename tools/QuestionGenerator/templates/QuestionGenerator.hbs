@@ -1,0 +1,2774 @@
+<script type="text/javascript">
+function closeEditorWarning(){
+    return 'Leaving the page will cause you to lose all work.';
+}
+
+window.onbeforeunload = closeEditorWarning;
+var currTime = new Date();
+// Format 0.YYMMDD
+var VDate = "0.150916";
+var VersionTag = "(Vers. " + VDate + " Date/Time Generated: " + currTime + ")";
+var questiontype = 4; // 4 is MC, the default
+var Tsettext = "True";
+var Fsettext = "False";
+var initialrow = true;
+var deleteclicked = false;
+var setup = true; // 12/22/19 Added variable to check for initial startup
+var DQArray = [];//remember to clear this every time.
+
+$('#version-date').text(VDate);
+
+loadNewBuilder(); // David May 12/22/19 added to create MC rows on load
+setup = false;
+
+function replaceLT(string){
+    if(string != null){
+
+        // Replace all < that are not followed by zy, i, br, p, sub, sup, span, and \span.
+        string = string.replace(/<(?!zy|\/zy|i|\/i|br|p|\/p|span|\/span|sup|sub|\/sup|\/sub)(.+)/g, function(a, z) {
+            return a.replace(/</g, '&lt;');
+        });
+
+        // Replace < if at end of |string|.
+        string = string.replace(/<$/, '&lt;');
+
+        return string;
+    }
+}
+
+function checkQType(content){
+    var TFexist = content.indexOf("zyQSetTF");
+    var Hintexist = content.indexOf("zyQSetShortAnswer");
+    var DMexist = content.indexOf("zyQSetMatch");
+    var MCexist = content.indexOf("zyQSetMultipleChoice");
+    var DQexist = content.indexOf("zyQSetDetectAnswer");
+
+    if( (TFexist == -1 && Hintexist == -1 && DMexist == -1 && MCexist == -1 && DQexist == -1) || (TFexist != -1 && Hintexist != -1 && DMexist != -1 && MCexist != -1 && DQexist != -1) ){
+        var pancakes = confirm("Cannot read supplied XML block. Please be sure you're including the header and footers to the blocks.");
+        return "error";
+    }
+    if(TFexist != -1){
+        return "TF";
+    }
+    else if(Hintexist != -1){
+        return "SA";
+    }
+    else if(DMexist != -1){
+        return "DM";
+    }
+    else if(MCexist != -1){
+        return "MC";
+    }
+    else if(DQexist != -1){
+        return "DA";
+    }
+}
+
+function setGlobalQtypes(qtype){
+    var questionTypeTxt;
+    var futureQTypeNum;
+    switch(qtype){
+        case 'SA':
+        questionTypeTxt = "Short answer builder"; // David May 12/30/19 changed all questionTypeTxt vars "generator" to "builder"
+        futureQTypeNum = 2;
+        break;
+        case 'TF':
+        questionTypeTxt = "True/false builder";
+        futureQTypeNum = 1;
+        break;
+        case 'DM':
+        questionTypeTxt = "Definition match builder";
+        futureQTypeNum = 3;
+        break;
+        case 'MC':
+        questionTypeTxt = "Multiple choice builder";
+        futureQTypeNum = 4;
+        break;
+        case 'DA':
+        questionTypeTxt = "Detect the answer builder";
+        futureQTypeNum = 5;
+        break;
+        default:
+        questionTypeTxt = "Unknown question type";
+        futureQTypeNum = 6;
+        break;
+    }
+    return futureQTypeNum;
+}
+
+function deleteRows(qtype){
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length-5; //#Rows Contained By Table
+    showOnly(qtype + "Q");
+    var newQtype = setGlobalQtypes(qtype);
+    for( var i = rowCount; i > 0; i-- ){
+        if(questiontype == 1){
+            Del2(i-1);
+        }
+        if(questiontype == 2){
+            Del(i-1);
+        }
+        if(questiontype == 3){
+            Del3(i-1);
+        }
+        if(questiontype == 4){
+            Del4(i-1);
+        }
+        if(questiontype == 5){
+            Del5(i-1);
+        }
+    }
+    questiontype = newQtype;
+}
+
+function degenerateXML() {
+    let content = document.getElementById("genHTML").value;
+    let xmlContent = null;
+
+    try {
+        xmlContent = $.parseXML(content);
+    }
+    catch(err) {
+        alert('Cannot degenerate content, please contact support@zybooks.com');
+        return; // David May 6/15/20 Prevent "Confirm degenerate?" message if degenerating would result in error
+    }
+    $content = $(xmlContent);
+
+    /*
+    if (!isTableEmpty()) { // David May 12/30/19 only confirm deletion if the table is not empty
+        deleteclicked = confirm("Confirm degenerate? Warning: All current information will be overwritten.")
+
+        if(deleteclicked == false) {
+            return;
+        }
+    }
+    */
+    deleteclicked = true; // David May 12/30/19 assume user wants to delete if the table is empty
+
+    var qTyped = checkQType(content);
+    if(qTyped == "error") {
+        return;
+    } else if (qTyped == "TF") {
+        document.getElementById('convert').style.visibility = "visible";
+    } else {
+        document.getElementById('convert').style.visibility = "hidden";
+    }
+    var lookForMe;
+    var subQs;
+
+    switch(qTyped) { // David May 7/12/20 Added line to each case to update header
+        case "SA":
+            document.getElementById("header").innerHTML = "Short answer builder";
+            lookForMe = "zyQSetShortAnswer";
+            subQs = "zyQ";
+            break;
+        case "TF":
+            document.getElementById("header").innerHTML = "True/false builder";
+            lookForMe = "zyQSetTF";
+            subQs = "zyQ";
+            break;
+        case "DM":
+            document.getElementById("header").innerHTML = "Definition match builder";
+            lookForMe = "zyQSetMatch";
+            subQs = "zyQMatchLeft";
+            break;
+        case "MC":
+            document.getElementById("header").innerHTML = "Multiple choice builder";
+            lookForMe = "zyQSetMultipleChoice";
+            subQs = "zyQ";
+            break;
+        case "DA":
+            document.getElementById("header").innerHTML = "Detect the answer builder";
+            lookForMe = "zyQSetDetectAnswer";
+            subQs = "zyQ";
+            break;
+        default:
+            return;
+            break;
+    }
+
+    var qTitle = $content.find(lookForMe).attr('caption');
+    var QID = $content.find(lookForMe).attr('id');
+    var pTags = $content.find(lookForMe).find('p');
+    var instructions = $(pTags[0]).text();
+
+    document.getElementById('Instr').value = instructions;
+    document.getElementById('Instr').disabled = false;
+    document.getElementById('QID').value = QID;
+    document.getElementById('Qtitle').value = qTitle;
+
+    var zyQs = $content.find(lookForMe).find(subQs);
+    var zyQcount = zyQs.length;
+
+    deleteRows(qTyped);
+    switch(questiontype){
+        case 1://True false
+            var trueLabel = $content.find(lookForMe).attr('truelabel');
+            if( trueLabel == undefined ){
+                trueLabelDefault = "True";
+            }
+            else{
+                trueLabelDefault = trueLabel;
+            }
+            var falseLabel = $content.find(lookForMe).attr('falselabel');
+            if( falseLabel == undefined ){
+                falseLabelDefault = "False";
+            }
+            else{
+                falseLabelDefault = falseLabel;
+            }
+            for( var i = 0; i < zyQcount; i++ ){
+                addRow();
+                if($(zyQs[i]).find('zyQText').attr('truelabel') != undefined){
+                    trueLabel = $(zyQs[i]).find('zyQText').attr('truelabel');
+                }
+                else{
+                    trueLabel = trueLabelDefault;
+                }
+                if($(zyQs[i]).find('zyQText').attr('falselabel') != undefined){
+                    falseLabel = $(zyQs[i]).find('zyQText').attr('falselabel');
+                }
+                else{
+                    falseLabel = falseLabelDefault;
+                }
+                var correct = $(zyQs[i]).find('zyQText').attr('correct');
+                var qText = $(zyQs[i]).find('zyQText').text();
+                var qExpl = $(zyQs[i]).find('zyQExpl').text();
+
+                document.getElementById( "Ttext" + i ).value = trueLabel;
+                document.getElementById( "Ftext" + i ).value = falseLabel;
+
+                if( correct == trueLabel ){
+                    document.getElementById( "Tradio" + i ).checked = true;
+                    document.getElementById( "Fradio" + i ).checked = false;
+                }
+                else{
+                    document.getElementById( "Tradio" + i ).checked = false;
+                    document.getElementById( "Fradio" + i ).checked = true;
+                }
+
+                document.getElementById( 'Quest' + i ).value = qText;
+                document.getElementById( 'Expl' + i ).value = qExpl;
+            }
+            break;
+        case 2://Short answer
+            for( var i = 0; i < zyQcount; i++ ){
+                addRow();
+                var lines = $(zyQs[i]).find('zyQText').attr('lines');
+                var qText = $(zyQs[i]).find('zyQText').text();
+
+                //need to write support for multi answers
+                var zyAnsws = $(zyQs[i]).find('zyQAns');
+                var zyAnswsCount = zyAnsws.length;
+                for( j = 1; j <= zyAnswsCount; j++ ){
+                    var qAns = $(zyAnsws[j-1]).text();
+                    var obeycase = $(zyAnsws[j-1]).attr('obeycase');
+
+                    if(obeycase != "false" && obeycase != "true"){
+                        obeycase = "false";
+                    }
+                    var obeyspace = $(zyAnsws[j-1]).attr('obeyspace');
+                    if(obeyspace != "false" && obeyspace != "true"){
+                        obeyspace = "false";
+                    }
+                    var subChoice = j ;
+
+                    if(j > 1){
+                        SAnsAdd( "choiceTable" + i );
+                    }
+
+                    if(j == 1){
+                        var aLines = $(zyAnsws[j-1]).attr('lines');
+                        var aCols = $(zyAnsws[j-1]).attr('columns');
+                        var pref = $(zyAnsws[j-1]).attr('preferred');
+                        var ignore = $(zyAnsws[j-1]).attr('ignoreend');
+                        if(aLines != "undefined"){
+                            document.getElementById('AnswL'+i).value = aLines;
+                        }
+                        if(aCols != "undefined"){
+                            document.getElementById('AnswC'+i).value = aCols;
+                        }
+                        if(pref == "true"){
+                            document.getElementById('prefRadio'+i).checked = true;
+                        }
+                        if(typeof(ignore) !== "undefined"){
+                            document.getElementById('SAIE'+i).value = ignore;
+                        }
+
+                    }
+                    document.getElementById( 'Answ' + i + j ).value = qAns;
+                    if( obeycase.toLowerCase() == "true" ){
+                        document.getElementById( 'caseRadio' + i + j).checked = true;
+                    }
+                    else{
+                        document.getElementById( 'caseRadio' + i + j ).checked = false;
+                    }
+
+                    if( obeyspace.toLowerCase() == "true" ){
+                        document.getElementById( 'stripRadio' + i + j ).checked = true;
+                    }
+                    else{
+                        document.getElementById( 'stripRadio' + i + j ).checked = false;
+                    }
+                }
+
+                var zyQTextArA = $(zyQs[i]).find('zyQTextAroundAns');
+                if(typeof(zyQTextArA[0]) !== "undefined"){
+                    SAnsTxtAdd(i);
+                    if(typeof(zyQTextArA.attr('language')) !== "undefined"){
+                        document.getElementById('lngSet'+i).value = zyQTextArA.attr('language');
+                    }
+                    var textArnB = $(zyQTextArA[0].childNodes[0]).text();
+                    var textArnA = $(zyQTextArA[0].childNodes[2]).text();
+                    document.getElementById( 'txtArnB' + i ).value = textArnB;
+                    document.getElementById( 'txtArnA' + i ).value = textArnA;
+                }
+                var qExpl = $(zyQs[i]).find('zyQExpl').text();
+                var qHint = $(zyQs[i]).find('zyQHint').text();
+
+                document.getElementById( 'Quest' + i ).value = qText;
+                document.getElementById( 'Expl' + i ).value = qExpl;
+                document.getElementById( 'Hin' + i ).value = qHint;
+            }
+            break;
+        case 3: // Def match
+            const leftMatch = $content.find(lookForMe).find('zyQMatchLeft');
+            const rightMatch = $content.find(lookForMe).find('zyQMatchRight');
+            const explanationMatch = $content.find(lookForMe).find('zyQMatchRight').find('zyQExpl');
+
+            for (var i = 0; i < zyQcount; i++) {
+                addRow();
+                const leftMatchText = leftMatch.eq(i).text();
+                const rightMatchText = rightMatch.eq(i).text();
+                const explanationMatchText = explanationMatch.eq(i).text();
+
+                $(`#Term${i}`).val(leftMatchText);
+                $(`#Definition${i}`).val(rightMatchText.replace(explanationMatchText, ''));
+                $(`#Explanation${i}`).val(explanationMatchText);
+            }
+            break;
+        case 4://Multiple choice
+            for( var i = 0; i < zyQcount; i++ ){
+            addRow();
+            var qText = $(zyQs[i]).find('zyQText').text();
+            var zyChoices = $(zyQs[i]).find('zyQChoice');
+            var zyChoiceCount = zyChoices.length; 
+                for( j = 0; j < zyChoiceCount; j++ ){ 
+                    var subChoice = String.fromCharCode( 'a'.charCodeAt() + j );
+                    var qAns = $(zyChoices[j]).find('zyQAns').text();
+                    var qExpl = $(zyChoices[j]).find('zyQExpl').text();
+
+                    if(j >= 3){ // David May 6/13/20 Changed condition from ">= 2" to ">= 3" because 3 choices are now created by default
+                        CTadd( "choiceTable" + i );
+                    }
+                    if($(zyChoices[j]).attr('correct') != undefined){
+                        var correct = $(zyChoices[j]).attr('correct');
+                    }
+                    else{
+                        var correct = "false";
+                    }
+                    if(correct.toLowerCase() == "true"){
+                        document.getElementById( 'answer' + i + subChoice ).setAttribute('checked', 'checked');
+                    }
+                    else{
+                        document.getElementById( 'answer' + i + subChoice ).removeAttribute('checked');
+                    }
+                    document.getElementById( 'choice' + i + subChoice ).innerHTML = qAns;
+                    document.getElementById( 'expl' + i + subChoice ).innerHTML = qExpl;
+                    updateCTText( 'choice' +  i + subChoice );
+                }
+
+                if(zyChoiceCount == 2) { // 6/13/20 If question only has two choices, delete third choice
+                    DelCT(i, 'c');
+                }
+                document.getElementById( 'Quest' + i ).value = qText;
+            }
+            break;
+        case 5://Detect answer
+            for( var i = 0; i < zyQcount; i++ ){
+                addRow();
+                var zyOptions = $(zyQs[i]).find('zyQOption');
+                var zyOpCount = zyOptions.length;
+
+                var choceCount = 0;
+                var theChildrenOfZyQ = $(zyQs[i]).find().context.childNodes;
+                var buildingBlock = "";
+                for( var j = 0; j < theChildrenOfZyQ.length; j++ ){
+
+                    var subChoice = String.fromCharCode( 'a'.charCodeAt() + choceCount );
+                    if( theChildrenOfZyQ[j].tagName == undefined ){//it is text
+                        buildingBlock += $(theChildrenOfZyQ[j]).text();
+                    }
+                    else if( theChildrenOfZyQ[j].tagName == "zyQOption" ){
+                        createButtonBlock(i);
+
+                        var correct = "false";
+                        if($(theChildrenOfZyQ[j]).attr('correct') != undefined){
+                            var correct = $(theChildrenOfZyQ[j]).attr('correct');
+                        }
+
+                        var qText = $(theChildrenOfZyQ[j]).find('zyQText').text();
+                        var qExpl = $(theChildrenOfZyQ[j]).find('zyQExpl').text();
+                        buildingBlock += '<span class="highlighted" id="button-' + i + subChoice + '">' + qText + "<sup>" + subChoice + "</sup></span>";
+                        document.getElementById( 'explain' + i + "-" + choceCount ).value = qExpl;
+                        if( correct.toLowerCase() == "true" ){
+                            document.getElementById( 'Corr' + i + "-" + choceCount ).checked = true;
+                        }
+                        else{
+                            document.getElementById( 'Corr' + i + "-" + choceCount ).checked = false;
+                        }
+                        updateAChoi( 'AnsWas' + choceCount );
+                        updateCTTextarea('explain' + i + '-' + choceCount );
+                        choceCount++;
+
+                    }
+                }
+
+                document.getElementById( 'inputarea' + i ).value = buildingBlock;
+                locktext(i);
+            }
+            break;
+        default:
+            return;
+            break;
+    }
+    deleteclicked = false;
+    return;
+}
+
+function unconvertnewlines(convertnewline){
+    if(convertnewline.indexOf('<br />') != -1){//wish there was a replaceall..... instead I will just use some recusion
+        var brokendown = convertnewline.replace("<br />",'\n');//replace one
+        brokendown = unconvertnewlines(brokendown);//Recursively Call the replace
+    }
+    else{
+        return convertnewline;//nothing else to replace
+    }
+    return brokendown;//send it up!
+}
+
+function swapT(a,b,c){
+    var tempE = document.getElementById("explain"+c+"-"+b).value;
+    var tempC = document.getElementById("Corr"+c+"-"+b).checked;
+
+    document.getElementById("explain"+c+"-"+b).value = document.getElementById("explain"+c+"-"+a).value;
+    document.getElementById("Corr"+c+"-"+b).checked = document.getElementById("Corr"+c+"-"+a).checked;
+    document.getElementById("explain"+c+"-"+a).value = tempE;
+    document.getElementById("Corr"+c+"-"+a).checked = tempC;
+    return;
+}
+
+
+function swapdataCT(tableC,a,b){
+    //Temp Vars to Hold the swap
+    var Atemp = document.getElementById('choice'+tableC+a).value;
+    var Ctemp = document.getElementById('answer'+tableC+a).checked;
+    var Etemp = document.getElementById('expl'+tableC+a).value;
+    //First Swap A<-B
+    document.getElementById('choice'+tableC+a).value = document.getElementById('choice'+tableC+b).value;
+    document.getElementById('answer'+tableC+a).checked = document.getElementById('answer'+tableC+b).checked;
+    document.getElementById('expl'+tableC+a).value = document.getElementById('expl'+tableC+b).value;
+    //Second Swap B<-Tmp
+    document.getElementById('choice'+tableC+b).value = Atemp;
+    document.getElementById('answer'+tableC+b).checked = Ctemp
+    document.getElementById('expl'+tableC+b).value = Etemp;
+    return;
+}
+
+function swapdata(rowA,rowB){//swaps the two rows made for moveUp&Dwn
+    var ansTableA = document.getElementById('choiceTable'+rowA);
+    var ansTableB = document.getElementById('choiceTable'+rowB);
+
+    var aTableRCntA =  ansTableA.rows.length;
+    var aTableRCntB = ansTableB.rows.length;
+    var deleteFrom;
+    var delAmt = 0;
+    if( aTableRCntA != aTableRCntB ){
+        if(aTableRCntA > aTableRCntB){
+            for(var i = aTableRCntB; i < aTableRCntA; i++){
+                SAnsAdd('choiceTable'+rowB,rowB);
+
+            }
+            delAmt = aTableRCntA - aTableRCntB;
+            deleteFrom = rowA;
+        }
+        else{
+            for(var i = aTableRCntA; i < aTableRCntB; i++){
+                SAnsAdd('choiceTable'+rowA,rowA);
+            }
+            delAmt = aTableRCntB - aTableRCntA;
+            deleteFrom = rowB;
+        }
+    }
+
+    for(var rowCnt = 1; rowCnt <= ansTableA.rows.length; rowCnt++){
+        var anwTemp = document.getElementById('Answ'+rowA+rowCnt).value;
+        document.getElementById('Answ'+rowA+rowCnt).value = document.getElementById('Answ'+rowB+rowCnt).value;
+        document.getElementById('Answ'+rowB+rowCnt).value = anwTemp;
+
+        var caseTmp = document.getElementById('caseRadio'+rowB+rowCnt).checked;
+        var spaceTmp = document.getElementById('stripRadio'+rowA+rowCnt).checked;
+
+        document.getElementById('caseRadio'+rowA+rowCnt).checked = document.getElementById('caseRadio'+rowB+rowCnt).checked;
+        document.getElementById('caseRadio'+rowB+rowCnt).checked = caseTmp;
+
+        document.getElementById('stripRadio'+rowA+rowCnt).checked = document.getElementById('stripRadio'+rowB+rowCnt).checked;
+        document.getElementById('stripRadio'+rowB+rowCnt).checked = spaceTmp;
+    }
+    for( var deleteable = 0; deleteable < delAmt; deleteable++){
+        var cnt = document.getElementById('choiceTable'+deleteFrom).rows.length;
+        deleteclicked = false;
+        delAAnsw(deleteFrom,cnt);
+    }
+    deleteclicked = true;
+    //Temp Vars to Hold the swap
+    var Qtemp = document.getElementById('Quest'+rowA).value;
+    var Etemp = document.getElementById('Expl'+rowA).value;
+    var Htemp = document.getElementById('Hin'+rowA).value;
+    var Ptemp = document.getElementById('prefRadio'+rowA).checked;
+
+    var langTemp = document.getElementById('lngSet'+rowA).value;
+
+    var IEtemp = document.getElementById('SAIE'+rowA).value;
+
+    var TABtemp = document.getElementById('txtArnB'+rowA).value;
+    var TAAtemp = document.getElementById('txtArnA'+rowA).value;
+
+    var txtArnBtnA = document.getElementById('AnsTxt'+rowA);
+    var BtnATmp = txtArnBtnA.value;
+    var BtnAState = txtArnBtnA.getAttribute('state');
+    var BtnBState = document.getElementById('AnsTxt'+rowB).getAttribute('state');
+
+    var txbef = document.getElementById('txtArnB'+rowA).getAttribute('disabled');
+    var txaft = document.getElementById('txtArnA'+rowA).getAttribute('disabled');
+
+
+    if(BtnAState == 1 && BtnBState == 0){
+        $('#txtArnB'+rowA).fadeOut('fast');
+        $('#txtArnA'+rowA).fadeOut('fast');
+        $('#txtArnB'+rowB).fadeIn('fast');
+        $('#txtArnA'+rowB).fadeIn('fast');
+        $('#txtArnB'+rowA).prop('disabled',true);
+        $('#txtArnA'+rowA).prop('disabled',true);
+        $('#txtArnB'+rowB).prop('disabled',false);
+        $('#txtArnA'+rowB).prop('disabled',false);
+        $('#langSpan'+rowB).fadeIn('fast');
+        $('#langSpan'+rowA).fadeOut('fast');
+    }
+    else if(BtnAState == 0 && BtnBState == 1){
+        $('#txtArnB'+rowA).fadeIn('fast');
+        $('#txtArnA'+rowA).fadeIn('fast');
+        $('#txtArnB'+rowB).fadeOut('fast');
+        $('#txtArnA'+rowB).fadeOut('fast');
+        $('#txtArnB'+rowA).prop('disabled',false);
+        $('#txtArnA'+rowA).prop('disabled',false);
+        $('#txtArnB'+rowB).prop('disabled',true);
+        $('#txtArnA'+rowB).prop('disabled',true);
+        $('#langSpan'+rowA).fadeIn('fast');
+        $('#langSpan'+rowB).fadeOut('fast');
+    }
+
+    document.getElementById('AnsTxt'+rowA).value = document.getElementById('AnsTxt'+rowB).value;
+    txtArnBtnA.setAttribute('state',document.getElementById('AnsTxt'+rowB).getAttribute('state'));
+
+
+    document.getElementById('AnsTxt'+rowB).value = BtnATmp;
+    document.getElementById('AnsTxt'+rowB).setAttribute('state',BtnAState);
+
+
+
+    document.getElementById('prefRadio'+rowA).checked = document.getElementById('prefRadio'+rowB).checked;
+    document.getElementById('prefRadio'+rowB).checked = Ptemp;
+
+    //First Swap A<-B
+    document.getElementById('Quest'+rowA).value = document.getElementById('Quest'+rowB).value;
+    document.getElementById('Expl'+rowA).value = document.getElementById('Expl'+rowB).value;
+    document.getElementById('Hin'+rowA).value = document.getElementById('Hin'+rowB).value;
+    document.getElementById('SAIE'+rowA).value = document.getElementById('SAIE'+rowB).value;
+    document.getElementById('lngSet'+rowA).value = document.getElementById('lngSet'+rowB).value;
+
+
+    //Second Swap B<-Tmp
+    document.getElementById('Quest'+rowB).value = Qtemp;
+    document.getElementById('Expl'+rowB).value = Etemp;
+    document.getElementById('Hin'+rowB).value = Htemp;
+    document.getElementById('SAIE'+rowB).value = IEtemp;
+    document.getElementById('lngSet'+rowB).value = langTemp;
+
+    document.getElementById('txtArnB'+rowA).value = document.getElementById('txtArnB'+rowB).value;
+    document.getElementById('txtArnA'+rowA).value = document.getElementById('txtArnA'+rowB).value;
+    document.getElementById('txtArnB'+rowB).value = TABtemp;
+    document.getElementById('txtArnA'+rowB).value = TAAtemp;
+
+    return;
+}
+
+function swapdata2(rowA,rowB){//swaps the two rows made for moveUp&Dwn
+    //Temp Vars to Hold the swap
+    var Qtemp = document.getElementById('Quest'+rowA).value;
+    var Etemp = document.getElementById('Expl'+rowA).value;
+    var Ttemp = document.getElementById('Tradio'+rowA).checked;
+    var Ftemp = document.getElementById('Fradio'+rowA).checked;
+    var TTtemp = document.getElementById('Ttext'+rowA).value;
+    var FTtemp = document.getElementById('Ftext'+rowA).value;
+    //First Swap A<-B
+    document.getElementById('Quest'+rowA).value = document.getElementById('Quest'+rowB).value;
+    document.getElementById('Expl'+rowA).value = document.getElementById('Expl'+rowB).value;
+    document.getElementById('Tradio'+rowA).checked = document.getElementById('Tradio'+rowB).checked;
+    document.getElementById('Fradio'+rowA).checked = document.getElementById('Fradio'+rowB).checked;
+    document.getElementById('Ttext'+rowA).value = document.getElementById('Ttext'+rowB).value;
+    document.getElementById('Ftext'+rowA).value = document.getElementById('Ftext'+rowB).value;
+    //Second Swap B<-Tmp
+    document.getElementById('Quest'+rowB).value = Qtemp;
+    document.getElementById('Expl'+rowB).value = Etemp;
+    document.getElementById('Tradio'+rowB).checked = Ttemp;
+    document.getElementById('Fradio'+rowB).checked = Ftemp
+    document.getElementById('Ttext'+rowB).value = TTtemp;
+    document.getElementById('Ftext'+rowB).value = FTtemp;
+    return;
+}
+
+//swaps the two rows made for moveUp&Dwn
+function swapdata3(rowA, rowB) {
+    // Temp Vars to Hold the swap
+    const termA = $(`#Term${rowA}`).val();
+    const definitionA = $(`#Definition${rowA}`).val();
+    const explanationA = $(`#Explanation${rowA}`).val();
+    const termB = $(`#Term${rowB}`).val();
+    const definitionB = $(`#Definition${rowB}`).val();
+    const explanationB = $(`#Explanation${rowB}`).val();
+
+    const bothRowsExist = (typeof termA !== 'undefined' && typeof termB !== 'undefined');
+
+    if (bothRowsExist) {
+        // First Swap A<-B
+        $(`#Term${rowA}`).val(termB);
+        $(`#Definition${rowA}`).val(definitionB);
+        $(`#Explanation${rowA}`).val(explanationB);
+
+        // Second Swap B<-Tmp
+        $(`#Term${rowB}`).val(termA);
+        $(`#Definition${rowB}`).val(definitionA);
+        $(`#Explanation${rowB}`).val(explanationA);
+    }
+
+    return;
+}
+
+function swapdata4(rowA,rowB){//swaps the two rows made for moveUp&Dwn
+
+    //Temp Vars to Hold the swap
+    var Qtemp = document.getElementById('Quest'+rowA).value;
+
+    var Ttemp = document.getElementById('choiceTable'+rowA).innerHTML;
+
+    var changeThese = [];
+    changeThese[0] = "choice";
+    changeThese[1] = "choiceTable";
+    changeThese[2] = "CTup";
+    changeThese[3] = "CTdwn";
+    changeThese[4] = "swapdataCT(";
+    changeThese[5] = "id=\"answer";
+    changeThese[6] = "DelCT(";
+    changeThese[7] = "updateCTTextarea('expl";
+    changeThese[8] = "id=\"expl";
+    changeThese[9] = "id=\"DelCTB";
+
+    var withThese = [];
+    withThese[0] = "choice";
+    withThese[1] = "choiceTable";
+    withThese[2] = "CTup";
+    withThese[3] = "CTdwn";
+    withThese[4] = "swapdataCT(";
+    withThese[5] = "id=\"answer";
+    withThese[6] = "DelCT(";
+    withThese[7] = "updateCTTextarea('expl";
+    withThese[8] = "id=\"expl";
+    withThese[9] = "id=\"DelCTB";
+
+    for(var i = 0; i < changeThese.length; i++){
+        Ttemp = Ttemp.split(withThese[i]+rowA).join(withThese[i]+rowB);
+    }
+    //First Swap A<-B
+    document.getElementById('Quest'+rowA).value = document.getElementById('Quest'+rowB).value;
+    var BinnerHTML = document.getElementById('choiceTable'+rowB).innerHTML;
+
+    for(var i = 0; i < withThese.length; i++){
+        BinnerHTML = BinnerHTML.split(withThese[i]+rowB).join(withThese[i]+rowA);
+    }
+    document.getElementById('choiceTable'+rowA).innerHTML = BinnerHTML;
+
+    //Second Swap B<-Tmp
+    document.getElementById('Quest'+rowB).value = Qtemp;
+    document.getElementById('choiceTable'+rowB).innerHTML = Ttemp;
+
+    return;
+}
+
+function swapdata5(rowA,rowB){//swaps the two rows made for moveUp&Dwn DG
+    //Temp Vars to Hold the swap
+
+    var Ttemp = document.getElementById('DGTable'+rowA).innerHTML;
+
+    var changeThese = [];
+    changeThese[0] = "textLockB";
+    changeThese[1] = "locktext(";
+    changeThese[2] = "saveTextB";
+    changeThese[3] = "saveText(";
+    changeThese[4] = "inputarea";
+    changeThese[5] = "outputareadiv";
+    changeThese[6] = "outputarea";
+    changeThese[7] = "button-";
+    changeThese[8] = "markTable";
+    changeThese[9] = "Corr";
+    changeThese[10] = "AnsWas";
+    changeThese[11] = "DT(";
+    changeThese[12] = "DT";
+    changeThese[13] = "explain";
+    // changeThese[14] = "corrAnswerB";
+
+    var withThese = [];
+    withThese[0] = "textLockB";
+    withThese[1] = "locktext(";
+    withThese[2] = "saveTextB";
+    withThese[3] = "saveText(";
+    withThese[4] = "inputarea";
+    withThese[5] = "outputareadiv";
+    withThese[6] = "outputarea";
+    withThese[7] = "button-";
+    withThese[8] = "markTable";
+    withThese[9] = "Corr";
+    withThese[10] = "AnsWas";
+    withThese[11] = "DT(";
+    withThese[12] = "DT";
+    withThese[13] = "explain";
+    // withThese[14] = "corrAnswerB";
+
+
+    for(var i = 0; i < changeThese.length; i++){
+        Ttemp = Ttemp.split(withThese[i]+rowA).join(withThese[i]+rowB);
+    }
+    //First Swap A<-B
+    var BinnerHTML = document.getElementById('DGTable'+rowB).innerHTML;
+
+    for(var i = 0; i < withThese.length; i++){
+        BinnerHTML = BinnerHTML.split(withThese[i]+rowB).join(withThese[i]+rowA);
+    }
+    document.getElementById('DGTable'+rowA).innerHTML = BinnerHTML;
+
+    //Second Swap B<-Tmp
+    document.getElementById('DGTable'+rowB).innerHTML = Ttemp;
+
+    var TArr = DQArray[rowA];
+    DQArray[rowA] = DQArray[rowB];
+    DQArray[rowB] = TArr;
+    return;
+}
+
+function DT(rowC,TabC){
+    var r = confirm("Confirm delete?"); //Delete Confirm
+    if(!r){
+        return;
+    }
+    var table = document.getElementById('markTable'+TabC);
+    var rCount = table.rows.length;
+    var charRM = String.fromCharCode('a'.charCodeAt()+(rowC));
+    var charHM = String.fromCharCode('a'.charCodeAt()+(rCount))
+    var shift = false;
+    for(var start = 'a'; start < charHM; start = String.fromCharCode(start.charCodeAt()+(1))){
+        var spanOb = document.getElementById("button-"+TabC+start);
+        if(charRM == start){
+            var splih = spanOb.innerHTML;
+            var end = splih.indexOf("<sup>");
+            var replaced = splih.substr(0,end);
+            spanOb.id = "RmV";
+            var OArea = document.getElementById('outputarea'+TabC).innerHTML;
+
+            OArea = OArea.replace('<span class="highlighted" id="RmV">',"");
+            OArea = OArea.replace('<sup>'+start+'</sup></span>',"");
+
+            document.getElementById('outputarea'+TabC).innerHTML = OArea;
+            shift = true;
+        }
+        if(shift && start != charRM){
+
+            var innerCon = document.getElementById("button-"+TabC+start).innerHTML;
+
+            innerCon = innerCon.replace("<sup>"+start+"</sup>","<sup>"+String.fromCharCode(start.charCodeAt()-(1))+"</sup>");
+
+            document.getElementById("button-"+TabC+start).innerHTML = innerCon;
+
+            spanOb.id = "button-"+TabC+String.fromCharCode(start.charCodeAt()-(1));
+        }
+    }
+
+    DQArray[TabC] = document.getElementById('outputarea'+TabC).innerHTML;
+    updateBlock(TabC);
+    for(var i = rowC; i < rCount-1; i++){
+        swapT(i,i+1,TabC);
+    }
+    table.deleteRow(rCount-1);
+
+    return;
+}
+
+
+function DelCT(tableC,Arow){ // Deletes an individual choice of a MC question
+    var table = document.getElementById("choiceTable"+tableC);//main table ID
+    var rowCount = table.rows.length; //#Rows Contained By Table
+
+    if(rowCount <= 2){
+        alert("Cannot have less than 2 choices");
+        return;
+    }
+
+    // David May 1/1/20 Added check for empty choice
+    if(isChoiceEmpty(tableC, Arow) || confirm("Confirm delete?")){//Yes, Delete Me
+        //Sets all QAE Cells To Blank
+        document.getElementById('answer'+tableC+Arow).value = "";
+        document.getElementById('choice'+tableC+Arow).checked = "false";
+        //Shifts all questions Up to fill in deleted position
+
+        for(var i = Arow; i < String.fromCharCode('a'.charCodeAt()+(rowCount-1)); i = String.fromCharCode(i.charCodeAt()+(1))) {
+            var nexti = String.fromCharCode(i.charCodeAt()+(1));
+            swapdataCT(tableC,i,nexti);
+        }
+        //Delete the unused row
+        table.deleteRow(rowCount-1) ;
+    }
+    return;
+}
+
+function Del(Arow){//deletes a row SA
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length - 5; //#Rows Contained By Table
+    if(deleteclicked == false){
+        var r = confirm("Confirm delete?"); //Delete Confirm
+        deleteclicked = true;
+    }
+    else{
+        var r = true;
+    }
+    if(r==true){//Yes, Delete Me
+        var i;
+        //Sets all QAE Cells To Blank
+        document.getElementById('Quest'+Arow).value = "";
+
+        for(var aCounts = 0; aCounts < document.getElementById('choiceTable'+Arow).rows.length-1; aCounts++){
+            deleteclicked = false;
+            delAAnsw(Arow,aCounts);
+        }
+        deleteclicked = true;
+        document.getElementById('Answ'+Arow+'1').value = "";
+        document.getElementById('Expl'+Arow).value = "";
+        document.getElementById('Hin'+Arow).value = "";
+        //Shifts all questions Up to fill in deleted position
+        for(i = Arow; i < rowCount-1; i++){
+            swapdata(i,i+1);
+        }
+        //Delete the unused row
+        table = document.getElementById('tableId');
+        rowCount = table.rows.length - 5;
+        table.deleteRow(rowCount+5-1) ;
+    }
+    return;
+}
+
+function Del2(Arow){//deletes a row TF
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length -5; //#Rows Contained By Table
+    if(rowCount == 1){
+        initialrow = true;
+        Tsettext = "True";
+        Fsettext = "False";
+    }
+    if(deleteclicked == false){
+        var r = confirm("Confirm delete?"); //Delete Confirm
+    }
+    else{
+        var r = true;
+    }
+    if(r==true){//Yes, Delete Me
+        var i;
+        //Sets all QAE Cells To Blank
+        document.getElementById('Quest'+Arow).value = "";
+        document.getElementById('Expl'+Arow).value = "";
+        //Shifts all questions Up to fill in deleted position
+        for(i = Arow; i < rowCount-1; i++){
+            swapdata2(i,i+1);
+        }
+        //Delete the unused row
+        table = document.getElementById('tableId');
+        rowCount = table.rows.length -5;
+        table.deleteRow(rowCount+5-1) ;
+    }
+    return;
+}
+
+function Del3(Arow){//deletes a row DM
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length -5; //#Rows Contained By Table
+    if(rowCount == 1){
+        initialrow = true;
+    }
+    if(deleteclicked == false){
+        var r = confirm("Confirm delete?"); //Delete Confirm
+    }
+    else{
+        var r = true;
+    }
+    if(r==true){//Yes, Delete Me
+        var i;
+        //Sets all QAE Cells To Blank
+        document.getElementById('Term'+Arow).value = "";
+        document.getElementById('Definition'+Arow).value = "";
+        //Shifts all questions Up to fill in deleted position
+        for(i = Arow; i < rowCount-1; i++){
+            swapdata3(i,i+1);
+        }
+        //Delete the unused row
+        table = document.getElementById('tableId');
+        rowCount = table.rows.length -5;
+        table.deleteRow(rowCount+5-1) ;
+    }
+    return;
+}
+
+function Del4(Arow){//deletes a row MC
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length - 5; //#Rows Contained By Table
+    if(rowCount == 1){
+        initialrow = true;
+    }
+    if(deleteclicked == false && !isRowEmpty(Arow)){ // David May 1/1/20 added check for empty row
+        var r = confirm("Confirm delete?"); //Delete Confirm
+    }
+    else{
+        var r = true;
+    }
+    if(r==true){//Yes, Delete Me
+        var i;
+        //Sets all QAE Cells To Blank
+        document.getElementById('Quest'+Arow).value = "";
+        //Shifts all questions Up to fill in deleted position
+        for(i = Arow; i < rowCount-1; i++){
+            swapdata4(i,i+1);
+        }
+        //Delete the unused row
+        table = document.getElementById('tableId');
+        rowCount = table.rows.length - 5;
+        table.deleteRow(rowCount + 5 - 1) ;
+    }
+    return;
+}
+
+function Del5(Arow){//deletes a row DG
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length -5; //#Rows Contained By Table
+    if(rowCount == 1){
+        initialrow = true;
+    }
+    if(deleteclicked == false){
+        var r = confirm("Confirm delete?"); //Delete Confirm
+    }
+    else{
+        var r = true;
+    }
+    if(r==true){//Yes, Delete Me
+        var i;
+        //Sets all QAE Cells To Blank
+        document.getElementById('DGTable'+Arow).innerHTML = "";
+        //Shifts all questions Up to fill in deleted position
+        for(i = Arow; i < rowCount-1; i++){
+            swapdata5(i,i+1);
+        }
+        //Delete the unused row
+        table = document.getElementById('tableId');
+        rowCount = table.rows.length -5;
+        table.deleteRow(rowCount+5-1) ;
+        DQArray.splice(rowCount-1,1);
+    }
+    return;
+}
+
+function updateCTTextarea(textboxarea){
+    var textar = document.getElementById(textboxarea);
+    textar.innerHTML=textar.value;
+}
+
+function updateCTText(textboxarea){
+    var textar = document.getElementById(textboxarea);
+    textar.setAttribute("value",textar.value);
+}
+
+function updateAChoi(answerradio){
+    var radioz = document.getElementsByName(answerradio);
+    for(var i = 0; i < radioz.length; i++){
+        if(radioz[i].checked == true){
+            radioz[i].setAttribute("checked","checked");
+        }
+        else{
+            radioz[i].removeAttribute("checked");
+        }
+    }
+}
+
+function generateButtons(tableName,QuestionCnt,QuID){
+    var MarkedTable = document.getElementById(tableName+QuestionCnt);
+    var rowCount = MarkedTable.rows.length;
+    var grabActive = document.getElementById('outputarea'+QuestionCnt).innerHTML;
+    var validAnswer = false;
+    for(var i = 0; i < rowCount; i++){
+        var expla = document.getElementById('explain'+QuestionCnt+"-"+i).value;
+        var answR = document.getElementById('Corr'+QuestionCnt+'-'+i).checked;
+        var currLet = String.fromCharCode('a'.charCodeAt()+(i))
+
+        var buttonize = document.getElementById('button-'+QuestionCnt+currLet);
+        var insideTheB = buttonize.innerHTML;
+        var cutItOUT = insideTheB.indexOf('<sup>');
+        var buttonCon = insideTheB.substr(0,cutItOUT);
+        var corrects = "";
+        var ClickType = "";
+        if(answR){
+            validAnswer = true;
+
+            ClickType = "syntaxWasNotCorrectClickE(this);";
+        }
+        else if(!answR){
+            ClickType = "syntaxWasCorrectClickE(this);";
+        }
+        else{
+            alert("Invalid answer selection:Correct or incorrect");
+            return;
+        }
+
+        var virtButton = document.createElement("BUTTON");
+        virtButton.setAttribute("type","button");
+        virtButton.setAttribute("id",QuID+"_"+(QuestionCnt+1)+"_button"+(i+1));
+        virtButton.setAttribute("onclick",ClickType);
+        virtButton.innerHTML = buttonCon;
+        buttonize.innerHTML = "";
+        buttonize.className = "btnMark";
+        buttonize.appendChild(virtButton);
+        buttonize.id = QuID+"_"+(QuestionCnt+1)+"_code"+(i+1);
+
+    }
+    var grabInactive = document.getElementById('outputarea'+QuestionCnt).innerHTML;
+
+    for(var i = 0; i < rowCount; i++){
+        var expla2 = document.getElementById('explain'+QuestionCnt+"-"+i).value;
+        grabInactive +=	'<span id="'+QuID+'_'+(QuestionCnt+1)+'_explTxt_'+(i+1)+'" style="display:none;">'+expla2+'</span>';
+    }
+
+    document.getElementById('outputarea'+QuestionCnt).innerHTML = grabActive;
+    if(validAnswer)
+    return grabInactive;
+    else
+    return "NOTVALID";
+}
+
+function locktext(Tnum){
+    if(document.getElementById('inputarea'+Tnum).disabled){
+        document.getElementById('saveTextB'+Tnum).style.display = "none";
+        document.getElementById('inputarea'+Tnum).disabled = false;
+        document.getElementById('saveTextB'+Tnum).disabled = true;
+        document.getElementById('textLockB'+Tnum).value = "Lock block";
+        document.getElementById('inputarea'+Tnum).value = DQArray[Tnum];
+        document.getElementById('inputarea'+Tnum).style.display = "block";
+        document.getElementById('outputareadiv'+Tnum).style.display = "none";
+    }
+    else{
+        document.getElementById('saveTextB'+Tnum).style.display = "inline-block";
+        document.getElementById('inputarea'+Tnum).disabled = true;
+        document.getElementById('saveTextB'+Tnum).disabled = false;
+        document.getElementById('textLockB'+Tnum).value = "Edit block";
+        var replacingSyms = document.getElementById('inputarea'+Tnum).value;
+        DQArray[Tnum] = replacingSyms;
+        document.getElementById('inputarea'+Tnum).style.display = "none";
+        document.getElementById('outputareadiv'+Tnum).style.display = "block";
+    }
+
+    updateBlock(Tnum);
+}
+
+
+function updateBlock(Tnum){
+    var preParent = document.getElementById('outputarea'+Tnum);
+    preParent.innerHTML = DQArray[Tnum];
+}
+
+function highlightmarked(Tnum){
+    var selectedOb;
+    selectedOb = window.getSelection();
+    var testing = selectedOb.anchorNode.parentNode;
+    if(selectedOb == ""){
+        alert("Please make a selection first.");
+        return false;
+    }
+    //document.getElementById('inputarea'+Tnum).value
+    if(DQArray[Tnum].indexOf(selectedOb) == -1){
+        alert("Could not locate highlighted text inside block.");
+        return false;
+    }
+
+    if(testing.id.split("outputarea")[1] != Tnum){
+        alert("Highlighted text is not within the current block");
+        return false;
+    }
+
+    var scount = document.getElementById("markTable"+Tnum).rows.length;
+    var relation = String.fromCharCode('a'.charCodeAt()+(scount));
+    var theTEXT = document.createTextNode(selectedOb);
+    var theSUP = document.createElement('SUP');
+
+    theSUP.innerHTML = relation;
+    var theSPAN = document.createElement('SPAN');
+    theSPAN.className = 'highlighted';
+    theSPAN.id = "button-"+Tnum+relation;
+
+
+    selectedOb.getRangeAt(0).surroundContents(theSPAN);
+    var theSPAN2 = document.getElementById("button-"+Tnum+relation);
+    theSPAN2.appendChild(theSUP);
+    DQArray[Tnum] = document.getElementById('outputarea'+Tnum).innerHTML;
+    return true;
+}
+
+function saveText(Tnum){
+    if(document.getElementById('inputarea'+Tnum).disabled == false){
+        alert("Please lock the textblock before saving any markings.");
+        return;
+    }
+    if(!highlightmarked(Tnum)){
+        return;
+    }
+    createButtonBlock(Tnum);
+    updateBlock(Tnum);
+}
+
+
+function createButtonBlock(Qcount){
+    var MarkTable = document.getElementById('markTable'+Qcount);
+    var MarkCount = MarkTable.rows.length;
+    var MartTableRow = MarkTable.insertRow(MarkTable.rows.length);
+    var explains = document.createElement('TEXTAREA');
+    explains.id = "explain"+Qcount+"-"+MarkCount;
+    explains.setAttribute("onchange","updateCTTextarea('explain"+Qcount+"-"+MarkCount+"');");
+
+
+
+    var radioC = zxcFormField('input','radioC'+MarkCount+"-"+Qcount,'radio')
+    radioC.name = "AnsWas"+Qcount;
+    radioC.id = "Corr"+Qcount+"-"+MarkCount;
+    radioC.setAttribute("onchange","updateAChoi('AnsWas"+Qcount+"');");
+
+    var LabC = document.createElement('LABEL');
+    LabC.setAttribute("for","Corr"+Qcount+"-"+MarkCount);
+    LabC.innerHTML = "Correct answer";
+
+    var newCell4 = MartTableRow.insertCell();
+    var newCell2 = MartTableRow.insertCell();
+    var newCell = MartTableRow.insertCell();
+    var newCell3 = MartTableRow.insertCell();
+    newCell.appendChild(radioC);
+    newCell.appendChild(LabC);
+
+    var centerbrack = document.createElement("CENTER");
+    centerbrack.appendChild(document.createTextNode("Explanation"));
+    centerbrack.appendChild(document.createElement("BR"));
+
+    newCell2.appendChild(centerbrack);
+    newCell2.appendChild(explains);
+
+    var rowCnt = document.createTextNode(String.fromCharCode('a'.charCodeAt()+(MarkCount))+")");
+
+    newCell3.appendChild(rowCnt);
+
+    var DButt = zxcFormField('input','DT'+MarkCount+"-"+Qcount,'button');//add button to cell
+
+    DButt.value = "X";//label button with X
+    DButt.setAttribute("onclick","DT("+MarkCount+","+Qcount+")");//give this button the delete function
+    newCell4.appendChild(DButt);
+}
+
+
+function buildDGsubTable(rowA){//DG table
+    var DGtab = document.getElementById("DGTable"+rowA);
+    var EButt = zxcFormField('input','Edit'+rowA,'button');//add a button to cell
+    var CButt = zxcFormField('input','Convert'+rowA,'button');//add a button to cell
+    var textArea = zxcFormField('TEXTAREA','inputarea'+rowA);//create a textarea element
+    var theDIV = document.createElement('DIV');
+    var theSPAN = document.createElement('PRE');
+    var theTABLE = document.createElement('TABLE');
+    var leftTD = document.createElement('TD');
+    var rightTD = document.createElement('TD');
+    var corrTD = document.createElement('TD');
+    var fnctDIV = document.createElement('DIV');
+    var theBR = document.createElement('BR');
+    var theCENTER = document.createElement('CENTER');
+    textArea.placeholder = "Enter complete text block.";
+    theTABLE.id="markTable"+rowA;
+
+    EButt.id="textLockB"+rowA;
+    EButt.setAttribute("onclick","locktext("+rowA+")");
+    EButt.value = "Lock block";
+
+    CButt.id="saveTextB"+rowA;
+    CButt.setAttribute("onclick","saveText("+rowA+")");
+    CButt.value = "Convert highlighted to button";
+    CButt.style.display = "none";
+    CButt.disabled = true;
+
+    fnctDIV.appendChild(EButt);
+    fnctDIV.appendChild(CButt);
+
+    textArea.id = "inputarea"+rowA;
+    textArea.cols = "50";//set columns
+    textArea.rows = "5";//set rows
+
+    theDIV.id = "outputareadiv"+rowA;
+    theSPAN.id = "outputarea"+rowA;
+    theDIV.appendChild(theSPAN);
+    //left table
+    leftTD.className = "leftCell";
+    leftTD.appendChild(fnctDIV);
+    leftTD.appendChild(textArea);
+    leftTD.appendChild(theDIV);
+    //right table
+    rightTD.className = "rightCell";
+    rightTD.appendChild(theTABLE);
+    //td for correct answer
+    corrTD.className = "corrCell";
+
+    corrTD.appendChild(theCENTER);
+    corrTD.appendChild(theBR);
+
+
+    //appends the cells[
+    DGtab.appendChild(leftTD);
+    DGtab.appendChild(rightTD);
+    DGtab.appendChild(corrTD);
+}
+
+function CTadd(choiceTableName){
+    var currChoiceTable = document.getElementById(choiceTableName);
+    var CtableN = currChoiceTable.id.split("choiceTable")[1];
+    var CTcount = currChoiceTable.rows.length;
+    var row = currChoiceTable.insertRow(CTcount);
+    var mainTable = document.getElementById('tableId');//main table id
+    var mainRowCount = mainTable.rows.length -6;//num of rows in table
+    var enumerationcell = row.insertCell(0);
+    var radiocell = row.insertCell(1);
+    var textcell = row.insertCell(2);
+    var updowncell = row.insertCell(3);
+    var delcell = row.insertCell(4);
+
+    var subChoice = String.fromCharCode('a'.charCodeAt()+(CTcount));
+    var textNumber = document.createTextNode(subChoice);
+
+    var correctCell = zxcFormField('input','answer'+CtableN+subChoice,'radio');
+    correctCell.name = choiceTableName+"CA";
+    correctCell.setAttribute("onchange","updateAChoi('choiceTable"+CtableN+"CA');");
+    var choiceText = document.createElement("TEXTAREA");
+    choiceText.id = 'choice'+CtableN+subChoice;
+    choiceText.setAttribute("onchange","updateCTTextarea('choice"+CtableN+subChoice+"');");
+    choiceText.cols = 20;
+    choiceText.rows = 3;
+    var explText = document.createElement('TEXTAREA');
+    explText.id = 'expl'+CtableN+subChoice;
+    explText.style.margin = "0px 20px";
+    explText.setAttribute("onchange","updateCTTextarea('expl"+CtableN+subChoice+"');");
+    if(mainRowCount == 0 && CTcount == 0) {
+        explText.placeholder = 'For correct, show how to get the answer and/or why the choice is correct. For incorrect, explicitly explain why incorrect.'
+    }
+    explText.cols = 20;
+    explText.rows = 3;
+    explText.size = 20;
+
+    var button1 = zxcFormField('input','CTup'+CtableN+subChoice,'button');//add a button to cell
+    var button2 = zxcFormField('input','CTdwn'+CtableN+subChoice,'button');//add a button to cell
+    button1.value = "\u2191";//label this button with up arrow
+    button2.value = "\u2193";//label this button with down arrow
+    var oneLess = String.fromCharCode('a'.charCodeAt()+(CTcount-1));
+    var oneMore = String.fromCharCode('a'.charCodeAt()+(CTcount+1));
+    button1.setAttribute("onclick","swapdataCT("+CtableN+",'"+oneLess+"','"+subChoice+"');");//give this button the function of moveup
+    button2.setAttribute("onclick","swapdataCT("+CtableN+",'"+subChoice+"','"+oneMore+"');");//give this button the function of movedown
+
+    var button3 = zxcFormField('input','DelCTB'+CtableN+subChoice,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.setAttribute("onclick","DelCT("+CtableN+",'"+subChoice+"');");//give this button the delete function
+
+    enumerationcell.appendChild(textNumber);
+    radiocell.appendChild(correctCell);
+    textcell.appendChild(choiceText);
+    textcell.appendChild(explText);
+    updowncell.appendChild(button1);
+    updowncell.appendChild(button2);
+    delcell.appendChild(button3);
+    return;
+}
+
+function swapdataSAA(tableC,a,b){
+
+    //Temp Vars to Hold the swap
+    var Atemp = document.getElementById('Answ'+String(tableC)+String(a)).value;
+    var caseTmp = document.getElementById('caseRadio'+String(tableC)+String(a)).checked;
+    var spaceTmp = document.getElementById('stripRadio'+String(tableC)+String(a)).checked;
+    //First Swap A<-B
+    document.getElementById('Answ'+String(tableC)+String(a)).value = document.getElementById('Answ'+String(tableC)+String(b)).value;
+
+
+
+    document.getElementById('caseRadio'+String(tableC)+String(a)).checked = document.getElementById('caseRadio'+String(tableC)+String(b)).checked;
+    document.getElementById('caseRadio'+String(tableC)+String(b)).checked = caseTmp;
+
+    document.getElementById('stripRadio'+String(tableC)+String(a)).checked = document.getElementById('stripRadio'+String(tableC)+String(b)).checked;
+    document.getElementById('stripRadio'+String(tableC)+String(b)).checked = spaceTmp;
+
+
+    //Second Swap B<-Tmp
+    document.getElementById('Answ'+tableC+b).value = Atemp;
+    return;
+}
+
+function delAAnsw(tableC,Arow){
+    var table = document.getElementById("choiceTable"+tableC);//main table ID
+    var rowCount = table.rows.length; //#Rows Contained By Table
+
+    if(rowCount <= 1){
+        alert("Deletion cancelled: each question must have at least 1 answer.");
+        return;
+    }
+    if(deleteclicked == true){
+        var r = confirm("Confirm delete2?");
+    }
+    else{
+        r = true;
+    }
+    if(r){//Yes, Delete Me
+
+        //Sets all QAE Cells To Blank
+        //document.getElementById('Answ'+tableC+Arow).value = "";
+
+        //Shifts all questions Up to fill in deleted position
+
+        for(var i = parseInt(Arow); i < (rowCount-1); i = i + 1){
+            var nexti = i + 1;
+
+            swapdataSAA(tableC,(parseInt(i+1)),(parseInt(nexti+1))); //write new swap
+        }
+        //Delete the unused row
+        table.deleteRow(rowCount-1);
+    }
+    return;
+}
+
+function SAnsAdd(choiceTableName){//adding multiple answers for a single question
+    var currChoiceTable = document.getElementById(choiceTableName);
+    var CtableN = choiceTableName.split("choiceTable")[1];
+    var CTcount = currChoiceTable.rows.length;
+    var row = currChoiceTable.insertRow(CTcount);
+    var enumerationcell = row.insertCell(0);
+    var textcell = row.insertCell(1);
+    var atrcell = row.insertCell(2);
+    var delcell = row.insertCell(3);
+
+    var subChoice = (CTcount+1);
+    var textNumber = document.createTextNode(subChoice);
+
+    var choiceText = document.createElement("TEXTAREA");
+    choiceText.id = 'Answ'+CtableN+subChoice;
+    choiceText.cols = 20;
+    choiceText.rows = 3;
+
+    var button3 = zxcFormField('input','delAAnsw'+CtableN+subChoice,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.setAttribute("onclick","delAAnsw("+CtableN+",'"+subChoice+"');");//give this button the delete function
+    button3.title = "Delete this answer.";
+
+    var stripRadio = zxcFormField('input','stripRadio'+CtableN+subChoice,'checkbox')//stripspace radio
+    var stripLabel = document.createElement('LABEL');
+    var stripText = document.createTextNode("ObeySpace");
+    var someBR = document.createElement("BR");
+    var caseRadio = zxcFormField('input','caseRadio'+CtableN+subChoice,'checkbox')//obeycase radio
+    var caseText = document.createTextNode("ObeyCase");
+    var caseLabel = document.createElement('LABEL');
+    caseLabel.title = "Answer is case sensitive.";
+    stripLabel.title = "Answer requires matching spacing.";
+    stripLabel.appendChild(stripRadio);
+    stripLabel.appendChild(stripText);
+
+
+    caseLabel.appendChild(caseRadio);
+    caseLabel.appendChild(caseText);
+
+    atrcell.appendChild(stripLabel);
+    atrcell.appendChild(someBR);
+    atrcell.appendChild(caseLabel);
+
+    enumerationcell.appendChild(textNumber);
+
+    textcell.appendChild(choiceText);
+    delcell.appendChild(button3);
+    return;
+}
+
+function addRow2(){//TF question addrow
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+    var row = table.insertRow(rowCount+5);//insert a row element into table
+    if(!initialrow){
+        Tsettext = document.getElementById('Ttext'+(rowCount-1)).value;
+        Fsettext = document.getElementById('Ftext'+(rowCount-1)).value;
+        initialrow = false;
+    }
+    else if(rowCount == 0){
+        Tsettext = "True";
+        Fsettext = "False";
+        initialrow = false;
+    }
+
+    var cell1 = row.insertCell(0);//new cell in row element
+    var textNode = document.createTextNode(rowCount + 1);//row number label
+    cell1.style.textAlign = "center";
+    cell1.appendChild(textNode);//add this label to the table
+
+    var cell2 = row.insertCell(1);//add another cell to table
+    var textArea =zxcFormField('TEXTAREA','Quest'+rowCount);//create a textarea element
+    textArea.cols = "50";//set columns
+    textArea.rows = "5";//set rows
+    cell2.appendChild(textArea);//add textarea to table
+
+    var cell3 = row.insertCell(2);//add another cell to table
+    var radioT = zxcFormField('input','Tradio'+rowCount,'radio');
+    var radioF = zxcFormField('input','Fradio'+rowCount,'radio');
+    radioT.value = "True";
+    radioF.value = "False";
+    //radioT.checked = true;
+    radioT.name="TFgroup"+rowCount;
+    radioF.name="TFgroup"+rowCount;
+    var truetext = zxcFormField('input','Ttext'+rowCount,'text');
+    var falsetext = zxcFormField('input','Ftext'+rowCount,'text');
+    truetext.value = Tsettext;
+    falsetext.value = Fsettext;
+    truetext.size = "10";
+    falsetext.size = "10";
+    cell3.appendChild(radioT);//add true radio
+    cell3.appendChild(truetext);
+    cell3.appendChild(radioF);//add false radio
+    cell3.appendChild(falsetext);
+
+    var cell7 = row.insertCell(3);
+    var textArea5=zxcFormField('TEXTAREA','Expl'+rowCount);//create a textarea element
+    if(rowCount == 0) {
+        textArea5.placeholder = 'Use True/False for complementary choices (true/false, yes/no, valid/invalid, likely/unlikely, etc.), not as Multiple Choice with two choices (apples/bananas, cars/buses, 5/10, etc.), because the incorrect choice needs a unique explicit explanation of why it is incorrect. '
+    }
+    textArea5.cols = "40";//set columns
+    textArea5.rows = "5";//set rows
+    cell7.appendChild(textArea5);//add textarea to table
+
+
+    //button creation area
+    var cell5 = row.insertCell(4);//add another cell to table
+    var button1 = zxcFormField('input','Mup'+rowCount,'button');//add a button to cell
+    var button2 = zxcFormField('input','Mdwn'+rowCount,'button');//add a button to cell
+
+    button1.value = "\u2191";//label this button with up arrow
+    button2.value = "\u2193";//label this button with down arrow
+    button1.onclick = function() {swapdata2(rowCount,rowCount-1);};//give this button the function of moveup
+    button2.onclick = function() {swapdata2(rowCount,rowCount+1);};//give this button the function of movedown
+
+    cell5.appendChild(button1);//add moveup to table
+    cell5.appendChild(button2);//add movedown to table
+
+    var cell6 = row.insertCell(5);//add another cell to table
+    var button3 = zxcFormField('input','Del'+rowCount,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.onclick = function() {Del2(rowCount);};//give this button the delete function
+    cell6.appendChild(button3);//add button to table
+
+    return;
+}
+
+function addRow3(){//DM question addrow
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+    var row = table.insertRow(rowCount+5);//insert a row element into table
+    if(!initialrow){
+        Tsettext = document.getElementById('Term'+(rowCount-1)).value;
+        Fsettext = document.getElementById('Definition'+(rowCount-1)).value;
+        initialrow = false;
+    }
+    else if(rowCount == 0){
+        initialrow = false;
+    }
+
+    var cell1 = row.insertCell(0);//new cell in row element
+    var textNode = document.createTextNode(rowCount + 1);//row number label
+    cell1.style.textAlign = "center";
+    cell1.appendChild(textNode);//add this label to the table
+
+    var cell2 = row.insertCell(1);//add another cell to table
+    var textArea =zxcFormField('TEXTAREA','Term'+rowCount);//create a textarea element
+    textArea.cols = "16";//set columns
+    textArea.rows = "7";//set rows
+    //textArea.setAttribute('onKeyDown','maxChars(this,17)');
+    cell2.appendChild(textArea);//add textarea to table
+
+    var cell7 = row.insertCell(2);
+    var textArea5=zxcFormField('TEXTAREA','Definition'+rowCount);//create a textarea element
+    var explanationTextArea = zxcFormField('TEXTAREA','Explanation'+rowCount);//create a textarea element
+
+    textArea5.cols = "80";//set columns
+    textArea5.rows = "3";//set rows
+    textArea5.setAttribute('placeholder', 'Definition');
+
+    explanationTextArea.cols = "80";//set columns
+    explanationTextArea.rows = "3";//set rows
+    explanationTextArea.setAttribute('placeholder', 'Explanation');
+
+    explanationTextArea.style.display = 'block';
+    explanationTextArea.style.margin = "5px 0px 0px 0px";
+    //textArea5.setAttribute('onKeyDown','maxChars(this,50)');
+    cell7.appendChild(textArea5);//add textarea to table
+    cell7.appendChild(explanationTextArea);//add textarea to table
+
+
+    //button creation area
+    var cell5 = row.insertCell(3);//add another cell to table
+    var button1 = zxcFormField('input','Mup'+rowCount,'button');//add a button to cell
+    var button2 = zxcFormField('input','Mdwn'+rowCount,'button');//add a button to cell
+
+    button1.value = "\u2191";   // label this button with up arrow
+    button2.value = "\u2193";   // label this button with down arrow
+    button1.onclick = function() { swapdata3(rowCount, rowCount - 1) }; // give this button the function of moveup
+    button2.onclick = function() { swapdata3(rowCount, rowCount + 1) }; // give this button the function of movedown
+
+    cell5.appendChild(button1);//add moveup to table
+    cell5.appendChild(button2);//add movedown to table
+
+    var cell6 = row.insertCell(4);//add another cell to table
+    var button3 = zxcFormField('input','Del'+rowCount,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.onclick = function() {Del3(rowCount);};//give this button the delete function
+    cell6.appendChild(button3);//add button to table
+
+    return;
+}
+
+function SAnsTxtAdd(row){
+    var btn = document.getElementById('AnsTxt'+row);
+    if( btn.getAttribute('state') == 0){
+        btn.value = 'Remove text around';
+        btn.setAttribute('state','1');
+        $('#txtArnB'+row).prop('disabled',false);
+        $('#txtArnA'+row).prop('disabled',false);
+        $('#txtArnB'+row).fadeIn('fast');
+        $('#txtArnA'+row).fadeIn('fast');
+        $('#langSpan'+row).fadeIn('fast');
+    }
+    else{
+        btn.value = 'Add text around';
+        btn.setAttribute('state','0');
+        $('#txtArnB'+row).prop('disabled',true);
+        $('#txtArnA'+row).prop('disabled',true);
+        $('#txtArnB'+row).fadeOut('fast');
+        $('#txtArnA'+row).fadeOut('fast');
+        $('#langSpan'+row).fadeOut('fast');
+        document.getElementById('txtArnB'+row).value = "";
+        document.getElementById('txtArnA'+row).value = "";
+    }
+
+
+}
+
+function addRow(){//adds an additional question row
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+
+    if(questiontype == 1){ // true/false
+        addRow2();
+        return;
+    }
+    if(questiontype == 3){ // definition match
+        addRow3();
+        return;
+    }
+    if(questiontype == 4){ // multiple choice
+        addRow4();
+        /* if(rowCount == 0) {
+            addRow4();
+            addRow4();
+        } */ // David May 12/20/19 commented out because may be causing bug
+        return;
+    }
+    if(questiontype == 5){ // detect the answer
+        addRow5();
+        return;
+    }
+    var row = table.insertRow(rowCount+5);//insert a row element into table
+    var cell1 = row.insertCell(0);//new cell in row element
+    var textNode = document.createTextNode(rowCount + 1);//row number label
+    cell1.style.textAlign = "center";
+    cell1.appendChild(textNode);//add this label to the table
+
+    var cell2 = row.insertCell(1);//add another cell to table
+    var textArea =zxcFormField('TEXTAREA','Quest'+rowCount);//create a textarea element
+    textArea.cols = "50";//set columns
+    textArea.rows = "6";//set rows
+    cell2.appendChild(textArea);//add textarea to table
+
+    var cell3 = row.insertCell(2);//add another cell to table
+
+
+    var choiceTable = document.createElement("TABLE");
+    choiceTable.id = "choiceTable"+rowCount;
+    choiceTable.className = "choiceTable";
+
+    var addAnsBtn = zxcFormField('input','AnsAdd'+rowCount,'button');//add button to cell
+    addAnsBtn.value = "Add additional answer";
+    addAnsBtn.setAttribute("onclick","SAnsAdd('"+choiceTable.id+"',"+rowCount+")");
+
+    var someNewBR = document.createElement('BR');
+
+
+    var addTxtArnBtn = zxcFormField('input','AnsTxt'+rowCount,'button');//add button to cell
+    addTxtArnBtn.value = "Add text around";
+    addTxtArnBtn.setAttribute('state','0');
+    addTxtArnBtn.setAttribute("onclick","SAnsTxtAdd('"+rowCount+"')");
+
+    var textBefore = document.createElement('TEXTAREA');
+    var textAfter = document.createElement('TEXTAREA');
+
+    textBefore.id = 'txtArnB'+rowCount;
+    textAfter.id = 'txtArnA'+rowCount;
+
+    textBefore.setAttribute('style','background-color: #D2F4FF; display:none;');
+    textAfter.setAttribute('style','background-color: #D2F4FF; display:none;');
+
+    textBefore.setAttribute('disabled',true);
+    textAfter.setAttribute('disabled',true);
+
+    var langSpan = document.createElement('SPAN');
+    langSpan.id = 'langSpan'+rowCount;
+    langSpan.setAttribute('style','display:none;');
+
+    var languageLab = document.createTextNode('Language:');
+    var langsel = document.createElement('select');
+    langsel.id = 'lngSet'+rowCount;
+
+    langsel.innerHTML = "<select id='lngSet" + rowCount + "'><option value=\'none\'>none</option><option value=\'cpp\'>cpp</option><option value=\'c\'>c</option><option value=\'python\'>python</option><option value=\'java\'>java</option><option value=\'matlab\'>matlab</option></select>";
+
+    langSpan.appendChild(languageLab);
+    langSpan.appendChild(langsel);
+
+    var prefRadio = zxcFormField('input','prefRadio'+rowCount,'checkbox')//preferred radio
+    var prefLabel = document.createElement('LABEL');
+    var prefText = document.createTextNode("Show only first \nanswer in explanation?");
+    prefLabel.title = "If checked only the first answer will be shown with the explanation.";
+    prefLabel.setAttribute('style',"white-space: normal !important");
+
+    prefLabel.appendChild(prefRadio);
+    prefLabel.appendChild(prefText);
+
+
+    var numberInputLLabel = document.createTextNode("Rows:");
+    var numberInputL = zxcFormField('INPUT','AnswL'+rowCount);
+    numberInputL.type = 'number';
+    numberInputL.value = '1';
+    numberInputL.min = '1';
+    numberInputL.max = '9';
+    numberInputL.title = "Set number of lines the user is given.";
+    cell3.appendChild(numberInputLLabel);
+    cell3.appendChild(numberInputL);//add textarea to table
+    cell3.setAttribute('style','border: 1px solid black; padding: 2px;');
+
+    var numberInputCLabel = document.createTextNode("Cols:");
+    var numberInputC = zxcFormField('INPUT','AnswC'+rowCount);
+    numberInputC.type = 'number';
+    numberInputC.value = '20';
+    numberInputC.min = '1';
+    numberInputC.max = '40';
+    numberInputC.title = "Set character width the user is given.";
+    cell3.appendChild(numberInputCLabel);
+    cell3.appendChild(numberInputC);//add textarea to table
+
+    var ignoreEndTxtNode = document.createTextNode('Ignore end:');
+    var iEBR = document.createElement("BR");
+    var ignoreEndInput = zxcFormField('INPUT','SAIE'+rowCount,'text');
+    ignoreEndInput.title = "Ignore following text from user's answer.";
+    ignoreEndInput.placeholder = "Optional";
+
+    cell3.appendChild(iEBR);
+    cell3.appendChild(ignoreEndTxtNode);
+    cell3.appendChild(ignoreEndInput);
+
+
+    var someBR = document.createElement("BR");
+    var someBR2 = document.createElement("BR");
+
+
+    cell3.appendChild(someBR);
+    cell3.appendChild(addAnsBtn);
+    cell3.appendChild(addTxtArnBtn);
+    cell3.appendChild(someNewBR);
+    cell3.appendChild(textBefore);
+    cell3.appendChild(langSpan);
+    cell3.appendChild(choiceTable);
+    cell3.appendChild(textAfter);
+    cell3.appendChild(someBR2);
+    cell3.appendChild(prefLabel);
+    /*
+    var textArea2 = zxcFormField('TEXTAREA','Answ'+rowCount);//create a textarea element
+    textArea2.cols = "25";//set columns
+    textArea2.rows = "5";//set rows
+    cell3.appendChild(textArea2);//add textarea to table
+    */
+    var cell4 = row.insertCell(3);//add another cell to table
+    var textArea3 =zxcFormField('TEXTAREA','Hin'+rowCount);//create a textarea element
+    textArea3.cols = "20";//set columns
+    textArea3.rows = "6";//set rows
+    cell4.appendChild(textArea3);//add textarea to table
+
+
+    var cell5 = row.insertCell(4);
+    var textArea5=zxcFormField('TEXTAREA','Expl'+rowCount);//create a textarea element
+    textArea5.cols = "30";//set columns
+    textArea5.rows = "6";//set rows
+    cell5.appendChild(textArea5);//add textarea to table
+
+
+
+    //button creation area
+    var cell7 = row.insertCell(5);//add another cell to table
+    var button1 = zxcFormField('input','Mup'+rowCount,'button');//add a button to cell
+    var button2 = zxcFormField('input','Mdwn'+rowCount,'button');//add a button to cell
+
+
+
+
+
+    button1.value = "\u2191";//label this button with up arrow
+    button2.value = "\u2193";//label this button with down arrow
+    button1.onclick = function() {swapdata(rowCount,rowCount-1);};//give this button the function of moveup
+    button2.onclick = function() {swapdata(rowCount,rowCount+1);};//give this button the function of movedown
+
+    cell7.appendChild(button1);//add moveup to table
+    cell7.appendChild(button2);//add movedown to table
+
+
+    var cell8 = row.insertCell(6);//add another cell to table
+    var button3 = zxcFormField('input','Del'+rowCount,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.onclick = function() {Del(rowCount);};//give this button the delete function
+    cell8.appendChild(button3);//add button to table
+
+    SAnsAdd(choiceTable.id);
+
+    return;
+}
+
+function addRow4(){ // MC question addrow
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+    var row = table.insertRow(rowCount+5);//insert a row element into table
+
+    var cell1 = row.insertCell(0);//new cell in row element
+    var textNode = document.createTextNode(rowCount + 1);//row number label
+    cell1.style.textAlign = "center";
+    cell1.appendChild(textNode);//add this label to the table
+
+    var cell2 = row.insertCell(1);//add another cell to table
+    var textArea =zxcFormField('TEXTAREA','Quest'+rowCount);//create a textarea element
+    textArea.cols = "50";//set columns
+    textArea.rows = "5";//set rows
+    cell2.appendChild(textArea);//add textarea to table
+
+    var cell3 = row.insertCell(2);//add another cell to table
+
+    var choiceTable = document.createElement("TABLE");
+    choiceTable.id = "choiceTable"+rowCount;
+    choiceTable.className = "choiceTable";
+    var CTbutton = zxcFormField('input','CTbutt'+rowCount,'button');//add button for choice table
+    CTbutton.value = "Add choice";//label this button
+    CTbutton.setAttribute("onclick","CTadd('"+choiceTable.id+"',"+rowCount+")");//give this button the add CT function
+    cell3.appendChild(choiceTable);
+    cell3.appendChild(CTbutton);
+
+    //button creation area
+    var cell5 = row.insertCell(3);//add another cell to table
+    var button1 = zxcFormField('input','Mup'+rowCount,'button');//add a button to cell
+    var button2 = zxcFormField('input','Mdwn'+rowCount,'button');//add a button to cell
+
+    button1.value = "\u2191";//label this button with up arrow
+    button2.value = "\u2193";//label this button with down arrow
+    button1.onclick = function() {swapdata4(rowCount,rowCount-1);};//give this button the function of moveup
+    button2.onclick = function() {swapdata4(rowCount,rowCount+1);};//give this button the function of movedown
+
+    cell5.appendChild(button1);//add moveup to table
+    cell5.appendChild(button2);//add movedown to table
+
+    var cell6 = row.insertCell(4);//add another cell to table
+    var button3 = zxcFormField('input','Del'+rowCount,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.onclick = function() {Del4(rowCount);};//give this button the delete function
+    cell6.appendChild(button3);//add button to table
+    CTadd("choiceTable"+rowCount);
+    CTadd("choiceTable"+rowCount);
+    CTadd("choiceTable"+rowCount);
+
+    return;
+}
+
+function addRow5(){//DG question addrow
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+    var row = table.insertRow(rowCount+5);//insert a row element into table
+
+    var cell1 = row.insertCell(0);//new cell in row element
+    var textNode = document.createTextNode(rowCount + 1);//row number label
+    cell1.style.textAlign = "center";
+    cell1.appendChild(textNode);//add this label to the table
+
+    var cell2 = row.insertCell(1);//add another cell to table
+    var DGtable = document.createElement("TABLE");
+    DGtable.id = "DGTable"+rowCount;
+    cell2.appendChild(DGtable);
+
+    //button creation area
+    var cell5 = row.insertCell(2);//add another cell to table
+    var button1 = zxcFormField('input','Mup'+rowCount,'button');//add a button to cell
+    var button2 = zxcFormField('input','Mdwn'+rowCount,'button');//add a button to cell
+
+    button1.value = "\u2191";//label this button with up arrow
+    button2.value = "\u2193";//label this button with down arrow
+    button1.onclick = function() {swapdata5(rowCount,rowCount-1);};//give this button the function of moveup
+    button2.onclick = function() {swapdata5(rowCount,rowCount+1);};//give this button the function of movedown
+
+    cell5.appendChild(button1);//add moveup to table
+    cell5.appendChild(button2);//add movedown to table
+
+    var cell6 = row.insertCell(3);//add another cell to table
+    var button3 = zxcFormField('input','Del'+rowCount,'button');//add button to cell
+
+    button3.value = "X";//label button with X
+    button3.onclick = function() {Del5(rowCount);};//give this button the delete function
+    cell6.appendChild(button3);//add button to table
+
+    buildDGsubTable(rowCount);
+    return;
+}
+
+function convert(){ // David May 7/11/20 For now, just converts a TF question set to MC
+
+    if(!confirm("Converts each question to an MC question having two choices, with each choice having a copy of the TF explanation. This cannot be undone.")) {
+        return;
+    }
+
+
+    var shorten = document.getElementById('genHTML');
+    var table = document.getElementById('tableId');
+    var rowCount = table.rows.length - 5;
+    var QuTitle = document.getElementById("Qtitle").value;
+    var QuID = document.getElementById('QID').value;
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = "<p>" + document.getElementById("Instr").value + "</p>\n";
+    }
+    else{
+        instrt = "";
+    }
+
+    var inHTML = '<zyQSetMultipleChoice caption="' + QuTitle + '" id="' + QuID + '">\n';
+    inHTML += instrt;
+
+    for(var qnum = 1; qnum < rowCount+1; qnum++){
+        if(!document.getElementById('Tradio'+(qnum-1)).checked && !document.getElementById('Fradio'+(qnum-1)).checked){
+            inHTML = "";
+            alert('One or more questions have no solution.');
+            return;
+        }
+        inHTML += '\n<zyQ>\n';
+        inHTML += '<zyQText>' + replaceLT(document.getElementById('Quest'+(qnum-1)).value);
+        inHTML += '</zyQText>\n';
+
+        if(document.getElementById('Tradio'+(qnum-1)).checked){
+            inHTML += '<zyQChoice correct="true">\n';
+        } else {
+            inHTML += '<zyQChoice>\n';
+        }
+
+        inHTML += '<zyQAns>' + document.getElementById('Ttext'+(qnum-1)).value + '</zyQAns>\n';
+        inHTML += '<zyQExpl>' + replaceLT(document.getElementById('Expl'+(qnum-1)).value);
+        inHTML += '</zyQExpl>\n';
+        inHTML += '</zyQChoice>\n';
+
+        if (document.getElementById('Fradio'+(qnum-1)).checked) {
+            inHTML += '<zyQChoice correct="true">\n';
+        } else {
+            inHTML += '<zyQChoice>\n';
+        }
+
+        inHTML += '<zyQAns>' + document.getElementById('Ftext'+(qnum-1)).value + '</zyQAns>\n';
+        inHTML += '<zyQExpl>' + replaceLT(document.getElementById('Expl'+(qnum-1)).value);
+        inHTML += '</zyQExpl>\n';
+        inHTML += '</zyQChoice>\n';
+        inHTML += '</zyQ>\n';
+    }
+    inHTML += '\n</zyQSetMultipleChoice>\n';
+    document.getElementById('genHTML').value = inHTML;
+    degenerateXML();
+    return;
+}
+
+function zxcFormField(tag,nme,type){//creates the element for the HTML document
+    var el;
+    try {
+        el=document.createElement('<'+tag+(type?' type='+type:'')+' id='+nme+' >');
+    }
+    catch (e){
+        el=document.createElement(tag);
+        if (type) el.type=type;
+        el.id=nme;
+    }
+    return el;
+}
+
+function escaper(convertescaper){
+    if(convertescaper.indexOf('\\\\') != -1){
+        var escaped = convertescaper.replace('\\\\','\\');
+        escaped =escaper(escaped);
+    }
+    else{
+        return convertescaper;
+    }
+    return escaped;
+}
+
+function convertnewlines(convertnewline){//converts all newlines from the Question and Explanation to <br />
+    if(convertnewline.indexOf('\n') != -1){//wish there was a replaceall..... instead I will just use some recusion
+        var brokendown = convertnewline.replace('\n',"<br />");//replace one
+        brokendown = convertnewlines(brokendown);//Recursively Call the replace
+    }
+    else{
+        return convertnewline;//nothing else to replace
+    }
+    return brokendown;//send it up!
+}
+
+function replacespecials(contenttext){//replace special characters
+    if(contenttext.indexOf('\\"') != -1){
+        var textual = contenttext.replace('\\"',"&quot;");
+        textual = replacespecials(textual);
+    }
+    else{
+        return contenttext;
+    }
+    return textual;
+}
+
+function flattenans(answertoflat){//flattens answer incase there are newlines
+    return answertoflat.split(' ').join('').split('\n').join('').split('\r').join('');
+}
+
+function determineHEWidth(){//determines the minimum size for the answer and hint cell NOT USED ATM
+    var table = document.getElementById('tableId');//main table id
+    var rowCount = table.rows.length -5;//num of rows in table
+    var start;
+    var Esize;
+    var Hsize;
+    var Csize = -1;
+    for(start = 0; start < rowCount; start++){
+        Esize = (document.getElementById('Expl'+start).value).length;
+        Hsize = (document.getElementById('Hin'+start).value).length;
+        if(Esize > Hsize && Esize > Csize){
+            Csize = Esize;
+        }
+        else if(Hsize > Esize && Hsize > Csize){
+            Csize = Hsize;
+        }
+    }
+    var width = Math.ceil(Csize/2)*5;
+    return width;
+}
+
+function generate(){//generates the HTML
+    currTime = new Date();
+    VersionTag = "(Vers. " + VDate + " Date/Time Generated: " + currTime + ")";
+    if(questiontype == 1){
+        TFgenerate();
+        return;
+    }
+    if(questiontype == 3){
+        DMgenerate();
+        return;
+    }
+    if(questiontype == 4){
+        MCgenerate();
+        return;
+    }
+    if(questiontype == 5){
+        DQgenerate();
+        return;
+    }
+    //declare some vars that will be repeatedly used so we don't have to flood the code with text and use shortcuts instead
+    var shorten = document.getElementById('genHTML');
+    var table = document.getElementById('tableId');
+    var rowCount = table.rows.length - 5;
+    var QuTitle = document.getElementById("Qtitle").value;
+    var QuID = document.getElementById('QID').value;
+    //var HWidth = 200;
+    var HWidth = determineHEWidth();
+    //Question Header
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = "<p>"+replaceLT(document.getElementById("Instr").value)+"</p>\n";
+    }
+    else{
+        instrt = "";
+    }
+
+    shorten.value = '<zyQSetShortAnswer caption="'+QuTitle+'" id="'+QuID+'">\n';
+    shorten.value += instrt;
+    for(qnum = 1; qnum < rowCount+1; qnum++){//Question Generate Loop
+        shorten.value += "\n<zyQ>\n";
+        shorten.value += '<zyQText>'+ replaceLT(document.getElementById('Quest'+(qnum-1)).value);
+        shorten.value += '</zyQText>\n';
+
+        for(var subChoice = 1; subChoice <= document.getElementById('choiceTable'+(qnum-1)).rows.length; subChoice++){
+            shorten.value += '<zyQAns obeyspace="'+document.getElementById('stripRadio'+(qnum-1)+subChoice).checked+'" obeycase="'+document.getElementById('caseRadio'+(qnum-1)+subChoice).checked+'"';
+            shorten.value += ' lines="'+document.getElementById('AnswL'+(qnum-1)).value+'" columns="'+document.getElementById('AnswC'+(qnum-1)).value+'"';
+
+            if(subChoice == 1){
+                if(document.getElementById('prefRadio'+(qnum-1)).checked){
+                    shorten.value += ' preferred="true" ';
+                }
+                if(document.getElementById('SAIE'+(qnum-1)).value.length > 0){
+                    shorten.value += ' ignoreend="' + document.getElementById('SAIE'+(qnum-1)).value + '" ';
+                }
+
+            }
+            shorten.value += '>' + replaceLT(document.getElementById('Answ'+(qnum-1)+subChoice).value) +'</zyQAns>\n';
+        }
+
+        if(document.getElementById('AnsTxt'+(qnum-1)).getAttribute('state') == 1){
+            shorten.value += "<zyQTextAroundAns";
+            if(document.getElementById('lngSet'+(qnum-1)).value != "none"){
+                shorten.value += " language='" + document.getElementById('lngSet'+(qnum-1)).value + "'";
+            }
+            shorten.value += ">";
+            shorten.value += replaceLT(document.getElementById('txtArnB'+(qnum-1)).value);
+            shorten.value += "<zyQAnsBox></zyQAnsBox>";
+            shorten.value += replaceLT(document.getElementById('txtArnA'+(qnum-1)).value);
+            shorten.value += "</zyQTextAroundAns>\n";
+        }
+
+
+        shorten.value += '<zyQExpl>' + replaceLT(document.getElementById('Expl'+(qnum-1)).value);
+        shorten.value += '</zyQExpl>\n';
+        shorten.value += '<zyQHint>' + replaceLT(document.getElementById('Hin'+(qnum-1)).value);
+        shorten.value += '</zyQHint>\n';
+        shorten.value += '</zyQ>\n';
+    }
+    shorten.value += '\n</zyQSetShortAnswer>\n';
+    return;
+}
+
+function TFgenerate(){//generates the HTML
+    //declare some vars that will be repeatedly used so we don't have to flood the code with text and use shortcuts instead
+    var shorten = document.getElementById('genHTML');
+    var table = document.getElementById('tableId');
+    var rowCount = table.rows.length -5;
+    var QuTitle = document.getElementById("Qtitle").value;
+    var QuID = document.getElementById('QID').value;
+
+    //Question Header
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = `<p>${$('#Instr').val()}</p>\n`;
+    }
+    else{
+        instrt = "";
+    }
+
+    shorten.value = '<zyQSetTF caption="'+QuTitle+'" id="'+QuID+'">\n';
+    shorten.value += instrt;
+    for(qnum = 1; qnum < rowCount+1; qnum++){//Question Generate Loop
+        if(!document.getElementById('Tradio'+(qnum-1)).checked && !document.getElementById('Fradio'+(qnum-1)).checked){
+            shorten.value = "";
+            alert('One or more questions have no solution.'); // David May 12/28/19 Corrected typo "One or [more] questions"
+            return;
+        }
+        shorten.value += "\n<zyQ>\n";
+        if(document.getElementById('Tradio'+(qnum-1)).checked){
+            shorten.value += '<zyQText correct="' + document.getElementById('Ttext'+(qnum-1)).value + '"';
+            if(document.getElementById('Ttext'+(qnum-1)).value != "True"){
+                shorten.value += ' truelabel="' + document.getElementById('Ttext'+(qnum-1)).value;
+            }
+            if(document.getElementById('Ftext'+(qnum-1)).value != "False"){
+                shorten.value += '" falselabel="' + document.getElementById('Ftext'+(qnum-1)).value + '"';
+            }
+            shorten.value += '>'+ replaceLT(document.getElementById('Quest'+(qnum-1)).value);
+            shorten.value += '</zyQText>\n';
+        }
+        else{
+            shorten.value += '<zyQText correct="'+document.getElementById('Ftext'+(qnum-1)).value+'"';
+            if(document.getElementById('Ttext'+(qnum-1)).value != "True"){
+                shorten.value += ' truelabel="' + document.getElementById('Ttext'+(qnum-1)).value;
+            }
+            if(document.getElementById('Ftext'+(qnum-1)).value != "False"){
+                shorten.value += '" falselabel="' + document.getElementById('Ftext'+(qnum-1)).value + '"';
+            }
+            shorten.value += '>'+ replaceLT(document.getElementById('Quest'+(qnum-1)).value);
+            shorten.value += '</zyQText>\n';
+        }
+        shorten.value += '<zyQExpl>' + replaceLT(document.getElementById('Expl'+(qnum-1)).value);
+        shorten.value += '</zyQExpl>\n';
+        shorten.value += '</zyQ>\n';
+    }
+    shorten.value += '\n</zyQSetTF>\n';
+    return;
+}
+
+function ralllinks(textblock){
+    if( textblock.indexOf('src="/images/pics/pic') == -1 ){
+        return textblock;
+    }
+    else{
+        var textblock2 = textblock.replace('src="/images/pics/','src="/~vahid/progincpp/QuestionGenerators/images/pics/');
+        return ralllinks(textblock2);
+    }
+}
+
+function preview(){//sets up a preview of the current table
+
+    var previewing = document.getElementById('genHTML').value;
+    previewing = ralllinks(previewing);
+    document.getElementById("previewarea").innerHTML = previewing;
+    // newHTML(previewing);
+}
+
+var QEscaped;
+var EEscaped;
+var HEscaped;
+var AEscaped;
+
+function escapeCheck(Arow){//includes any escape characters that are necessary
+    var Qtemp = document.getElementById('Quest'+Arow).value;
+    var Etemp = document.getElementById('Expl'+Arow).value;
+    var Htemp = document.getElementById('Hin'+Arow).value;
+    var Atemp = document.getElementById('Answ'+Arow).value;
+
+    var preArray = escapeCheck2(Qtemp,Etemp,Htemp,Atemp);
+    var postArray = escapeCheck3(preArray[0],preArray[1],preArray[2],preArray[3]);
+    QEscaped = postArray[0];
+    EEscaped = postArray[1];
+    HEscaped = postArray[2];
+    AEscaped = postArray[3];
+
+}
+
+function escapeCheck2(Q1,E1,H1,A1){//to recursively check if multiple escapes are needed first reason we use escapesingle and escapedouble is because \" maybe replaced with \\" over and over
+if(Q1.indexOf("'") != -1 || Q1.indexOf('"') != -1 || E1.indexOf("'") != -1 || E1.indexOf('"') != -1 || H1.indexOf("'") != -1 || H1.indexOf('"') != -1 || A1.indexOf("'") != -1 || A1.indexOf('"') != -1){
+    var Q2 = Q1.replace("'","ESCAPESINGLE");
+    Q2 = Q2.replace('"',"ESCAPEDOUBLE");
+    var E2 = E1.replace("'","ESCAPESINGLE");
+    E2 = E2.replace('"',"ESCAPEDOUBLE");
+    var H2 = H1.replace("'","ESCAPESINGLE");
+    H2 = H2.replace('"',"ESCAPEDOUBLE");
+    var A2 = A1.replace("'","ESCAPESINGLE");
+    A2 = A2.replace('"',"ESCAPEDOUBLE");
+    return escapeCheck2(Q2,E2,H2,A2);
+}
+else{
+    var arrayAll = [];
+    arrayAll.push(Q1);
+    arrayAll.push(E1);
+    arrayAll.push(H1);
+    arrayAll.push(A1);
+    return arrayAll;
+}
+}
+
+function escapeCheck3(Q3,E3,H3,A3){//now we remove all the ESCAPE comments and replace them with the appropriate \' and \"
+if(Q3.indexOf("ESCAPESINGLE") != -1 || Q3.indexOf("ESCAPEDOUBLE") != -1 || E3.indexOf("ESCAPESINGLE") != -1 || E3.indexOf("ESCAPEDOUBLE") != -1 || H3.indexOf("ESCAPESINGLE") != -1 || H3.indexOf("ESCAPEDOUBLE") != -1 || A3.indexOf("ESCAPESINGLE") != -1 || A3.indexOf("ESCAPEDOUBLE") != -1){
+    var Q4 = Q3.replace("ESCAPESINGLE","\\\'");
+    Q4 = Q4.replace("ESCAPEDOUBLE","\\\"");
+    var E4 = E3.replace("ESCAPESINGLE","\\\'");
+    E4 = E4.replace("ESCAPEDOUBLE","\\\"");
+    var H4 = H3.replace("ESCAPESINGLE","\\\'");
+    H4 = H4.replace("ESCAPEDOUBLE","\\\"");
+    var A4 = A3.replace("ESCAPESINGLE","\\\'");
+    A4 = A4.replace("ESCAPEDOUBLE","\\\"");
+    return escapeCheck3(Q4,E4,H4,A4);
+}
+else{
+    var arrayAll2 = [];
+    arrayAll2.push(Q3);
+    arrayAll2.push(E3);
+    arrayAll2.push(H3);
+    arrayAll2.push(A3);
+
+    return arrayAll2;
+}
+}
+
+function resizeAnsBox(Arow){
+    var answerstring = document.getElementById('Answ'+Arow).value;
+    if(answerstring.length > 40){
+        var newsize = Math.ceil(answerstring.length / 20);
+        return newsize;
+    }
+    else{
+        return 1;
+    }
+}
+
+function showOnly(qtype){
+    var insertHeaders = document.getElementById('tableLabels');
+    var qTypes = document.getElementsByClassName('qTypeDiv');
+    for( var i = 0; i < qTypes.length; i++ ){
+        if(qTypes[i].id == qtype){
+            //qTypes[i].style.display = "block";
+            insertHeaders.innerHTML = qTypes[i].innerHTML;
+        }
+        else{
+            //qTypes[i].style.display = "none";
+        }
+    }
+}
+
+function initialfuncts(){
+    document.getElementById("Qtype").value = "Short answer";
+    addRow();
+    return;
+}
+
+// David May 12/24/19 Added function to test if all MC questions are empty
+// David May 12/28/10 Expanded function to test if MC answer choices and explanations are empty
+function isTableEmpty() {
+
+    var QCtype = document.getElementById('QCtype');
+
+    if (QCtype == "4") {
+
+        var table = document.getElementById('tableId'); // Main table
+
+        for (var i = 0; i < table.rows.length - 5; i++) { // Iterates through all questions
+            var chTable, chCount;
+            chTable = document.getElementById('choiceTable' + i);
+            if (chTable) {
+                chCount = chTable.rows.length;
+            }
+
+            if (document.getElementById('Quest' + i).value != '') { // If question 'i' is not empty return false
+                return false;
+            }
+
+            for (var j = 0; j < chCount; j++) { // Iterates through all 'j' answer choices and explanations for question 'i'
+                var currChoice = document.getElementById('choice' + i + String.fromCharCode(97 + j)); // String.fromCharCode(97) == 'a'
+                var currExpl = document.getElementById('expl' + i + String.fromCharCode(97 + j));
+                var currAns = document.getElementById('answer' + i + String.fromCharCode(97 + j));
+
+                if (currChoice.value != '' || currExpl.value != '' || currAns.checked) { // If choice or explanation 'j' are not empty, or an answer is checked, return false
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
+// David May 1/1/20 Added function to check if a MC row is empty
+function isRowEmpty(Arow) {
+    var table = document.getElementById('tableId');
+    var chTable = document.getElementById('choiceTable' + Arow);
+    var chCount = chTable.rows.length;
+
+    if (document.getElementById('Quest' + Arow).value != '') { // Check if question is empty
+        return false;
+    }
+
+    for (var i = 0; i < chCount; i++) { // Check if buttons/answers/explanations are empty
+        var currChoice = document.getElementById('choice' + Arow + String.fromCharCode(97 + i)); // String.fromCharCode(97) == 'a'
+        var currExpl = document.getElementById('expl' + Arow + String.fromCharCode(97 + i));
+        var currAns = document.getElementById('answer' + Arow + String.fromCharCode(97 + i));
+
+        if (currChoice.value != '' || currExpl.value != '' || currAns.checked) { // If choice or explanation 'i' are not empty, or an answer is checked, return false
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// David May 1/1/20 Added function to check if a MC answer choice is empty
+function isChoiceEmpty(tableC, Arow) {
+    var choice = document.getElementById('choice' + tableC + Arow);
+    var expl = document.getElementById('expl' + tableC + Arow);
+    var button = document.getElementById('answer' + tableC + Arow);
+
+    if (choice.value != '' || expl.value != '' || button.checked) {
+        return false;
+    }
+
+    return true;
+}
+
+function loadNewBuilder(){
+    var PType = questiontype;
+    var table = document.getElementById('tableId');//main table ID
+    var rowCount = table.rows.length - 5; //# Rows Contained By Table
+    var QCtype = document.getElementById('QCtype');
+
+    if (!setup && !isTableEmpty()) { // David May 12/22/19 added check for initial load
+        var userConfirmed = confirm("A new builder will erase all current content. Proceed anyway?");
+
+        if(!userConfirmed){
+            return;
+        }
+    }
+
+    deleteclicked = true;
+    const optionToAcronym = {
+        1: 'TF',
+        2: 'SA',
+        3: 'DM',
+        4: 'MC',
+        5: 'DA',
+    };
+    const selectedIndex = QCtype.options[QCtype.selectedIndex].value;
+    const acronym = optionToAcronym[selectedIndex];
+
+    deleteRows(acronym);
+
+    document.getElementById('Instr').disabled = false;
+
+    switch(acronym) { // David May 3/13/20 Added switch statement to update header upon new builder press
+        case "TF":
+            document.getElementById("header").innerHTML = "True/false builder";
+            break;
+        case "SA":
+            document.getElementById("header").innerHTML = "Short answer builder";
+            break;
+        case "DM":
+            document.getElementById("header").innerHTML = "Definition match builder";
+            break;
+        case "MC":
+            document.getElementById("header").innerHTML = "Multiple choice builder";
+            break;
+        case "DA":
+            document.getElementById("header").innerHTML = "Detect the answer builder";
+            break;
+        default:
+            break;
+    }
+
+    initialrow = true;
+    deleteclicked = false;
+    if (questiontype == 5) { // David May 12/20/19 Changed logic to add 3 rows for all question types except DA
+        addRow();
+    } else {
+        addRow();
+        addRow();
+        addRow();
+    }
+
+    if (questiontype == 1) { // David May 7/11/20 Show "convert" button if true/false builder
+        document.getElementById('convert').style.visibility = "visible";
+    } else {
+        document.getElementById('convert').style.visibility = "hidden";
+    }
+
+    if (!setup) { // David May 12/22/19 Added check for intial load
+        refreshGUID(); // David May 12/20/19 Added function call to refresh GUID on New Builder
+    }
+}
+
+// Generates a GUID. Same behavior as |generateGUID| function in zyUtilities repo.
+function generateGUID() {
+    var timestamp = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(character) {
+        var randomHex = (timestamp + Math.random() * 16) % 16 | 0;
+        timestamp     = Math.floor(timestamp / 16);
+        return (character === 'x' ? randomHex : (randomHex & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+};
+
+var zyAnimationID = generateGUID();
+var zyAnimationCaption = '';
+var zyAnimationLoadOnDemand = false;
+
+function RandomizeMe(myArray){
+    var i = myArray.length;
+    if ( i == 0 ) return false;
+    while ( --i ) {
+        var j = Math.floor( Math.random() * ( i + 1 ) );
+        var tempi = myArray[i];
+        var tempj = myArray[j];
+        myArray[i] = tempj;
+        myArray[j] = tempi;
+    }
+}
+
+function checkMatches(tArray){
+    for(var i = 0; i < tArray.length; i++){
+        if(tArray[i].loc == i+3){
+            return true;
+        }
+    }
+    return false;
+}
+
+function DMgenerate(){	//definitionMatch generator
+    var shorten = document.getElementById('genHTML');
+    var termsTable = document.getElementById('tableId');
+    var QuTitle = document.getElementById("Qtitle").value;
+    var rowCount = termsTable.rows.length -5;
+    var QuID = document.getElementById('QID').value;
+
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = "<p>" + document.getElementById("Instr").value + "</p>\n";
+    }
+    else{
+        instrt = "";
+    }
+
+    var inHTML = '<zyQSetMatch caption="' + QuTitle + '" id="' + QuID + '">\n';
+    inHTML += instrt;
+    for(var j = 0; j < rowCount; j++){
+        inHTML += '\n<zyQMatchLeft>' + replaceLT(document.getElementById('Term'+(j)).value) + '</zyQMatchLeft>\n';
+        inHTML += '<zyQMatchRight>' + replaceLT(document.getElementById('Definition'+(j)).value);
+        // If an explanation exists
+        if (document.getElementById('Explanation'+(j)).value.length > 0) {
+            inHTML += '<zyQExpl>' + replaceLT(document.getElementById('Explanation'+(j)).value) + '</zyQExpl>';
+        }
+        inHTML += '</zyQMatchRight>\n';
+    }
+    inHTML += '\n</zyQSetMatch>\n';
+    shorten.value = inHTML;
+    return;
+}
+
+function MCgenerate(){
+    //declare some vars that will be repeatedly used so we don't have to flood the code with text and use shortcuts instead
+    var shorten = document.getElementById('genHTML');
+    var table = document.getElementById('tableId');
+    var rowCount = table.rows.length - 5;
+    var QuTitle = document.getElementById("Qtitle").value;
+    var QuID = document.getElementById('QID').value;
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = "<p>" + document.getElementById("Instr").value + "</p>\n";
+    }
+    else{
+        instrt = "";
+    }
+
+    var inHTML = '<zyQSetMultipleChoice caption="' + QuTitle + '" id="' + QuID + '">\n';
+    inHTML += instrt;
+    for(var qnum = 1; qnum < rowCount+1; qnum++){
+        inHTML += '\n<zyQ>\n';
+        inHTML += '<zyQText>' + replaceLT(document.getElementById('Quest'+(qnum-1)).value) + '</zyQText>\n';
+        var chChar = 'a';
+        var chTable = document.getElementById('choiceTable' + (qnum-1) );
+        var chCount = chTable.rows.length;
+        var validA = false;
+        for(var chnum = 0; chnum < chCount; chnum++){
+            var radioButt = document.getElementById('answer' + (qnum-1) + String.fromCharCode(chChar.charCodeAt()+(chnum)) ).checked;
+            if(radioButt){
+                inHTML += '<zyQChoice correct="true">\n';
+                validA = true;
+            }
+            else{
+                inHTML += '<zyQChoice>\n';
+            }
+            inHTML += '<zyQAns>' + replaceLT(document.getElementById('choice' + (qnum-1) + String.fromCharCode(chChar.charCodeAt()+(chnum)) ).value) + '</zyQAns>\n';
+            inHTML += '<zyQExpl>' + replaceLT(document.getElementById('expl' + (qnum-1) + String.fromCharCode(chChar.charCodeAt()+(chnum)) ).value) + '</zyQExpl>\n';
+            inHTML += '</zyQChoice>\n';
+        }
+        if(!validA){
+            alert("One or more questions have no solution.");
+            return;
+        }
+        inHTML += '</zyQ>\n';
+    }
+    inHTML += '\n</zyQSetMultipleChoice>\n';
+    document.getElementById('genHTML').value = inHTML;
+    return;
+}
+
+function generateTags(tableName,QuestionCnt,QuID){
+    var MarkedTable = document.getElementById(tableName+QuestionCnt);
+    var rowCount = MarkedTable.rows.length;
+    var grabInactive = document.getElementById('outputarea'+QuestionCnt);
+    var goThroughMe = grabInactive.childNodes;
+    var validAnswer = false;
+    var XMLstr = '';
+    for(var i = 0; i < goThroughMe.length; i++){
+        if(goThroughMe[i].tagName == "SPAN"){
+            var selectedID = goThroughMe[i].id;
+            var uniqueID = selectedID.split('-')[1].replace(QuestionCnt,'');
+            var subEnum = uniqueID.charCodeAt() - 'a'.charCodeAt();
+            var expla = document.getElementById('explain'+QuestionCnt+"-"+subEnum).value;
+            var answR = document.getElementById('Corr'+QuestionCnt+'-'+subEnum).checked;
+
+            var buttonize = document.getElementById('button-'+QuestionCnt+uniqueID);
+            var insideTheB = buttonize.innerHTML;
+            var cutItOUT = insideTheB.indexOf('<sup>');
+            var buttonCon = insideTheB.substr(0,cutItOUT);
+            if(answR){
+                validAnswer = true;
+            }
+            else if(!answR){
+            }
+            else{
+                alert("Invalid answer selection:Correct or incorrect");
+                return;
+            }
+            XMLstr += '<zyQOption correct="' + answR + '">\n';
+            XMLstr += '<zyQText>' + replaceLT(buttonCon) + '</zyQText>\n';
+            XMLstr += '<zyQExpl>' + replaceLT(expla) + '</zyQExpl>\n';
+            XMLstr += '</zyQOption>';
+        }
+        else{
+            XMLstr += replaceLT(goThroughMe[i].textContent);
+        }
+    }
+
+    if(validAnswer)
+    return XMLstr;
+    else
+    return "NOTVALID";
+}
+
+function DQgenerate(){
+    //declare some vars that will be repeatedly used so we don't have to flood the code with text and use shortcuts instead
+    var shorten = document.getElementById('genHTML');
+    var table = document.getElementById('tableId');
+    var rowCount = table.rows.length -5;
+    var QuTitle = document.getElementById("Qtitle").value;
+    var QuID = document.getElementById('QID').value;
+    var instrt = "";
+    if(document.getElementById("Instr").value.length > 0){
+        instrt = "<p>"+document.getElementById("Instr").value+"</p>\n";
+    }
+    else{
+        instrt = "";
+    }
+
+    var inHTML = '<zyQSetDetectAnswer caption="' + QuTitle + '" id="' + QuID + '">\n';
+    inHTML += instrt;
+    for(var qnum = 1; qnum < rowCount+1; qnum++){
+        inHTML += '\n<zyQ>';
+        var contents = generateTags("markTable",qnum-1,QuID);
+        if(contents == "NOTVALID"){
+            alert("One or more questions do not have an answer selected."); // David May 12/30/19 Changed "does" to "do"
+            return;
+        }
+        inHTML += contents;
+        inHTML += '\n</zyQ>\n';
+    }
+    inHTML += '\n</zyQSetDetectAnswer>\n';
+
+    document.getElementById('genHTML').value = inHTML;
+    return;
+}
+
+function maxChars(textareathis,charlimit){
+    if(textareathis.value.length > charlimit){
+        textareathis.value = textareathis.value.substring(0,charlimit);
+    }
+}
+
+/* code from qodo.co.uk */
+// create as many regular expressions here as you need:
+
+
+function restrictCharacters(myfield, e){
+    var alphaOnly = /([A-Za-z0-9])/g;
+    if (!e) var e = window.event
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    var character = String.fromCharCode(code);
+    // if they pressed esc... remove focus from field...
+    if (code==27) { this.blur(); return false; }
+    // ignore if they are press other keys
+    // strange because code: 39 is the down key AND ' key...
+    // and DEL also equals .
+    if (!e.ctrlKey ) {
+        if (character.match(alphaOnly)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+</script>
+
+<div class="bodyDiv">
+    <h1 id="header" class="header">Multiple choice builder</h1> <!-- David May 3/13 Added title for each builder -->
+    <div class='chgQuestionType'>
+        Change to
+        <select id="QCtype">
+            <option value = "1">True/false builder</option> <!-- David May 12/22/19 changed HTML to use 'builder' -->
+            <option value = "2">Short answer builder</option>
+            <option value = "3">Definition match builder</option>
+            <option value = "4" selected>Multiple choice builder</option>
+            <option value = "5">Detect the answer builder</option>
+        </select>
+        <input id="QtypeB" type="button" value="New builder" onclick="loadNewBuilder()"/>
+
+        <!-- David May 12/28/19 Moved special characters button, added feedback button -->
+        <a href="mailto:support@zybooks.com" target="_blank">
+            <button id="feedback-button" class="special-chars-feedback-button">Feedback</button>
+        </a>
+        <a href="https://static-resources.zybooks.com/browserSafeUnicode.html" target="_blank">
+            <button id="special-chars" class="special-chars-feedback-button">Special characters</button>
+        </a>
+    </div>
+
+    <table class='questionAttr'>
+        <tbody>
+            <tr>
+                <td>
+                    Question set GUID:
+                </td>
+                <td>
+                    <input type="text" id="QID" value="" size="60" onkeypress='return restrictCharacters(this,event);' placeholder="Unique identifier with no spaces/symbols."/> <button onClick="refreshGUID()">Refresh GUID</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Question set caption:
+                </td>
+                <td>
+                    <input type="text" id="Qtitle" value="" size="60" placeholder="Short descriptive title."/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Instructions:
+                </td>
+                <td>
+                    <textarea id="Instr" cols="100" rows="4" placeholder="Optional."></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
+            <tr id='SAQ' class='qTypeDiv' style="display: none;">
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Hint</th>
+                <th>Explanation</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+
+            <tr id='TFQ' class='qTypeDiv' style="display: none;">
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Explanation</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+
+            <tr id='DMQ' class='qTypeDiv' style="display: none;">
+                <th>#</th>
+                <th>Term</th>
+                <th>Definition | Explanation</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+
+            <tr id='MCQ' class='qTypeDiv' style="display: none;">
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer | Explanation</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+
+            <tr id='DAQ' class='qTypeDiv' style="display: none;">
+                <th>#</th>
+                <th>Question</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <tbody id="tableId" class="tableID">
+            <tr id='tableLabels' class='tabLabels'>
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Hint</th>
+                <th>Explanation</th>
+                <th>Swap</th>
+                <th>Del</th>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+    <input id ="addRowB" type="button" value="+" onclick="addRow()" />
+    <input id ="convert" type="button" value="Convert to MC" onclick="convert()" style="visibility: hidden;" /> <!-- David May 7/11/20 converts TF set to MC -->
+    <br />
+    <hr>
+    <input id ="GenerateB" type="button" value="Export &darr;" onclick="generate()" /> <!-- David May 12/19/19 changed from "Generate XML" to "Export", added HTML arrow-->
+    <input id ="DeGenerateB" type="button" value="Import &uarr;" onclick="degenerateXML()" /> <!-- David May 12/19/19 changed from "Degenerate XML" to "Import", added HTML arrow-->
+    <br />
+    <textarea id ="genHTML" cols = "80" rows ="20" onMouseOver="javascript:this.select();" ></textarea>
+    <br />
+    <!--<input id ="PreviewB" type="button" value="Preview HTML" onclick="preview()" />-->
+    <div id ="previewarea">
+    </div>
+
+    <!-- David May 8/3/20 Adding version -->
+    <div class='version-area-container'>
+        <div id='version-number'>Question set builder, version 1.2.0.0</div>
+        <a href='https://docs.google.com/spreadsheets/d/1395YyDex14NBR4Sb9ArSUmyR1h3CoCIq2iorHJ1eRu4/edit?usp=sharing' target="_blank">
+            <button id='revision-history'>Revision history</button>
+        </a>
+    </div>
+
+    {{!-- <div class='footBanner'>
+        Zyante confidential. Copyright Zyante Inc. 2014
+        <br />
+        Authoring tool question set builder version: <span id='version-date'></span> <!-- David May 12/30/19 changed "generator" to "set builder" -->
+        <br />
+        <br/>
+        <!-- <a class="mailSup" href="mailto:support@zybooks.com">support@zybooks.com</a> --> <!-- David May 12/30/19 removed line because "Feedback" button has been added -->
+    </div> --}}
+</div>
+<script>
+function refreshGUID() {
+    document.getElementById("QID").value = generateGUID();
+}
+
+refreshGUID();
+
+</script>

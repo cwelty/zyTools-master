@@ -1,0 +1,136 @@
+@import "../../../zyWeb/less/constants.less";
+
+.defnMatch {
+    width: 700px;
+
+    .correct {
+        background-color: @zyante-green;
+        color:            rgb(255, 255, 255);
+    }
+
+    .explanation {
+        padding-bottom: 3px;
+    }
+
+    .unselected-term {
+        background: lighten(@zyante-lighter-blue, 10%);
+        border:     2px dotted @zyante-dark-blue;
+        color:      rgb(0, 0, 0);
+        display:    inline-block;
+    }
+
+    .term-bank {
+        .sortable-container {
+            li {
+                margin: 5px;
+            }
+        }
+    }
+
+    .sortable-container {
+        height:          auto;
+        list-style-type: none;
+        margin:          0;
+        min-height:      40px;
+        padding:         0;
+        text-align:      left;
+
+        li {
+            padding: 10px;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+    }
+
+    .term-bank {
+        display:    inline-block;
+        min-height: 40px;
+        width:      100%;
+
+        .sortable-container {
+            border: 1px dashed @zyante-table-gray;
+        }
+    }
+
+    .definition-table {
+        background:      rgb(255, 255, 255);
+        border:          0;
+        border-collapse: separate;
+        border-spacing:  0 10px;
+
+        tr td {
+            padding:    0 5px;
+            text-align: left;
+        }
+    }
+
+    .definition-row {
+        border:     2px solid @zyante-dark-blue;
+        display:    table-cell;
+        height:     100%;
+        min-height: 40px;
+        min-width:  185px;
+    }
+
+    .term-bucket {
+        min-height: 40px;
+    }
+
+    .instruction {
+        color:      @zyante-cancel-gray;
+        font-style: italic;
+        display:    block;
+        opacity:    1;
+    }
+
+    .defnCol {
+        width: 370px;
+
+        @definition-column-border: 2px solid @zyante-cancel-gray;
+        &.definition-column-unselected-term {
+            background:    white;
+            border-bottom: @definition-column-border;
+            border-right:  @definition-column-border;
+            border-top:    @definition-column-border;
+        }
+    }
+
+    .empty-placeholder {
+        display: none;
+    }
+
+    .term-bucket-highlight {
+        background: @zyante-lighter-orange;
+    }
+
+    .term-correct {
+        background: lighten(@zyante-green, 10%);
+        color:      rgb(255, 255, 255);
+
+        table {
+            color: @zyante-gray;
+        }
+    }
+
+    @definition-term-wrong-border: 2px solid @zyante-red;
+    .definition-term-wrong {
+        background:    rgb(255, 255, 255);
+        border-bottom: @definition-term-wrong-border;
+        border-right:  @definition-term-wrong-border;
+        border-top:    @definition-term-wrong-border;
+        color:         rgb(0, 0, 0);
+    }
+
+    .term-out-of-bucket {
+        display: inline-block;
+        margin:  0;
+    }
+
+    .red-x {
+        color:      @zyante-medium-red;
+        font-size:  18px;
+        font-style: normal;
+    }
+}

@@ -1,0 +1,272 @@
+@import "../../../zyWeb/less/constants.less";
+
+@table-border:                  1px solid @zyante-gray;
+@transform-angle-of-diagonal:   -45deg;
+@circle-min-height-width:       30px;
+@horizontal-top-for-upper-row:  -190px;
+@horizontal-top-for-lower-row:  -127px;
+@half-circle-width:             72px;
+@horizontal-two-variable-width: 134px;
+@vertical-two-variable-height:  94px;
+@left-for-first-column:         88px;
+@left-for-second-column:        190px;
+@left-for-third-column:         293px;
+@left-for-fourth-column:        396px;
+
+.kMapSimplifiedTerm {
+    font-size:  18px;
+    
+    .circle-base-properties {
+        border-radius: 20px;
+        border-width:  2px;
+        border-style:  solid;
+        display:       none;
+        position:      absolute;
+    }
+    
+    .border-color-dark-blue {
+        border-color:  @zyante-dark-blue;
+    }
+    
+    .border-color-orange {
+        border-color:  @zyante-orange;
+    }
+    
+    .circle-drawing-container {
+        position: relative;
+    }
+    
+    .two-variable-half-circle-left {
+        .circle-base-properties();
+        border-bottom-left-radius: 0;
+        border-left-style:         none;
+        border-top-left-radius:    0;
+        height:                    @circle-min-height-width;
+        left:                      47px;
+        width:                     @half-circle-width;
+        
+        &.index-0-3 {
+            display: block;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-4-7 {
+            display: block;
+            top:     @horizontal-top-for-lower-row;
+        }
+    }
+    
+    .two-variable-half-circle-right {
+        .circle-base-properties();
+        border-bottom-right-radius: 0;
+        border-right-style:         none;
+        border-top-right-radius:    0;
+        height:                     @circle-min-height-width;
+        left:                       @left-for-fourth-column;
+        width:                      @half-circle-width;
+        
+        &.index-0-3 {
+            display: block;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-4-7 {
+            display: block;
+            top:     @horizontal-top-for-lower-row;
+        }
+    }
+    
+    .two-variable-circle {
+        .circle-base-properties();
+        
+        &.index-0-1 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-1-2 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-2-3 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-4-5 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-5-6 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-6-7 {
+            display: block;
+            height:  @circle-min-height-width;
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-lower-row;
+            width:   @horizontal-two-variable-width;
+        }
+        
+        &.index-0-4 {
+            display: block;
+            height:  @vertical-two-variable-height;
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @circle-min-height-width;
+        }
+        
+        &.index-1-5 {
+            display: block;
+            height:  @vertical-two-variable-height;
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @circle-min-height-width;
+        }
+        
+        &.index-2-6 {
+            display: block;
+            height:  @vertical-two-variable-height;
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @circle-min-height-width;
+        }
+        
+        &.index-3-7 {
+            display: block;
+            height:  @vertical-two-variable-height;
+            left:    @left-for-fourth-column;
+            top:     @horizontal-top-for-upper-row;
+            width:   @circle-min-height-width;
+        }
+    }
+    
+    .three-variable-circle {
+        .circle-base-properties();    
+        height:        @circle-min-height-width;
+        width:         @circle-min-height-width;
+        
+        &.index-0 {
+            display: block;
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-1 {
+            display: block;
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-2 {
+            display: block;
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-3 {
+            display: block;
+            left:    @left-for-fourth-column;
+            top:     @horizontal-top-for-upper-row;
+        }
+        
+        &.index-4 {
+            display: block;
+            left:    @left-for-first-column;
+            top:     @horizontal-top-for-lower-row;
+        }
+        
+        &.index-5 {
+            display: block;
+            left:    @left-for-second-column;
+            top:     @horizontal-top-for-lower-row;
+        }
+        
+        &.index-6 {
+            display: block;
+            left:    @left-for-third-column;
+            top:     @horizontal-top-for-lower-row;
+        }
+        
+        &.index-7 {
+            display: block;
+            left:    @left-for-fourth-column;
+            top:     @horizontal-top-for-lower-row;
+        }
+    }
+    
+    .diagonal {
+        border-left:       @table-border;
+        height:            70px;
+        left:              27px;
+        position:          absolute;
+        top:               3px;
+        transform:         rotate(@transform-angle-of-diagonal);
+        -ms-transform:     rotate(@transform-angle-of-diagonal); /* IE 9 */
+        -webkit-transform: rotate(@transform-angle-of-diagonal); /* Opera, Chrome, and Safari */
+    }
+    
+    .input-a {
+        position: absolute;
+        top:      33px;
+    }
+    
+    .input-b-c {
+        left:     27px;
+        position: absolute;
+        top:      10px;
+    }
+    
+    input {
+        font-size:  28px;
+        text-align: center;
+        
+        &.simplified-term {
+            display: block;
+            margin:  20px auto;
+        }
+    }
+    
+    table.k-map-table {
+        td {
+            height:     60px;
+            min-width:  50px;
+            text-align: center;
+            
+            &.kmap-cell {
+                border:                @table-border;
+                vertical-align:        middle;
+                width:                 100px;
+                -webkit-touch-callout: none;
+                -webkit-user-select:   none;
+                -khtml-user-select:    none;
+                -moz-user-select:      none;
+                -ms-user-select:       none;
+                user-select:           none;
+            }
+        }
+    }
+    
+    .table-header-container {
+        position: relative;
+    }
+}

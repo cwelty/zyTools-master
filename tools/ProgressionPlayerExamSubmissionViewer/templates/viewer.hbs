@@ -1,0 +1,52 @@
+{{!
+    The base viewer.
+    @param {String} id The unique identifier for this module.
+}}
+<h3>Exam responses CSV file</h3>
+<input id='file-{{id}}' type='file' accept='.csv'>
+
+<div id='error-{{id}}' class='error-container'>
+    <h3>Error loading CSV. Was the correct CSV selected?</h3>
+    <output></output>
+</div>
+
+<div id='students-container-{{id}}'>
+    <h3>Students</h3>
+    <div class='search-container'>
+        <label for='student-search'>Search</label>
+        <input type='text' name='student-search'>
+        <p class='no-match'>No matches</p>
+    </div>
+    <div class='items'></div>
+</div>
+
+<div id='question-ids-container-{{id}}'>
+    <h3>Questions</h3>
+    <div class='items'></div>
+</div>
+
+<div id='submissions-container-{{id}}'>
+    <h3>Submissions (in your computer's local time)</h3>
+    <div class='items'></div>
+</div>
+
+<div id='question-container-{{id}}'>
+    <h3>Question and response (marked as <span id='response-correctness-{{id}}'></span>)</h3>
+    <div class='progression-player-container'>
+        <div class='centered-activity'>
+            <div class='content-resource-container'>
+                <div class='content-resource-content'>
+                    <table class='centered-table'>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div id='player-{{id}}' class='ProgressionPlayer'></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

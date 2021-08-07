@@ -1,0 +1,97 @@
+<div class='zyante-array-games-reset-confirm-container'>
+    <div class='zyante-array-games-reset-confirm-container-center'>
+        <div class='zyante-array-games-reset-confirm-label'>Reset this activity?</div>
+        <button class='zyante-array-games-cancel-reset-button button'>Cancel</button>
+        <button class='zyante-array-games-confirm-reset-button button'>Confirm</button>
+    </div>
+</div>
+
+<div class='zyante-array-games-modal-cover'>
+    <table class='tool-table'>
+        <tbody>
+            <tr>
+                <td>
+                    <div class='start-reset-button-container'>
+                        <button id='start-button-{{id}}' class='button'>Start</button>
+                        <button class='reset button' id='reset-button-{{id}}'>Reset</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class='array-game-table'>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <span class='show-value-container'>
+                                        <span id='showValLabel_{{id}}' class='show-value-label'>Stored value</span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class='array-table'>
+                                        <tbody>
+                                            <tr>
+                                                {{! Print a column for each element in the array}}
+                                                {{#each elementsInArrayIndex}}
+                                                    <td id='element{{this}}_{{../id}}' class='array-element unselectable'>X</td>
+                                                {{/each}}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <span class='show-sorted'></span>
+                                    <span class='show-value-container'>
+                                        <span id='showVal_{{id}}' class='show-value'></span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='next-button-column'>
+                                    <button class='button disabled' id='next-button-{{id}}'>Next value</button>
+                                </td>
+                                <td>
+                                    <button class='button disabled' id='action-button-{{id}}'></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class='feedback'></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='time-row'>
+                                    <br>Time <span id='time_{{id}}' class='time-output'>-</span><!--
+                                    -->Best time <span id='bestTime_{{id}}' class='time-output'>-</span>
+                                    <button class='clear-best-button disabled' id='clear-time-button-{{id}}'>Clear best</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table id='prevWindows_{{id}}' class='array-table'>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan='7'>Previous windows</td>
+                                            </tr>
+                                            {{#each previousWindow2DArray}}
+                                                <tr>
+                                                    {{! Print a column for each element in the array}}
+                                                    {{#each this}}
+                                                        <td class='pre-window-element'>X</td>
+                                                    {{/each}}
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

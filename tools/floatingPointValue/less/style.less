@@ -1,0 +1,87 @@
+@import (reference) "../../../zyWeb/less/constants.less";
+@import (reference) "../../../zyWeb/less/utilities.less";
+.floatingPointValue {
+    .decimal-value-input {
+        font-size:    20px;
+        height:       36px;
+        margin-left:  5px;
+        margin-right: 10px;
+        padding-left: 4px;
+        width:        545px;
+    }
+
+    .convert-to-float {
+        margin-left:  10px;
+        margin-right: 15px;
+    }
+
+    .floating-point-container {
+        margin-top: 10px;
+
+        table {
+            text-align: center;
+
+            td {
+                padding: 2px 10px;
+
+                div.floating-point-value-exponent {
+                    width: 200px;
+                }
+
+                div.floating-point-value-mantissa {
+                    width: 585px;
+                }
+
+                div.floating-point-bit, div.floating-point-bit-number {
+                    border-width: 1px;
+                    border-style: solid;
+                    display:      inline-block;
+                    margin:       -1px;
+                    padding:      4px;
+                    text-align:   center;
+                    width:        12px;
+                }
+
+                @floating-point-bit-height: 25px;
+                div.floating-point-bit {
+                    border-color: @zyante-light-gray;
+                    font-size:    21px;
+                    height:       @floating-point-bit-height;
+                }
+
+                div.floating-point-bit-number {
+                    border-color: transparent;
+                    color:        @zyante-light-gray;
+                    font-size:    10px;
+                }
+
+                @leading-mantissa-width: 20px;
+                div.leading-mantissa {
+                    color:     lighten(@zyante-gray, 30%);
+                    display:   inline-block;
+                    font-size: 22px;
+                    height:    @floating-point-bit-height;
+                    width:     @leading-mantissa-width;
+                }
+
+                div.leading-mantissa-buffer {
+                    display: inline-block;
+                    width:   @leading-mantissa-width
+                }
+            }
+        }
+    }
+
+    .floating-point-value-message {
+        display:       block;
+        font-style:    italic;
+        margin-bottom: 10px;
+        min-height:    20px;
+        padding-top:   15px;
+        text-align:    left;
+    }
+
+    .calculated-floating-point {
+        visibility: hidden;
+    }
+}

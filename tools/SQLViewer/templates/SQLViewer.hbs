@@ -1,0 +1,23 @@
+{{!
+    Renders the tool skeleton. An ace editor with the code, a run button and a box for the results.
+    @param {Integer} id The ID of the instance of the tool.
+    @param {Boolean} isAccessible Whether it's the accessible version.
+}}
+{{#if isAccessible}}
+    <textarea id='editor-container-{{id}}' class='editor-container'></textarea>
+{{else}}
+    <div id='editor-container-{{id}}' class='editor-container'></div>
+{{/if}}
+<div class='under-editor'>
+    <div class='inline'>
+        <button class='run-button zb-button primary raised'><span class='title'>Run</span></button>
+        <button class='reset zb-button secondary'><span class='title'>Reset code</span></button>
+        <p class='reset-message zb-message-container'>Code reset</p>
+        <div class='processing zb-progress-circular orange med label-present'></div>
+    </div>
+    <div id='results'>
+        <pre class='error-message'></pre>
+        <div class='database-container zb-simple-expandable'></div>
+        <div class='queries-container'></div>
+    </div>
+</div>

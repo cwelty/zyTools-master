@@ -1,0 +1,131 @@
+@import "../../../zyWeb/less/constants.less";
+
+.turingMachine {
+    font-size: 14px;
+    width: 700px;
+    
+    .button-margin {
+        margin-left: 20px;
+    }
+    
+    .clear-both {
+        clear: both;
+    }
+    
+    .explanation {
+        color: black;
+        font-size: 16px;
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+    
+    .highlighted {
+        background-color: lighten(@zyante-yellow, 20%);
+    }
+    
+    .inline-block {
+        display: inline-block;
+    }
+    
+    .reset-button {
+        float: right;
+    }
+    
+    .start-stop-button-region {
+        width: 75px;
+    }
+    
+    .state-and-tape {
+        border-collapse: collapse;
+        font-size: 16px;
+        font-weight: bold;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 20px;
+        
+        .arrow-tr {
+            height: 35px;
+        }
+        
+        td {
+            text-align: center;
+            width: 50px;
+        }
+        
+        .state-or-symbol-tr {
+            .symbolTapeLabel {
+                font-size: 18px;
+                width: 150px;
+            }
+            
+            td {
+                border: 2px solid #000;
+                border-collapse: collapse;
+                height: 36px;
+                
+                &.empty-cell {
+                    border-bottom: 0 none;
+                    border-left: 0 none;
+                    border-top: 0 none;
+                }
+            }
+        }
+    }
+    
+    table {
+        tr {
+            td.q-0 {
+                color: rgb(255, 153, 51);
+            }
+            
+            td.q-first {
+                color: rgb(17, 153, 34);
+            }
+            
+            td.q-even {
+                color: rgb(85, 187, 255);
+            }
+            
+            td.q-odd {
+                color: rgb(0, 204, 153);
+            }
+            
+            td.q-ret {
+                color: rgb(153, 100, 255);
+            }
+            
+            td.q-acc {
+                color: black;
+            }
+            
+            td.q-rej {
+                color: black;
+            }
+        }
+    }
+    
+    .symbol-colored {
+        &.symbol-a {
+            color: rgb(0, 0, 255);
+        }
+        &.symbol-x {
+            color: rgb(232, 0, 0);
+        }
+        &.symbol-asterix {
+            color: black;
+        }
+    }
+    
+    .table-header {
+        float: left;
+        margin-top: 25px;
+        
+        .table {
+            text-align: center;
+            
+            .state-or-symbol {
+                font-weight: bold;
+            }
+        }
+    }
+}

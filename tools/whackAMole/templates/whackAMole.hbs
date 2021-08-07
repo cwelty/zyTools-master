@@ -1,0 +1,14 @@
+<div class="instructions"></div>
+<table class="board">
+    <tbody>
+        {{#range rows}}
+            <tr>
+                {{#range ../columns}}
+                    <td>
+                        <div class="hole"></div>
+                    </td>
+                {{/range}}
+            </tr>
+        {{/range}}
+    </tbody>
+</table>

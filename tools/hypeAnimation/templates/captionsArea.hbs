@@ -1,0 +1,13 @@
+{{!
+    Make captions area HTML.
+    @param {Array} captions The list of captions to print.
+}}
+{{#if captions.length}}
+    <div class='captions-area'>
+        <div class='view-captions-button-and-arrow-container'>
+            <button class='md-button view-captions'></button>
+            <img class='view-captions-arrow' alt=''></img>
+        </div>
+        <div class='captions-container'></div>
+    </div>
+{{/if}}

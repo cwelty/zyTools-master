@@ -1,0 +1,54 @@
+{{! numberOfBitsInNibble is an integer }}
+
+<div class='table-wrapper'>
+    <table>
+        <tr>
+            <td></td>
+            {{#range numberOfBitsInNibble}}
+                <td><div class='button non-interactive-button'>b{{this}}</div></td>
+            {{/range}}
+        </tr>
+        <tr class='middle-row'>
+            <td class='bitwise-operator'></td>
+            {{#range numberOfBitsInNibble}}
+                <td><div class='bit-mask button non-interactive-button'></div></td>
+            {{/range}}
+        </tr>
+        <tr class='bottom-row'>
+            <td></td>
+            {{#range numberOfBitsInNibble}}
+                <td><div class='button bit-result' bit-index='{{this}}'></div></td>
+            {{/range}}
+        </tr>
+    </table>
+</div>
+
+<div class='table-wrapper bitwise-operator-lookup'>
+    <p>Bitwise operator lookup table</p>
+    <table class='bitwise-operator-lookup-table'>
+        <tr>
+            <td class='bitwise-and-1'>b</td>
+            <td class='bitwise-and-0'>b</td>
+            <td class='bitwise-or-1'>b</td>
+            <td class='bitwise-or-0'>b</td>
+        </tr>
+        <tr>
+            <td class='bitwise-and-1'>&</td>
+            <td class='bitwise-and-0'>&</td>
+            <td class='bitwise-or-1'>|</td>
+            <td class='bitwise-or-0'>|</td>
+        </tr>
+        <tr class='middle-row'>
+            <td class='bitwise-and-1'>1</td>
+            <td class='bitwise-and-0'>0</td>
+            <td class='bitwise-or-1'>1</td>
+            <td class='bitwise-or-0'>0</td>
+        </tr>
+        <tr class='bottom-row'>
+            <td class='bitwise-and-1'>b</td>
+            <td class='bitwise-and-0'>0</td>
+            <td class='bitwise-or-1'>1</td>
+            <td class='bitwise-or-0'>b</td>
+        <tr>
+    </table>
+</div>

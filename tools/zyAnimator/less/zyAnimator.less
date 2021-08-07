@@ -1,0 +1,787 @@
+@import "../../../zyWeb/less/constants.less";
+
+@gate-border-color: @zyante-gray;
+@gate-border-style: solid;
+@zyanimator-font-family: Roboto, sans-serif;
+@zyante-link-blue: #1786ff;
+
+div.rich-text-area-container {
+    display: none;
+
+    pre.rich-text-xml {
+        background-color: white;
+        display: none;
+        font-family: Calibri;
+        font-size: 6px;
+        padding: 0 40px;
+
+        span.large-font {
+            font-size: 13px;
+        }
+    }
+}
+
+.load-zyanimator-on-demand-button {
+    margin:   0px -70px;
+    position: relative;
+    top:      50%;
+    left:     50%;
+}
+
+.loading-message {
+    font-style: italic;
+    left:       50%;
+    margin:     0px -155px;
+    position:   relative;
+    top:        50%;
+}
+
+.context-menu-list {
+    color: @zyante-gray;
+}
+
+.data-title {
+    &:before {
+        background:  #DDD;
+        content:     attr(data-menutitle);
+        display:     block;
+        font-size:   11px;
+        font-weight: bold;
+        left:        0;
+        padding:     2px;
+        position:    absolute;
+        right:       0;
+        top:         0;
+    }
+
+    & :first-child {
+        margin-top: 20px;
+    }
+}
+
+.zyAnimator {
+    letter-spacing: 0px;
+
+    &.home-page-styling {
+        .playButton {
+            margin-top: 13px;
+        }
+
+        .timelineNum {
+            border-radius: 50px;
+            color:         @zyante-gray;
+            font-family:   Helvetica;
+            font-weight:   400;
+            line-height:   16px;
+            padding:       5px;
+
+            &:hover {
+                background-color: white;
+            }
+
+            &.is-selected {
+                @new-light-blue: #0091EA;
+
+                background-color: @new-light-blue;
+                color:            white;
+
+                &:hover {
+                    background-color: @new-light-blue;
+                }
+            }
+
+            &.timeline-number-been-watched {
+                font-size: 18px;
+            }
+        }
+
+        .timelineNumSelected {
+            border-bottom-style: none;
+        }
+    }
+
+    .add-object-and-instruction-container {
+        text-align: right;
+    }
+
+    .add-object-and-instruction-label {
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .and-gate-left-half, .and-gate-right-half, .or-gate-left-corners, .or-gate-bottom-right, .or-gate-top-right, .or-gate-left-curve, .xor-gate-left-curve, .not-symbol, .not-gate-left-side, .not-gate-top-side, .not-gate-bottom-side {
+        background-color: transparent;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        position: absolute;
+    }
+
+    .and-gate-left-half {
+        border-bottom: 2px @gate-border-style @gate-border-color;
+        border-left: 2px @gate-border-style @gate-border-color;
+        border-right: 0px @gate-border-style @gate-border-color;
+        border-top: 2px @gate-border-style @gate-border-color;
+        left: 0px;
+        height: 100%;
+        width: 45%;
+    }
+
+    .and-gate-right-half {
+        border-bottom: 2px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-radius: 0% 100% 100% 0%;
+        border-right: 2px @gate-border-style @gate-border-color;
+        border-top: 2px @gate-border-style @gate-border-color;
+        right: 0px;
+        height: 100%;
+        width: 75%;
+    }
+
+    .or-gate-left-corners {
+        border-bottom: 1px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-right: 0px @gate-border-style @gate-border-color;
+        border-top: 1px @gate-border-style @gate-border-color;
+        left: 4px;
+        height: 100%;
+        width: 21%;
+    }
+
+    .or-gate-bottom-right {
+        border-bottom: 1px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-radius: 0% 0% 100% 0%;
+        border-right: 2px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        top: 50%;
+        right: 0px;
+        height: 50%;
+        width: 75%;
+    }
+
+    .or-gate-top-right {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-radius: 0% 100% 0% 0%;
+        border-right: 2px @gate-border-style @gate-border-color;
+        border-top: 1px @gate-border-style @gate-border-color;
+        top: 0%;
+        right: 0px;
+        height: 50%;
+        width: 75%;
+    }
+
+    .or-gate-left-curve {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-radius: 0% 50% 50% 0%;
+        border-right: 2px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        left: -25%;
+        height: 100%;
+        width: 50%;
+    }
+
+    .xor-gate-left-curve {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 0px @gate-border-style @gate-border-color;
+        border-radius: 0% 50% 50% 0%;
+        border-right: 2px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        left: -32%;
+        height: 100%;
+        width: 50%;
+    }
+
+    .not-symbol {
+        border: 2px @gate-border-style @gate-border-color;
+        border-radius: 100% 100% 100% 100%;
+        top: 38%;
+        right: -20%;
+        width: 20%;
+        height: 24%;
+    }
+
+    .not-gate-left-side {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 2px @gate-border-style @gate-border-color;
+        border-right: 0px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        right: 27%;
+        top: 22%;
+        height: 54%;
+        width: 1px;
+    }
+
+    .not-gate-top-side {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 2px @gate-border-style @gate-border-color;
+        border-right: 0px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        -moz-transform:rotate(120deg);
+        -webkit-transform:rotate(120deg);
+        right: 11%;
+        top: 14%;
+        height: 20px;
+        width: 1px;
+    }
+
+    .not-gate-bottom-side {
+        border-bottom: 0px @gate-border-style @gate-border-color;
+        border-left: 2px @gate-border-style @gate-border-color;
+        border-right: 0px @gate-border-style @gate-border-color;
+        border-top: 0px @gate-border-style @gate-border-color;
+        -moz-transform:rotate(240deg);
+        -webkit-transform:rotate(240deg);
+        right: 12%;
+        bottom: 16%;
+        height: 20px;
+        width: 1px;
+    }
+
+    .triangle-step-object {
+        border-color: transparent @zyante-gray;
+        border-style: solid;
+        border-width: 6px 10px 6px 0px;
+        height: 0px;
+        width: 0px;
+        margin: 0px;
+    }
+
+    select {
+        &.load-a-sample, &.easing-dropdown {
+            background:  @zyante-link-blue;
+            border:      1px solid white;
+            color:       white;
+            font-family: @zyante-font;
+            font-size:   11.5px;
+            font-weight: 400;
+            margin:      0 4px 0 4px;
+            padding:     2px 4px;
+        }
+
+        &.easing-dropdown {
+            margin-top: 15px;
+        }
+    }
+
+    .zyAcaption {
+        top: 307px;
+        left: 10px;
+        line-height: 1.15;
+        z-index: 1;
+        white-space: pre;
+        font-family: @zyante-font;
+        color: @zyante-gray;
+        width: 580px;
+        height: auto;
+        font-size: 15px;
+        text-align: center;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+
+    // David May 3/24/20 Removed styling b/c doesn't fit with new layout
+    // .zyAbuttonspacing {
+    //     border-left: 2px solid #000;
+    //     margin-left: 10px;
+    //     margin-right: 10px;
+    // }
+
+    // David May 3/24/20 Added styling for special chars/feedback buttons
+    .special-chars-feedback-button {
+        float: right;
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .zyAtitle {
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .animationAttr {
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .animationAttr td {
+    	padding-bottom: 10px;
+    }
+
+    #GUID {
+        font-weight: 400;
+    }
+
+    .zyAheader {
+        font-size: 16px;
+        margin-left: 10px;
+        line-height: 0px;
+        margin-top: 15px;
+        font-family: @zyante-font;
+    }
+
+    .leftSideBar {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .rightSideBar {
+        float: left;
+        margin-left: 10px;
+    }
+
+    .sideBar {
+        background-color: rgb(240, 240, 240);
+        width: 290px;
+        height: auto;
+        overflow: auto;
+        border-radius: 4px;
+        border: 1px solid rgb(150, 150, 150);
+        height: auto;
+        padding-bottom: 10px;
+        min-height: 340px;
+    }
+
+    .imgFloatRightAndUp {
+        float: right;
+        margin-top: -20px;
+    }
+
+    .zyAnimatorImg {
+        cursor: pointer;
+        height: 19px;
+        width: 24px;
+    }
+
+    // David May 3/24/20 separate style for "New animation" button
+    .newAnimationButton {
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-appearance: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        background-color: @zyante-link-blue;
+        border: 0 outset buttonface;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-family: @zyante-font;
+        font-size: 20px;
+        font-weight: 525;
+        height: 30px;
+        line-height: 12px;
+        margin: 0 0 5px 4px;
+        padding: 2px 4px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+    }
+
+    .zyAnimatorButton {
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-appearance: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        background-color: @zyante-link-blue;
+        border: 0 outset buttonface;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-family: @zyante-font;
+        font-size: 11.5px;
+        font-weight: 400;
+        height: 22px;
+        line-height: 12px;
+        margin: 0 0 0 4px;
+        padding: 2px 4px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+    }
+
+    .ui-spinner-input {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        margin-right: 2em;
+        margin-left: 0.4em;
+    }
+
+    .ui-icon.large {
+        background-size: 384px 360px;
+        width: 24px;
+        height: 19px;
+        margin-top: 0;
+    }
+
+    .ui-icon-arrowreturnthick-1-w.large {
+        background-position: -96px -96px;
+    }
+
+    .zyAredoIcon {
+        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+    }
+
+    .objList, .instrList {
+        overflow-y: scroll;
+        padding-right: 10px;
+    }
+
+    .boxView {
+        border: 1px solid rgb(182, 182, 192);
+        min-height: 100px;
+        border-radius: 4px;
+    }
+
+    .sideBarBox {
+        width: 260px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .inspector {
+        background-color: white;
+        box-shadow: 2px 2px 2px rgb(192, 190, 190);
+        padding: 3px;
+        margin: 3px;
+        word-wrap: break-word;
+        font-family: Helvetica;
+        font-size: 15px;
+        border-radius: 4px;
+    }
+
+    .saveLoadTextArea {
+        background-color: rgb(240, 240, 240);
+        width: 585px;
+        height: 180px;
+        border-color: rgb(150, 150, 150);
+        box-shadow: 2px 2px 2px rgb(192, 190, 190);
+        padding: 3px;
+        margin: 3px;
+        word-wrap: break-word;
+        resize: none;
+    }
+
+    .saveLoad {
+        width: 600px;
+        margin-top: 15px;
+        padding-top: 5px;
+        background-color: rgb(240, 240, 240);
+    }
+
+    .zyanCenter {
+        float: left;
+    }
+
+    .zyanCanvas {
+        background-color: white;
+        width: 600px;
+        height: 350px;
+        position: relative;
+    }
+
+    .stepControls {
+        margin-left: 16px;
+        position: relative;
+
+        label.speed-control {
+            font-size: 12px;
+            position: absolute;
+            top: 12px;
+
+            input {
+                margin-right: 3px;
+            }
+        }
+    }
+
+    .startButton {
+        font-weight: 700;
+        cursor: pointer;
+        float: left;
+        margin-top: 14px;
+    }
+
+    .startGraphic {
+        background-color: @zyante-orange;
+        border-radius: 2px;
+        color: white;
+        font-family: @zyanimator-font-family;
+        font-size: 13px;
+        font-weight: 700;
+        height: 20px;
+        text-align: center;
+        width: 48px;
+        position: relative;
+    }
+
+    .backToStart {
+        cursor: pointer;
+        float: left;
+        margin-top: 16px;
+        margin-right: 8px;
+        background-color: @zyante-orange;
+        border-radius: 2px;
+        width: 8px;
+        height: 8px;
+        position: relative;
+    }
+
+    .playButton {
+        cursor: pointer;
+        float: left;
+        margin-top: 10px;
+        margin-left: 8px;
+        height: 0px;
+        width: 0px;
+        border-color: rgba(0, 0, 0, 0) @zyante-orange;
+        border-style: solid;
+        border-width: 10px 0px 10px 16px;
+        position: relative;
+    }
+
+    .timeline {
+        position: relative;
+    }
+
+    .timelineNum {
+        float: left;
+        width: 16px;
+        height: 16px;
+        padding: 0px;
+        padding-bottom: 2px;
+        position: relative;
+        background-color: white;
+        border-radius: 5px;
+        text-align: center;
+        vertical-align: baseline;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-top: 10px;
+        font-family: @zyanimator-font-family;
+        line-height: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: @zyante-light-blue;
+
+        &.timeline-number-been-watched {
+            font-weight: normal;
+            font-size: 14px;
+        }
+    }
+
+    .timelineNum:hover {
+        background-color: @zyante-lighter-orange;
+        cursor: pointer;
+    }
+
+    .timelineNumSelected {
+        border-bottom: @zyante-orange 2px solid;
+    }
+
+    .stepObject {
+        position: absolute !important; /* AE 011014: Using important because otherwise position was being overwritten to "relative" by the parent dom-object. */
+
+        pre {
+            font-family: courier;
+            margin:      0;
+
+            span {
+                vertical-align: top;
+            }
+        }
+    }
+
+    .stepObjectGraphic {
+        cursor: pointer;
+
+        & > img.image-object {
+            height: 100%;
+            width:  100%;
+        }
+    }
+
+    .stepObjectInit {
+    }
+
+    .stepObjectOutline {
+        /*outline-style: dashed;
+        outline-width: 2px;*/
+        border: 2px dashed @zyante-gray;
+    }
+
+    .label {
+        cursor: pointer;
+        background-color: white;
+        box-shadow: 2px 2px 2px rgb(192, 190, 190);
+        padding: 3px;
+        margin: 3px;
+        word-wrap: break-word;
+        font-family: Helvetica;
+        font-size: 15px;
+        border-radius: 4px;
+    }
+
+    .stepLabel {
+        text-align: center;
+        font-family: @zyanimator-font-family;
+        font-size: 14px;
+        color: @zyante-link-blue;
+        padding-left: 10px;
+    }
+
+    .labelSelected {
+        background-color: @zyante-link-blue;
+        color: white;
+
+        .stepLabel {
+            color: white;
+        }
+
+        &.labelSelectedButNotObjNum {
+            background-color: rgb(179, 213, 252);
+            color: @zyante-gray;
+        }
+    }
+
+    // David May 7/23/20 Style for highlighted instructions
+    .labelObjInstr {
+        border: 1px solid black;
+    }
+
+    .labelRemove {
+        float: right;
+        width: 10px;
+        display: inline-block;
+    }
+
+    .labelText {
+        float: left;
+        max-width: 215px;
+    }
+
+    .timeLabel {
+        float: right;
+        margin-right: 20px;
+    }
+
+    .colorSelector {
+        border: 1px solid rgb(114, 114, 114);
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 2px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .zyAtooltip {
+        font-size: 14px !important;
+    }
+
+    .zyAhr {
+        border-top: 1px solid rgb(166, 166, 177);
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+	.warning-alert {
+	    color: red;
+	    margin-left: 5px;
+	    font-size: 14px;
+	}
+
+	.editor-buttons {
+	    float: left;
+	    margin-bottom: 5px;
+	}
+
+	.undo-redo {
+	    display: inline-block;
+	    cursor: pointer;
+	    margin-left: 10px;
+	}
+
+	.clear-floating {
+	    clear: both;
+	}
+
+    .inspector-box {
+        margin-top: 10px;
+        width: 270px;
+
+        input.constrain-proportion {
+            margin-top: 15px;
+        }
+    }
+
+	.go-to-start-instr-header {
+	    margin: 0 auto;
+	    text-align: center;
+	}
+
+	.go-to-start-instr-header-graphic {
+	    display: inline-block;
+	}
+
+	.go-to-start-instr-header-text {
+	    font-size: 12px;
+	}
+
+	.instrMenu {
+	    display: block;
+	}
+
+	.start-step {
+	    resize: none;
+	}
+
+	.step1-caption {
+	    resize: none;
+	}
+
+	.visibility-hidden {
+	    visibility: hidden;
+    }
+    
+    .buttonUnselected {
+        
+    }
+
+    .buttonSelected {
+        -webkit-box-shadow: inset 1px 1px 7px #333;
+        -moz-box-shadow:    inset 1px 1px 7px #333;
+        box-shadow:         inset 1px 1px 7px #333;
+    }
+
+	.lighterGreenTest {
+		background-color: lighten(@zyante-medium-red, 40%);
+    }
+    
+    // <!-- David May 8/3/20 Adding style for version area -->
+    .version-area-container {
+    }
+
+    #revision-history {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    #version-number {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+}

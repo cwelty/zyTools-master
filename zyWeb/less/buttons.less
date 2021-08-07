@@ -1,0 +1,94 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+// Big orange button
+.button {
+    border-width:     0px;
+    background-color: @zyante-orange;
+    color:            white;
+    cursor:           pointer;
+    display:          inline-block;
+    padding:          12px 20px;
+    text-align:       center;
+    .unselectable();
+
+    &.disabled {
+        opacity: 0.5;
+    }
+}
+
+.button:hover:not(.disabled) {
+    background-color: @zyante-dark-orange;
+}
+
+.button-white {
+    .button();
+    background-color: white;
+    color: @zyante-orange;
+}
+
+.button-white:hover:enabled {
+    background-color: darken(white, 15%);
+}
+
+.button-blue {
+  .button();
+  background-color: @zyante-dark-blue;
+}
+
+.button-blue:hover:enabled {
+    background-color: darken(@zyante-dark-blue, 10%);
+}
+
+.button-green {
+    .button();
+    background-color: @zyante-green;
+}
+
+.button-green:hover:not(.disabled) {
+    background-color: darken(@zyante-green, 10%);
+}
+
+.cancel-button {
+    .button();
+    background-color: @zyante-cancel-gray;
+}
+
+.cancel-button:hover:enabled {
+    background-color: darken(@zyante-cancel-gray, 10%);
+}
+
+.disabled-button {
+    background-color: @zyante-light-gray;
+    color:            darken(@zyante-light-gray, 10%);
+}
+
+.disabled-button:hover:not(.disabled) {
+    background-color: @zyante-light-gray;
+}
+
+.inverted-button {
+    .button();
+    background-color: white;
+    float:            left;
+    font-size:        12px;
+    font-weight:      bold;
+    outline-color:    white;
+    padding:          5px 0;
+}
+
+.inverted-blue-button {
+    .inverted-button();
+    color: @zyante-dark-blue;
+}
+
+.blue-text-white-background-button {
+    .button();
+    
+    background-color: white;
+    color:            @zyante-dark-blue;
+    
+    &:hover {
+        background-color: lighten(@zyante-dark-blue, 40%);
+    }
+}

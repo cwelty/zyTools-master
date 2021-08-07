@@ -1,0 +1,50 @@
+{{!
+    Render the explanation.
+    @param {String} expectedOutput The expected output as an HTML string.
+    @param {String} explanation The explanation for the problem.
+    @param {String} hintMessage The hint to give.
+    @param {String} newlineMessaging Special messaging to put along side the expected output to point out the specific places that a newline should be added.
+    @param {String} userOutput The user's output as an HTML string.
+    @param {Boolean} wasNewlineExpectedButMissing Whether a newline was expected but is missing.
+    @param {Boolean} isWhitespaceTheOnlyDifference Whether only the whitespace differs.
+    @param {Boolean} showSpecialCharacterLegendButton Whether to show the special character legend button.
+}}
+{{#if hintMessage}}
+    {{hintMessage}}
+{{else}}
+    <p class='explanation-text'>{{{explanation}}}</p>
+{{/if}}
+<div>
+    <table class='explanation-table'>
+        <tr>
+            <td class='explanation-description'>Yours</td>
+            <td>
+                {{#if userOutput}}
+                    <div class='output user-output'>{{{userOutput}}}</div>
+                {{else}}
+                    <div class='no-result-value'>Yours has no output</div>
+                {{/if}}
+            </td>
+        </tr>
+        <tr>
+            <td class='explanation-description'>Expected</td>
+            <td>
+                {{#if expectedOutput}}
+                    <div class='expected-output-container'>
+                        <div class='output expected-output'>{{{expectedOutput}}}</div>
+                        <div class='newline-messaging'>{{{newlineMessaging}}}</div>
+                    </div>
+                {{else}}
+                    <div class='no-result-value'>Expected no output</div>
+                {{/if}}
+            </td>
+        </tr>
+    </table>
+</div>
+{{#if showSpecialCharacterLegendButton}}
+    <div>
+        Learn more: <button class='zb-button secondary thin-title special-character-legend'>
+            <span class='title'>Special character legend</span>
+        </button>
+    </div>
+{{/if}}

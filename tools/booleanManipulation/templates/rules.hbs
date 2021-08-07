@@ -1,0 +1,103 @@
+<div class='property-container-label'>{{propertyTitle}}</div>
+<div class='property-container unselectable'>
+    {{#if firstColumn.bidirectionalRules.length}}
+        <div class='bi-directional-container'>
+            {{#if firstColumn.displayBiArrow}}
+                <div class='bi-directional'>
+                    <div class='direction left' title='These rules are applied from right-to-left.'></div><div class='direction right' title='These rules are applied from left-to-right.'></div>
+                </div>
+            {{/if}}
+            {{#each firstColumn.bidirectionalRules}}
+                {{#if label}}
+                    <div class='property-label'>{{label}}</div>
+                {{/if}}
+                <div class='property'>
+                    <div class='condition'>{{conditionHTML}}</div><!--
+                    --><div class='equals'><!--
+                    {{#if ../isDiscreteMath}}
+                        -->≡<!--
+                    {{else}}
+                        -->=<!--
+                    {{/if}}
+                    --></div><div class='direction'/><div class='result'>{{resultHTML}}</div>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+    {{#if firstColumn.unidirectionalRules.length}}
+        <div class='unidirectional-container'>
+            {{#if firstColumn.displayUniArrow}}
+                <div class='unidirectional'>
+                    <div class='direction right' title='These rules are applied from left-to-right.'></div>
+                </div>
+            {{/if}}
+            {{#each firstColumn.unidirectionalRules}}
+                {{#if label}}
+                    <div class='property-label'>{{label}}</div>
+                {{/if}}
+                <div class='property'>
+                    <div class='condition'>{{conditionHTML}}</div><!--
+                    --><div class='equals'><!--
+                    {{#if ../isDiscreteMath}}
+                        -->≡<!--
+                    {{else}}
+                        -->=<!--
+                    {{/if}}
+                    --></div><div class='direction'/><div class='result'>{{resultHTML}}</div>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+{{#if secondColumn}}
+<div class='property-container'>
+    {{#if secondColumn.bidirectionalRules.length}}
+        <div class='bi-directional-container'>
+            {{#if secondColumn.displayBiArrow}}
+                <div class='bi-directional'>
+                    <div class='direction left' title='These rules are applied from right-to-left.'></div><div class='direction right' title='These rules are applied from left-to-right.'></div>
+                </div>
+            {{/if}}
+            {{#each secondColumn.bidirectionalRules}}
+                {{#if label}}
+                    <div class='property-label'>{{label}}</div>
+                {{/if}}
+                <div class='property'>
+                    <div class='condition'>{{conditionHTML}}</div><!--
+                    --><div class='equals'><!--
+                    {{#if ../isDiscreteMath}}
+                        -->≡<!--
+                    {{else}}
+                        -->=<!--
+                    {{/if}}
+                    --></div><div class='direction'/><div class='result'>{{resultHTML}}</div>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+    {{#if secondColumn.unidirectionalRules.length}}
+        <div class='unidirectional-container'>
+            {{#if secondColumn.displayUniArrow}}
+                <div class='unidirectional'>
+                    <div class='direction right' title='These rules are applied from left-to-right.'></div>
+                </div>
+            {{/if}}
+            {{#each secondColumn.unidirectionalRules}}
+                {{#if label}}
+                    <div class='property-label'>{{label}}</div>
+                {{/if}}
+                <div class='property'>
+                    <div class='condition'>{{conditionHTML}}</div><!--
+                    --><div class='equals'><!--
+                    {{#if ../isDiscreteMath}}
+                        -->≡<!--
+                    {{else}}
+                        -->=<!--
+                    {{/if}}
+                    --></div><div class='direction'/><div class='result'>{{resultHTML}}</div>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+{{/if}}

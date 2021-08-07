@@ -1,0 +1,18 @@
+{{!
+    Create a table with each row is a line of code.
+
+    Input:
+        * |id| - Required string that is unique to the activity.
+        * |code| - Required Code.
+        * |hasNoLabels| - Required and boolean.
+}}
+<table class='interactive-code {{#if hasNoLabels}} no-labels{{/if}}'>
+    <tbody>
+        {{#each code}}
+            <tr>
+                <td class='label'>{{#if label}}{{label.name}}:{{/if}}</td>
+                <td class='instruction' id='instruction-{{@index}}-{{../id}}'>{{! InstructionController will add the instruction here }}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,94 @@
+@import "../../../zyWeb/less/constants.less";
+
+
+.binaryAddition {
+    font-family: @zyante-font;
+    width: 450px;
+    
+    .tool-container {
+        text-align: center;
+    }
+
+    .addition-line {
+        background-color: gray;
+        height: 2px;
+        margin-left: 65px;
+        width: 229px;
+    }
+    
+    .answer-bit-container {
+        margin-left: 36px;
+        margin-top: 10px;
+    }
+
+    .answer-bit-label {
+        color: @zyante-orange;
+        display: inline-block;
+    }
+
+    .carry-bit {
+        background-color: @zyante-light-blue;
+    }
+
+    .carry-bit:hover:not(.disabled) {
+        background-color: darken(@zyante-dark-blue, 15%);
+    }
+
+    .carry-bit-container {
+        color: black;
+        margin-bottom: 10px;
+        margin-left: 4px;
+    }
+
+    .carry-bit-label {
+        color: @zyante-light-blue;
+        display: inline-block;
+    }
+
+    .first-num {
+        margin-left: 28px;
+    }
+
+    .plus {
+        display: inline-block;
+        margin-right: 14px;
+    }
+
+    .question-bit {
+        background-color: @zyante-light-gray;
+        color: white;
+        display: inline-block;
+    }
+
+    .question-bit:hover:not(.disabled) {
+        background-color: @zyante-light-gray;
+    }
+
+    .question-bit-container {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .question-bit-label {
+        color: @zyante-light-gray;
+        display: inline-block;
+    }
+
+    .second-num {
+        margin-left: 1px;
+    }
+
+    .user-prompt {
+        color: @zyante-dark-blue;
+        font-size: 26px;
+        height: 40px;
+    }
+
+    .wrong-answer {
+        background-color: @zyante-medium-red;
+    }
+
+    .wrong-answer:hover:not(.disabled) {
+        background-color: @zyante-red;
+    }
+}

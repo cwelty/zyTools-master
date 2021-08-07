@@ -1,0 +1,4 @@
+{
+    type: 'jalJr',
+    instructionSet: 'MIPSzy'
+}

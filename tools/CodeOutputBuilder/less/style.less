@@ -1,0 +1,163 @@
+div.CodeOutputBuilder {
+    div.flex-row {
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 10px;
+
+        input.caption-container {
+            width: 350px;
+        }
+    }
+
+    div.progression-level-container div {
+        margin-right: 10px;
+
+        &.zb-checkbox {
+            height: 24px;
+            margin-top: 4px;
+        }
+    }
+
+    div.main-container {
+        h3 {
+            margin: 0;
+        }
+
+        .levels-and-files-container {
+            display: flex;
+            flex: 0;
+            flex-direction: column;
+            margin-right: 10px;
+            width: min-content;
+
+            div.level-container, button.edit-global-code {
+                margin: 0 10px 10px 0;
+
+                i.drag {
+                    align-self: center;
+                    cursor: move;
+                    padding: 0 8px;
+                }
+
+                .level-row {
+                    border-bottom: 1px solid #cfd8dc;
+                }
+
+                .row {
+                    align-items: stretch;
+                    display: flex;
+
+                    .level, .file-name {
+                        flex: 1;
+                        font-weight: normal;
+                    }
+
+                    .selected {
+                        font-weight: bold;
+                        text-decoration: underline;
+                    }
+                }
+
+                .file-row {
+                    button {
+                        font-size: 16px;
+                        padding: 0 4px;
+                    }
+
+                    .filename {
+                        flex: 1;
+                        font-weight: normal;
+                    }
+
+                    i.material-icons {
+                        align-self: center;
+                        font-size: 20px;
+                    }
+
+                    input.file-name {
+                        width: 125px;
+                    }
+                }
+
+                .add-file-row {
+                    width: 100%;
+                }
+            }
+        }
+
+        .level-content-container {
+            display: flex;
+            flex: 1;
+
+            .header-container {
+                display: flex;
+                justify-content: space-between;
+
+                .segmented-control > ul {
+                    margin: 0 0 5px 0;
+                }
+            }
+
+            .editor-container {
+                margin-right: 0;
+            }
+
+            div.input {
+                margin-left: 10px;
+            }
+        }
+
+        button:disabled {
+            opacity: 0.5;
+        }
+
+        div.right-sidebar-container {
+            margin-left: 10px;
+
+            textarea {
+                min-height: 40px;
+                resize: vertical;
+            }
+        }
+    }
+
+    div.container {
+        margin-bottom: 10px;
+        width: 100%;
+
+        .editor-container {
+            width: 570px;
+
+            .parameters-placeholder {
+                opacity: 0.5;
+                padding: 0 4px;
+                white-space: pre;
+            }
+        }
+
+        .zb-message-container {
+            display: inline;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+
+            .import-export {
+                font-size: 12px;
+            }
+        }
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    div.player {
+        display: none;
+
+        .back-to-builder {
+            margin-bottom: 10px;
+        }
+    }
+}

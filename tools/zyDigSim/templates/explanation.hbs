@@ -1,0 +1,15 @@
+{{explanation}}
+<div class='table'>
+    <table>
+        <tbody>
+            {{#each records}}
+                <tr>
+                    <th class='{{this.class}}'>{{this.name}}</th>
+                    {{#each this.values}}
+                        <td>{{this}}</td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

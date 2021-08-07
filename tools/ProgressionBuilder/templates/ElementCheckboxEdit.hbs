@@ -1,0 +1,17 @@
+{{!
+    Edit the values of a checkbox element.
+    @param {String} label The label of the checkbox element.
+    @param {String} correctAnswerIsCheckedString Whether the correct answer is a checked checkbox.
+}}
+<div class="checkbox-modal">
+    <div class="left-side">
+        <span>Correct answer is checked?</span>
+        <br>
+        <span class="separate-top">Label:</span>
+    </div>
+    <div class="right-side">
+        <input id="correct-answer-is-checked" placeholder="True/False/${my_var}" value="{{correctAnswerIsCheckedString}}" autofocus>
+        <br>
+        <input id="new-label" class="separate-top" placeholder="Checkbox label" value="{{label}}" size="20">
+    </div>
+</div>

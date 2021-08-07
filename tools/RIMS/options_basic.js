@@ -1,0 +1,4 @@
+{
+    hideDebug: true,
+    hideTimerBar: true
+}

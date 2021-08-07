@@ -1,0 +1,9 @@
+<div id='inputMenu_{{id}}' class='rim-input-menu'>
+    {{#each bitInputs}}
+        <div class='rim-bit-input-container'><div id='in-label-{{@index}}{{../id}}' class='rim-input-label'>{{name}}</div><div id='value-{{@index}}{{../id}}' class='rim-input-value'>{{value}}</div><input type='checkbox' id='input-{{@index}}{{../id}}' class='input-check'></div>
+    {{/each}}
+    {{#each valueInputs}}
+        <div class='rim-bit-input-container'><div id='in-value-label-{{@index}}{{../id}}' class='rim-input-label'>{{name}}</div><input type='number' min='0' max='255' id='value-input-{{@index}}{{../id}}' class='input-field' value='{{value}}'></div>
+    {{/each}}
+    <div id='input-dec-{{id}}'>{{input}} = 0</div>
+</div>

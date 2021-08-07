@@ -1,0 +1,23 @@
+@import "../../../zyWeb/less/constants.less";
+
+div.ChanceModel {
+    div.inputs {
+        align-items: flex-end;
+        display: flex;
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+
+            input[type=number]:disabled {
+                background-color: white;
+                border-color: white;
+                text-align: center;
+            }
+        }
+
+        & > *:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+}

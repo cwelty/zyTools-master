@@ -1,0 +1,4 @@
+{
+    type: 'COALLoops',
+    instructionSet: 'MIPSzy'
+}

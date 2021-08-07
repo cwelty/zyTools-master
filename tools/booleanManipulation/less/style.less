@@ -1,0 +1,341 @@
+@import "../../../zyWeb/less/constants.less";
+
+@large-z-index: 10000;
+
+div.video-link {
+    font-size:     12px;
+    margin-bottom: 15px;
+}
+
+.discrete-math {
+    &.booleanManipulation {
+        width: 801px;
+
+        .center-container {
+            width: 365px;
+        }
+
+        .condition {
+            width: 90px;
+        }
+
+        .result {
+            width: 68px;
+        }
+    }
+}
+.booleanManipulation {
+    width: 670px;
+
+    div.reset-confirm-container {
+        left:       50%;
+        position:   absolute;
+        text-align: center;
+        width:      235px;
+        z-index:    @large-z-index;
+
+        div.reset-confirm-container-center {
+            left:     -50%;
+            position: relative;
+
+            div.reset-confirm-label {
+                font-size:     18px;
+                margin-bottom: 15px;
+            }
+
+            div.confirm-reset-button {
+                margin-left: 25px;
+            }
+        }
+    }
+
+    div.modal-cover {
+        height:  100%;
+        width:   100%;
+        z-index: @large-z-index - 1;
+
+        &.active-cover {
+            opacity: 0.2;
+        }
+    }
+    .advanced-button {
+        display: inline-block;
+    }
+
+    .apply-button {
+        margin-left: 30px;
+    }
+
+    .basic-button{
+        display: inline-block;
+    }
+
+    .bi-directional {
+        margin-bottom: 5px;
+        text-align:    center;
+    }
+
+    .bi-directional-container {
+        border-top: 1px solid @zyante-light-gray;
+    }
+
+    .bottom-button-container {
+        display:        inline-block;
+        text-align:     center;
+        vertical-align: bottom;
+        width:          100%;
+    }
+
+    .center-container {
+        display:        inline-block;
+        text-align:     center;
+        vertical-align: top;
+        width:          486px;
+    }
+
+    .center-equations-container {
+        min-height: 384px;
+    }
+
+    .condition {
+        border:     1px solid @zyante-light-gray;
+        cursor:     pointer;
+        display:    inline-block;
+        text-align: center;
+        width:      50px;
+    }
+
+    .current-equation {
+        border:        2px solid white;
+        border-radius: 3px;
+        font-weight:   bold;
+        padding:       2px;
+    }
+
+    .difficulty-container {
+        display:        inline-block;
+        margin-bottom:  20px;
+        margin-left:    118px;
+        text-align:     right;
+        vertical-align: top;
+    }
+
+    .direction {
+        border-color: transparent;
+        border-style: solid;
+        border-width: 10px 18px 10px 0;
+        cursor:       auto;
+        display:      inline-block;
+        height:       0;
+        opacity:      0.5;
+        position:     relative;
+        top:          6px;
+        width:        0;
+
+        &.left {
+            border-color: transparent @zyante-accent-orange transparent transparent;
+            border-style: solid;
+            border-width: 10px 18px 10px 0;
+            height:       0;
+            left:         -7px;
+            width:        0;
+        }
+
+        &.right {
+            border-color: transparent  transparent transparent @zyante-accent-orange;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            height:       0;
+            left:         -1px;
+            width:        0;
+        }
+    }
+
+    div.start-reset-buttons-container {
+        display:       inline-block;
+        margin-bottom: 10px;
+
+        .reset-button {
+            background-color: white;
+            color:            @zyante-dark-blue;
+            display:          none;
+        }
+    }
+
+    .entire-equation {
+        margin-bottom: 5px;
+    }
+
+    .equals {
+        display:    inline-block;
+        left:       9px;
+        position:   relative;
+        text-align: center;
+    }
+
+    .equation {
+        display: inline-block;
+    }
+
+    .equation-container {
+        font-size:             20px;
+        text-align:            center;
+        vertical-align:        top;
+    }
+
+    .goal {
+        color:         @zyante-dark-blue;
+        font-size:     26px;
+        height:        30px;
+        margin-bottom: 15px;
+        text-align:    center;
+    }
+
+    .gray {
+        background-color: #999999;
+    }
+
+    .highlight-border {
+        border:        2px solid @zyante-orange !important;
+        border-radius: 3px;
+        padding:       2px;
+    }
+
+    .intermediate-button {
+        display: inline-block;
+    }
+
+    .left-hand-side {
+        display: inline-block;
+    }
+
+    .light-gray {
+        background-color: @zyante-light-gray;
+    }
+
+    .middle-container {
+        margin-top: 10px;
+        text-align: right;
+    }
+
+    .ok-button {
+        display:    none;
+        margin-top: 15px;
+    }
+
+    .property {
+        margin-bottom: 5px;
+    }
+
+    .equation .variable {
+        padding-bottom: 3px;
+    }
+
+    .property-container {
+        border:                1px solid white;
+        display:               inline-block;
+        padding:               10px;
+        vertical-align:        top;
+    }
+
+    .property-label {
+        cursor:                auto;
+        font-size:             10px;
+        line-height:           10px;
+        text-align:            left;
+        -webkit-touch-callout: none;
+    }
+
+    .property-container-label {
+        color:      @zyante-dark-blue;
+        text-align: center;
+    }
+
+    .reset-button {
+        display:  inline-block;
+        left:     0px;
+        position: relative;
+        top:      0px;
+    }
+
+    .result {
+        border:     1px solid @zyante-light-gray;
+        cursor:     pointer;
+        display:    inline-block;
+        text-align: center;
+        width:      50px;
+    }
+
+    .selected-difficulty {
+        background-color: @zyante-dark-orange;
+    }
+
+    .select-next-term-button {
+        display:    inline-block;
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .sidebar {
+        border:         1px solid @zyante-light-gray;
+        display:        inline-block;
+        padding:        1px;
+        vertical-align: top;
+
+        &.highlight-sidebar {
+            border:  2px solid @zyante-orange;
+            padding: 0;
+        }
+    }
+
+    .undo-button {
+        background-color: white;
+        color:            @zyante-dark-blue;
+        display:          inline-block;
+    }
+
+    .undo-button:hover:not(.disabled) {
+        background-color: white;
+    }
+
+    .unidirectional {
+        margin-bottom: 5px;
+        text-align:    center;
+    }
+
+    .unidirectional-container {
+        border-top: 1px solid @zyante-light-gray;
+        margin-top: 5px;
+    }
+
+    .user-prompt {
+        &.done {
+            color:       @zyante-green;
+            font-size:   20px;
+            font-weight: bold;
+        }
+        color:           @zyante-dark-blue;
+        font-size:       18px;
+        height:          30px;
+        margin-top:      10px;
+    }
+
+    .variable {
+        display:inline-block;
+        &.selected {
+            background-color: @zyante-accent-orange;
+            color: white;
+        }
+    }
+
+    .variable-select-container {
+        cursor:     pointer;
+        display:    none;
+        left:       18%;
+        position:   absolute;
+        text-align: center;
+        top:        59%;
+        width:      235px;
+        z-index:    @large-z-index;
+    }
+}

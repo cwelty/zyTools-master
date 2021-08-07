@@ -1,0 +1,4 @@
+{
+    type: 'arrays',
+    instructionSet: 'MIPSzy'
+}

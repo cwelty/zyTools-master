@@ -1,0 +1,10 @@
+{{#each taskTypes}}
+    <div class='task-bank-container'>
+        <div class='task-bank' type='{{this}}'>
+            <div class='task order-0 type-{{@index}}' type='{{this}}'>{{this}}</div><!--
+            --><div class='task order-1 type-{{@index}}' type='{{this}}'>{{this}}</div><!--
+            --><div class='task order-2 type-{{@index}}' type='{{this}}'>{{this}}</div><!--
+            --><div class='task order-2 empty-bank'>&nbsp;</div><!--
+        --></div>
+    </div>
+{{/each}}

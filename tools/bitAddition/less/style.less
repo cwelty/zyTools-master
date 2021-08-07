@@ -1,0 +1,81 @@
+@import "../../../zyWeb/less/constants.less";
+
+.bitAddition {
+    .big-and-blue {
+        color:     @zyante-dark-blue;
+        font-size: 22px;
+    }
+
+    div.prompt {
+        .big-and-blue;
+        margin-bottom: 20px;
+        text-align:    center;
+    }
+
+    td.number-value {
+        .big-and-blue;
+        padding-left: 20px;
+        text-align:   right;
+        width:        40px;
+    }
+
+    button.button {
+        &.carry-bit {
+            background-color: @zyante-light-blue;
+
+            &:hover {
+                background-color: @zyante-dark-blue;
+            }
+        }
+
+        &.highlight-bit {
+            outline: 2px solid @zyante-medium-red;
+
+            &:disabled {
+                opacity: 1;
+            }
+        }
+
+        &.number-bit {
+            background-color: white;
+            color:            @zyante-gray;
+            cursor:           default;
+
+            @ellipse-padding: 10px;
+            &.ellipse {
+                padding-left:  @ellipse-padding;
+                padding-right: @ellipse-padding;
+            }
+
+            &:hover {
+                background-color: white;
+                color:            @zyante-gray;
+            }
+
+            &.prefix-bit {
+                padding-left:  15px;
+                padding-right: 0;
+            }
+        }
+
+        &.suffix-bit {
+            width: 48px;
+        }
+    }
+
+    td.bits-label {
+        color:        @zyante-cancel-gray;
+        font-size:    13px;
+        padding-left: 10px;
+    }
+
+    tr.line-above {
+        td {
+            padding-top: 10px;
+
+            &:not(:last-of-type):not(:nth-last-of-type(2)) {
+                border-top: 2px solid @zyante-cancel-gray;
+            }
+        }
+    }
+}

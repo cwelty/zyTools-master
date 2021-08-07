@@ -1,0 +1,4 @@
+{
+    useGateNotation: true,
+    useMultipleParts: true
+}

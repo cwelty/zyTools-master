@@ -1,0 +1,22 @@
+{{!
+    An example of how to select terms.
+    @param {String} aVariable The a variable as a string.
+    @param {String} firstStep The first step in the example.
+    @param {String} notWOrMOrFalse The proposition (¬w∧m)∨F
+    @param {String} thirdStep The third step in the example.
+    @param {String} expressionType The type of expression this progression handles: 'proposition' or 'digital'.
+}}
+<div class='term-selection-example'>
+    {{{firstStep}}}
+    <div class='label instruction-container'>2. Press: Next term</div>
+    {{{thirdStep}}}
+    <div class='label instruction-container'>
+        4. Press: Apply {{#ifCond expressionType '===' 'proposition'}}law{{else}}property{{/ifCond}}
+    </div>
+    <p>Notes:</p>
+    <ul>
+        <li>To select, click or tap a symbol.</li>
+        <li>{{{aVariable}}} may be a compound {{#ifCond expressionType '===' 'proposition'}}proposition{{else}}expression{{/ifCond}}. Ex: {{{notWOrMOrFalse}}}</li>
+        <li>Selecting an operator (ex: <span class='mark-color-1'>+</span>) attempts to select the connected compound {{#ifCond expressionType '===' 'proposition'}}proposition{{else}}expression{{/ifCond}} (ex: {{{notWOrMOrFalse}}}).</li>
+    </ul>
+</div>

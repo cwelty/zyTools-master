@@ -1,0 +1,52 @@
+@import "../../../zyWeb/less/constants.less";
+
+.countingPossibilities {
+    width: 540px;
+    
+    div.instruction, div.display, input {
+        font-size:     20px;
+        margin-bottom: 15px;
+    }
+    
+    div.instruction {
+        font-size: 14px;
+    }
+    
+    div.input-container {
+        position: relative;
+        
+        input {
+            width: 250px;
+        }
+    
+        div.helper-instruction {
+            color:     @zyante-expired-gray;
+            font-size: 13px;
+            left:      262px;
+            position:  absolute;
+            
+            &.one-liner {
+                top: 4px;
+            }
+            
+            &.two-liner {
+                top: -6px;
+            }
+        }
+    }
+    
+    div.user-and-expected-answer {
+        font-size:  12px;
+        margin-top: 15px;
+        
+        td {
+            &:first-child {
+                padding-right: 5px;
+            }
+            
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+}

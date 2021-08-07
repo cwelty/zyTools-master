@@ -1,0 +1,3 @@
+{
+    notationToUse: 'inequality'
+}

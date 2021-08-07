@@ -1,0 +1,4 @@
+{
+    useMultipleParts: true,
+    useTwoVariables: true
+}

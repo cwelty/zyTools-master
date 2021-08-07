@@ -1,0 +1,12 @@
+{{!
+    Render the numerical output component.
+    @param {Boolean} isEditable Whether the output is editable.
+}}
+<div class='variable-or-IO-label'>Output</div>
+{{#if isEditable}}
+    <div class='textarea-console-container'>
+        <textarea class='console' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></textarea>
+    </div>
+{{else}}
+    <div class='console'><pre class='numerical-output'></pre></div>
+{{/if}}

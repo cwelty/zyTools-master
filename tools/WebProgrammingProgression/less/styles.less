@@ -1,0 +1,111 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+.WebProgrammingProgression {
+    @tool-width: 900px;
+    width: @tool-width;
+
+    div.file-editor {
+        border: 1px solid @zyante-light-gray;
+        height: 300px;
+        width: @tool-width;
+
+        &.disabled {
+            opacity: 0.75;
+            pointer-events: none;
+        }
+
+        .ace_gutter {
+            border-right: 1px solid @zyante-light-gray;
+        }
+    }
+
+    /* In Firefox, display:none causes CSS to not render, so CSS unit tests fail */
+    iframe.unit-test {
+        border: none;
+        visibility: hidden;
+    }
+
+    div.webpages-container {
+        display: flex;
+        height: 200px;
+        margin-top: 25px;
+        width: 100%;
+
+        div.iframe-container {
+            height: 100%;
+        }
+    }
+
+    div.test-results-container {
+        color: @zyante-gray;
+
+        div.test-result-container {
+            border-top: 1px solid @zyante-featured-background-color;
+            padding-top: 8px;
+
+            div.test-result-message-container {
+                align-items: center;
+                display: flex;
+
+                img {
+                    height: 16px;
+                    width: 21px;
+                }
+
+                div.x-mark {
+                    color: @zyante-medium-red;
+                    display: inline-block;
+                    font-size: 18px;
+                }
+
+                div.test-result-message {
+                    display: inline-block;
+                    margin-left: 4px;
+                }
+            }
+
+            @indentation-amount: 20px;
+            div.test-result-hint {
+                margin-left: @indentation-amount;
+            }
+
+            div.output-result-container {
+                align-items: center;
+                display: flex;
+                margin-bottom: 8px;
+
+                @result-row-description-width: 75px;
+                div.result-row-description {
+                    margin-left: @indentation-amount;
+                    min-width: @result-row-description-width;
+                    width: @result-row-description-width;
+                }
+
+                div.no-result-value {
+                    color: #B90B13;
+                    font-style: italic;
+                }
+
+                div.result-value {
+                    background-color: #f5f5f5;
+                    border: 1px solid rgba(189,189,189,.5);
+                    border-radius: 2px;
+                    box-sizing: border-box;
+                    color: #37474f;
+                    display: block;
+                    font-family: "Courier New",monospace;
+                    margin: 0;
+                    overflow-x: auto;
+                    padding: 4px 10px;
+                    white-space: pre;
+                }
+            }
+        }
+
+        div.suppressed-tests-message {
+            font-size: 13px;
+            font-style: italic;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{{!
+    Print the program files, expected output, and explanation.
+    @param {Boolean} hasMultipleFiles Whether there are multiple files.
+    @param {Question} question The question to render.
+}}
+<p>Program:</p>
+{{#if hasMultipleFiles}}
+    <ul>
+        {{#each question.files}}
+            <li>
+                <p>{{filename}}</p>
+                <pre>{{program}}</pre>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    {{#each question.files}}
+        <pre>{{program}}</pre>
+    {{/each}}
+{{/if}}
+
+{{#if question.hasInput}}
+    <p>Program's input:</p>
+    <pre>{{question.input}}</pre>
+{{/if}}
+<p>Program's output:</p>
+<pre>{{question.expectedAnswer}}</pre>
+
+{{#if question.explanation}}
+    <p>Explanation: {{{question.explanation}}}</p>
+{{/if}}

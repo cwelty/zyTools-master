@@ -1,0 +1,238 @@
+{{!
+    Renders a 4x1 multiplexor with data inputs. This is prepared to render 5 different depending on the parameters 4x1 multiplexors.
+    @param {String} inputWireName The name of the input wire
+    @param {String} wirePrefix The prefix of the wire. Ex: For data input A, all wires have the prefix 'c': 'a0', 'a1', ...
+    @param {Number} wireNumber The wire number respective to each input. Ex: For wire a1: 1; for wire a0: 0; for wire b1: 1.
+    @param {Boolean} isCrossedInFirstRow Wether a wire crosses the inputs in the first row.
+    @param {Boolean} isFirstRowFullCross Wether the wire cross in the first row takes all the lenght of the mux.
+    @param {Boolean} isCrossedInSecondRow Wether a wire crosses the inputs in the second row.
+    @param {Boolean} isSecondRowFullCross Wether the wire cross in the second row takes all the lenght of the mux.
+    @param {Boolean} isInitialFirstRowCross Wether the wire cross in the first row initiates here.
+    @param {Boolean} isInitialSecondRowCross Wether the wire cross in the second row initiates here.
+}}
+
+<table class='wire-table table-4x1-mux'>
+    <tbody>
+        {{#if wirePrefix}}
+            <tr>
+                {{#range 10}}<td></td>{{/range}}
+                <td colspan='2'>{{inputWireName}}</td>
+            </tr>
+            <tr>
+                {{#if isFirstRowFullCross}}
+                    {{#range 10}}<td class='bottom i2 d1b'></td>{{/range}}
+                    <td class='bottom right c0r d1b-i2 i0 i1 i2 i3'></td>
+                    <td class='bottom d1b i2'></td>
+                {{else}}
+                    {{#if isCrossedInFirstRow}}
+                        {{#range 5}}<td></td>{{/range}}
+                        {{#range 5}}<td class='bottom d1b i2'></td>{{/range}}
+                        <td class='bottom right d1b-i2 c1r i0 i1 i2 i3'></td>
+                        <td class='bottom d1b i2'></td>
+                    {{else}}
+                        {{#if isInitialFirstRowCross}}
+                            {{#range 8}}<td class='bottom d1b i2'></td>{{/range}}
+                            <td class='bottom d1b i2 connector'></td>
+                            <td class='bottom d1b i1 i2'></td>
+                            <td class='bottom right d1b-i2 d1b-i1 d1r i0 i1 i2 connector'></td>
+                            <td></td>
+                        {{else}}
+                            {{#range 10}}<td></td>{{/range}}
+                            <td class='right d1r i0 i1 i2'></td>
+                            <td></td>
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </tr>
+            <tr>
+                {{#if isSecondRowFullCross}}
+                    {{#range 8}}<td class='bottom d0b i2'></td>{{/range}}
+                    <td class='bottom right d0b-i2 d1r-i1 i1 i2'></td>
+                    <td class='bottom d0b i2'></td>
+                    <td class='bottom right d0b-i2 d1r-i0 i0 i2'></td>
+                    <td class='bottom d0b i2'></td>
+                {{else}}
+                    {{#if isCrossedInSecondRow}}
+                        {{#range 5}}<td></td>{{/range}}
+                        {{#range 5}}<td class='bottom d0b i2'></td>{{/range}}
+                        <td class='bottom right d0b-i2 c0r i0 i1 i2 i3'></td>
+                        <td class='bottom d0b i2'></td>
+                    {{else}}
+                        {{#if isInitialSecondRowCross}}
+                            {{#range 8}}<td class='bottom d0b i2'></td>{{/range}}
+                            <td class='bottom d0b i2 connector'></td>
+                            <td class='bottom d0b i1 i2'></td>
+                            <td class='bottom right d0b-i1 d0b-i2 d0r i0 i1 i2 connector'></td>
+                            <td></td>
+                        {{else}}
+                            {{#range 4}}<td></td>{{/range}}
+                            <td class='right d1r i2'></td>
+                            {{#range 5}}<td></td>{{/range}}
+                            <td class='right c1r i0 i1 i2 i3'></td>
+                            <td></td>
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </tr>
+            <tr>
+                {{#ifCond wirePrefix '===' 'c'}}
+                    {{#range 3}}<td></td>{{/range}}
+                    <td class='bottom c0b-i3 c1b-i3 i3'></td>
+                    <td class='bottom right c0b-i3 c1b-i3 d1r-i2 d0r-i2 i3 i2'></td>
+                    <td class='bottom c0b c1b i3'></td>
+                    <td class='bottom c0b c1b i3 connector'></td>
+                    <td class='bottom c0b-i3 c0b-i2 c1b-i3 c1b-i2 i2 i3'></td>
+                    <td class='bottom c0b-i3 c0b-i2 c1b-i3 c1b-i2 i2 i3 connector'></td>
+                    <td class='bottom c0b-i3 c0b-i3 c0b-i2 c0b-i1 c1b-i3 c1b-i2 c1b-i1 i1 i2 i3'></td>
+                    <td class='bottom right c0r c1r c0b-i3 c0b-i2 c0b-i1 c1b-i3 c1b-i2 c1b-i1 i0 i1 i2 i3 connector'></td>
+                    <td></td>
+                {{else}}
+                    {{#range 8}}<td></td>{{/range}}
+                    <td class='right d0r-i1 d1r-i1 i1'></td>
+                    <td></td>
+                    <td class='right d0r-i0 d1r-i0 i0'></td>
+                    <td></td>
+                {{/ifCond}}
+            </tr>
+            <tr>
+                {{#ifCond wirePrefix '===' 'c'}}
+                    {{#range 2}}<td></td>{{/range}}
+                    <td class='right c1r c0r i3'></td>
+                    <td></td>
+                    <td class='right d1r-i2 i2 d{{../wireNumber}}-input color height27 min-width-11'></td>
+                    <td></td>
+                    <td class='right c0r c1r i2 {{../inputWireName}}-input color height27 min-width-11'></td>
+                    <td></td>
+                    <td class='right c0r c1r i1'></td>
+                    <td></td>
+                    <td class='right c0r c1r i0'></td>
+                    <td></td>
+                {{else}}
+                    {{#range 8}}<td></td>{{/range}}
+                    <td class='right d0r d1r i1 height25 {{../inputWireName}}-input color min-width-11'></td>
+                    <td></td>
+                    <td class='right d0r d1r i0'></td>
+                    <td></td>
+                {{/ifCond}}
+            </tr>
+        {{/if}}
+        {{#ifCond wirePrefix '===' 'c'}}
+            <tr>
+                {{#range 2}}<td></td>{{/range}}
+                <td class='right c1r c0r i3'></td>
+                <td></td>
+                <td colspan='4' class='and-gate height29'></td>
+                <td class='right c1r c0r i1'></td>
+                <td></td>
+                <td class='right c1r c0r i0'></td>
+                <td></td>
+            </tr>
+        {{else}}
+            {{#ifCond ../wirePrefix '===' 'd'}}
+                <tr>
+                    {{#range 8}}<td></td>{{/range}}
+                    <td class='right d0r d1r i1'></td>
+                    <td></td>
+                    <td class='right d0r d1r i0'></td>
+                    <td></td>
+                </tr>
+                {{! AND gate is very tall, so we do another row for the cases that don't use AND}}
+                <tr>
+                    {{#range 2}}<td></td>{{/range}}
+                    <td colspan='2' class='color'>0</td>
+                    <td></td>
+                    <td colspan='2' class='color'>0</td>
+                    <td></td>
+                    <td class='right d0r d1r i1 height18'><img class='inverter' alt='Not gate' src='{{../not}}'></img></td>
+                    <td></td>
+                    <td class='right d0r d1r i0'></td>
+                    <td></td>
+                </tr>
+            {{else}}
+                {{! This mux is shorter, so we add empty rows to compensate for the missing ones.}}
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr>
+                    {{#range 2}}<td></td>{{/range}}
+                    <td colspan='2' class='color'>0</td>
+                    <td></td>
+                    <td colspan='2' class='color'>0</td>
+                    <td></td>
+                    <td colspan='2' class='color'>1</td>
+                    <td colspan='2' class='color'>0</td>
+                </tr>
+            {{/ifCond}}
+        {{/ifCond}}
+        <tr> {{! Results in:  __|__|__|__|_}}
+            <td></td>
+            <td class='component-bottom'></td>
+            <td class='component-bottom right{{#ifCond wirePrefix '===' 'c'}} min-width-11 {{../inputWireName}}-input color{{/ifCond}} c1r c0r d1r d0r i3'></td>
+            {{#range 2}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right a{{wireNumber}}r {{#ifCond wirePrefix '===' 'c'}}min-width-11 c{{../wireNumber}}-and-result color{{/ifCond}} d1r d0r i2'></td>
+            {{#range 2}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right {{#ifCond wirePrefix '===' 'c'}}{{../inputWireName}}-input color{{else}}d{{../wireNumber}}-inverted color{{/ifCond}} c1r c0r d1r d0r i1 min-width-11'></td>
+            <td class='component-bottom'></td>
+            <td class='component-bottom right c1r c0r d1r d0r i0 {{inputWireName}}-input color {{#ifCond wirePrefix '===' 'c'}}height27{{else}}{{#ifCond ../wirePrefix '===' 'd'}}height26{{else}}height40{{/ifCond}}{{/ifCond}} min-width-11'></td>
+            <td class='component-bottom'></td>
+        </tr>
+        <tr> {{! Results in:  | i3 i2 i1 i0 |}}
+            <td class='component-right'></td>
+            <td></td>
+            <td colspan='2'>i3</td>
+            <td></td>
+            <td colspan='2'>i2</td>
+            <td></td>
+            <td colspan='2'>i1</td>
+            <td colspan='2' class='component-right'>i0</td>
+        </tr>
+        <tr> {{! Results in: _|s1           | # s1 is centered vertically with the wire, it's rowspan = 2, so next row continues this}}
+            <td class='component-bottom component-right'></td>
+            <td colspan='2' rowspan='2' class='right-select i3'>s1</td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='right-select i2'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='right-select i1'></td>
+            <td></td>
+            <td class='right-select i0'></td>
+            <td class='component-right'></td>
+        </tr>
+        <tr> {{! Results in:  |           | # Continuation of previous row}}
+            <td class='component-right'></td>
+            {{#range 2}}<td class='bottom-select i3'></td>{{/range}}
+            <td class='right-select bottom-select-i3 i2'></td>
+            {{#range 2}}<td class='bottom-select i1 i0'></td>{{/range}}
+            <td class='right-select bottom-select bottom-select-i0 i1'></td>
+            <td class='bottom-select i0'></td>
+            <td class='bottom-select right-select i0'></td>
+            <td class='component-right'></td>
+        </tr>
+        <tr> {{! Results in: _|s0           | # s0 is centered vertically with the wire, it's rowspan = 2, so next row continues this}}
+            <td class='component-bottom component-right'></td>
+            <td colspan='2' rowspan='2'>s0</td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='right-select i3 i2 i1 i0'></td>
+            {{#range 5}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr> {{! Results in:  |           | # Continuation of previous row}}
+            <td class='component-right'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='right-select i3 i2 i1 i0'></td>
+            {{#range 5}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr> {{! Results in:  |______y______|}}
+            <td class='component-right'></td>
+            {{#range 4}}<td class='component-bottom'></td>{{/range}}
+            <td colspan='2' class='component-bottom'>y</td>
+            {{#range 4}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom component-right'></td>
+        </tr>
+    </tbody>
+</table>

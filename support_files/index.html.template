@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta http-equiv='X-UA-Compatible' content='IE=11'>
+        <title>zyTool Test Bench</title>
+        <meta name='description' content=''>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='icon' href='../assets/favicon.ico'>
+        <link rel='stylesheet' type='text/css' href='../css/application.css'>
+        <link href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i' rel='stylesheet' crossorigin='anonymous'>
+    </head>
+    <body>
+        <header class='top-toolbar'>
+            <div class='left-buttons'>
+                <div class='zb-breadcrumbs'>
+                    <button class='menu-button zb-button grey icon-button left'>
+                        <i aria-hidden='false' class='zb-icon grey material-icons med'>menu</i>
+                    </button>
+                    <div class='logo'>
+                        <img width='83px' height='22px' src='../assets/logo.svg'>
+                    </div>
+                    <ul class='bread-crumbs'>
+                        zyTool Test bench
+                        <span class='divider'>&gt;</span>
+                        <%= toolName %>
+                    </ul>
+                </div>
+            </div>
+            <div class='right-buttons'>
+                <p class='sign-in-message zb-message-container' style='padding: 8px;'>Sign in to run code
+                    <button class='sign-in-button zb-button'>Sign in</button>
+                </p>
+            </div>
+        </header>
+        <div class='route-container zybook-chapter-section-page no-margin-left'>
+            <nav class='zb-nav-menu'></nav>
+            <section class='section-container'>
+                <nav class='section-nav'></nav>
+
+                <div>
+                    <article class='zybook-section zb-card'>
+                        <div class='zb-card-content'>
+                            <div class='section-header-row'>
+                                <h1 class='zybook-section-title'><%= toolName %></h1>
+                            </div>
+
+                            <div class='interactive-activity-container custom-content-resource participation large'>
+                                <div class='activity-title-bar'>
+                                    <span class='activity-type'>
+                                        <div class='type'>tool</div>
+                                        <div class='label'>test</div>
+                                    </span>
+                                    <div class='separator'></div>
+                                    <h6 class='activity-description'>
+                                        <div class='activity-title'>
+                                            <%= toolName %>
+                                        </div>
+                                        <div class='title-bar-chevron-container'>
+                                            <div class='zb-chevron title-bar-chevron blue large check filled'></div>
+                                        </div>
+                                    </h6>
+                                </div>
+                                <div class='activity-payload'>
+                                    <div class='content-resource custom-resource-payload'>
+
+                                        <div class='custom-tool-container'>
+                                            <div id='1' class='<%= toolName %>'></div>
+                                        </div>
+
+                                        <div id='view-solution-1' class='view-solution view-solution-container'>
+                                            <div class='zb-simple-expandable'>
+                                                <div class='flex-row align-items-center title-container'>
+                                                    <h5 class='title clickable'>View solution</h5>
+                                                    <button class='toggle-button zb-button blue-grey icon-button left'>
+                                                        <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                                                    </button>
+                                                    <div class='message'>(Instructors only)</div>
+                                                </div>
+                                                <div class='expandable-content'>
+                                                    <pre>
+                                                        <code></code>
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id='info-for-reviewers-1' class='info-for-reviewers'>
+                                            <div class='zb-simple-expandable'>
+                                                <div class='flex-row align-items-center title-container'>
+                                                    <h5 class='title clickable'>Info for reviewers</h5>
+                                                    <button class='toggle-button zb-button blue-grey icon-button left'>
+                                                        <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                                                    </button>
+                                                    <div class='message'>(Dev books only)</div>
+                                                </div>
+                                                <div class='expandable-content'></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class='interactive-activity-container custom-content-resource participation large'>
+                                <div class='activity-title-bar'>
+                                    <span class='activity-type'>
+                                        <div class='type'>tool</div>
+                                        <div class='label'>test</div>
+                                    </span>
+                                    <div class='separator'></div>
+                                    <h6 class='activity-description'>
+                                        <div class='activity-title'>
+                                            <%= toolName %>
+                                        </div>
+                                        <div class='title-bar-chevron-container'>
+                                            <div class='zb-chevron title-bar-chevron blue large check filled'></div>
+                                        </div>
+                                    </h6>
+                                </div>
+                                <div class='activity-payload'>
+
+                                    <div class='content-resource custom-resource-payload'>
+                                        <div class='custom-tool-container'>
+                                            <div id='2' class='<%= toolName %>'></div>
+                                        </div>
+                                    </div>
+
+                                    <div id='view-solution-2' class='view-solution view-solution-container'>
+                                        <div class='zb-simple-expandable'>
+                                            <div class='flex-row align-items-center title-container'>
+                                                <h5 class='title clickable'>View solution</h5>
+                                                <button class='toggle-button zb-button blue-grey icon-button left'>
+                                                    <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                                                </button>
+                                                <div class='message'>(Instructors only)</div>
+                                            </div>
+                                            <div class='expandable-content'>
+                                                <pre>
+                                                    <code></code>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id='info-for-reviewers-2' class='info-for-reviewers'>
+                                        <div class='zb-simple-expandable'>
+                                            <div class='flex-row align-items-center title-container'>
+                                                <h5 class='title clickable'>Info for reviewers</h5>
+                                                <button class='toggle-button zb-button blue-grey icon-button left'>
+                                                    <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                                                </button>
+                                                <div class='message'>(Dev books only)</div>
+                                            </div>
+                                            <div class='expandable-content'></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class='content-resource html-resource html-content-resource'>
+                                <h3>Simulation controls</h3>
+                                <div id='zyweb-simulation' style='padding-bottom: 8px'>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='isStudent' value='true' checked='checked'> Is student</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='needsAccessible' value='true' checked='checked'> Needs accessible</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='needsAccessibleAndInteractive' value='true' checked='checked'>Needs accessible and interactive</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <div style='margin: 4px'>Activities completed:</div>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='1' checked='checked'> Level 1</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='2' checked='checked'> Level 2</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='3'> Level 3</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='4'> Level 4</label>
+                                            <div></div>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='5'> Level 5</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='6'> Level 6</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='7'> Level 7</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='8'> Level 8</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class='section-test-questions-card zb-card'>
+                        <div class='zb-card-content'>
+                            <div id='qunit'></div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class='section-nav'></nav>
+            </section>
+        </div>
+
+        <script type='text/javascript' src='https://mathjax.zybooks.com/2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML' id='mathjax'></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+        <script type='text/javascript' src='https://learn.zybooks.com/assets/ace/ace.js'></script>
+        <script type='text/javascript' src='../vendor/require.js'></script>
+        <script type='text/javascript' src='../vendor/common.js'></script>
+
+        <!-- Some server requests (Ex: run code) need a checksum parameter. The checksum is computed using the crypto-js library
+             (https://github.com/brix/crypto-js) we only need the two files below: core.min.js and md5.min.js -->
+        <script type='text/javascript' src='../vendor/core.min.js'></script>
+        <script type='text/javascript' src='../vendor/md5.min.js'></script>
+        <script type='text/javascript' src='../vendor/handlebars.runtime.js'></script>
+        <script type='text/javascript' src='../vendor/rsvp.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebEventManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebResourceManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebErrorManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebUtilities.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebParentResource.js'></script>
+        <script type='text/javascript' src='../vendor/skulpt.min.js'></script>
+        <script type='text/javascript' src='../vendor/skulpt-stdlib.js'></script>
+        <script type='text/javascript' src='../vendor/qUnit/qunit-1.20.0.min.js'></script>
+        <script type='text/javascript' src='../vendor/qUnit/unitTestUtilities.js'></script>
+        <link rel='stylesheet' type='text/css' href='../vendor/qUnit/qunit-1.20.0.min.css'>
+        <script src='js/<%= toolName %>.js'></script>
+
+        <script>
+            Ember = {};
+            Ember.RSVP = RSVP;
+
+            var parentResource = require('zyWebParentResource');
+            var resourceManager = require('zyWebResourceManager');
+
+            var tool = require('<%= toolName %>');
+            var dependencies = tool.dependencies;
+            resourceManager.getDependencies(dependencies).then(function() {
+                // Run tests if they exist.
+                if (!!tool.runTests) {
+                    tool.runTests();
+                }
+
+                tool.create().init(1, parentResource.create(1, '<%= toolName %>'), <%= optionsDict %>);
+                tool.create().init(2, parentResource.create(2, '<%= toolName %>'), <%= optionsDict %>);
+            });
+
+            $('button.menu-button').click(() => {
+                $('div.zybook-chapter-section-page').toggleClass('no-margin-left');
+            });
+        </script>
+    </body>
+</html>

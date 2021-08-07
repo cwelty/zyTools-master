@@ -1,0 +1,51 @@
+@import "../../../zyWeb/less/constants.less";
+
+/* 
+The main div provided to the tool will have a class applied to it with the same 
+name as the tool. 
+
+All CSS rules should use this class name to narrow their scope, so as not to affect 
+other tools or elements on the page.
+*/
+
+@textfield-height: 24px;
+
+.stringIndex {
+    padding: 5px;
+    font: @zyante-font;
+
+    .input-field {
+      padding: 0px;
+      margin-top: 5px;
+      width: 90px;
+      height: @textfield-height;
+    }
+
+    .index-cell {
+      text-align: center;
+      border: 1px solid gray;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .output-cell {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      background-color: @zyante-orange;
+      border: 1px solid gray;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: @textfield-height;
+      width: 12px;
+    }
+
+    .output-table {
+      border: 1px solid black;
+      border-collapse: separate;
+      border-spacing: 2px;
+      border-color: gray;
+      padding: 5px;
+    }
+
+}

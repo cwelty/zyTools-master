@@ -1,0 +1,204 @@
+@import "../../../zyWeb/less/constants.less";
+
+.arrangeInst {
+    div.new-styling {
+        @new-light-blue:      #0091EA;
+        @new-light-orange:    #FECB85;
+        @new-orange:          #FF6D00;
+        @new-blue-gray:       #78909C;
+        @new-light-blue-gray: #ECEFF1;
+        @new-dark-blue-gray:  #37474F;
+
+        color: @new-dark-blue-gray;
+
+        .run-button {
+            background-color: @new-orange;
+            border-radius:    3px;
+        }
+
+        .code-box {
+            background-color: @new-light-blue-gray;
+            border-radius:    3px;
+
+            .sortable-list {
+                padding-left: 0;
+
+                li {
+                    @instruction-margin: 15px;
+
+                    margin-bottom: @instruction-margin;
+                    z-index:       2;
+
+                    &:first-of-type {
+                        margin-top: @instruction-margin;
+                    }
+
+                    span {
+                        padding: 10px;
+                    }
+
+                    &.sortable span {
+                        background-color: @new-light-orange;
+                        border:           0;
+                        border-radius:    3px;
+                    }
+
+                    &.empty-placeholder {
+                        padding: 10px;
+                    }
+                }
+            }
+        }
+
+        .line-highlight {
+            background-color: @new-blue-gray;
+            z-index:          0;
+        }
+
+        .monitor-frame {
+            background-color: @new-blue-gray;
+        }
+
+        .printed-text {
+            color:     @new-light-blue;
+            font-size: 24px;
+        }
+
+        img {
+            height:       40px;
+            margin-left:  15px;
+            margin-right: 5px;
+        }
+    }
+
+    .run-button {
+        margin-bottom: 15px;
+    }
+
+    .value-label {
+        font-family:   @zyante-font;
+        margin-bottom: 4px;
+    }
+
+    .line-highlight {
+        background-color: @zyante-accent-orange;
+        opacity:          0;
+        position:         absolute;
+        width:            300px;
+        z-index:          0;
+    }
+
+    .printed-text, .result {
+        position: absolute;
+    }
+
+    .code-box {
+        background-color: white;
+        border:           1px solid @zyante-light-gray;
+        font-family:      @zyante-code-font;
+        height:           215px;
+        padding-bottom:   30px;
+        position:         relative;
+        width:            300px;
+    }
+
+    .sortable-list {
+        list-style-type: none;
+        margin-top:      0;
+        padding:         0 0 0 25px;
+        position:        relative;
+        z-index:         1;
+
+        .instruction-list-item {
+            margin-bottom: 17px;
+            margin-top:    15px;
+        }
+
+        .unsortable {
+            .instruction-list-item;
+
+            li, span {
+                position: relative;
+            }
+        }
+
+        @instruction-line-height: 11px;
+        @instruction-padding:     2px 4px;
+
+        .empty-placeholder {
+            .instruction-list-item;
+
+            border:        1px dashed @zyante-light-gray;
+            border-radius: 3px;
+            height:        @instruction-line-height;
+            paddding:      @instruction-padding;
+        }
+
+        .sortable {
+            .instruction-list-item;
+
+            z-index: 3;
+
+            li {
+                position: relative;
+            }
+
+            span {
+                background-color: @zyante-lighter-orange;
+                border:           2px dashed @zyante-dark-blue;
+                cursor:           pointer;
+                display:          inline-block;
+                line-height:      @instruction-line-height;
+                padding:          @instruction-padding;
+                position:         relative;
+                text-align:       left;
+                white-space:      pre-line;
+            }
+        }
+    }
+
+    .monitor-frame {
+        background-color: @zyante-light-blue;
+        position:         relative;
+    }
+
+    .monitor-screen {
+        background-color: white;
+        height:           93px;
+        left:             12px;
+        position:         relative;
+        top:              9px;
+        width:            186px;
+    }
+
+    .monitor-outer-frame {
+        border-radius: 11px;
+        height:        113px;
+        position:      relative;
+        width:         211px;
+    }
+
+    .monitor-stand1 {
+        height:   8px;
+        left:     65px;
+        position: relative;
+        top:      19px;
+        width:    80px;
+    }
+
+    .monitor-stand2 {
+        height:   8px;
+        left:     44px;
+        position: relative;
+        top:      20px;
+        width:    120px;
+    }
+
+    .variable-output {
+        vertical-align: top;
+
+        & > div {
+            margin-left: 10px;
+        }
+    }
+}

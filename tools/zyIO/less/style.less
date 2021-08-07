@@ -1,0 +1,105 @@
+@import "../../../zyWeb/less/constants.less";
+
+.user-select(@value) {
+    -moz-user-select:     @value;
+    -ms-user-select:      @value;
+    -o-user-select:       @value;
+    -webkit-user-select:  @value;
+    user-select:          @value;
+}
+
+.zyIO {
+    .input-check {
+        display:        inline-block;
+        position:       relative;
+        top:            1px;
+        vertical-align: text-top;
+    }
+
+    .rim-bit-input-container {
+        display:       block;
+        left:          0;
+        margin-bottom: 15px;
+        position:      relative;
+        top:           0;
+    }
+
+    .input-field {
+        width: 40px;
+    }
+
+    .rim-input-label {
+        display:      inline-block;
+        left:         0;
+        margin-right: 10px;
+        position:     relative;
+        top:          0;
+    }
+
+    .rim-input-menu {
+        display:        inline-block;
+        font-family:    @zyante-code-font;
+        position:       relative;
+        vertical-align: top;
+        width:          63px;
+    }
+
+    .rim-input-value {
+        color:        @zyante-medium-red;
+        display:      inline-block;
+        left:         0;
+        margin-right: 5px;
+        position:     relative;
+        top:          0;
+    }
+
+    .output-block {
+        display:       block;
+        margin-bottom: 7px;
+        .user-select(none);
+    }
+
+    .rim-output-container {
+        display:        inline-block;
+        font-family:    @zyante-code-font;
+        pointer-events: none;
+        position:       relative;
+        vertical-align: top; 
+    }
+
+    .output-field {
+        font-family: @zyante-code-font;
+        width:       30px;
+    }
+
+    .output-label {
+        display:      inline-block;
+        font-family:  @zyante-code-font;
+        margin-right: 5px;
+    }
+
+    .output-led {
+        background:            @zyante-medium-red;
+        -moz-border-radius:    50%;
+        -webkit-border-radius: 50%;
+        border-radius:         50%;
+        display:               inline-block;
+        height:                25px;
+        left:                  0;
+        margin-right:          5px;
+        pointer-events:        none;
+        position:              relative;
+        top:                   7px;
+        width:                 25px;
+    }
+
+    .output-value {
+        color:          @zyante-medium-red;
+        display:        inline-block;
+        left:           0;
+        pointer-events: none;
+        position:       relative;
+        top:            0;
+        width:          10px;
+    }
+}

@@ -1,0 +1,44 @@
+@import "../../../zyWeb/less/constants.less";
+
+.integerProperties {
+    width: 440px;
+    
+    div.container {
+        font-size:  20px;
+        text-align: center;
+        
+        div.instruction, div.display, input {
+            margin-bottom: 15px;
+        }
+        
+        div.helper-expression {
+            font-size: 14px;
+        }
+        
+        div.instruction {
+            color: @zyante-dark-blue;
+        }
+        
+        input {
+            &.small {
+                width: 80px;
+            }
+            
+            &.medium {
+                width: 160px;
+            }
+        }
+    }
+    
+    span.underline {
+        text-decoration: underline;
+    }
+    
+    table.explanation {
+        tr {
+            td:first-child {  
+                text-align: right;
+            }
+        }
+    }
+}

@@ -1,0 +1,139 @@
+<div class='interactive-activity-container custom-content-resource participation large'>
+    <div class='activity-title-bar'>
+        <span class='activity-type'>
+            <div class='type'>tool</div>
+            <div class='label'>test</div>
+        </span>
+        <div class='separator'></div>
+        <h6 class='activity-description'>
+            <div class='activity-title'>
+                TOOL_NAME
+            </div>
+            <div class='title-bar-chevron-container'>
+                <div class='zb-chevron title-bar-chevron blue large check filled'></div>
+            </div>
+        </h6>
+    </div>
+    <div class='activity-payload'>
+        <div class='activity-instructions'>
+            Option used: OPTION_PATH
+            <br><button type='button' id='IDENTIFIER_button' class='zb-button primary raised'>Load tool</button>
+            <button type='button' id='IDENTIFIER_test_exit_simulation' class='zb-button primary raised'>exitSimulationOnSubmit()</button>
+            <button type='button' id='IDENTIFIER_receiveUserAnswerButton' class='zb-button primary raised'>receiveUserAnswerOnLoad()</button>
+            <hr>
+        </div>
+
+        <div class='content-resource custom-resource-payload'>
+
+            <div class='custom-tool-container'>
+                <div id='IDENTIFIER' class='TOOL_NAME'></div>
+            </div>
+
+            <div id='view-solution-IDENTIFIER' class='view-solution view-solution-container'>
+                <div class='zb-simple-expandable'>
+                    <div class='flex-row align-items-center title-container'>
+                        <h5 class='title clickable'>View solution</h5>
+                        <button class='toggle-button zb-button blue-grey icon-button left'>
+                            <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                        </button>
+                        <div class='message'>(Instructors only)</div>
+                    </div>
+                    <div class='expandable-content'>
+                        <pre>
+                            <code></code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div id='info-for-reviewers-IDENTIFIER' class='info-for-reviewers'>
+                <div class='zb-simple-expandable'>
+                    <div class='flex-row align-items-center title-container'>
+                        <h5 class='title clickable'>Info for reviewers</h5>
+                        <button class='toggle-button zb-button blue-grey icon-button left'>
+                            <i class='zb-icon blue-grey material-icons med'>keyboard_arrow_up</i>
+                        </button>
+                        <div class='message'>(Dev books only)</div>
+                    </div>
+                    <div class='expandable-content'></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        var dependencies = {
+            tools: [ 'TOOL_NAME' ],
+        };
+
+        resourceManager.getDependencies(dependencies).then(function() {
+            var $button = $('#IDENTIFIER_button');
+            var $exitSimulationButton = $('#IDENTIFIER_test_exit_simulation');
+            var $receiveUserAnswerButton = $('#IDENTIFIER_receiveUserAnswerButton');
+            var tool = null;
+
+            try {
+                tool = require('TOOL_NAME').create();
+            }
+            catch (error) {
+                $('#IDENTIFIER').text('Crashed on create()');
+                toolCrashed('IDENTIFIER_container');
+                $button.hide();
+                return;
+            }
+
+            if (tool.init) {
+                $button.click(function() {
+                    $button.text('Reload tool');
+
+                    try {
+                        tool.init('IDENTIFIER', parentResource.create('IDENTIFIER', 'TOOL_NAME'), OPTIONS);
+                    }
+                    catch (error) {
+                        $('#IDENTIFIER').text('Crashed on init()');
+                        toolCrashed('IDENTIFIER_container');
+                    }
+                });
+            }
+            // Hide tools that don't have a visual component.
+            else {
+                $('#IDENTIFIER_container').hide();
+            }
+
+            if (tool.exitSimulationOnSubmit) {
+                $exitSimulationButton.click(function() {
+                    try {
+                        tool.exitSimulationOnSubmit();
+                    }
+                    catch (error) {
+                        $('#IDENTIFIER').text(error);
+                        toolCrashed('IDENTIFIER_container');
+                    }
+                });
+            }
+            // Remove button if tool doesn't implement exitSimulationOnSubmit.
+            else {
+                $exitSimulationButton.remove();
+            }
+
+            if (tool.receiveUserAnswerOnLoad) {
+                $receiveUserAnswerButton.click(function() {
+                    try {
+                        tool.receiveUserAnswerOnLoad('Successfully changed user answer');
+                    }
+                    catch (error) {
+                        $('#IDENTIFIER').text(error);
+                        toolCrashed('IDENTIFIER_container');
+                    }
+                });
+            }
+            // Remove button if tool doesn't implement receiveUserAnswerOnLoad.
+            else {
+                $receiveUserAnswerButton.remove();
+            }
+        });
+    }());
+</script>

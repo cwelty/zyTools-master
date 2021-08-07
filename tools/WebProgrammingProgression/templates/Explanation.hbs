@@ -1,0 +1,76 @@
+{{!
+    Render an explanation.
+    @param {String} checkmarkImageURL The URL to the checkmark image.
+    @param {Boolean} shouldShowWebpage Whether to show the user and expected webpage.
+    @param {Array} testResultsToShow {Array} of {TestResult}. List of test results to show.
+    @param {Boolean} whetherTestsWereSuppressed Whether test results were surpressed.
+}}
+<div class='test-results-container'>
+    {{#each testResultsToShow}}
+        <div class='test-result-container'>
+            <div class='test-result-message-container'>
+                {{#if isCorrect}}
+                    <img src='{{../../checkmarkImageURL}}{{../checkmarkImageURL}}'></img>
+                {{else}}
+                    <div class='x-mark'>✖</div>
+                {{/if}}
+                <div class='test-result-message'>{{moreData.message}}</div>
+            </div>
+
+            {{#unless isCorrect}}
+                <div class='test-result-hint'>
+                    Yours and expected differ. See highlights below.
+                    {{#if showSpecialCharacterLegend}}
+                        <button class='zb-button secondary thin-title special-character-legend'>
+                            <span class='title'>Special character legend</span>
+                        </button>
+                    {{/if}}
+                </div>
+            {{/unless}}
+
+            <div class='output-result-container'>
+                <div class='result-row-description'>Yours</div>
+                {{#if userAnswer}}
+                    <div class='result-value'>{{{userAnswerHTML}}}</div>
+                {{else}}
+                    <div class='no-result-value'>Yours has no {{#if moreData.isConsoleTest}}output{{else}}value{{/if}}</div>
+                {{/if}}
+            </div>
+
+            {{#if isCorrect}}{{else}}
+                <div class='output-result-container'>
+                    <div class='result-row-description'>Expected</div>
+                    {{#if expectedAnswer}}
+                        <div class='result-value'>{{{expectedAnswerHTML}}}</div>
+                    {{else}}
+                        <div class='no-result-value'>Expected no {{#if moreData.isConsoleTest}}output{{else}}value{{/if}}</div>
+                    {{/if}}
+                </div>
+            {{/if}}
+        </div>
+    {{/each}}
+
+    {{#if whetherTestsWereSuppressed}}
+        <div class='suppressed-tests-message'>Further testing is suppressed until the above passes.</div>
+    {{/if}}
+
+    {{#if shouldShowWebpage}}
+        <div class='webpages-container'>
+            <div class='webpage-container'>
+                <div class='webpage-label'>Your webpage</div>
+                <div class='iframe-container'>
+                    <iframe class='user-webpage'></iframe>
+                </div>
+            </div>
+
+            {{#if isCorrect}}{{else}}
+                <div class='webpage-container'>
+                    <div class='webpage-label'>Expected webpage</div>
+                    <div class='iframe-container'>
+                        <iframe class='expected-webpage'></iframe>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
+</div>

@@ -1,0 +1,79 @@
+<div class="start-stop-button-region inline-block">
+    <button id="start-button-{{id}}" class="button">Start</button>
+    <button id="stop-button-{{id}}" class="button">Stop</button>
+</div>
+<button id="modify-tape-button-{{id}}" class="button-margin button inline-block">Modify tape</button>
+<button id="next-button-{{id}}" class="button-margin button inline-block">Next</button>
+<button id="reset-button-{{id}}" class="reset-button button inline-block">Reset</button>
+<div class="clear-both"></div>
+
+<table class="state-and-tape">
+    <tbody>
+        <tr class="state-or-symbol-tr">
+            <td class="empty-cell"></td>
+            {{#each tapeSymbolIndex}}
+                <td id="state-{{this}}-{{../id}}"></td>
+            {{/each}}
+        </tr>
+        <tr class="arrow-tr">
+            <td></td>
+            {{#each tapeSymbolIndex}}
+                <td id="statePntr-{{this}}-{{../id}}"></td>
+            {{/each}}
+        </tr>
+        <tr class="state-or-symbol-tr">
+            <td class="symbolTapeLabel">Symbol tape</td>
+            {{#each tapeSymbolIndex}}
+                <td id="tape-{{this}}-{{../id}}">*</td>
+            {{/each}}
+        </tr>
+    </tbody>
+</table>
+
+<div class="table-header">
+    <span class="tablecap">Transition table for the Turing machine</span>
+    <div class="table">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="state-or-symbol"></td>
+                    <td class="state-or-symbol symbol-colored symbol-a">a</td>
+                    <td class="state-or-symbol symbol-colored symbol-x">x</td>
+                    <td class="state-or-symbol symbol-colored symbol-asterix">*</td>
+                </tr>
+                <tr>
+                    <td class="state-or-symbol q-0">q <sub>0</sub></td>
+                    <td id="rule-q-0-a-{{id}}">(q <sub>first</sub>, *, R)</td>
+                    <td id="rule-q-0-x-{{id}}">(q <sub>rej</sub>, x, R)</td>
+                    <td id="rule-q-0-asterix-{{id}}">(q <sub>rej</sub>, *, R)</td>
+                </tr>
+                <tr>
+                    <td class="state-or-symbol q-first">q <sub>first</sub></td>
+                    <td id="rule-q-first-a-{{id}}">(q <sub>even</sub>, x, R)</td>
+                    <td id="rule-q-first-x-{{id}}">(q <sub>first</sub>, x, R)</td>
+                    <td id="rule-q-first-asterix-{{id}}">(q <sub>acc</sub>, *, R)</td>
+                </tr>
+                <tr>
+                    <td class="state-or-symbol q-even">q <sub>even</sub></td>
+                    <td id="rule-q-even-a-{{id}}">(q <sub>odd</sub>, a, R)</td>
+                    <td id="rule-q-even-x-{{id}}">(q<sub>even</sub>, x, R)</td>
+                    <td id="rule-q-even-asterix-{{id}}">(q <sub>ret</sub>, *, L)</td>
+                </tr>
+                <tr>
+                    <td class="state-or-symbol q-odd">q<sub>odd</sub></td>
+                    <td id="rule-q-odd-a-{{id}}">(q<sub>even</sub>, x, R)</td>
+                    <td id="rule-q-odd-x-{{id}}">(q<sub>odd</sub>, x, R)</td>
+                    <td id="rule-q-odd-asterix-{{id}}">(q <sub>rej</sub>, *, L)</td>
+                </tr>
+                <tr>
+                    <td class="state-or-symbol q-ret">q <sub>ret</sub></td>
+                    <td id="rule-q-ret-a-{{id}}">(q <sub>ret</sub>, a, L)</td>
+                    <td id="rule-q-ret-x-{{id}}">(q <sub>ret</sub>, x, L)</td>
+                    <td id="rule-q-ret-asterix-{{id}}">(q <sub>first</sub>, *, R)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="explanation-{{id}}" class="explanation"></div>
+<div class="clear-both"></div>

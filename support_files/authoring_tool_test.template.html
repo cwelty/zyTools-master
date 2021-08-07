@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta http-equiv='X-UA-Compatible' content='IE=11'>
+        <title>TOOL_NAME</title>
+        <meta name='description' content=''>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='icon' href='assets/favicon.ico'>
+        <link rel='stylesheet' type='text/css' href='css/application.css'>
+        <link href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i' rel='stylesheet' crossorigin='anonymous'>
+        <script type='text/javascript' src='https://mathjax.zybooks.com/2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML' id='mathjax'></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+        <script type='text/javascript' src='https://learn.zybooks.com/assets/ace/ace.js'></script>
+        <script type='text/javascript' src='vendor/require.js'></script>
+        <script type='text/javascript' src='vendor/common.js'></script>
+        <script type='text/javascript' src='vendor/core.min.js'></script>
+        <script type='text/javascript' src='vendor/md5.min.js'></script>
+        <script type='text/javascript' src='vendor/handlebars.runtime.js'></script>
+        <script type='text/javascript' src='vendor/rsvp.js'></script>
+        <script type='text/javascript' src='vendor/zyWebEventManager.js'></script>
+        <script type='text/javascript' src='vendor/zyWebResourceManager.js'></script>
+        <script type='text/javascript' src='vendor/zyWebErrorManager.js'></script>
+        <script type='text/javascript' src='vendor/zyWebUtilities.js'></script>
+        <script type='text/javascript' src='vendor/zyWebParentResource.js'></script>
+        <script type='text/javascript' src='vendor/skulpt.min.js'></script>
+        <script type='text/javascript' src='vendor/skulpt-stdlib.js'></script>
+    </head>
+    <body>
+        <p style='margin: 0;'>Test info: DATE_TIME_CREATED, BRANCH_NAME, COMMIT_HASH</p>
+        <div role='main' aria-label='zybook page' class='route-container authoring-tools-zyanimator-page no-margin-left'  style='margin: 0;'>
+            <div class='right-buttons'>
+                <p class='sign-in-message zb-message-container' style='margin: 0 auto; width: fit-content;'>Sign in to run code
+                    <button class='sign-in-button zb-button'>Sign in</button>
+                </p>
+            </div>
+            <div class='authoring-tool'>
+                <div id='ember1078' class='tool-card zybook-section body-text zb-card ember-view'>
+                    <div class='zb-card-content'>
+                        <div id='ember1095' class='content-resource custom-resource-payload ember-view'>
+                            <div class='custom-tool-container '>
+                                <div id='1' class='TOOL_NAME custom-tool'>
+                                    <!-- Tool loads itself here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            Ember = {};
+            Ember.RSVP = RSVP;
+
+            const parentResource = require('zyWebParentResource');
+            const resourceManager = require('zyWebResourceManager');
+            const dependencies = {
+                tools: [ 'TOOL_NAME' ],
+            };
+
+            resourceManager.downloadResourcesFromLive = true;
+            resourceManager.localTools = LOCAL_TOOLS;
+            resourceManager.localVendors = [];
+            resourceManager.getDependencies(dependencies).then(() => {
+                const tool = require('TOOL_NAME').create();
+
+                tool.init('1', parentResource.create('1', 'TOOL_NAME'), OPTIONS);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+@import "../../../zyWeb/less/constants.less";
+
+@large-z-index:  10000;
+@filled-color:   #eee;
+@unfilled-color: #999;
+.progressionTool {
+    min-width: 425px;
+
+    div.zyante-progression-start-reset-buttons-container {
+        height:        45px;
+        margin-bottom: 10px;
+    }
+
+    @button-margin-left: 30px;
+    button.zyante-progression-next-button, button.zyante-progression-try-again, button.zyante-progression-show-solution {
+        margin-left: @button-margin-left;
+    }
+
+    button.zyante-progression-reset-button, button.zyante-progression-show-solution {
+        background-color: white;
+        color: @zyante-dark-blue;
+
+        &:hover:not(.disabled) {
+            background-color: white;
+        }
+    }
+
+    div.zyante-progression-tool-specific-outlet {
+        margin-bottom: 10px;
+
+        &.is-exam {
+            margin-bottom: 25px;
+        }
+    }
+
+    div.zyante-progression-status-bar {
+        align-items:      stretch;
+        background-color: @filled-color;
+        border:           1px solid @zyante-dark-blue;
+        display:          flex;
+        height:           30px;
+
+        div {
+            align-items:     center;
+            color:           @unfilled-color;
+            display:         flex;
+            font-size:       10px;
+            justify-content: center;
+            width:           100%;
+
+            &.filled {
+                background-color: @zyante-lighter-blue;
+                color:            @filled-color;
+            }
+
+            &.highlighted {
+                border:      0;
+                font-weight: bold;
+                font-size:   15px;
+                outline:     3px solid #576E91;
+                z-index:     1;
+
+                &:not(.filled) {
+                    color: darken(@unfilled-color, 10%);
+                }
+            }
+
+            &:not(:last-child) {
+                border-right: 1px dashed @zyante-dark-blue;
+
+                &.highlighted {
+                    border: 0;
+                }
+            }
+        }
+    }
+
+    span.zyante-progression-x-mark {
+        color:      @zyante-medium-red;
+        font-size:  18px;
+        font-style: normal;
+    }
+
+    div.check-next-container {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    div.zyante-progression-is-done {
+        align-self: center;
+    }
+
+    div.zyante-progression-explanation-area {
+        margin-top:    15px;
+    }
+
+    div.zyante-progression-spinner {
+        display:        inline-block;
+        height:         40px;
+        margin-left:    @button-margin-left;
+        position:       relative;
+        vertical-align: top;
+        width:          20px;
+    }
+
+    &.progression-started {
+        div.zyante-progression-status-bar div {
+            cursor: pointer;
+        }
+    }
+
+    div.zyante-progression-solution-area {
+        align-items: center;
+        display: flex;
+        margin-top: 25px;
+
+        .solution {
+            margin-left: 20px;
+        }
+    }
+}

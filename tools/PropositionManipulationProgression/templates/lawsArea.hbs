@@ -1,0 +1,55 @@
+{{!
+    Generate the law area for the given configuration.
+    @param {LawsArea} lawsArea The configuration from which to generate.
+
+    Note: Redundancy is deliberate below as zyWeb 1.0 to 2.0 had breaking changes for handlebars.
+}}
+{{#with lawsArea}}
+    <div class='laws-area{{#if isDisabled}} disabled{{/if}}'>
+        <div class='title'>{{title}}</div>
+        <div class='law-panels-container'>
+            {{#each lawPanels}}
+                <div class='law-panel'>
+                    {{#each this}}
+                        <div class='category-container'>
+                            <div class='category-name'>{{name}}</div>
+                            {{#each laws}}
+                                <div class='law-container'>
+                                    {{#with this}}
+                                        {{#with leftSide}}
+                                            <div>
+                                                {{#if isButton}}
+                                                    <button class='md-action-button compact law-proposition'{{#if ../../../../isDisabled}} disabled{{/if}}{{#if ../../../../../../isDisabled}} disabled{{/if}}>{{{html}}}</button>
+                                                {{else}}
+                                                    <div class='law-side law-proposition'>{{{html}}}</div>
+                                                {{/if}}
+                                            </div>
+                                        {{/with}}
+
+                                        <div class='between-law-sides'>
+                                            {{#if useArrow}}
+                                                <img src='{{{arrowURL}}}'></img>
+                                            {{else}}
+                                                {{../../../equalitySymbol}}{{../../../../../equalitySymbol}}
+                                            {{/if}}
+                                        </div>
+
+                                        {{#with rightSide}}
+                                            <div>
+                                                {{#if isButton}}
+                                                    <button class='md-action-button compact law-proposition'{{#if ../../../../isDisabled}} disabled{{/if}}{{#if ../../../../../../isDisabled}} disabled{{/if}}>{{{html}}}</button>
+                                                {{else}}
+                                                    <div class='law-side law-proposition'>{{{html}}}</div>
+                                                {{/if}}
+                                            </div>
+                                        {{/with}}
+                                    {{/with}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/with}}

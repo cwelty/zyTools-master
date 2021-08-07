@@ -1,0 +1,10 @@
+{{!
+    Render an accessible question.
+    @param {Question} question The question to render.
+}}
+<p>Prompt</p>
+<p>{{{question.prompt}}}</p>
+<p>Initial code</p>
+<pre>{{{question.code.pre}}}{{{question.code.placeholder}}}{{{question.code.post}}}</pre>
+<p>Solution</p>
+<pre>{{{question.code.pre}}}{{{question.solution}}}{{{question.code.post}}}</pre>

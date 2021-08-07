@@ -1,0 +1,32 @@
+{{!
+    Generates a table with |headers| and |nonHeaders|.
+    * |headers| and |nonHeaders| are both required and arrays.
+    * |headers| is an array of strings.
+    * |nonHeaders| is 2D array of objects. The first dimension is the rows. The second dimension is the columns.
+        The objects contain two properties: |value| and |isInput|.
+        |value| is required and a string.
+        |isInput| is required and a boolean.
+}}
+
+<table>
+    <tbody>
+        <tr>
+            {{#each headers}}
+                <th>{{this}}</th>
+            {{/each}}
+        </tr>
+        {{#each nonHeaders}}
+            <tr>
+                {{#each this}}
+                    <td>
+                        {{#if this.isInput}}
+                            <input class='truth-value' type='text' maxlength='1' size='2' disabled/>
+                        {{else}}
+                            {{this.value}}
+                        {{/if}}
+                    </td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

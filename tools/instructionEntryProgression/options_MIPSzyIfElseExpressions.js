@@ -1,0 +1,4 @@
+{
+    type: 'ifElseExpressions',
+    instructionSet: 'MIPSzy'
+}

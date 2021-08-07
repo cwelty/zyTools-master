@@ -1,0 +1,342 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+.homeworkSystem {
+    @homework-system-height: 300px;
+    @homework-system-width:  900px;
+
+    .editor-container {
+        border: 1px solid @zyante-light-gray;
+        height: @homework-system-height;
+        width:  @homework-system-width;
+    }
+
+    .run-button {
+        display:    inline-block;
+        margin-top: 10px;
+        width:      110px;
+    }
+
+    .all-tests-passed-label {
+        color:       @zyante-green;
+        display:     inline-block;
+        margin-left: 10px;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .spinner {
+        display:        inline-block;
+        height:         50px;
+        margin-top:     3px;
+        position:       relative;
+        vertical-align: top;
+        width:          50px;
+    }
+
+    .keyframe-animation (@animation-name, @duration) {
+        -webkit-animation: @animation-name @duration;
+        -moz-animation:    @animation-name @duration;
+        -o-animation:      @animation-name @duration;
+        animation:         @animation-name @duration;
+    }
+
+    .error-message-fade-frames() {
+        0%   {
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @-webkit-keyframes error-message-fade { .error-message-fade-frames; }
+    @-moz-keyframes error-message-fade { .error-message-fade-frames; }
+    @-o-keyframes error-message-fade { .error-message-fade-frames; }
+    @keyframes error-message-fade { .error-message-fade-frames; }
+
+    .non-editable-area-error-message {
+        color:        @zyante-red;
+        display:      inline-block;
+        float:        right;
+        margin-right: 5px;
+        opacity:      0;
+
+        &.hidden {
+            .keyframe-animation(error-message-fade, 4s);
+        }
+    }
+
+    .ace_gutter {
+        border-right: 1px solid #ccc;
+    }
+
+    .results-area {
+        margin-top: 10px;
+        width:      @homework-system-width;
+
+        .x-mark {
+            color:      @zyante-medium-red;
+            font-size:  18px;
+            font-style: normal;
+        }
+
+        .warning {
+            display:     none;
+            margin-left: 9px;
+
+            .warning-icon {
+                border-color: transparent transparent @zyante-dark-yellow transparent;
+                border-style: solid;
+                border-width: 0 8px 14px 8px;
+                display:      inline-block;
+                height:       0;
+                width:        0;
+            }
+
+            .warning-text {
+                display:     inline-block;
+                font-size:   16px;
+                margin-left: 5px;
+            }
+        }
+
+        .error-output:not(.code-compiled) {
+            background-color: @zyante-background-color;
+            border:           1px solid @zyante-featured-background-color;
+            color:            @zyante-darker-blue;
+            display:          none;
+            font-family:      @zyante-code-font;
+            margin:           10px 20px;
+            overflow-x:       auto;
+            padding:          4px;
+            white-space:      pre;
+        }
+
+        .results-list, .error-output.code-compiled {
+            .test-vector {
+                margin: 5px;
+
+                &.hidden {
+                    display: none;
+                }
+
+                .separator {
+                    margin-top: 30px;
+                }
+
+                @test-vector-spinner-size: 20px;
+                .test-vector-spinner {
+                    height:   @test-vector-spinner-size;
+                    position: relative;
+                    width:    @test-vector-spinner-size;
+                }
+            }
+
+            @test-vector-sub-field-margin: 45px;
+            @test-vector-sub-field-label-min-width: 125px;
+            .output {
+                margin-left: @test-vector-sub-field-margin;
+            }
+
+            .whitespace-differs-message {
+                color:       @zyante-red;
+                margin-left: 15px;
+                margin-top:  10px;
+            }
+
+            .hint {
+                display:     inline;
+                font-size:   16px;
+                white-space: pre;
+
+                &.no-cursor {
+                    cursor: default;
+                }
+
+                &.newline-margin-top {
+                    display:    block;
+                    margin-top: 10px;
+                }
+            }
+
+            @test-vector-icon-size: 25px;
+            .icon {
+                display:        inline-block;
+                height:         @test-vector-icon-size;
+                text-align:     center;
+                vertical-align: bottom;
+                width:          @test-vector-icon-size;
+
+                img {
+                    margin-top: 3px;
+                }
+
+                span {
+                    display:    inline-block;
+                    margin-top: 4px;
+                }
+            }
+
+            table.explanation-table {
+                color:          @zyante-gray;
+                display:        inline-table;
+                margin-top:     10px;
+                vertical-align: -50%;
+
+                td.explanation-description {
+                    text-align:    right;
+                    padding-right: 10px;
+                    width:         125px;
+                }
+
+                div.output {
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-family: @zyante-code-font;
+                    font-size: 24px;
+                    line-height: 24px;
+                    min-height: 24px;
+                    padding: 8px;
+                    white-space: pre;
+
+                    &.user-output {
+                        span.string-diff-highlight {
+                            background-color: lighten(@zyante-red, 60%);
+                            border: 1px solid lighten(@zyante-red, 40%);
+
+                            &.newline::after {
+                                border: 1px solid lighten(@zyante-red, 40%);
+                            }
+                        }
+                    }
+
+                    &.expected-output {
+                        span.string-diff-highlight {
+                            background-color: lighten(@zyante-green, 60%);
+                            border: 1px solid lighten(@zyante-green, 30%);
+
+                            &.newline::after {
+                                border: 1px solid lighten(@zyante-green, 30%);
+                            }
+                        }
+                    }
+
+                    span.string-diff-highlight {
+                        display: inline-block;
+                        width: 12px;
+                        height: 24px;
+
+                        &.newline {
+                            border: none;
+                            box-sizing: inherit;
+                            display: inline;
+                            height: 24px;
+                            margin: 0;
+
+                            &::before {
+                                content: none;
+                            }
+
+                            &::after {
+                                content: " ";
+                            }
+                        }
+
+                        &.tab {
+                            white-space: inherit;
+                            width: 60px;
+
+                            &::before {
+                                content: none;
+                            }
+
+                            &::after {
+                                content: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .error {
+        color: @zyante-red;
+    }
+
+    span.pass, span.fail {
+        font-weight: bold;
+    }
+
+    span.pass {
+        color: @zyante-green;
+    }
+
+    span.fail {
+        color: @zyante-red;
+    }
+
+    .instructions-div {
+        margin-bottom: 2px;
+        max-width:     @homework-system-width;
+        padding:       2px;
+        width:         99%;
+    }
+
+    .completion-indicator {
+        clear:       both;
+        color:       @zyante-green;
+        font-size:   14px;
+        font-weight: bold;
+        text-align:  center;
+    }
+
+    .completion-indicator.success {
+        color: @zyante-green;
+    }
+
+    .completion-indicator.failure {
+        color: @zyante-red;
+    }
+
+    .completion-table {
+        float: right;
+    }
+
+    pre.code {
+        background-color: @zyante-lighter-blue;
+        border-radius:    3px;
+        padding:          5px;
+        margin:           3px;
+    }
+
+    div.hk-output {
+        background-color: white;
+        border:           1px solid @zyante-light-gray;
+        display:          inline-block;
+        padding:          1px;
+    }
+
+    div.newline {
+        height:     1em;
+        margin-top: 1px;
+        width:      100%;
+    }
+
+    div.no-output-message {
+        display:    inline-block;
+        font-size:  13px;
+        font-style: italic;
+        margin-top: 6px;
+    }
+}

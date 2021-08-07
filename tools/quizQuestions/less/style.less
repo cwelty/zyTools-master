@@ -1,0 +1,23 @@
+@import "../../../zyWeb/less/constants.less";
+
+.quizQuestions {
+    table tr {
+        border-bottom: 1px solid @zyante-light-gray;
+
+        th, td {
+            padding: 15px 0;
+        }
+    }
+
+    div.question-choice {
+        border: 1px dashed @zyante-light-gray;
+        cursor: pointer;
+        margin: 10px 0;
+        padding: 5px;
+
+        &.button-selected {
+            background-color: @zyante-lighter-blue;
+            color: white;
+        }
+    }
+}

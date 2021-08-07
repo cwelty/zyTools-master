@@ -1,0 +1,3 @@
+{
+    progression: true
+}

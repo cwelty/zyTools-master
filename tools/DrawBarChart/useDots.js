@@ -1,0 +1,3 @@
+{
+    useDots: true
+}

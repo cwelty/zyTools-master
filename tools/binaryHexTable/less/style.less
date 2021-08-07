@@ -1,0 +1,43 @@
+@import "../../../zyWeb/less/constants.less";
+
+.binaryHexTable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   cursor: default;
+
+    table.binary-hex-table {
+        margin: initial;
+        width: 250px;
+
+        col {
+            width: 25%;
+        }
+
+        .highlight-hex {
+            background-color: lighten(@zyante-yellow, 20%);
+        }
+
+        @input-height: 24px;
+        input {
+            height: @input-height;
+            margin: 0;
+            text-align: center;
+            width: 80%;
+        }
+
+        tr {
+            text-align: center;
+
+            td {
+                height: @input-height;
+            }
+
+            td:first-child, th:first-child {
+                color: lighten(@zyante-gray, 40%);
+            }
+        }
+    }
+}

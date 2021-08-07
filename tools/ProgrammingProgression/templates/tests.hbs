@@ -1,0 +1,57 @@
+{{!
+    Print the results of each executed test.
+    @param {String} checkmarkImageURL The URL to the checkmark image.
+    @param {Boolean} error Whether the program produced an error or not.
+    @param {String} errorOutput The error generated.
+    @param {String} explanation The explanation of the solution of this level.
+    @param {Array} tests Array of {TestResult}. List of all the executed tests.
+}}
+{{#if error}}
+    <div class='error-output'><p class='error-message'>{{errorOutput}}</p></div>
+{{/if}}
+<div class='explanation'>
+    {{{explanation}}}
+</div>
+{{#each tests}}
+    <div class='test test-{{@index}}'>
+        <div class='icon'>
+            {{#if isCorrect}}
+                <img src='{{../checkmarkImageURL}}' />
+            {{else}}
+                <span class='zyante-progression-x-mark'>&#x2716;</span>
+            {{/if}}
+            <div class='hint'>{{moreData.whatWasTested}}</div>
+        </div>
+
+
+        {{#unless isCorrect}}
+            <div class='test-result-information'>
+                {{hintMessage}}
+                {{#if showSpecialCharacterLegend}}
+                    <button class='zb-button secondary thin-title special-character-legend'>
+                        <span class='title'>Special character legend</span>
+                    </button>
+                {{/if}}
+            </div>
+        {{/unless}}
+
+        <div class='output-row-result'>
+            <div class='explanation-description'>Your output</div>
+            {{#if moreData.isEmptyUserOutput}}
+                <div class='no-output-message'>Your program produced no output</div>
+            {{else}}
+                <div class='output expected-output'>{{{userAnswerHTML}}}</div>
+            {{/if}}
+        </div>
+        {{#unless isCorrect}}
+            <div class='output-row-result'>
+                <div class='explanation-description'>Expected output</div>
+                {{#if moreData.isEmptyExpectedOutput}}
+                    <div class='no-output-message'>Program produced no output</div>
+                {{else}}
+                    <div class='output expected-output'>{{{expectedAnswerHTML}}}</div>
+                {{/if}}
+            </div>
+        {{/unless}}
+    </div>
+{{/each}}

@@ -1,0 +1,132 @@
+{{!
+    Renders a 2-bit adder with data inputs and carry-in bit. This is prepared to connect with the 5 different 4x1 multiplexors that mux4x1.hbs renders.
+}}
+
+<table class='wire-table two-bit-adder'>
+    <tbody>
+        <tr>
+            {{#range 5}}<td></td>{{/range}}
+            <td class='always-on right a1 width15 adder-a1-input color'></td>
+            {{#range 9}}<td class='always-on bottom a1'></td>{{/range}}
+            {{#range 2}}<td></td>{{/range}}
+            <td class='always-on right a0 width20 adder-a0-input color'></td>
+            {{#range 11}}<td></td>{{/range}}
+            <td class='always-on right b1 adder-b1-input color width13'></td>
+            {{#range 3}}<td></td>{{/range}}
+            {{#range 8}}<td class='always-on bottom b0'></td>{{/range}}
+            <td class='always-on bottom right b0 width17 adder-b0-input color'></td>
+            {{#range 11}}<td></td>{{/range}}
+            <td class='always-on right adder-cin-input color width17'></td>
+            {{#range 6}}<td></td>{{/range}}
+        </tr>
+        <tr>
+            {{#range 14}}<td></td>{{/range}}
+            <td class='always-on right a1'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='always-on right a0'></td>
+            {{#range 11}}<td></td>{{/range}}
+            <td class='always-on right b1'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='always-on right b0'></td>
+            {{#range 12}}<td></td>{{/range}}
+            {{#range 8}}<td class='always-on bottom'></td>{{/range}}
+            <td class='always-on bottom right cin'></td>
+        </tr>
+        <tr>
+            {{#range 10}}<td></td>{{/range}}
+            {{#range 4}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right always-on-r a1'></td>
+            {{#range 2}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right always-on-r a0'></td>
+            {{#range 11}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right always-on-r b1'></td>
+            {{#range 2}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right always-on-r b0'></td>
+            {{#range 11}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom right always-on-r cin'></td>
+            {{#range 6}}<td class='component-bottom'></td>{{/range}}
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 4}}<td></td>{{/range}}
+            <td colspan='2'>a1</td>
+            <td></td>
+            <td colspan='2'>a0</td>
+            {{#range 10}}<td></td>{{/range}}
+            <td colspan='2'>b1</td>
+            <td></td>
+            <td colspan='2'>b0</td>
+            {{#range 10}}<td></td>{{/range}}
+            <td colspan='2'>cin</td>
+            {{#range 4}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 18}}<td></td>{{/range}}
+            <td rowspan='2' colspan='2' class='operation-carry'></td>
+            {{#range 20}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 18}}<td></td>{{/range}}
+            <td colspan='2' class='cin-output output'></td>
+            <td colspan='4'>(cin)</td>
+            {{#range 14}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td colspan='7'>2-bit adder</td>
+            {{#range 9}}<td></td>{{/range}}
+            <td colspan='2' class='a1-output output'></td>
+            <td colspan='2' class='a0-output output'></td>
+            <td colspan='6'>(a1 a0)</td>
+            {{#range 12}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 15}}<td></td>{{/range}}
+            {{#range 2}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom'>+</td>
+            <td colspan='2' class='component-bottom b1-output output'></td>
+            <td colspan='2' class='component-bottom b0-output output'></td>
+            <td class='component-bottom' colspan='6'>(b1 b0)</td>
+            {{#range 12}}<td></td>{{/range}}
+            <td class='component-right'></td>
+        </tr>
+        <tr>
+            {{#range 9}}<td></td>{{/range}}
+            <td class='component-right'></td>
+            {{#range 14}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom output' colspan='4'>cout</td>
+            <td class='component-bottom output' colspan='2'>s1</td>
+            <td class='component-bottom output' colspan='2'>s0</td>
+            {{#range 18}}<td class='component-bottom'></td>{{/range}}
+            <td class='component-bottom component-right'></td>
+        </tr>
+        <tr>
+            {{#range 25}}<td></td>{{/range}}
+            <td class='right cout always-on adder-cout-output color'></td>
+            {{#range 2}}<td></td>{{/range}}
+            <td class='right s1 always-on adder-s1-output color'></td>
+            <td></td>
+            <td class='right s0 always-on adder-s0-output color'></td>
+        </tr>
+        <tr>
+            <td colspan='6'>2-bit ALU</td>
+            {{#range 22}}<td></td>{{/range}}
+            <td colspan='2'>s1</td>
+            <td colspan='2'>s0</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

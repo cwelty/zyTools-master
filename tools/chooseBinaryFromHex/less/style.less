@@ -1,0 +1,61 @@
+@import "../../../zyWeb/less/constants.less";
+
+@hex-value-color: @zyante-dark-blue;
+
+.chooseBinaryFromHex {
+    .buffer-between-nibbles {
+        display: inline-block;
+        width:   10px;
+    }
+    
+    .correct-answer-bits {
+        background-color: white;
+        color:            @zyante-gray;
+        opacity:          1;
+        
+        &.highlighted {
+            background-color: @zyante-yellow;
+        }
+    }
+    
+    .clickable-bit {
+        display: inline-block;
+    }
+    
+    .decimal-equivalent {
+        color:          lighten(@zyante-gray, 30%);
+        font-size:      20px;
+        left:           99px;
+        pointer-events: none;
+        position:       relative;
+        top:            -72px;
+    }
+    
+    .hex-wrapper {
+        height: 100px;
+        
+        .hex-value {
+            color: @hex-value-color;
+            font-size:  40px;
+            margin:     0 auto;
+            position:   relative;
+            text-align: center;
+            top:        0px;
+        }
+    }
+    
+    .instruction-hex-value {
+        color:       @hex-value-color;
+        font-weight: bold;
+    }
+    
+    .pane {
+        display:    inline-block;
+        text-align: center;
+        width:      442px;
+    }
+    
+    table.bits {
+        margin: 0 auto;
+    }
+}

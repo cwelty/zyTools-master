@@ -1,0 +1,4 @@
+{
+    type:           'loop',
+    instructionSet: 'MIPS'
+}

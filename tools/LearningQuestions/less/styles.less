@@ -1,0 +1,203 @@
+.LearningQuestions {
+    width: 740px;
+
+    .setup {
+        box-sizing: border-box;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+
+        .label, .text {
+            margin-right: 16px;
+        }
+    }
+
+    .choices {
+        list-style-type: none;
+        margin-bottom: 0;
+        text-rendering: optimizeLegibility;
+    }
+
+    .explanation {
+        margin-bottom: 16px;
+        padding-left: 32px;
+        padding-top: 16px;
+
+        .incorrect {
+            color: #bb0404;
+        }
+
+        .correct {
+            color: #737f38;
+        }
+
+        .explanation-message {
+            font-weight: bold;
+        }
+    }
+}
+
+@foreground: rgba(0, 0, 0, 0.54);
+@accent: rgba(169, 70, 18, 0.87);
+
+// Below is pulled from Ember's md-radio-button. Converted from SASS.
+@radio-width: 16px;
+@radio-height: @radio-width;
+​
+md-radio-button,
+.md-switch-thumb { // Used in switch
+    box-sizing: border-box;
+    display: block;
+    margin: 15px;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    ​
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+    ​
+    input {
+        display: none;
+    }
+    ​
+    .md-container {
+        position: relative;
+        top: 4px;
+        display: inline-block;
+        width: @radio-width;
+        height: @radio-width;
+        cursor: pointer;
+        ​
+        .md-ripple-container {
+            position: absolute;
+            display: block;
+            width: @radio-width * 3;
+            height: @radio-height * 3;
+            left: -@radio-width;
+            top: -@radio-height;
+        }
+        ​
+        &:before {
+            background-color: transparent;
+            border-radius: 50%;
+            content: "";
+            position: absolute;
+            display: block;
+            height: auto;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            transition: all 0.5s;
+            width: auto;
+        }
+    }
+    ​
+    .md-off {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: @radio-width;
+        height: @radio-height;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        transition: border-color ease 0.28s;
+    }
+    ​
+    .md-on {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: @radio-width;
+        height: @radio-height;
+        border-radius: 50%;
+        transition: transform ease 0.28s;
+        transform: scale(0);
+    }
+    ​
+    &.md-checked .md-on {
+        transform: scale(0.50);
+    }
+    ​
+    .md-label {
+        position: relative;
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+        vertical-align: middle;
+        white-space: normal;
+        pointer-events: none;
+        width: auto;
+    }
+    ​
+    .circle {
+        border-radius: 50%;
+    }
+}
+
+md-radio-group {
+    &:focus {
+        outline: none;
+    }
+
+    &.md-focused {
+        .md-checked .md-container:before {
+            left: -8px;
+            top: -8px;
+            right: -8px;
+            bottom: -8px;
+        }
+    }
+}
+​
+md-radio-button.md-default-theme {
+    .md-off {
+        border-color: @foreground;
+    }
+    ​
+    .md-on {
+        background-color: fade(@accent, 87%);
+    }
+
+    &.md-checked .md-off {
+        border-color: fade(@accent, 87%);
+    }
+
+    &.md-checked .md-ink-ripple {
+        color: fade(@accent, 87%);
+    }
+
+    .md-container .md-ripple {
+        color: @accent;
+    }
+}
+​
+md-radio-group.md-default-theme,
+md-radio-button.md-default-theme {    ​
+    &[disabled] {
+        color: @foreground;
+        ​
+        .md-container .md-off {
+            border-color: @foreground;
+        }
+
+        .md-container .md-on {
+            border-color: @foreground;
+        }
+    }
+}
+​
+md-radio-group.md-default-theme.md-focused:not(:empty) {
+    .md-checked .md-container:before {
+        background-color: fade(@accent, 26%);
+    }
+}

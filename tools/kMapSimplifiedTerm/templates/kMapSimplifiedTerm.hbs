@@ -1,0 +1,32 @@
+<div class='table-header-container'>
+    <div class='diagonal'></div>
+    <div class='input-a'>a</div>
+    <div class='input-b-c'>bc</div>
+</div>
+<table class='k-map-table'>
+    <tr>
+        <td></td>
+        <td>00</td>
+        <td>01</td>
+        <td>11</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        {{#each mintermRow1}}
+            <td class='kmap-cell'>
+                <div class='kmap-cell-contents'></div>
+            </td>
+        {{/each}}
+    </tr>
+    <tr>
+        <td>1</td>
+        {{#each mintermRow2}}
+            <td class='kmap-cell'>
+                <div class='kmap-cell-contents'></div>
+            </td>
+        {{/each}}
+    </tr>
+</table>
+<input class='simplified-term' type='text' size='15' maxlength='18'></input>
+<div class='circle-drawing-container'></div>

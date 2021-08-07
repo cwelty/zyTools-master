@@ -1,0 +1,119 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zyWordProcessor {
+    .wordprocessor-container {
+        border:  1px solid @zyante-gray;
+        padding: 10px;
+
+        .text-contents {
+            border:   1px solid @zyante-table-gray;
+            height:   200px;
+            overflow: auto;
+            padding:  12px;
+            width:    540px;
+
+            h1 {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 16px;
+            }
+
+            h5 {
+                font-size: 36px;
+            }
+
+            h6 {
+                font-size: 14px;
+            }
+
+            p {
+                color:     black;
+                font-size: 12px;
+            }
+        }
+
+        .select-toolbar {
+            background-color: white;
+            height:           27px;
+        }
+
+        .color-select {
+            height:         23px;
+            vertical-align: top;
+        }
+
+        .toolbar-button {
+            cursor:     pointer;
+            float:      left;
+            height:     20px;
+            text-align: center;
+            width:      20px;
+
+            @hoverStyle: inset 0 0 2px @zyante-gray;
+
+            &:hover, &.active {
+                -moz-box-shadow:    @hoverStyle;
+                -webkit-box-shadow: @hoverStyle;
+                box-shadow:         @hoverStyle;
+            }
+
+            &:active {
+                background-color: @zyante-accent-orange;
+            }
+        }
+
+        .hidden-option {
+            display: none;
+        }
+
+        .bottom-toolbar-container {
+            margin-top: 5px;
+        }
+
+        img.toolbar-button {
+            width:  35px;
+            height: 35px;
+        }
+
+        .button-style {
+            display:       inline-block;
+            margin-bottom: 5px;
+            padding:       6.5px 6px 8.5px 9px
+        }
+
+        .bold-button {
+            .button-style;
+            font-weight: bold;
+        }
+
+        .italic-button {
+            .button-style;
+            font-style:    italic;
+        }
+
+        .underline-button {
+            .button-style;
+            text-decoration: underline;
+        }
+
+        .color-label {
+            display:       inline-block;
+            font-weight:   bold;
+            font-size:     18px;
+            padding:       3px 5px 4px;
+        }
+
+        .font-foreground-color {
+            .color-label;
+            color:         black;
+        }
+
+        .font-background-color {
+            .color-label;
+            background:    @zyante-gray;
+            color:         white;
+        }
+    }
+}

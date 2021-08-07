@@ -1,0 +1,92 @@
+@import "../../../zyWeb/less/constants.less";
+
+.quantifiedStatementTable {
+    p.statement, div.hint {
+        color:      @zyante-dark-blue;
+        text-align: center;
+    }
+    
+    p.statement {
+        font-size: 24px;
+    }
+    
+    div.hint {
+        font-size:     12px;
+        margin-bottom: 12px;
+        margin-top:    5px;
+    }
+    
+    .x-mark-checkmark-arrow-annotation {
+        height:        36px;
+        padding-right: 10px;
+        text-align:    right;
+        width:         50px;
+    }
+    
+    table.quantifier-container {
+        margin: 0 auto;
+    
+        td {
+            vertical-align: middle;
+            
+            ul.segmented-control {
+                margin: 0;
+            }
+            
+            &:first-of-type, &:last-of-type {
+                .x-mark-checkmark-arrow-annotation();
+            }
+        }
+    }
+    
+    span.x-mark {
+        color:      @zyante-medium-red;
+        font-size:  18px;
+        font-style: normal;
+    }
+    
+    div.table-container {
+        div.table {
+            table {
+                border: 0;
+                
+                tr {
+                    &.selected {
+                        background-color: @zyante-dark-blue;
+                        color:            white;
+                    
+                        &:not(.clickable) {
+                            background-color: lighten(@zyante-gray, 40%);
+                        }
+                    }
+                
+                    &.clickable {
+                        cursor: pointer;
+                    }
+                
+                    &:first-of-type {
+                        th:first-of-type {
+                            font-size: 12px;
+                        }
+                    }
+                    
+                    td:first-of-type, td:last-of-type {
+                        background: white;
+                        border:     0;
+                    }
+                    
+                    &:not(:first-of-type) {
+                        td:first-of-type, td:last-of-type {
+                            .x-mark-checkmark-arrow-annotation();
+                        }
+                    }
+                }
+            }
+        }
+        
+        span.pointer-arrow {
+            color:     @zyante-dark-blue;
+            font-size: 30px;
+        }
+    }
+}

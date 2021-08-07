@@ -1,0 +1,25 @@
+{{!
+    Development environment layout.
+    @param {String} [instructionID] Optional unless |showInstructions| is true. The DOM id to give to the instructions.
+    @param {String} [memoryID] Optional unless |showMemory| is true. The DOM id to give to the memory.
+    @param {String} registersID The DOM id to give to the registers.
+    @param {Boolean} showInstructions Whether to show the instructions.
+    @param {Boolean} [showMemory] Whether to show the memory.
+    @param {Boolean} [showRegisters] Whether to show the registers.
+    @param {Boolean} [useBlackStorageBorder] Whether to use black borders for memory and registers.
+}}
+<table class='development-environment'>
+    <tbody>
+        <tr>
+            {{#if showInstructions}}
+                <td class='instructions' id='{{instructionsID}}'></td>
+            {{/if}}
+            {{#if showRegisters}}
+                <td id='{{registersID}}' class='registers{{#if useBlackStorageBorder}}{{else}} color-border{{/if}}'></td>
+            {{/if}}
+            {{#if showMemory}}
+                <td id='{{memoryID}}' class='memory{{#if useBlackStorageBorder}}{{else}} color-border{{/if}}'></td>
+            {{/if}}
+        </tr>
+    </tbody>
+</table>

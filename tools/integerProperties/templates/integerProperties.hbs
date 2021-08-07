@@ -1,0 +1,15 @@
+{{!
+    The general question output shown to the user.
+    
+    Input:
+        * question: Required Object that contains:
+            * instructions:    Required string that is the question prompt.
+            * display:         Required string that is the question's expression.
+            * placeholderText: Optional string shown to user as placeholder to input field.
+            * inputWidthSize:  Required string that is a supported class (see style.less).
+}}
+<div class='container'>
+    <div class='instruction'>{{question.instructions}}</div>
+    <div class='display'>{{{question.display}}}</div>
+    <input type='text' placeholder='{{question.placeholderText}}' class='{{question.inputWidthSize}}'></input>
+</div>

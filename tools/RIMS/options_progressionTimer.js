@@ -1,0 +1,4 @@
+{
+    progression: true,
+    useTimer: true
+}

@@ -1,0 +1,175 @@
+@import "../../../zyWeb/less/constants.less";
+
+.timingDiagram {
+    width: 415px;
+    .a-gate-input {
+        margin-bottom: 5px;
+    }
+
+    .context-text {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .output-label {
+        position: relative;
+
+        &.binary-adjustment {
+            top: 0px;
+        }
+
+        &.integer-adjustment {
+            top: -5px;
+        }
+    }
+
+    table.diagram-table {
+        border: none;
+        border-collapse: collapse;
+
+        tr {
+            height: 60px;
+
+            &:nth-last-of-type(2) {
+                td:first-of-type {
+                    color: @zyante-dark-blue;
+                }
+            }
+
+            td {
+                font-size: 20px;
+                padding: 0;
+            }
+        }
+    }
+
+    .diagram-canvas-container {
+        position: relative;
+    }
+
+    .diagram-container {
+        display: inline-block;
+        vertical-align: middle;
+        width: 415px;
+    }
+
+    .diagram-canvas {
+        background-color: white;
+    }
+
+    .gate-image {
+        display: inline-block;
+    }
+    .gate-image-container {
+        height: 65px;
+        text-align: center;
+        &.srd {
+            height: 82px;
+        }
+        &.load {
+            height: 255px;
+            width: 255px;
+        }
+        &.hlsm {
+            height: 175px;
+        }
+    }
+    .gate-inputs-and {
+        display: inline-block;
+        position: relative;
+        top:-10px;
+    }
+    .gate-inputs-or {
+        display: inline-block;
+        position: relative;
+        top:-5px;
+    }
+    .gate-label {
+        display: inline-block;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .gate-outputs {
+        display: inline-block;
+        position: relative;
+        top:-20px;
+    }
+    hr {
+        background: gray;
+        display: inline-block;
+        height: 1px;
+        vertical-align: middle;
+        width: 20px;
+    }
+
+    .image-container {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .input-container {
+        left: -10px;
+        position: absolute;
+        top: 42px;
+        width: 300px;
+    }
+
+    .label {
+        width: 115px;
+    }
+
+    .output-container {
+        left: -10px;
+        position: absolute;
+        top: 32px;
+        width: 300px;
+    }
+
+    .output-segment, .int-output-segment {
+        &.active {
+            cursor: pointer;
+        }
+    }
+
+    .output-segment {
+        border-right: 1px @zyante-dark-blue dashed;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 30px;
+        left: 0;
+        position: relative;
+        top: -20px;
+        width: 40px;
+    }
+
+    .timing-container {
+        text-align: center;
+    }
+
+    input.int-output-segment.wrong-answer[disabled] {
+        background-color: @zyante-medium-red;
+        color: white;
+    }
+
+    .int-input-segment {
+        height: 33px;
+        margin: -5px 2px 2px 2px;
+        outline-color: lighten(@zyante-yellow, 20%);
+        padding: 1px;
+        position: relative;
+        text-align: center;
+        top: -25px;
+        width: 33px;
+    }
+
+    .int-output-segment {
+        height: 33px;
+        margin: 2px;
+        outline-color: lighten(@zyante-yellow, 20%);
+        padding: 1px;
+        position: relative;
+        text-align: center;
+        top: -25px;
+        width: 33px;
+    }
+}

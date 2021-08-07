@@ -1,0 +1,4 @@
+{
+    distribution: 'normal',
+    calculate: 'ptoz',
+}

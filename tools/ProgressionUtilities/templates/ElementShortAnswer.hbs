@@ -1,0 +1,11 @@
+{{!
+    Print a short answer.
+    @param {ElementShortAnswer} element The short answer to print.
+    @param {String} element.assessmentMethod The method to assess correctness.
+    @param {Boolean} element.isSelected Whether the input field is selected.
+    @param {String} element.placeholder Placeholder text for the input field.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}} short-answer' {{{style}}}>
+    <input type='{{#ifCond element.assessmentMethod '===' 'numericalMatch'}}number{{else}}text{{/ifCond}}' placeholder='{{element.placeholder}}'>
+</div>

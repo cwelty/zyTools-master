@@ -1,0 +1,151 @@
+//A set of constants that can be used in other less files
+
+@page-width: 92%;
+
+/*  Colors  */
+
+// Grays
+@zyante-background-color:          #FBFBFB;
+@zyante-featured-background-color: #EFEFEF;
+@zyante-gray:                      #333333;
+@zyante-light-gray:                #CCCCCC;
+@zyante-table-gray:                #D8D8D8;
+@zyante-cancel-gray:               #888888;
+@zyante-expired-gray:              #666666;
+
+
+// Oranges
+@zyante-lightest-orange:           #FFDAC1;
+@zyante-lighter-orange:            #F9D8BC;
+@zyante-light-orange:              #FFB789;
+@zyante-pale-orange:               #E8B493;
+@zyante-accent-orange:             #E68142;
+@zyante-orange:                    #c60;
+@zyante-dark-orange:               #AB4600;
+
+// Blues
+@zyante-lighter-blue:              #87ADD2;
+@zyante-light-blue:                #6685A8;
+@zyante-dark-blue:                 #5780A6;
+@zyante-darker-blue:               #576E91;
+
+// Greens
+@zyante-green:                     #738033;
+
+// Reds
+@zyante-red:                       #880000;
+@zyante-medium-red:                #BB0404;
+@zyante-light-red:                 #FF4949;
+@zyante-error-red:                 #D32F2F;
+
+// Yellows
+@zyante-dark-yellow:               #D39F0D;
+@zyante-yellow:                    #EAB51F;
+@zyante-light-yellow:              #FFD364;
+
+// Zyanimator colors
+@zyanimator-black: @zyante-gray;
+@zyanimator-gray: #AFAFAF;
+@zyanimator-white: #FFFFFF;
+@zyanimator-green: #1EC81E;
+@zyanimator-red: #DC0404;
+@zyanimator-blue: #5780DC;
+@zyanimator-light-blue: #B0D6FB;
+@zyanimator-orange: @zyante-accent-orange;
+@zyanimator-light-orange: @zyante-lighter-orange;
+@zyanimator-yellow: @zyante-light-yellow;
+@zyanimator-purple: #8424AC;
+@zyanimator-brown: #886441;
+
+// ProgressionBuilder table, copied from platform tables.
+@progression-builder-table-background: #f5f5f5;
+@progression-builder-table-border-color: #bdbdbd;
+@progression-builder-table-border: 2px solid @progression-builder-table-border-color;
+@progression-builder-table-header-background: #e0e0e0;
+@progression-builder-table-header-border: 1px solid @progression-builder-table-border-color;
+@progression-builder-table-cell-border: 1px solid @progression-builder-table-border-color;
+
+// Code block background color
+@code-background-color:            #B3D9FE;
+@zyante-code-font:                 "Courier New", monospace;
+
+// My zyBooks logo
+@my-zybooks-container-height: 90px;
+@my-zybooks-bar-width:        7px;
+@my-zybooks-bar-padding:      5px;
+
+// Zybook content padding
+@zybook-content-padding:      30px;
+
+// Standard element height (menu items, title bars, etc)
+@zyante-standard-height:      50px;
+@zyante-half-standard-height: (@zyante-standard-height / 2);
+
+// Fonts
+@zyante-font: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+.zyante-bold {
+    font-family: @zyante-font;
+    font-weight: 300;
+}
+
+@zyante-section-font: "Helvetica";
+.zyante-section-bold {
+    font-family: @zyante-section-font;
+    font-weight: 300;
+}
+
+@zyante-code-font: "Courier New", monospace;
+
+// Symbols
+@rating-star: "\2605";
+
+// Stats dialog
+@stats-dialog-height: 220px;
+@stats-dialog-min-height: (@stats-dialog-height + 80px);
+
+// Detailed summary height
+@detailed-summary-height: 200px;
+
+// Headers
+@h2-height: 28px;
+@h2-top-bottom-margin: 20px;
+
+// Dividers
+@separator-triangle-side:           20px;
+@separator-triangle-border-side:    (@separator-triangle-side + 1);
+
+// Animation durations
+@flippy-triangle-animation-duration: 0.3s;
+
+// Media query lengths.
+@ipad-height:          1024px;
+@ipad-width:           768px;
+@iphone-height:        480px;
+@iphone-width:         320px;
+@iphone-4-inch-height: 568px;
+@iphone-6-height:      667px;
+@iphone-6-width:       375px;
+
+// Minimum supported screen width on the dashboard.
+@min-screen-width: 950px;
+
+// Master width is fixed, but can be animated
+@initial-master-width:    270px;
+
+// Dropdown.
+@dropdown-max-height: 340px;
+
+// Subscription field.
+@field-height: 50px;
+
+// Showing/hiding app menu header
+@header-animation-duration: 0.3s;
+
+// Add shadow inside element. Used by input fields.
+@input-inset-box-shadow: inset 0 1px 2px fade(black, 7.5%);
+
+// Creates |@color| halo. Used by input fields.
+.box-shadow-and-border(@color) {
+    border-color: @color;
+    box-shadow:   @input-inset-box-shadow, 0 0 5px fade(@color, 50%);
+}

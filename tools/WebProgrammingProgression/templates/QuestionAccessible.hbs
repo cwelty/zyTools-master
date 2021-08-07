@@ -1,0 +1,11 @@
+{{!
+    Render an accessible question.
+    @param {Question} question The question to render.
+}}
+<p>Prompt: {{question.prompt}}</p>
+{{#each question.expectedQuestionFiles}}
+    {{#if isHidden}}{{else}}
+        <p>Filename: {{filename}}</p>
+        <pre>{{prefix}}{{placeholder}}{{postfix}}</pre>
+    {{/if}}
+{{/each}}

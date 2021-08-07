@@ -1,0 +1,12 @@
+{{!
+    Print each element icon.
+    @param {Array} elementIcons Array of {ElementIcon}. The add element icons to print.
+    @param {Array} controlIcons Array of {ControlIcon}. The control icons to print.
+}}
+{{#each elementIcons}}
+    <div class='element-icon' type='{{type}}' title='{{type}}'>{{{symbol}}}</div>
+{{/each}}
+<div class='vertical-divider'></div>
+{{#each controlIcons}}
+    <div class='control-icon'>{{{name}}}</div>
+{{/each}}

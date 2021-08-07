@@ -1,0 +1,2 @@
+{ 'canEdit' : 'true',
+  'isEditorShown' : 'true' }

@@ -1,0 +1,19 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.inputPrefix A prefix for the input box.
+    @param {String} question.inputPostfix A postfix for the input box.
+    @param {String} question.placeholder Input box's placeholder.
+    @param {Boolean} question.isShortAnswer The answer is a short one.
+}}
+<div class='prompt'>
+    {{{question.prompt}}}
+</div>
+{{{question.inputPrefix}}}
+{{#if question.isShortAnswer}}
+    <input class='short-answer' type='text' placeholder='{{question.placeholder}}'></input>
+{{else}}
+    <input class='long-answer' type='text' placeholder='{{question.placeholder}}'></input>
+{{/if}}
+{{{question.inputPostfix}}}

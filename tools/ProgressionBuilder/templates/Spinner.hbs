@@ -1,0 +1,19 @@
+{{!
+    Render a spinner.
+    @param {String} label The label associated with the spinner.
+    @param {Number} min The minimum number the spinner can reach.
+    @param {Number} max The maximum number the spinner can reach.
+    @param {Number} value The current value of the spinner.
+    @param {Boolean} hasKeepRatioOption Whether to add a checkbox that disables the input to make it depend on another input.
+    @param {Boolean} isKeepRatioChecked Whether the keep ratio checkbox should be checked.
+}}
+<div>
+    <span class='label'>{{label}}</span>
+    <input type='number' min='{{min}}' max='{{max}}' value='{{value}}' {{#if isKeepRatioChecked}}disabled {{/if}}></input>
+    {{#if hasKeepRatioOption}}
+        <label>
+            <input type='checkbox' {{#if isKeepRatioChecked}}checked {{/if}}></input>
+            Keep ratio
+        </label>
+    {{/if}}
+</div>

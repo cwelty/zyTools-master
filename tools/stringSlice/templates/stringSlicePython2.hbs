@@ -1,0 +1,50 @@
+<table>
+    <tr>
+        <td>
+            <div class="nice-format code">
+                <pre>string_var <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'<input
+                        type='text' id='{{name}}string{{id}}' style='color:#0000e6; width: 100px;' maxlength='10'
+                        value='Hey folks!'/>'</span></pre><pre><span style='color:#800000; font-weight:bold; '>print</span> string_var<span
+                        style='color:#808030; '>[</span><input type='text' id='{{name}}slice1{{id}}' style='color:#008c00; width: 40px;' value='1'/><span
+                        style='color:#808030; '>:</span><input type='text' id='{{name}}slice2{{id}}'
+                                                               style='color:#008c00; width: 40px;' value='5'/><span
+                        style='color:#808030; '>]</span></pre>
+            </div>
+        </td>
+        <td>
+            <div style='height: 20px; width: 300px; float: right; margin-top: 50px;'><span id='{{name}}specialNotes{{id}}'></span></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="output-container">
+                <div class='output-label'>Output: </div>
+                <div class="output" id='{{name}}output{{id}}'></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table border='0' style='width: 100%;'>
+                <tr>
+                    {{#range 9}}
+                        <td><div id='{{../name}}char{{this}}{{../id}}' class='char'></div></td>
+                    {{/range}}
+                    <td><div id='{{name}}char10{{id}}' style='width: 20px; height: 20px; background: white'></div></td>
+                </tr>
+                <tr>
+                    {{#range 9}}
+                        <td><div id='{{../name}}arrow{{this}}{{../id}}' class='arrow'></div></td>
+                    {{/range}}
+                    <td><div id='{{name}}arrow10{{id}}' class='arrow'></div></td>
+                </tr>
+                <tr>
+                    {{#range 9}}
+                        <td><div id='{{../name}}arrowName{{this}}{{../id}}' class='arrow'></div></td>
+                    {{/range}}
+                    <td><div id='{{name}}arrowName10{{id}}' class='arrow'></div></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,29 @@
+{{!
+    Render a program with space for each function.
+    @param {String} id Unique identifier assigned to this module.
+    @param {Boolean} isExecutable Whether the instance is executable.
+    @param {Array} runSpeedNames Array of {String}. The names of the run speeds.
+}}
+<div>
+    <div class='program-container'></div>
+
+    {{#if isExecutable}}
+        <div class='controls-container'>
+            <button class='md-action-button enter-execution'>Enter execution</button>
+            <button class='md-action-button exit-execution'>Exit execution</button>
+            <button class='md-action-button orange start-again'>Start again</button>
+            <button class='md-action-button orange step'>Step</button>
+            <button class='md-button orange run'>Run</button>
+            <button class='md-button orange pause'>Pause</button>
+            <div class='execution-speed-container'>
+                <label for='speed-control-{{id}}'>Execution speed</label>
+                <select id='speed-control-{{id}}' class='run-speed'>
+                    {{#each runSpeedNames}}
+                        <option value='{{this}}'>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class='error-message'></div>
+    {{/if}}
+</div>

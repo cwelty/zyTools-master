@@ -1,0 +1,16 @@
+{{!
+    Render the image and one scrollbar per filter.
+    @param {Array} filters Array of {Object}. Contains the name of each filter.
+    @param {String} id The ID of this tool.
+}}
+<div>
+    <img id='image-{{id}}' crossorigin='anonymous'>
+
+    {{#each filters}}
+        <div class='filter-container'>
+            <div class='name'>{{name}}</div>
+            <input type='range' class='scrollbar' min='{{min}}' max='{{max}}' value='{{value}}' step='5' />
+            <div class='value'>{{value}}</div>
+        </div>
+    {{/each}}
+</div>

@@ -1,0 +1,54 @@
+@import "../../../zyWeb/less/constants.less";
+
+@memory-background-color: @zyante-lighter-orange;
+
+.busVariable {
+    font-family: @zyante-font;
+    width: 430px;
+
+    input.num-people-input {
+        background-color: @memory-background-color;
+        border-style: none;
+        margin: 0px;
+        text-align: center;
+    }
+
+    input.num-people-input-python {
+      background-color: @memory-background-color;
+      border-style: none;
+      margin: 0px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    input.num-people-input:enabled {
+        background-color: white;
+    }
+
+    div.instructions {
+        display: inline-block;
+        vertical-align: top;
+        width: 220px;
+    }
+
+    .memory-block {
+        display: inline-block;
+        margin-left: 10px;
+        text-align: center;
+
+        .memory-address {
+            background-color: @memory-background-color;
+            border-color: @zyante-accent-orange;
+            border-style: solid;
+            border-width: 2px;
+        }
+    }
+
+    .answer-container {
+        margin-top: 10px;
+    }
+
+    .num-people-div-python {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,61 @@
+{{!
+    Generate the quadratic formula. Contains 4 parameters: isExplanation, aValue, bValue, and cValue.
+    
+    * isExplanation is a required boolean. If true, then generate an explanation without inputs and using aValue, bValue, and cValue.
+    Otherwise, generate the equation in which the user fills in using inputs.
+    
+    * aValue, bValue, and cValue are required numbers used when isExplanation is true.
+}}
+
+<div class='equation-area'>
+    <div class='equation'>
+        <div class='inline-block offset-vertical-alignment'>x =</div>
+        <div class='inline-block'>
+            {{#if isExplanation}}
+                <div class="numerator explanation"><!--
+            {{else}}
+                <div class="numerator"><!--
+            {{/if}}
+                -->&#8211;<!--
+                {{#if isExplanation}}
+                    --><span>{{bValue}}</span><!--
+                {{else}}
+                    --><input type='number' class='user-input' placeholder='b' min='-99' max='99' disabled/><!--
+                {{/if}}
+                --> &plusmn; <!--
+                --><span class="radical">&radic;</span><!--
+                {{#if isExplanation}}
+                    --><span class="inside-radical explanation"><!--
+                {{else}}
+                    --><span class="inside-radical"><!--
+                {{/if}}
+                    {{#if isExplanation}}
+                        --><span>{{bValue}}</span><!--
+                    {{else}}
+                        --><input type='number' class='user-input' placeholder='b' min='-99' max='99' disabled/><!--
+                    {{/if}}
+                    --><sup>2</sup> &#8211; <!--
+                    -->4<!--
+                    {{#if isExplanation}}
+                        --><span>{{aValue}}</span><!--
+                    {{else}}
+                        --> <input type='number' class='user-input' placeholder='a' min='-99' max='99' disabled/><!--
+                    {{/if}}
+                    {{#if isExplanation}}
+                        --><span>{{cValue}}</span><!--
+                    {{else}}
+                        --> <input type='number' class='user-input' placeholder='c' min='-99' max='99' disabled/><!--
+                    {{/if}}
+                --></span><!--
+            --></div><!--
+            --><div><!--
+                -->2<!--
+                {{#if isExplanation}}
+                    --><span>{{aValue}}</span><!--
+                {{else}}
+                    --> <input type='number' class='user-input' placeholder='a' min='-99' max='99' disabled/><!--
+                {{/if}}
+            --></div>
+        </div>
+    </div>
+</div>

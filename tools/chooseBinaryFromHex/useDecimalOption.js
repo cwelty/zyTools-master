@@ -1,0 +1,3 @@
+{
+    useDecimal: true
+}

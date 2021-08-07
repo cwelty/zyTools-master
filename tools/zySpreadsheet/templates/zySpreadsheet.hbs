@@ -1,0 +1,23 @@
+<div class='spreadsheet-container'>
+    <div class='cell-contents-bar'>
+        <span class='cell-label'> [<div class='current-selected-cell'>--</div>] :</span>
+        <input class='equation-field' disabled />
+    </div>
+    <table class='spreadsheet'>
+        <tbody>
+            {{#range numberOfRows}}
+                <tr>
+                    {{#generateRowCellProperties this ../numberOfColumns}}
+                        <td>
+                            {{#if columnLabel}}
+                                {{columnLabel}}
+                            {{else}}
+                                <input type='text' cellposition='{{cellPosition}}' class='cells' spellcheck='false' />
+                            {{/if}}
+                        </td>
+                    {{/generateRowCellProperties}}
+                </tr>
+            {{/range}}
+        </tbody>
+    </table>
+</div>

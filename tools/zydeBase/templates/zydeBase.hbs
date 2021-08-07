@@ -1,0 +1,37 @@
+<div id='all-elements{{id}}' class='all-elements zydeBase{{#if useHomePageStyling}} homepage-width{{/if}}'>
+  {{#if files}}
+      <div id='segmented-control-container{{id}}'></div>
+  {{/if}}
+
+  {{#if stacked}}
+      {{#if resetEnabled}}
+          <button id='reset-button{{id}}' class='button text_button reset_button'>Reset</button>
+      {{/if}}
+  {{/if}}
+
+  {{#if stacked}}
+      <div id='editor{{id}}' class='stacked-editor'>{{initial_program}}</div>
+  {{else}}
+      <div id='editor{{id}}' class='editor'>{{initial_program}}</div>
+  {{/if}}
+
+  <div class='{{#if stacked}}stacked-{{/if}}container'>
+
+    <textarea id='input{{id}}' class='input {{#unless inputEnabled}}hidden{{/unless}}' placeholder='Pre-enter any input for program, then press run'>{{input}}</textarea>
+
+    <pre class='output {{#unless inputEnabled}}full-height{{/unless}}'>
+      {{#unless stacked}}
+          {{#if resetEnabled}}
+              {{#if inputEnabled}}
+                  <button id='reset-button{{id}}' class='button text-button reset-button non-stacked-input-enabled'>Reset</button>
+              {{else}}
+                  <button id='reset-button{{id}}' class='button text-button reset-button non-stacked-input-disabled'>Reset</button>
+              {{/if}}
+          {{/if}}
+      {{/unless}}
+
+      <button id='run-button{{id}}' class='button run-button {{#unless inputEnabled}}input-disabled{{/unless}}'>Run</button><div id='output{{id}}' class='output'></div>
+    </pre>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+{{!
+    Generate part showing the order of the tasks.
+    @param {Array of Object} taskOrder The tasks in order.
+}}
+
+<div class='task-order'><!--
+    {{#each taskOrder}}
+        {{#if isTaskLocation}}
+            --><div class='task task-location'><span class='empty-task'>?</span></div><!--
+        {{else}}
+            --><div class='task hard-coded'>{{taskType}}</div><!--
+        {{/if}}
+    {{/each}}
+--></div>

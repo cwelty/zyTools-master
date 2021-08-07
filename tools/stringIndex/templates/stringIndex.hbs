@@ -1,0 +1,25 @@
+<!-- These Handlebars template files will be made available to you in the mytool.js file. -->
+<!-- The full power of Handlebars can be utilized, or the file can be treated as plain HTML. -->
+
+<table>
+    <tr>
+        <td>
+            <div>Type a string<br />(up to 6 characters)</div>
+            <div><input maxlength="6" class="input-field" type="text" id="{{name}}_inputString{{id}}" value="{{initial_text}}" /></div>
+        </td>
+        <td>
+            <table class="output-table">
+                <tr>
+                    {{#range numberOfCharacters}}
+                        <td class="index-cell">{{this}}</td>
+                    {{/range}}
+                </tr>
+                <tr>
+                    {{#range numberOfCharacters}}
+                        <td id="{{../name}}_outputValue{{this}}{{../id}}" class="output-cell"></td>
+                    {{/range}}
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

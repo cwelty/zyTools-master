@@ -1,0 +1,47 @@
+{{!
+    Print the instruction set simulator in accessible mode.
+    @param {String} assembly The initial assembly.
+    @param {String} [integerInput] The initial input.
+    @param {String} [machineInstructions] The initial assembly as machine instructions.
+    @param {String} memory The initial memory.
+    @param {String} registers The initial registers.
+}}
+<p>Initial assembly:</p>
+<pre>{{assembly}}</pre>
+
+{{#if machineInstructions}}
+    <p>Initial assembly assembled to machine instructions:</p>
+    <pre>{{machineInstructions}}</pre>
+{{/if}}
+
+<p>Initial registers:</p>
+<table class='accessible-table'>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {{#each registers}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{value}}</td>
+        </tr>
+    {{/each}}
+</table>
+
+<p>Initial memory:</p>
+<table class='accessible-table'>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    {{#each memory}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{value}}</td>
+        </tr>
+    {{/each}}
+</table>
+
+{{#if integerInput}}
+    <p>Initial input: {{integerInput}}</p>
+{{/if}}

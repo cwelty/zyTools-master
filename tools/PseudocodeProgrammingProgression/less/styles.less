@@ -1,0 +1,52 @@
+@import "../../../zyWeb/less/constants.less";
+
+.PseudocodeProgrammingProgression {
+    width: 100%;
+
+    .code-editor {
+        min-width: 805px;
+    }
+
+    .explanation {
+        color: @zyante-gray;
+    }
+
+    .test-result {
+        border-top: 1px solid #eee;
+        color: @zyante-gray;
+        padding-top: 8px;
+
+        .result-row {
+            display: flex;
+            margin-bottom: 8px;
+
+            .result-label {
+                margin-right: 16px;
+                text-align: right;
+                width: 120px;
+            }
+
+            .result-value {
+                background-color: #f5f5f5;
+                border: 1px solid rgba(189,189,189,.5);
+                border-radius: 2px;
+                box-sizing: border-box;
+                display: block;
+                font-family: "Courier New",monospace;
+                margin: 0;
+                overflow-x: auto;
+                padding: 4px 10px;
+                white-space: pre;
+            }
+
+            .result-error {
+                color: @zyante-medium-red;
+                font-style: italic;
+            }
+        }
+    }
+
+    .solution {
+        width: 750px;
+    }
+}

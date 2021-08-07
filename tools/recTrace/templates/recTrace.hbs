@@ -1,0 +1,354 @@
+<div class="instructions">
+    <p>The following program guesses the hidden number known by the user. Assume the hidden number is 63.</p>
+</div>
+<div class="left-side">
+    <div id="recTrace_progCode_{{id}}" class="code"></div>
+</div>
+
+<div class="right-side">
+    <table id="recTrace_table{{id}}">
+        <tbody>
+            <tr id="recTrace_mainCode_{{id}}">
+                <td>
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td>&rarr;</td>
+                                <td>main()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="code"></div>
+                </td>
+            </tr>
+            <tr id="recTrace_recCode1_{{id}}" style="display: none;">
+                <td>
+                <hr>
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>main()</td>
+                            </tr>
+                            <tr>
+                                <td>&rarr;</td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(0, 100)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="code"></div>
+                </td>
+            </tr>
+            <tr id="recTrace_recCode2_{{id}}" style="display: none;">
+                <td>
+                <hr>
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>main()</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(0, 100)</td>
+                            </tr>
+                            <tr>
+                                <td>&rarr;</td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(51, 100)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="code"></div>
+                </td>
+            </tr>
+            <tr id="recTrace_recCode3_{{id}}" style="display: none;">
+                <td>
+                <hr>
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>main()</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(0, 100)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(51, 100)</td>
+                            </tr>
+                            <tr>
+                                <td>&rarr;</td>
+                                <td>{{#if isJava}}guessNumber{{else}}Find{{/if}}(51, 75)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="code"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p class="recursion-completed"> Complete. &#10004; <button id="recTrace_reset{{id}}" class="button">Reset</button></p>
+<div style="clear: both;"></div>
+
+<!-- HTML data collection of colorized code used by this tool -->
+
+<div id="cpp_progCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#004a43; ">#include </span><span style="color:#800000; ">&lt;</span><span style="color:#40015a; ">iostream</span><span style="color:#800000; ">&gt;</span>
+<span style="color:#800000; font-weight:bold; ">using</span> <span style="color:#800000; font-weight:bold; ">namespace</span> <span style="color:#666616; ">std</span><span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">void</span> Find<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> low<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> high<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">int</span> mid<span style="color:#800080; ">;</span> <span style="color:#696969; ">// Midpoint of low..high</span>
+   <span style="color:#800000; font-weight:bold; ">char</span> answer<span style="color:#800080; ">;</span>
+
+   mid <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>high <span style="color:#808030; ">+</span> low<span style="color:#808030; ">)</span> <span style="color:#808030; ">/</span> <span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Is it </span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> mid <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">? (l/h/y): </span><span style="color:#800000; ">"</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cin</span> <span style="color:#808030; ">&gt;&gt;</span> answer<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span>
+      <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+      <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Thank you!</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>  <span style="color:#696969; ">// Found number!</span>
+   <span style="color:#800080; ">}</span>
+   <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: Guess in </span>
+          <span style="color:#696969; ">// lower or upper half of range</span>
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Guess in lower half</span>
+         Find(low, mid); <span style="color:#696969; ">// Recursive call</span>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>               <span style="color:#696969; ">// Guess in upper half</span>
+         Find<span style="color:#808030; ">(</span>mid <span style="color:#808030; ">+</span> <span style="color:#008c00; ">1</span><span style="color:#808030; ">,</span> high<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>     <span style="color:#696969; ">// Recursive call</span>
+      <span style="color:#800080; ">}</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">return</span>;
+<span style="color:#800080; ">}</span>
+
+<span style="color:#800000; font-weight:bold; ">int</span> <span style="color:#400000; ">main</span><span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Choose a number from 0 to 100.</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Answer with:</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   l (your num is lower)</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   h (your num is higher)</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   any other key (guess is right).</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+
+   Find(0, 100);
+
+   <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#008c00; ">0</span><span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="c_progCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#004a43; ">#include </span><span style="color:#800000; ">&lt;</span><span style="color:#40015a; ">stdio.h</span><span style="color:#800000; ">&gt;</span>
+
+<span style="color:#800000; font-weight:bold; ">void</span> Find<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> low<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> high<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">int</span> mid<span style="color:#800080; ">;</span> <span style="color:#696969; ">// Midpoint of low..high</span>
+   <span style="color:#800000; font-weight:bold; ">char</span> answer<span style="color:#800080; ">;</span>
+
+   mid <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>high <span style="color:#808030; ">+</span> low<span style="color:#808030; ">)</span> <span style="color:#808030; ">/</span> <span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Is it </span><span style="color:#0f69ff; ">%d</span><span style="color:#0000e6; ">? (l/h/y): </span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> mid<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">scanf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; "> </span><span style="color:#0f69ff; ">%c</span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> <span style="color:#808030; ">&amp;</span>answer<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span>
+      <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+      <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Thank you!</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>  <span style="color:#696969; ">// Found number!</span>
+   <span style="color:#800080; ">}</span>
+   <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: Guess in</span>
+          <span style="color:#696969; ">// lower or upper half of range</span>
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>  <span style="color:#696969; ">// Guess in lower half</span>
+         Find<span style="color:#808030; ">(</span>low<span style="color:#808030; ">,</span> mid<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>    <span style="color:#696969; ">// Recursive call</span>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>                <span style="color:#696969; ">// Guess in upper half</span>
+         Find<span style="color:#808030; ">(</span>mid <span style="color:#808030; ">+</span><span style="color:#008c00; "> 1</span><span style="color:#808030; ">,</span> high<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">// Recursive call</span>
+      <span style="color:#800080; ">}</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">return</span><span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span>
+
+<span style="color:#800000; font-weight:bold; ">int</span> <span style="color:#400000; ">main</span><span style="color:#808030; ">(<span style="color:#800000; font-weight:bold; ">void</span>)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Choose a number from 0 to 100.</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Answer with:</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   l (your num is lower)</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   h (your num is higher)</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   any other key (guess is right).</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   Find(0, 100);
+
+   <span style="color:#800000; font-weight:bold; ">return</span> <span style="color:#008c00; ">0</span><span style="color:#800080; ">;</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="java_progCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#800000; font-weight:bold; ">import</span><span style="color:#004a43; "> java</span><span style="color:#808030; ">.</span><span style="color:#004a43; ">util</span><span style="color:#808030; ">.</span><span style="color:#004a43; ">Scanner</span><span style="color:#800080; ">;</span>
+
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">class</span> NumberGuessGame <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> guessNumber<span style="color:#808030; ">(</span><span style="color:#bb7977; ">int</span> lowVal<span style="color:#808030; ">,</span> <span style="color:#bb7977; ">int</span> highVal<span style="color:#808030; ">,</span> Scanner scnr<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      <span style="color:#bb7977; ">int</span> midVal<span style="color:#800080; ">;</span> <span style="color:#696969; ">           // Midpoint of low..high</span>
+      <span style="color:#bb7977; ">char</span> userAnswer<span style="color:#800080; ">;</span> <span style="color:#696969; ">      // User response</span>
+
+      midVal <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>highVal <span style="color:#808030; ">+</span> lowVal<span style="color:#808030; ">) <span style="color:#808030; ">/</span> </span><span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>print<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Is it "</span> <span style="color:#808030; ">+</span> midVal <span style="color:#808030; ">+</span> <span style="color:#0000e6; ">"? (l/h/y): "</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      userAnswer <span style="color:#808030; ">=</span> scnr<span style="color:#808030; ">.</span>next<span style="color:#808030; ">().</span>charAt<span style="color:#808030; ">(</span><span style="color:#008c00; ">0</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span> <span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+         <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Thank you!"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>              <span style="color:#696969; ">// Found number</span>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: split into lower OR upper half</span>
+         <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>                   <span style="color:#696969; ">// Guess in lower half</span>
+            guessNumber<span style="color:#808030; ">(</span>lowVal<span style="color:#808030; ">,</span> midVal<span style="color:#808030; ">,</span> scnr<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>      <span style="color:#696969; ">// Recursive call</span>
+         <span style="color:#800080; ">}</span>
+         <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>                                     <span style="color:#696969; ">// Guess in upper half</span>
+            guessNumber<span style="color:#808030; ">(</span>midVal<span style="color:#808030; "> + </span><span style="color:#008c00; ">1</span><span style="color:#808030; ">,</span> highVal<span style="color:#808030; ">,</span> scnr<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span> <span style="color:#696969; ">// Recursive call</span>
+         <span style="color:#800080; ">}</span>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">return</span><span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+
+   <span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main <span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#808030; ">[]</span> args<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+      Scanner scnr <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">new</span> Scanner<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>in<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Choose a number from 0 to 100."</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Answer with:"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   l (your num is lower)"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   h (your num is higher)"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   any other key (guess is right)."</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+      guessNumber<span style="color:#808030; ">(</span><span style="color:#008c00; ">0</span><span style="color:#808030; ">,</span> <span style="color:#008c00; ">100</span><span style="color:#808030; ">,</span> scnr<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+      <span style="color:#800000; font-weight:bold; ">return</span><span style="color:#800080; ">;</span>
+   <span style="color:#800080; ">}</span>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="cpp_mainCode_{{id}}" style="display: none;">
+    <pre style="line-height: 12px; font-family: Courier;"><span style="color:#800000; font-weight:bold; ">int</span> <span style="color:#400000; ">main</span><span style="color:#808030; ">()</span> <span style="color:#800080; ">{</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Choose a number from 0 to 100.</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Answer with:</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   l (your num is lower)</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   h (your num is higher)</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">   any other key (guess is right).</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>
+
+   <button class="recTrace_code1 button">Find(0, 100);</button>
+
+   <button class="recTrace_code2 button">return 0;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="c_mainCode_{{id}}" style="display: none;">
+    <pre style="line-height: 12px; font-family: Courier;"><span style="color:#800000; font-weight:bold; ">int</span> <span style="color:#400000; ">main</span><span style="color:#808030; ">(<span style="color:#800000; font-weight:bold; ">void</span>)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Choose a number from 0 to 100.</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Answer with:</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   l (your num is lower)</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   h (your num is higher)</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">   any other key (guess is right).</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   <button class="recTrace_code1 button">Find(0, 100);</button>
+
+   <button class="recTrace_code2 button">return 0;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="java_mainCode_{{id}}" style="display: none;">
+    <pre style="line-height: 12px; font-family: Courier;"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main <span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#808030; ">[]</span> args<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   Scanner scnr <span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">new</span> Scanner<span style="color:#808030; ">(</span><span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>in<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Choose a number from 0 to 100."</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Answer with:"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   l (your num is lower)"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   h (your num is higher)"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"   any other key (guess is right)."</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   <button class="recTrace_code1 button">guessNumber(0, 100, scnr);</button>
+
+   <button class="recTrace_code2 button">return;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="cpp_recCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#696969; background: yellow;">// mid = <span class="midValue"></span></span>
+<span style="color:#800000; font-weight:bold; ">void</span> Find<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> low<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> high<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">int</span> mid<span style="color:#800080; ">;</span> <span style="color:#696969; ">// Midpoint of low..high</span>
+   <span style="color:#800000; font-weight:bold; ">char</span> answer<span style="color:#800080; ">;</span>
+
+   mid <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>high <span style="color:#808030; ">+</span> low<span style="color:#808030; ">)</span> <span style="color:#808030; ">/</span> <span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Is it </span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> mid <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">? (l/h/y): </span><span style="color:#800000; ">"</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">cin</span> <span style="color:#808030; ">&gt;&gt;</span> answer<span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span>
+      <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+      <span style="color:#603000; ">cout</span> <span style="color:#808030; ">&lt;&lt;</span> <span style="color:#800000; ">"</span><span style="color:#0000e6; ">Thank you!</span><span style="color:#800000; ">"</span> <span style="color:#808030; ">&lt;&lt;</span> endl<span style="color:#800080; ">;</span>  <span style="color:#696969; ">// Found number!</span>
+   <span style="color:#800080; ">}</span>
+   <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: Guess in </span>
+          <span style="color:#696969; ">// lower or upper half of range</span>
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Guess in lower half</span>
+         <button class="recTrace_code1 button">Find(low, mid); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>               <span style="color:#696969; ">// Guess in upper half</span>
+         <button class="recTrace_code2 button">Find(mid + 1, high); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+   <span style="color:#800080; ">}</span>
+
+   <button class="recTrace_code3 button">return;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="c_recCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#696969; background: yellow;">// mid = <span class="midValue"></span></span>
+<span style="color:#800000; font-weight:bold; ">void</span> Find<span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">int</span> low<span style="color:#808030; ">,</span> <span style="color:#800000; font-weight:bold; ">int</span> high<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#800000; font-weight:bold; ">int</span> mid<span style="color:#800080; ">;</span> <span style="color:#696969; ">// Midpoint of low..high</span>
+   <span style="color:#800000; font-weight:bold; ">char</span> answer<span style="color:#800080; ">;</span>
+
+   mid <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>high <span style="color:#808030; ">+</span> low<span style="color:#808030; ">)</span> <span style="color:#808030; ">/</span> <span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Is it </span><span style="color:#0f69ff; ">%d</span><span style="color:#0000e6; ">? (l/h/y): </span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> mid<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   <span style="color:#603000; ">scanf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; "> </span><span style="color:#0f69ff; ">%c</span><span style="color:#800000; ">"</span><span style="color:#808030; ">,</span> <span style="color:#808030; ">&amp;</span>answer<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span>
+      <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+      <span style="color:#603000; ">printf</span><span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Thank you!</span><span style="color:#0f69ff; ">\n</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>  <span style="color:#696969; ">// Found number!</span>
+   <span style="color:#800080; ">}</span>
+   <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: Guess in </span>
+          <span style="color:#696969; ">// lower or upper half of range</span>
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>answer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Guess in lower half</span>
+         <button class="recTrace_code1 button">Find(low, mid); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>               <span style="color:#696969; ">// Guess in upper half</span>
+         <button class="recTrace_code2 button">Find(mid + 1, high); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+   <span style="color:#800080; ">}</span>
+
+   <button class="recTrace_code3 button">return;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>
+
+<div id="java_recCode_{{id}}" style="display: none;"><pre style="line-height: 12px; font-family: Courier;"><span style="color:#696969; background: yellow;">// midVal = <span class="midValue"></span></span>
+<span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> guessNumber<span style="color:#808030; ">(</span><span style="color:#bb7977; ">int</span> lowVal<span style="color:#808030; ">,</span> <span style="color:#bb7977; ">int</span> highVal<span style="color:#808030; ">,</span> Scanner scnr<span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span>
+   <span style="color:#bb7977; ">int</span> midVal<span style="color:#800080; ">;</span>            <span style="color:#696969; ">// Midpoint of low..high</span>
+   <span style="color:#bb7977; ">char</span> userAnswer<span style="color:#800080; ">;</span> <span style="color:#696969; ">      // User response</span>
+
+   midVal <span style="color:#808030; ">=</span> <span style="color:#808030; ">(</span>highVal <span style="color:#808030; ">+</span> lowVal<span style="color:#808030; ">)</span> <span style="color:#808030; ">/</span> <span style="color:#008c00; ">2</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>print<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Is it "</span> <span style="color:#808030; ">+</span> midVal <span style="color:#808030; ">+</span> <span style="color:#0000e6; ">"? (l/h/y): "</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+   userAnswer <span style="color:#808030; ">=</span> scnr<span style="color:#808030; ">.</span>next<span style="color:#808030; ">().</span>charAt<span style="color:#808030; ">(</span><span style="color:#008c00; ">0</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>
+
+   <span style="color:#800000; font-weight:bold; ">if</span><span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#808030; ">&amp;&amp;</span> <span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">!=</span> <span style="color:#0000e6; ">'h'</span><span style="color:#808030; ">)</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Base case:</span>
+      <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#808030; ">.</span>out<span style="color:#808030; ">.</span>println<span style="color:#808030; ">(</span><span style="color:#0000e6; ">"Thank you!"</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span>             <span style="color:#696969; ">// Found number</span>
+   <span style="color:#800080; ">}</span>
+   <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Recursive case: split into lower OR upper half</span>
+      <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>userAnswer <span style="color:#808030; ">==</span> <span style="color:#0000e6; ">'l'</span><span style="color:#808030; ">)</span> <span style="color:#800080; ">{</span> <span style="color:#696969; ">// Guess in lower half</span>
+         <button class="recTrace_code1 button">guessNumber(lowVal, midVal, scnr); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+      <span style="color:#800000; font-weight:bold; ">else</span> <span style="color:#800080; ">{</span>                   <span style="color:#696969; ">// Guess in upper half</span>
+         <button class="recTrace_code2 button">guessNumber(midVal + 1, highVal, scnr); // Recursive call</button>
+      <span style="color:#800080; ">}</span>
+   <span style="color:#800080; ">}</span>
+
+   <button class="recTrace_code3 button">return;</button>
+<span style="color:#800080; ">}</span>
+</pre>
+</div>

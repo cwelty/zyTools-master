@@ -1,0 +1,52 @@
+<div class='button-menu'>
+    <div class='menu-container'>
+        <ul id='mode_{{id}}' class='menu-list'>
+            <li><a class='menu-item'>PID control</a></li>
+            <li><a class='menu-item'>Manual control</a></li>
+        </ul>
+    </div>
+    <button id='playButton_{{id}}' class='button'>Play</button>
+    <button id='pauseButton_{{id}}' class='button'>Pause</button>
+    <button id='resetButton_{{id}}' class='button reset-button'>Reset</button>
+    <div class='ball-slider-container'><div class='ball-slider-label'> Ball weight:</div><span id='ballWeightText_{{id}}'>0.03 grams</span><div id='ballWeight_{{id}}' class='ball-slider'/></div>                  
+    <div class='fan-slider-container'><div class='fan-slider-label'>Fan power:</div><span id='fanPowerText_{{id}}'>0.5</span><div id='fanPower_{{id}}' class='fan-slider'/></div>
+</div>
+<div class='middle-container'>
+    <div id='modelContainer_{{id}}' class='model-container'>
+        <div id='model_{{id}}'>
+            <img id='modelImg_{{id}}' src='{{modelSrc}}'></img>
+            <div id='pidInputContainer_{{id}}' class='pid-input-container'>
+                <form id='pidInputForm_{{id}}'>      
+                    <div>               
+                        <div id='pLabel_{{id}}' class='pid-label'>P</div>
+                        <input type='number' id='p_{{id}}' value='0.05' class='pid-input'>
+                    </div>
+                    <div>  
+                        <div id='iLabel_{{id}}' class='pid-label'>I</div>
+                        <input type='number' id='i_{{id}}' value='0.001' class='pid-input'>
+                    </div>
+                    <div>  
+                        <div id='dLabel_{{id}}' class='pid-label'>D</div>
+                        <input type='number' id='d_{{id}}' value='2.5' class='pid-input'>
+                    </div>
+                    <button id='up_{{id}}' class='button input-button up-button'>Up</button><br/><br/>
+                    <button id='down_{{id}}' class='button input-button down-button'>Down</button>
+                </form>
+            </div>
+            <div id='equationsContainer_{{id}}' class='equations-container'>
+                <p id='systemEquations_{{id}}'>F = MA<br />F<sub>ball</sub> = F<sub>fan</sub> + F<sub>g</sub><br />V<sub>ball</sub> = V<sub>ball</sub> + A<sub>ball</sub>*dt<br />P<sub>ball</sub> = P<sub>ball</sub> + V<sub>ball</sub>*dt</p>
+            </div>
+            <div id='desiredContainer_{{id}}' class='desired-container'>Desired <br/>
+                    <input type='number' id='desired_{{id}}' value='100' class='desired'/>
+            </div>
+            <p id='actuatorValue_{{id}}' class='actuator-value'>Actuator:</p>
+            <p id='actualValue_{{id}}' class='actual-value'>Actual:</p>
+        </div>
+    </div>
+</div>
+
+<div class='bottom-container'>
+    <div id='chartdiv_{{id}}' class='chart-div'/>
+    <canvas id='modelAnimation_{{id}}' width='100' height='300' class='model-animation'/>
+</div>
+

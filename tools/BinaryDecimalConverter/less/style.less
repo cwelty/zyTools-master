@@ -1,0 +1,52 @@
+@import "../../../zyWeb/less/constants.less";
+
+.BinaryDecimalConverter {
+    div.container {
+        margin-bottom: 25px;
+
+        p {
+            text-align: center;
+
+            &.title {
+                color: @zyante-dark-blue;
+                font-size: 18px;
+                padding-bottom: 10px;
+            }
+
+            &.label {
+                color: @zyante-gray;
+                font-size: 16px;
+            }
+
+            &.feedback {
+                color: @zyante-medium-red;
+                visibility: hidden;
+                font-size: 12px;
+                margin-top: 5px;
+            }
+        }
+    }
+
+    div.input-boxes {
+        display: flex;
+        font-size: 25px;
+
+        .arrows {
+            margin-top: 32px;
+        }
+
+        input {
+            font-size: 18px;
+            font-weight: bold;
+            height: 40px;
+            margin: 0px 10px;
+            padding: 0px;
+            text-align: right;
+            width: 80px;
+
+            &.binary-input {
+                width: 200px;
+            }
+        }
+    }
+}

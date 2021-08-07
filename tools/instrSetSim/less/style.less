@@ -1,0 +1,61 @@
+@import "../../../zyWeb/less/constants.less";
+
+@register-background-color: @zyante-lighter-orange;
+@highlight-color: lighten(@zyante-lighter-blue, 10%);
+
+.instrSetSim {
+    .execute-next {
+        width: 160px;
+    }
+    
+    .pre-execution-box {
+        background-color: @highlight-color;
+        height: 5px;
+        margin-top: 15px;
+    }
+    
+    start-reset-buttons-container {
+        margin-bottom: 10px;
+    }
+    
+    .register-block {
+        display: inline-block;
+        margin-left: 10px;
+        text-align: center;
+        
+        .register-address {
+            background-color: @register-background-color;
+            border-color: @zyante-accent-orange;
+            border-style: solid;
+            border-width: 2px;
+            
+            .register-input {
+                background-color: @register-background-color;
+                border-style: none;
+                margin: 0px;
+                text-align: center;
+                
+                &.highlighted-register {
+                    background-color: @highlight-color;
+                }
+            }
+            
+            .register-input:enabled {
+                background-color: white;
+            }
+        }
+        
+        .register-name {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    
+    .instr-block {
+        display: inline-block;
+    }
+    
+    .highlighted {
+        background-color: @highlight-color;
+    }
+}

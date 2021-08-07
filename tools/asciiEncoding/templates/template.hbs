@@ -1,0 +1,21 @@
+<table>
+    <tbody>
+        <tr>
+            {{#if isPython}}
+                {{#if isUnicode}}
+                    <td>Type a number (0-65535): <span class='add-margin'>unichar(</span><input id='asciiInput{{id}}' type='text' maxlength='5' size='5' value='9992' autocorrect='off' autocapitalize='off'>)</td>
+                    <td></td>
+                    <td class='output'>Unicode char:<input id='charOutput{{id}}' type='text' disabled='disabled' size='3' autocorrect='off' autocapitalize='off'></td>
+                {{else}}
+                    <td>Type a number (0-255): <span class='add-margin'>chr(</span><input id='asciiInput{{id}}' type='text' maxlength='3' size='3' value='66' autocorrect='off' autocapitalize='off'>)</td>
+                    <td></td>
+                    <td class='output'>Unicode char:<input id='charOutput{{id}}' type='text' disabled='disabled' size='3' autocorrect='off' autocapitalize='off'></td>
+                {{/if}}
+            {{else}}
+                <td>Type a number (0-255): <span class='add-margin'></span><input id='asciiInput{{id}}' type='text' maxlength='3' size='3' value='66' autocorrect='off' autocapitalize='off'></td>
+                <td></td>
+                <td class='output'>ASCII char:<input id='charOutput{{id}}' type='text' disabled='disabled' size='3' autocorrect='off' autocapitalize='off'></td>
+            {{/if}}
+        </tr>
+    </tbody>
+</table>

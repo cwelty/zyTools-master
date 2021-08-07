@@ -1,0 +1,93 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+.StatsGraphingCalculator {
+    font-size: 16px;
+    width: 640px;
+
+    .input-flex-container {
+        display: flex;
+    }
+
+    .user-input-container {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            font-size: 10px;
+            color: #757575; // 2.0 gray color for intermediate text color.
+            position: static;
+            top: auto;
+        }
+    }
+
+    .user-input {
+        height: 24px;
+        margin-right: 10px;
+        width: 90px;
+
+        &.long {
+            height: 28px;
+            width: 130px;
+        }
+
+        &#user-value {
+            margin-right: 0px;
+        }
+    }
+
+    p {
+        &.answer {
+            display: inline;
+            text-align: center;
+        }
+
+        &.between-case {
+            margin: 16px 10px 0 10px;
+        }
+
+        &.error {
+            color: #d32f2f; // 2.0 error color.
+        }
+    }
+
+    select {
+        font-size: 16px;
+        position: relative;
+        top: 11px;
+    }
+
+    div {
+
+        &.button-and-answer {
+            height: 42px;
+            margin-top: 15px;
+        }
+
+        &.build-button {
+            display: inline-grid;
+            width: 150px;
+        }
+
+        &.answer {
+            display: inline-grid;
+            text-align: center;
+            width: 320px;
+        }
+    }
+
+    button#build-graph {
+        height: auto;
+        width: 150px;
+    }
+
+    .between-case {
+        display: inline;
+    }
+
+    .graph-container {
+        height: 400px;
+        margin-top: 10px;
+        width: 640px;
+    }
+}

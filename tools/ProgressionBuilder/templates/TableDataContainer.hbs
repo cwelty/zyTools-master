@@ -1,0 +1,37 @@
+{{!
+    Print the table editor.
+    @param {Array<Array<Object>>} tableValuesToPrint 2D array of cells. Each cell has properties: value, rowIndex, columnIndex, and isDisabled.
+    @param {Boolean} isWidth Whether this table is for the widths data.
+}}
+{{#if isWidth}}
+    Only use when other objects in table.<br>
+    Setting a width will fix all widths (won't scale with content).<br>
+    Blanks get same widths.
+{{/if}}
+<table>
+    {{#each tableValuesToPrint}}
+        <tr>
+        {{#each this}}
+            <td {{#if ../../isWidth}}class='width-input-table'{{/if}}>
+                <div>
+                    <input id='cell-{{rowIndex}}x{{columnIndex}}'
+                           class='table-cell'
+                           placeholder='{{#unless ../../isWidth}}Insert value{{/unless}}'
+                           value='{{value}}'
+                           autocomplete='off'
+                           {{#if ../../isWidth}}
+                               type='number'
+                               min=0
+                               max=100
+                               {{#if ../../isWidth}}
+                                   placeholder='8'
+                               {{/if}}
+                           {{/if}}
+                           {{#if isDisabled}}disabled{{/if}}>
+                    {{#if ../../isWidth}}<span>%</span>{{/if}}
+                </div>
+            </td>
+        {{/each}}
+        </tr>
+    {{/each}}
+</table>

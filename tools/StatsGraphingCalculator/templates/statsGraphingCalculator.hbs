@@ -1,0 +1,56 @@
+{{!
+    Render the input boxes, buttons and a div for the graphs.
+    @param {String} id Unique identifier assigned to this module.
+    @param {String} calculate Indicates if the calculation is z-score to probability or viceversa. Possible values: 'ztop', 'ptoz'
+}}
+<div id='graphing-tool-{{id}}'>
+    <div class='input-flex-container'>
+        <div class='user-input-container zb-input-container'>
+            <label for='mean'>Mean:</label>
+            <input id='mean' class='zb-input user-input' placeholder='Ex: 0.6' type='number' step='0.1'>
+        </div>
+        <div class='user-input-container zb-input-container'>
+            <label for='std'>Standard deviation:</label>
+            <input id='std' class='zb-input user-input' placeholder='Ex: 0.1' type='number' step='0.1' min='0'>
+        </div>
+            <select id='case' class='ember-power-select-trigger ember-basic-dropdown-trigger ember-basic-dropdown-trigger--in-place user-input long'>
+                <option value='less-than'>Less than</option>
+                {{#ifCond calculate '===' 'ptoz'}}
+                    <option value='between'>Centered</option>
+                {{else}}
+                    <option value='between'>Between</option>
+                {{/ifCond}}
+                <option value='greater-than'>Greater than</option>
+            </select>
+        <div class='user-input-container zb-input-container'>
+            <label id='user-value-label' for='user-value'>
+                {{#ifCond calculate '===' 'ptoz'}}
+                    Probability:
+                {{else}}
+                    X:
+                {{/ifCond}}
+            </label>
+            <input id='user-value' class='zb-input user-input' placeholder='Ex: 0.5' type='number' step='0.1'{{#ifCond calculate '===' 'ptoz'}} min='0' max='1'{{/ifCond}}>
+        </div>
+        <div class='user-input-container zb-input-container'>
+            <p class='between-case'>and</p>
+        </div>
+        <div class='user-input-container zb-input-container'>
+            <label for='user-value-2' class='between-case'>X²:</label>
+            <input id='user-value-2' class='zb-input user-input between-case' placeholder='Ex: 0.8' type='number' step='0.1'>
+        </div>
+    </div>
+
+    <div class='button-and-answer'>
+        <div class='build-button'>
+            <button id='build-graph' class='button zb-button primary raised'>
+                <span class='title'>Build graph</span>
+            </button>
+        </div>
+        <div class='answer'>
+            <p class='answer'></p>
+        </div>
+    </div>
+
+    <div id='graph-container-{{id}}' class='graph-container'>Enter each input above, then press Build graph.</div>
+</div>

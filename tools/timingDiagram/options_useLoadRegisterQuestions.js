@@ -1,0 +1,4 @@
+{
+    useLoadRegisterQuestions: true,
+    useMultipleParts: true
+}

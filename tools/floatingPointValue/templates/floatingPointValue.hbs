@@ -1,0 +1,79 @@
+Enter a decimal value:<input type='text' id='floating-point-decimal-value{{id}}' class='decimal-value-input' maxlength='45'/>
+
+<button class='button convert-to-float'>Convert</button>
+<span id='floating-point-message{{id}}' class='floating-point-value-message'></span>
+<div class='floating-point-container'>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    Sign
+                </th>
+                <th>
+                    Exponent
+                </th>
+                <th>
+                    {{#if useSignificand}}
+                        Significand
+                    {{else}}
+                        Mantissa
+                    {{/if}}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <div id='floating-point-value-sign{{id}}'>
+                        <div class='floating-point-bit floating-point-sign-bit'>0</div>
+                    </div>
+                    {{#if showBitNumbers}}
+                        <div>
+                            <div class='floating-point-bit-number'>31</div>
+                        </div>
+                    {{/if}}
+                </td>
+                <td>
+                    <div id='floating-point-value-exponent{{id}}' class='floating-point-value-exponent'>
+                        {{#range exponentBitSize}}
+                            <div class='floating-point-bit'>0</div>
+                        {{/range}}
+                    </div>
+                    {{#if showBitNumbers}}
+                        <div>
+                            {{#each exponentBitNumbers}}
+                                <div class='floating-point-bit-number'>{{this}}</div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </td>
+                <td>
+                    <div id='floating-point-value-mantissa{{id}}' class='floating-point-value-mantissa'>
+                        <div class='leading-mantissa'>1.</div>
+                        {{#range mantissaBitSize}}
+                            <div class='floating-point-bit'>0</div>
+                        {{/range}}
+                    </div>
+                    {{#if showBitNumbers}}
+                        <div>
+                            <div class='leading-mantissa-buffer'></div>
+                            {{#each mantissaBitNumbers}}
+                                <div class='floating-point-bit-number'>{{this}}</div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr id='calculated-floating-point-value{{id}}' class='calculated-floating-point'>
+                <td>
+                    <span id='raw-sign{{id}}'></span>1
+                </td>
+                <td>
+                    2<sup>(<span id='raw-exponent{{id}}'></span> - 127)</sup> = 2<sup><span id='calculated-exponent{{id}}'></span></sup>
+                </td>
+                <td>
+                    <span id='raw-mantissa{{id}}'></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span id='rounded-floating-point-value{{id}}' class='floating-point-value-message'></span>
+</div>

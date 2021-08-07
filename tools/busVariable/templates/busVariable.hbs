@@ -1,0 +1,36 @@
+{{!
+    Render a bus variable question.
+    @param {String} id The unique id of this tool instance.
+    @param {Boolean} showMemory Whether to show the memory structure.
+    @param {Boolean} useVariables Use the word "Variables" if true. Otherwise, use "Memory".
+}}
+<div id="instructions_{{id}}" class="instructions code"></div>
+{{#if showMemory}}
+    <table class="memory-block">
+        <tr>
+            <td>{{#if useVariables}}Variables{{else}}Memory{{/if}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="memory-address">??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="memory-address"><input id="numPeople_{{id}}" class="num-people-input" type="text" maxlength="2" size="10" value=""></td>
+            <td>numPeople</td>
+        </tr>
+        <tr>
+            <td class="memory-address">??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="memory-address">??</td>
+            <td></td>
+        </tr>
+    </table>
+{{else}}
+    <div class="answer-container">
+        <div class="num-people-div-python">num_people:</div>
+        <input id="numPeople_{{id}}" maxlength="2" size="10" value="" class="num-people-input-python" />
+    </div>
+{{/if}}

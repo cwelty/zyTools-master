@@ -1,0 +1,31 @@
+{{!
+    Render the editing area for a dropdown element.
+    @param {String} defaultOption The default option of the dropdown.
+    @param {String} correctOption The correct option of the dropdown.
+    @param {Boolean} isUsingList Whether the incorrect options are defined in a Python list.
+    @param {String} incorrectList The name of the Python list that defines the incorrect options.
+}}
+<div class='dropdown-modal'>
+    <div class='zb-input-container label-present info default-option-container {{#if defaultOption}}value-present{{/if}}'>
+        <label for='default-option'>Default option</label>
+        <input id='default-option' type='text' class='default-option' value='{{defaultOption}}'>
+        <button class='clear-icon zb-button icon-button left {{#unless defaultOption}}hide-button{{/unless}}' tabindex='-1'>
+            <i aria-hidden='false' class='button-icon material-icons zb-icon grey med'>clear</i>
+        </button>
+    </div>
+
+    <div class='zb-input-container label-present info correct-option-container {{#if correctOption}}value-present{{/if}}'>
+        <label for='correct-option'>Correct option</label>
+        <input id='correct-option' type='text' class='correct-option' value='{{correctOption}}'>
+        <button class='clear-icon zb-button icon-button left {{#unless correctOption}}hide-button{{/unless}}' tabindex='-1'>
+            <i aria-hidden='false' class='button-icon material-icons zb-icon grey med'>clear</i>
+        </button>
+    </div>
+
+    <div class='incorrect-option-title'>Incorrect options:</div>
+    <input id='use-list' type='checkbox' {{#if isUsingList}}checked{{/if}}>
+    <label for='use-list'>Use a one-dimensional Python list variable.</label>
+    <div class='incorrect-list-name-container zb-input-container info value-present'>
+        <input id='incorrect-list-name' type='text' placeholder='Ex: ${incorrect_options}' value='{{incorrectList}}'>
+    </div>
+</div>

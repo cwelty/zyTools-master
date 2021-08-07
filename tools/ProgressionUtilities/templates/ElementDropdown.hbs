@@ -1,0 +1,12 @@
+{{!
+    Print a dropdown with options.
+    @param {ElementDropdown} element The dropdown to print.
+    @param {String} style HTML of inline styles.
+}}
+<div class='element{{#if element.isSelected}} selected{{/if}} dropdown' {{{style}}}>
+    <select>
+        {{#each element.options}}
+            <option value='{{text}}'{{#if isSelected}} selected{{/if}}{{#if isInvalidOption}} disabled{{/if}}>{{text}}</option>
+        {{/each}}
+    </select>
+</div>

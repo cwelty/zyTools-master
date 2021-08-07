@@ -1,0 +1,59 @@
+@import "../../../zyWeb/less/constants.less";
+
+.database {
+    div.tool-container {
+        text-align: center;
+        width:      460px;
+
+        p.instructions {
+            color:      @zyante-dark-blue;
+            font-size:  20px;
+            text-align: center;
+        }
+
+        div.database-container {
+            margin-bottom: 30px;
+            margin-left:   15px;
+
+            tr {
+                &.highlight-cell {
+                    background-color: rgb(255, 241, 191); /* highlighting color used in the section with this tool */
+                }
+
+                &.strikethrough {
+                    text-decoration: line-through;
+                }
+            }
+        }
+
+        div.forms {
+            font-size:     16px;
+            margin-bottom: 30px;
+
+            div.insert-form {
+                display: inline-block;
+            }
+
+            div.label-and-input {
+                display:    inline-block;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 70px;
+            }
+        }
+    }
+
+    div.zyante-progression-explanation-area {
+        table.selected-records {
+            tr {
+                text-align: center;
+
+                td {
+                    width: 50px;
+                }
+            }
+        }
+    }
+}

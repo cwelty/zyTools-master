@@ -1,0 +1,202 @@
+@import "../../../zyWeb/less/constants.less";
+@import "../../../zyWeb/less/utilities.less";
+
+@number-of-bars:         3;
+@number-of-y-axis-ticks: 6;
+
+.DrawBarChart {
+    width: 415px;
+
+    div.instructions {
+        color:         @zyante-dark-blue;
+        font-size:     20px;
+        margin-bottom: 20px;
+        text-align:    center;
+    }
+
+    div.barChart {
+        .unselectable;
+
+        height:   300px;
+        left:     80px;
+        position: relative;
+        top:      -125px;
+
+        div.x-axis {
+            border:   1px solid @zyante-gray;
+            left:     0;
+            position: absolute;
+            top:      404px;
+            width:    245px;
+        }
+
+        @bar-side:         50px;
+        @bar-border-width: 2px;
+        @bar-border:       @bar-border-width solid @zyante-dark-blue;
+        @dot-side: @bar-side - (2 * @bar-border-width);
+        div.bar {
+            background-color: @zyante-lighter-blue;
+            border-left:      @bar-border;
+            border-right:     @bar-border;
+            border-top:       @bar-border;
+            position:         absolute;
+            width:            @bar-side;
+
+            &.use-dots {
+                background-color: transparent;
+                border-color:     transparent;
+            }
+
+            &.gray-out {
+                &:not(.use-dots) {
+                    background-color: @zyante-light-gray;
+                }
+
+                div.dot {
+                    background-color: @zyante-light-gray;
+                }
+            }
+
+            &.expected-answer {
+                display: none;
+            }
+
+            div.dot {
+                background-color: @zyante-lighter-blue;
+                border-radius:    @dot-side;
+                height:           @dot-side;
+                width:            @dot-side;
+            }
+        }
+
+        div.dot {
+            border: @bar-border;
+        }
+
+        div.bar-gripper {
+            background-color: lighten(@zyante-light-gray, 10%);
+            cursor:           pointer;
+            height:           25px;
+            position:         absolute;
+            width:            25px;
+
+            div.gripper {
+                left: 5px;
+                position: absolute;
+                top:      8px;
+
+                div.gripper-line {
+                    background-color: @zyante-dark-blue;
+                }
+            }
+        }
+
+        div.bar-label, div.expected-bar-label, div.x-axis-label {
+            cursor:     default;
+            position:   absolute;
+            text-align: center;
+            width:      @bar-side + (2 * @bar-border-width);
+        }
+
+        div.x-axis-label {
+            top: 405px;
+        }
+
+        div.expected-bar-label {
+            font-size: 20px;
+
+            &.correct {
+                color: @zyante-green;
+            }
+
+            &.wrong {
+                color: @zyante-medium-red;
+            }
+        }
+
+        @expected-bar-left: 10px;
+        @expected-bar-side: @bar-side - (2 * @expected-bar-left);
+        div.expected-bar {
+            border:   @bar-border;
+            position: absolute;
+            width:    @expected-bar-side;
+
+            .expected-bar-background-color-and-border(@color) {
+                border-color: transparent;
+
+                &:not(.use-dots) {
+                    background-color: lighten(@color, 20%);
+                    border-color:     @color;
+                }
+
+                div.dot {
+                    background-color: lighten(@color, 20%);
+                    border-color:     @color;
+                }
+            }
+
+            &.correct {
+                .expected-bar-background-color-and-border(@zyante-green);
+            }
+
+            &.wrong {
+                .expected-bar-background-color-and-border(@zyante-medium-red);
+                opacity: 0.7;
+            }
+
+            @expected-dot-side: @expected-bar-side - (2 * @bar-border-width);
+            @dot-side-difference: @dot-side - @expected-dot-side;
+            div.dot {
+                border-radius:    @expected-dot-side;
+                height:           @expected-dot-side;
+                margin-bottom:    @dot-side-difference;
+                width:            @expected-dot-side;
+
+                &:first-of-type {
+                    margin-top: (@dot-side-difference / 2);
+                }
+            }
+        }
+
+        @space-between-bars: 25px;
+        .bar-left(@value, @offset: 0) {
+            left: 20 + (@value * (@bar-side + @space-between-bars)) + @offset;
+        }
+
+        .bar-loop(@index) when (@index >= 0) {
+            .bar-loop((@index - 1));
+
+            div.bar-@{index}, div.bar-label-@{index}, div.expected-bar-label-@{index}, div.x-axis-label-@{index} {
+                .bar-left(@index);
+            }
+
+            div.expected-bar-@{index} {
+                .bar-left(@index, @expected-bar-left);
+            }
+
+            div.bar-gripper-@{index} {
+                .bar-left(@index, 14);
+            }
+        }
+        .bar-loop(@number-of-bars - 1);
+
+        div.y-axis-ticks {
+            cursor:     default;
+            font-size:  18px;
+            left:       -65px;
+            position:   absolute;
+            text-align: right;
+            width:      60px;
+        }
+
+        @max-y-axis-tick-top-value: 395px;
+        .y-axis-ticks-loop(@index) when (@index >= 0) {
+            .y-axis-ticks-loop((@index - 1));
+
+            div.y-axis-ticks-@{index} {
+                top: @max-y-axis-tick-top-value - (@index * 50);
+            }
+        }
+        .y-axis-ticks-loop(@number-of-y-axis-ticks - 1);
+    }
+}

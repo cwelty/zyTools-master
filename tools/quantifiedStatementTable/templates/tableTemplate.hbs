@@ -1,0 +1,25 @@
+<table>
+    <tr>
+        <td></td>
+        <th>Names</th>
+        {{#each predicates}}
+            <th>{{this}}</th>
+        {{/each}}
+        <td></td>
+    </tr>
+    
+    {{#each instances}}
+        <tr>
+            <td>
+                <span class='x-mark'>&#x2716;</span>
+                <img class='checkmark' src='{{../checkmarkURL}}'></img>
+                <span class='pointer-arrow'>&rarr;</span>
+            </td>
+            <td>{{this.name}}</td>
+            {{#each this.values}}
+                <td>{{this}}</td>
+            {{/each}}
+            <td></td>
+        </tr>
+    {{/each}}
+</table>

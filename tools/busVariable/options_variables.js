@@ -1,0 +1,4 @@
+{
+    useVariables: true,
+    showmemory: true,
+}

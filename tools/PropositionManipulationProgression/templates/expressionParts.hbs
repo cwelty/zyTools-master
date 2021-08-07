@@ -1,0 +1,5 @@
+{{!
+    Render the expression parts.
+    @param {Array} parts Array of {ExpressionPart}. The expression parts to render.
+}}
+{{#each parts}}<span class='{{#with symbol}}{{#each marks}} mark-{{this}}{{/each}}{{/with}}'>{{{output}}}</span>{{/each}}

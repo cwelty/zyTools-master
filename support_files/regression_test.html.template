@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta http-equiv='X-UA-Compatible' content='IE=11'>
+        <title>zyTool regression test</title>
+        <meta name='description' content=''>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='icon' href='../assets/favicon.ico'>
+        <link rel='stylesheet' type='text/css' href='../css/application.css'>
+        <link href='https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i' rel='stylesheet' crossorigin='anonymous'>
+        <script type='text/javascript' src='https://mathjax.zybooks.com/2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML' id='mathjax'></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css'>
+        <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+        <script type='text/javascript' src='https://learn.zybooks.com/assets/ace/ace.js'></script>
+        <script type='text/javascript' src='../vendor/require.js'></script>
+        <script type='text/javascript' src='../vendor/common.js'></script>
+        <script type='text/javascript' src='../vendor/core.min.js'></script>
+        <script type='text/javascript' src='../vendor/md5.min.js'></script>
+        <script type='text/javascript' src='../vendor/handlebars.runtime.js'></script>
+        <script type='text/javascript' src='../vendor/rsvp.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebEventManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebResourceManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebErrorManager.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebUtilities.js'></script>
+        <script type='text/javascript' src='../vendor/zyWebParentResource.js'></script>
+        <script type='text/javascript' src='../vendor/skulpt.min.js'></script>
+        <script type='text/javascript' src='../vendor/skulpt-stdlib.js'></script>
+        <script type='text/javascript' src='../vendor/qUnit/qunit-1.20.0.min.js'></script>
+        <script type='text/javascript' src='../vendor/qUnit/unitTestUtilities.js'></script>
+        <link rel='stylesheet' type='text/css' href='../vendor/qUnit/qunit-1.20.0.min.css'>
+
+        <script>
+            Ember = {};
+            Ember.RSVP = RSVP;
+
+            var parentResource = require('zyWebParentResource');
+            var resourceManager = require('zyWebResourceManager');
+
+            resourceManager.downloadResourcesFromLive = true;
+            resourceManager.localTools = TOOLS_CHANGED;
+            resourceManager.localVendors = VENDORS_CHANGED;
+        </script>
+    </head>
+    <body>
+        <header class='top-toolbar'>
+            <div class='left-buttons'>
+                <div class='zb-breadcrumbs'>
+                    <button class='menu-button zb-button grey icon-button left'>
+                        <i aria-hidden='false' class='zb-icon grey material-icons med'>menu</i>
+                    </button>
+                    <div class='logo'>
+                        <img width='83px' height='22px' src='../assets/logo.svg'>
+                    </div>
+                    <ul class='bread-crumbs'>
+                        zyTool regression test
+                    </ul>
+                </div>
+            </div>
+            <div class='right-buttons'>
+                <p class='sign-in-message zb-message-container' style='padding: 8px;'>Sign in to run code
+                    <button class='sign-in-button zb-button'>Sign in</button>
+                </p>
+            </div>
+        </header>
+        <div class='route-container zybook-chapter-section-page no-margin-left'>
+            <nav class='zb-nav-menu'></nav>
+            <section class='section-container'>
+                <nav class='section-nav'></nav>
+
+                <div>
+                    <article class='zybook-section zb-card'>
+                        <div class='zb-card-content'>
+                            <div class='section-header-row'>
+                                <h1 class='zybook-section-title'>Regression test</h1>
+                            </div>
+
+                            <div class='content-resource html-resource html-content-resource'>
+                                <script>
+                                    var numberOfCrashedTools = 0;
+
+                                    /**
+                                        Handle an instance of a tool crashing.
+                                        @method toolCrashed
+                                        @param {String} identifier The identifier for the container of the crashed instance.
+                                        @return {void}
+                                    */
+                                    function toolCrashed(identifier) {
+                                        $('#' + identifier).css('background-color', 'red');
+                                        $('#number-of-crashed-instances').text(++numberOfCrashedTools);
+                                        $('#tool-crash-banner').show();
+                                    }
+                                </script>
+                                <style>
+                                    #tool-crash-banner {
+                                        animation: blinker 1s linear infinite;
+                                        background-color: red;
+                                        color: white;
+                                        display: none;
+                                        font-size: 50px;
+                                        margin-bottom: 30px;
+                                        text-align: center;
+                                    }
+
+                                    @keyframes blinker {
+                                        50% {
+                                            opacity: 0;
+                                        }
+                                    }
+                                </style>
+                                <div id='tool-crash-banner'>FAIL: <span id='number-of-crashed-instances'></span> tool instances crashed.</div>
+                                <h3>Regression test info</h3>
+                                <ul>
+                                    <li>Regression test created: DATE_TIME_CREATED</li>
+                                    <li>Changed tools: TOOLS_CHANGED</li>
+                                    <li>Changed vendor files: VENDORS_CHANGED</li>
+                                    <li>Tools being tested: TOOLS_TESTED</li>
+                                    <li>Branch name: BRANCH_NAME (staged changes? HAS_STAGED_COMMITS)</li>
+                                    <li>Commit hash: COMMIT_HASH</li>
+                                </ul>
+                            </div>
+
+                            TOOLS_HTML
+
+                            <div class='content-resource html-resource html-content-resource'>
+                                <h3>Simulation controls</h3>
+                                <div id='zyweb-simulation' style='padding-bottom: 8px'>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='isStudent' value='true' checked='checked'> Is student</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='needsAccessible' value='true' checked='checked'> Needs accessible</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <label><input type='checkbox' name='needsAccessibleAndInteractive' value='true' checked='checked'>Needs accessible and interactive</label>
+                                        </div>
+                                    </div>
+                                    <div class='menu-item' style='border: 1px solid #ccc; border-color: #ccc; display: inline-block;'>
+                                        <div class='menu-button' style='margin: 4px'>
+                                            <div style='margin: 4px'>Activities completed:</div>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='1' checked='checked'> Level 1</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='2' checked='checked'> Level 2</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='3'> Level 3</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='4'> Level 4</label>
+                                            <div></div>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='5'> Level 5</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='6'> Level 6</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='7'> Level 7</label>
+                                            <label style='margin: 4px'><input type='checkbox' name='activityCompletion' value='8'> Level 8</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <script>
+            (function() {
+                $('button.menu-button').click(() => {
+                    $('div.zybook-chapter-section-page').toggleClass('no-margin-left');
+                });
+                $('div.right-buttons').hide();
+            })();
+        </script>
+    </body>
+</html>

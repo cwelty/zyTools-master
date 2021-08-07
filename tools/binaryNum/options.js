@@ -1,0 +1,1 @@
+{ numberOfBits: 4 }

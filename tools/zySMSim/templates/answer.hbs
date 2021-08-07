@@ -1,0 +1,27 @@
+<table class="table">
+  <tbody>
+    {{#if hasInput}}
+      <tr>
+        <td> {{input}} </td>
+        {{#each aArray}}
+          <td> {{this}} </td>
+        {{/each}}
+      </tr>
+    {{/if}}
+    <tr>
+      <td>Expected {{output}}</td>
+      {{#each expectedZArray}}
+        <td>{{this}}</td>
+      {{/each}}
+    </tr>
+      <tr>
+        <td>Your {{output}}</td>
+          {{#each yourZArray}}
+            <td>{{this}}</td>
+          {{/each}}
+      </tr>
+  </tbody>
+</table>
+{{#if hasVvalues}}
+  *V means any value accepted.
+{{/if}}

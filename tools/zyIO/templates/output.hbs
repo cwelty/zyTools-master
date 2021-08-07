@@ -1,0 +1,9 @@
+<div class='rim-output-container'>
+    {{#each bitOutputs}}
+        <div class= 'output-block'><div id='out-label-{{@index}}{{../id}}' class='output-label'>{{name}}</div><div id='output-{{@index}}{{../id}}' class='output-led'></div><div class='output-value'>{{value}}</div></div>
+    {{/each}}
+    {{#each valueOutputs}}
+        <div class='output-block'><div id='out-value-label-{{@index}}{{../id}}' class='output-label'>{{name}}</div><input id='value-output-{{@index}}{{../id}}' class='output-field' disabled='disabled' maxlength='3'></div>
+    {{/each}}
+    <div id='output-dec-{{id}}'>{{output}} = 0</div>
+</div>

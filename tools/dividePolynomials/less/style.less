@@ -1,0 +1,65 @@
+@import "../../../zyWeb/less/constants.less";
+
+@polynomial-width: 104px;
+@border-width:     2px;
+@border-style:     solid;
+
+.dividePolynomials {
+    width: 450px;
+
+    .expression-area {
+        font-size:  20px;
+        height:     135px;
+        text-align: center;
+
+        .dividend-first-term {
+            border-left:  @border-width @border-style @zyante-gray;
+            padding-left: 3px;
+        }
+
+        .dividend-term {
+            border-top:   @border-width @border-style @zyante-gray;
+        }
+
+        .divisor-polynomial {
+            border-top:    @border-width @border-style transparent;
+            padding-right: 3px;
+        }
+
+        input {
+            font-size:  16px;
+            text-align: center;
+        }
+
+        .plus-sign {
+            margin-left:  3px;
+            margin-right: 3px;
+        }
+
+        .subtraction-symbol {
+            font-size:   35px;
+            font-weight: 100;
+            text-align:  right;
+        }
+
+        .subtraction-term {
+            border-bottom: @border-width @border-style @zyante-gray;
+        }
+
+        table {
+            margin: auto;
+
+            td {
+                padding-top:  3px;
+            }
+        }
+
+        .text-align-right {
+            text-align: right;
+        }
+
+        .wrong {
+            font-weight: bold;
+        }
+    }
+}

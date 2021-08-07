@@ -1,0 +1,11 @@
+{{!
+    Print the webpage viewer as accessible version.
+    @param {String} webpage The webpage to render.
+    @param {String} expectedWebpage The expected webpage to render.
+}}
+<p>Initial webpage to modify is below:</p>
+<pre>{{webpage}}</pre>
+{{#if expectedWebpage}}
+    <p>Expected webpage is below:</p>
+    <pre>{{expectedWebpage}}</pre>
+{{/if}}

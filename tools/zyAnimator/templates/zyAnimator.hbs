@@ -1,0 +1,163 @@
+<button class='button load-zyanimator-on-demand-button'>Show animation</button>
+<div class='loading-message'>Loading animation... this may take a few seconds.</div>
+<div class='the-animation'>
+    <h1 class='zyAtitle'>Animation Builder</h1> <!-- David May 3/24/20 Added header -->
+    <div class='editor-buttons'>
+        <!-- David May 3/25/20 added front-facing GUID and caption fields -->
+        <table class='animationAttr'>
+            <tbody>
+                <tr>
+                    <td>
+                        Animation GUID:
+                    </td>
+                    <td>
+                        <input type='text' id='GUID' value='' style='width:24em' placeholder='Unique identifier with no spaces/symbols.'/>
+                        <button id='new-GUID-{{id}}'>Refresh GUID</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Animation caption:
+                    </td>
+                    <td>
+                        <input type='text' id='caption' value='' style='width: 31.35em' placeholder='Short descriptive title.'/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input id='new-animation-{{id}}' type='button' value='New animation' class='newAnimationButton'>
+
+        {{!-- <input id='editorToggle_{{id}}' type='button' value='Toggle editor' class='zyAnimatorButton'> --}} <!-- David May 3/24/20 removed button -->
+        <span id='editorButtonsSet2_{{id}}'>
+            <span id='animatorUndo_{{id}}' class='ui-icon ui-icon-arrowreturnthick-1-w large undo-redo' title='Undo'></span>
+            <span id='animatorRedo_{{id}}' class='ui-icon ui-icon-arrowreturnthick-1-w large zyAredoIcon undo-redo' title='Redo'></span>
+            <input id='tooltipToggle_{{id}}' type='button' value='Hide tooltips' class='zyAnimatorButton'>
+        </span>
+    </div>
+
+    <!-- David May 3/24/20 moved special characters button, added feedback button -->
+    <a href="mailto:support@zybooks.com" target="_blank">
+        <button id="feedback-button" class="special-chars-feedback-button">Feedback</button>
+    </a>
+    <a href="https://static-resources.zybooks.com/browserSafeUnicode.html" target="_blank">
+        <button id="special-chars" class="special-chars-feedback-button">Special characters</button>
+    </a>
+
+    <div class='clear-floating'></div>
+    <div id='leftSideBar_{{id}}' class='sideBar leftSideBar'>
+        <div>
+            <h1 class='zyAheader'>Objects</h1>
+            <div class='imgFloatRightAndUp'>
+                <div class='add-object-and-instruction-container'>
+                    <img id='addLineObj_{{id}}' title='Add line object' src='{{addLineImage}}' class='zyAnimatorImg'> <!-- David May 7/19/20 adding line object -->
+                    <img id='addBoxObj_{{id}}' title='Add box object' src='{{addBoxImage}}' class='zyAnimatorImg'>
+                    <img id='addTextObj_{{id}}' title='Add text object' src='{{addTextImage}}' class='zyAnimatorImg'>
+                    <img id='addTriangleObj_{{id}}' title='Add triangle object' src='{{addTriangleImage}}' class='zyAnimatorImg'>
+                    <span id='addImageObj_{{id}}' class='add-object-and-instruction-label'>Image</span>
+                    <br>
+                    <span id='moreobj' class='add-object-and-instruction-label'>More</span>
+                </div>
+                <div id='logic-gate-div' class='add-object-and-instruction-container'> <!-- David May 4/25/20 Moved logic gates to a div, can show/hide with "More" button -->
+                    <img id='addANDObj_{{id}}' title='Add AND gate' src='{{addANDImage}}' class='zyAnimatorImg'>
+                    <img id='addORObj_{{id}}' title='Add OR gate' src='{{addORImage}}' class='zyAnimatorImg'>
+                    <img id='addXORObj_{{id}}' title='Add XOR gate' src='{{addXORImage}}' class='zyAnimatorImg'>
+                    <span id='addNOTObj_{{id}}' class='add-object-and-instruction-label'>NOT</span>
+                    <span id='addNANDObj_{{id}}' class='add-object-and-instruction-label'>NAND</span>
+                    <span id='addNORObj_{{id}}' class='add-object-and-instruction-label'>NOR</span>
+                    <span id='addXNORObj_{{id}}' class='add-object-and-instruction-label'>XNOR</span>
+                </div>
+            </div>
+            <div class='clear-floating'></div>
+        </div>
+        <div id='objList_{{id}}' class='objList boxView sideBarBox'></div>
+        <div id='inspector_{{id}}' class='boxView sideBarBox inspector-box'></div>
+    </div>
+    <div class='zyanCenter'>
+        <div id='canvas_{{id}}' class='zyanCanvas'>
+            <div class='stepControls'>
+                <div id='startButton_{{id}}' class='startButton startGraphic'>Start</div>
+                <div id='goToStartStepButton_{{id}}' class='backToStart'></div>
+                <div id='timeline_{{id}}' class='timeline'></div>
+                <div id='playButton_{{id}}' class='playButton'></div>
+                <label class='speed-control'><input type='checkbox' name='speed-control' value='2x'>2x speed</label>
+            </div>
+            <div id='caption_{{id}}' class='stepObject zyAcaption' title='Click to edit.'></div>
+        </div>
+        <div id='importExport_{{id}}' class='boxView saveLoad'>
+            {{!-- <input id='export_{{id}}' type='button' value='Export &darr;' class='zyAnimatorButton' title='Export animation as XML below. Copy/paste to authoring environment.'> --}}
+            <input id='exportrich_{{id}}' type='button' value='Export &darr;' class='zyAnimatorButton' title='Export animation as rich text XML. Copy/paste to authoring environment.'>
+            <input id='import_{{id}}' type='button' value='Import &uarr;' class='zyAnimatorButton' title='Import animation from XML below.'>
+            <span id='warning_{{id}}' class='warningAlert'></span>
+
+            <!-- David May 3/24/20 Relocated "Load samples" dropdown -->
+            <select id='samples_{{id}}' class='ui-widget ui-widget-content ui-corner-all load-a-sample' style='float: right;'>
+                <option value='default' disabled='disabled' selected='selected'>Load a sample</option>
+                <option value='sample1'>Sample 1</option>
+                <option value='sample2'>Sample 2</option>
+                <option value='codeSample'>Code sample</option>
+                <option value='smSample'>SM sample</option>
+                <option value='flowchart-template'>Flowchart template</option>
+            </select>
+
+            <br/>
+            <textarea id='exportImportTextarea_{{id}}' class='saveLoadTextArea' autocorrect='off' spellcheck='false'></textarea>
+        </span>
+        </div>
+    </div>
+    <div id='rightSideBar_{{id}}' class='sideBar rightSideBar'>
+        <h1 class='zyAheader'>Instructions</h1>
+        <div class='imgFloatRightAndUp'>
+            <div class='add-object-and-instruction-container'>
+                <img id='addMoveInstr_{{id}}' title='Add move instruction' src='{{addMoveImage}}' class='zyAnimatorImg'>
+                <img id='addFadeInstr_{{id}}' title='Add fade instruction' src='{{addFadeImage}}' class='zyAnimatorImg'>
+                <img id='addResizeInstr_{{id}}' title='Add resize instruction' src='{{addResizeImage}}' class='zyAnimatorImg'>
+                <img id='addStepInstr_{{id}}' title='Add step' src='{{addStepImage}}' class='zyAnimatorImg'>
+            </div>
+            <div class='add-object-and-instruction-container'>
+                <img id='addRotate_{{id}}' title='Add rotate instruction' src='{{addRotateImage}}' class='zyAnimatorImg'>
+                <img id='addBackgroundColor_{{id}}' title='Add background color instruction' src='{{addBackgroundColorImage}}' class='zyAnimatorImg'>
+                <img id='addBorderColor_{{id}}' title='Add border color instruction' src='{{addBorderColorImage}}' class='zyAnimatorImg'> <!-- David May 8/31/20 Adding box color instruciton -->
+                <img id='addFontColor_{{id}}' title='Add font color instruction' src='{{addFontColorImage}}' class='zyAnimatorImg'> <!-- David May 8/27/20 Adding font color instruction -->
+                <br>
+                <span id='advObj' class='add-object-and-instruction-label' style='font-size: .8em'>Advanced</span> <!-- David May 5/28/20 Added "Advanced" button to show/hide "Clear all" button -->
+            </div>
+            <input id='clearInstr' class='ui-widget ui-widget-content ui-corner-all' type='button' value='Clear all' style='float: right; font-size: .4em'> <!-- David May 4/25/20 Added "Clear all" button -->
+        </div>
+        <div class='clear-floating'></div>
+        <div id='instrContainer_{{id}}' class='instrList boxView sideBarBox'>
+            <div id='goToStartStepInstruction_{{id}}' class='label' title='The last step of your animation will be the static start step.'>
+                <div class='go-to-start-instr-header'><div class='startGraphic go-to-start-instr-header-graphic'>Start</div> <span class='go-to-start-instr-header-text'>(shows animation end)</span></div>
+                <div class='instrMenu'>
+                    <textarea id='startStepCaption_{{id}}' placeholder="Optional. Add a caption here if the animation's caption is otherwise too long, which is rare." rows='4' cols='26' class='start-step'></textarea>
+                </div>
+            </div>
+            <div class='zyAhr'></div>
+            <div id='step1_{{id}}' class='label' title='Step 1 is always the first instruction.'>
+                <div class='labelRemove visibility-hidden'>x</div>
+                <div class='stepLabel'>Step 1</div>
+                <div class='clear-floating'></div>
+                <div class='instrMenu'>
+                    <textarea id='step1Caption_{{id}}' placeholder='Edit caption for this step' rows='4' cols='26' class='step1-caption'></textarea>
+                </div>
+            </div>
+            <div id='instrList_{{id}}'></div>
+        </div>
+    </div>
+    <div class='clear-floating'></div>
+    <div class='rich-text-area-container'>
+        <hr>
+        <input type='button' class='zyAnimatorButton rich-text-button'>
+        <span>Warning: Copying rich text into a gdoc may result in losing a leading space from text objects.</span>
+        <div>
+            <pre class='rich-text-xml'></pre>
+        </div>
+    </div>
+    <!-- David May 8/3/20 Added version number and link to revision history -->
+    <div class='version-area-container'>
+        <div id='version-number'></div>
+        <a href="https://docs.google.com/spreadsheets/d/186R-lat5--U9D9KIUg19E9-ZaM13pyar02SXL0W9-aM/edit#gid=0" target="_blank">
+            <button id='revision-history'>Revision history</button>
+        </a>
+    </div>
+</div>

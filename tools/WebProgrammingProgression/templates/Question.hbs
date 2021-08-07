@@ -1,0 +1,16 @@
+{{!
+    Render a question.
+    @param {Boolean} hasMultipleFiles Whether there are multiple files.
+    @param {String} id Unique identifier assigned to this module.
+    @param {Number} numberOfFiles The number of files.
+    @param {String} prompt The question's prompt.
+    @param {Boolean} shouldShowWebpage Whether to show the user and expected webpage.
+}}
+<p>{{prompt}} {{#if shouldShowWebpage}}<button class='md-button compact show-me'>Show expected</button>{{/if}}</p>
+{{#if hasMultipleFiles}}
+    <div id='segmented-control-{{id}}'></div>
+{{/if}}
+{{#range numberOfFiles}}
+    <div id='editor-{{this}}-{{../id}}' class='file-editor'></div>
+{{/range}}
+<div class='unit-test-iframe-container'></div>

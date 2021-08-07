@@ -1,0 +1,42 @@
+@import "../../../zyWeb/less/constants.less";
+
+.recTrace {
+    pre {
+        line-height: 12px;
+        font-family: @zyante-code-font;
+        font-size: 12px;
+    }
+
+    .hidden-number {
+        font-size: 18px;
+        color: @zyante-light-blue;
+        font-weight: bold;
+    }
+
+    .recursion-completed {
+        color: @zyante-green;
+        display: none;
+        font-size: 18px;
+    }
+
+    .left-side {
+        float: left;
+        margin-bottom: 10px;
+        margin-right: 5px;
+    }
+
+    .right-side {
+        float: left;
+        height: 600px;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+    }
+
+    .code {
+        margin: 4px;
+    }
+
+    td > table {
+        margin: auto;
+    }
+}

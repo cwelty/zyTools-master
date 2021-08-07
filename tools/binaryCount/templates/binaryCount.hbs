@@ -1,0 +1,19 @@
+<table class='decimal-binary-table'>
+    <tbody>
+        <tr>
+            <th class='decimal'>Decimal</th>
+            <th class='binary'>Binary <span class='three-bits-label'>(3 bits)</span></th>
+        </tr>
+        {{#each values}}
+            <tr>
+                <td><div class='decimal'>{{this.decimal}}</div></td>
+                <td>
+                    <div class='binary'>
+                        <div>{{this.binary}}</div>
+                        <input type='text' maxlength='3' size='3'>
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

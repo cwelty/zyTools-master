@@ -1,0 +1,4 @@
+{
+    type: 'wordTransferNoOffset',
+    instructionSet: 'MIPSzy'
+}

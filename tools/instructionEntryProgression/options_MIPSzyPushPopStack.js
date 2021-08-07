@@ -1,0 +1,4 @@
+{
+    type: 'pushPopStack',
+    instructionSet: 'MIPSzy'
+}

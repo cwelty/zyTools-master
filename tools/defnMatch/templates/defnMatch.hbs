@@ -1,0 +1,34 @@
+<div class='term-bank'>
+    <ul class='sortable-container'>
+        {{#each terms}}
+            <li class='unselected-term' termnum='{{i}}'>{{{term}}}</li>
+        {{/each}}
+    </ul>
+</div>
+<br/>
+<table class='definition-table'>
+    <tbody>
+        {{#each definitions}}
+        <tr>
+            <td class='unselected-term definition-row'>
+                <ul class='sortable-container term-bucket' dummy='{{isDummy}}' defnnum='{{i}}'>
+                    {{#if showInstruction}}
+                        <span class='instruction'>Drag and drop above item</span>
+                    {{/if}}
+                </ul>
+            </td>
+            <td class='defnCol definition-column-unselected-term'>
+                <span>{{{defn}}}</span>
+                {{#if hasExplanation}}
+                    <div id='explanation_{{i}}_{{../../id}}' class='explanation'>
+                        <hr />
+                        {{{explanation}}}
+                    </div>
+                {{/if}}
+            </td>
+            <td class='defnColCorr'></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<button id='reset_{{id}}' class='button'>Reset</button>

@@ -1,0 +1,26 @@
+pre.error {
+    color: #d00;
+    margin-left: 16px;
+    padding-left: 16px;
+}
+
+div.activity-instructions {
+    margin-top: 16px;
+}
+
+div.activity-instructions > label {
+    margin-left: 16px;
+}
+
+#summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+#download-button {
+    margin-top: 16px;
+}
+
+#iterations {
+    width: 40px;
+}

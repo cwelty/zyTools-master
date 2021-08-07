@@ -1,0 +1,18 @@
+{{!
+    A level card, can be dragged to reorder levels.
+    @param {Number} levelNumber The number of the level in the progression.
+    @param {Boolean} isSelected Whether the level is currently selected.
+}}
+<div class='level-container zb-card'>
+    <div class='level-row row'>
+        <i aria-hidden='true' class='drag zb-icon material-icons med'>drag_handle</i>
+        <button class='level zb-button {{#if isSelected}}selected{{/if}}'><span class='title level-title'>Level {{levelNumber}}</span></button>
+        <button class='remove-level zb-button warn'><i aria-hidden='true' class='zb-icon material-icons med'>clear</i></button>
+    </div>
+    <div class='add-file-row row'>
+        <button class='add-file zb-button'>
+            <i aria-hidden='true' class='zb-icon material-icons med'>note_add</i>
+            <span class='title'>Add file</span>
+        </button>
+    </div>
+</div>

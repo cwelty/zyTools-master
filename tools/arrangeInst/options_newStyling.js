@@ -1,0 +1,3 @@
+{
+    newVersion: true,
+}

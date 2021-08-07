@@ -1,0 +1,3 @@
+{
+    useTimer: true
+}

@@ -1,0 +1,22 @@
+{{!
+    Print explanations editing area.
+    @param {Level} level The currently selected level.
+    @param {Question} question The currently selected question.
+}}
+<div class='area-header'>Explanation <span class="info-char">&#9432;</span></div>
+<table>
+    <tbody>
+        <tr>
+            <td class='label'>{{level.name}}</td>
+            <td>
+                <textarea placeholder='Add explanation'>{{level.explanation}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>{{question.name}}</td>
+            <td>
+                <textarea placeholder='(optional) Add question-specific explanation'>{{question.explanation}}</textarea>
+            </td>
+        </tr>
+    </tbody>
+</table>

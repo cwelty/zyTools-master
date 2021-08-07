@@ -1,0 +1,547 @@
+{{!
+    Print a container for each component of the ProgressionBuilder.
+    @param {String} id The identifier for this progression builder.
+    @param {String} backWhiteImageURL The URL to the back image in white.
+}}
+<div class='caption-container'></div>
+<div class='progression-builder-container'>
+    <div class='levels-container'></div>
+    <div class='center-container'>
+        <div class='ribbon-question-area-container'>
+            <div class='ribbon'></div>
+            <div class='question-area-container'></div>
+        </div>
+        <div class='explanation-container'></div>
+        <div class='export-import-container'></div>
+    </div>
+    <div class='right-side-container'>
+        <div class='segmented-control-container'>
+            <div class='segmented-control-inspector'>Inspector</div>
+            <div class='segmented-control-object-list'>Object list</div>
+        </div>
+        <div class='inspector-container'></div>
+        <div class='object-list-container'></div>
+    </div>
+</div>
+
+<div class='progression-player-container'>
+    <div class='centered-activity'>
+        <div class='content-resource-container'>
+            <div class='content-resource-content'>
+                <table class='centered-table'>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button class='zb-button secondary raised back-to-builder'><div><img src='{{backWhiteImageURL}}'>Back to builder</div></button>
+                                <button class='zb-button secondary raised back-to-code'><div><img src='{{backWhiteImageURL}}'>Back to code</div></button>
+                                <div id='player-{{id}}' class='ProgressionPlayer'></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='code-container'>
+    <div class='code-editor-head'>
+        <h2 class='editor-label'>Edit code: Level 1, Question a</h2>
+        <button class='zb-button secondary raised run-player-from-code-editor'><span class='title'>Run player</span></button>
+    </div>
+    <div class='code-editor-container'>
+        <div id='editor-{{id}}' class='file-editor'></div>
+    </div>
+    <div class='button-container'>
+        <button class='zb-button secondary raised save-and-close-code-editor'><span class='title'>Save and close</span></button>
+        <button class='zb-button cancel-code-editor'><span class='title'>Cancel</span></button>
+    </div>
+    <hr/>
+    <div>
+        <p class='body-text'>Write Python code to randomize variable values. Ex:</p>
+
+        <div class='programming-code-output'>numerator = pick_from([18, 12, 6])
+denominator = pick_from_range(2, 3)
+result = numerator / denominator</div>
+
+        <p class='body-text'>Then, use variables in elements and explanations. Ex: A text object may be:</p>
+
+        <div class='programming-code-output'>Reduce ${numerator} / ${denominator}</div>
+
+        <p class='body-text'>In the player, variables are replaced with the randomized values.</p>
+
+        <p class='body-text'>Included features:</p>
+        <ul class='body-text'>
+            <li>Already imported Python modules: <code>math</code>, <code>random</code>, and <code>string</code></li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Pre-made, common functions</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <ul>
+                        <li><code>pick_from(list, exclusion_list=[])</code>
+                            <ul>
+                                <li>Ex: <code>pick_from([4, 7, 10, 13])</code> randomly returns one of the four numbers</li>
+                                <li>Ex: <code>pick_from(['Jim', 'Jan', 'Jo'])</code> randomly returns one of the names</li>
+                                <li>Ex: <code>pick_from([4, 5, 6, 7], [5, 6])</code> randomly returns 4 or 7</li>
+                            </ul>
+                        </li>
+                        <li><code>pick_from_range(start, end, exclusion_list=[])</code>
+                            <ul>
+                                <li>Ex: <code>pick_from_range(3, 7)</code> randomly returns either 3, 4, 5, 6, or 7</li>
+                                <li>Ex: <code>pick_from_range(3, 7, [5, 6])</code> randomly returns either 3, 4, or 7</li>
+                            </ul>
+                        </li>
+
+                        <li><code>make_words_from_list(lst, conjunction='and')</code>
+                            <ul>
+                                <li>Ex: <code>make_words_from_list([1, 2, 3])</code> returns '1, 2, and 3'</li>
+                                <li>Ex: <code>make_words_from_list([1, 2, 3], 'or')</code> returns '1, 2, or 3'</li>
+                                <li>Ex: <code>make_words_from_list([1, 2])</code> returns '1 and 2'</li>
+                                <li>Ex: <code>make_words_from_list([1])</code> returns '1'</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Pre-made, less common functions</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <ul>
+                        <li><code>sig_fig_round(number_to_round, significant_figures)</code>
+                            <ul>
+                                <li>Ex: <code>sig_fig_round(1978, 3)</code> returns 1980</li>
+                                <li>Ex: <code>sig_fig_round(0.021395149, 5)</code> returns 0.021395</li>
+                            </ul>
+                        </li>
+                        <li><code>scientific_notation(numerical_value, significant_figures)</code>
+                            <ul>
+                                <li>Ex: <code>scientific_notation(1.8923E-05, 3)</code> returns 1.89E−5</li>
+                                <li>Ex: <code>scientific_notation(0.00123456, 4)</code> returns 1.235E−3</li>
+                                <li>Ex: <code>scientific_notation(456.2145, 5)</code> returns 4.5621E+2</li>
+                            </ul>
+                        </li>
+                        <li><code>parens_if_negative(number)</code>
+                            <ul>
+                                <li>Ex: <code>parens_if_negative(5)</code> returns "5"</li>
+                                <li>Ex: <code>parens_if_negative(-5)</code> returns "(-5)"</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>itertools module: permutations() and product()</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from itertools import permutations, product</code></p>
+                    <ul>
+                        <li><a href='https://docs.python.org/2/library/itertools.html#itertools.permutations' target='_blank'>permutations()</a></li>
+                        <li><a href='https://docs.python.org/2/library/itertools.html#itertools.product' target='_blank'>product()</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Linear algebra module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from linear_algebra import &lt;function1&gt;, &lt;function2&gt;</code>, etc. Ex: <code>from linear_algebra import makeRandomMatrix, dot_product</code></p>
+                    <ul>
+                        <li><code>makeRandomMatrix(row, column, exclusion_list=[], suppress_negative_numbers=False)</code>
+                            <ul>
+                                <li>Ex: <code>makeRandomMatrix(2, 3)</code> returns a 2-dimensional list with 2 rows and 3 columns of randomly-generated unique values</li>
+                                <li>Ex: <code>makeRandomMatrix(4, 5, [ 0 ])</code> returns a 2-dimensional list with 4 rows and 5 columns of randomly-generated unique values, except the value of 0.</li>
+                                <li>Ex: <code>makeRandomMatrix(4, 5, [ 0, 5 ], True)</code> returns a 2-dimensional list with 4 rows and 5 columns of randomly-generated unique positive values, except for values 0 and 5.</li>
+                            </ul>
+                        </li>
+                        <li><code>dot_product(x_vector, y_vector)</code>
+                            <ul>
+                                <li>Ex: <code>dot_product([1, 2, 3], [3, 2, 1])</code> returns 10</li>
+                            </ul>
+                        </li>
+                        <li><code>latexMatrix(matrix)</code>
+                            <ul>
+                                <li>Ex: <code>latexMatrix(questionMatrix)</code> returns a string of LaTex that represents the given 2-dimensional list</li>
+                            </ul>
+                        </li>
+                        <li><code>create_identity_matrix(n)</code>
+                            <ul>
+                                <li>Ex: <code>create_identity_matrix(3)</code> returns [ [1, 0, 0], [0, 1, 0], [0, 0, 1] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>create_swap_elementary_matrix(n, row1 = None, row2 = None)</code>
+                            <ul>
+                                <li>Ex: <code>create_swap_elementary_matrix(3, 1, 2)</code> returns [ [0, 1, 0], [1, 0, 0], [0, 0, 1] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>create_scale_elementary_matrix(n, row = None, factor = None)</code>
+                            <ul>
+                                <li>Ex: <code>create_scale_elementary_matrix(3, 1, 2)</code> returns [ [2, 0, 0], [0, 1, 0], [0, 0, 1] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>create_add_elementary_matrix(n, factor = None, from_row = None, to_row = None)</code>
+                            <ul>
+                                <li>from_row and to_row must be different.</li>
+                                <li>Ex: <code>create_add_elementary_matrix(3, 4, 1, 2)</code> returns [ [1, 0, 0], [4, 1, 0], [0, 0, 1] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>multiply_matrix(left_matrix, right_matrix)</code>
+                            <ul>
+                                <li>Ex: <code>multiply_matrix([[1, 2], [3, 4]], [[-4, -3], [-2, -1]])</code> returns [[-8, -5], [-20, -13]]</li>
+                            </ul>
+                        </li>
+                        <li><code>generate_equations_from_matrix(matrix)</code>
+                            <ul>
+                                <li>Generates the equation form of a matrix in LaTeX.</li>
+                                <li>
+                                    Ex: <code>generate_equations_from_matrix([[1, 2, 3], [-1, -2, -3], [0, 1, 2], [1, 0, 2], [0, 0, 0]])</code> returns:
+                                    <div class='programming-code-output'>x_1 + 2x_2 = 3
+-x_1 - 2x_2 = -3
+x_2 = 2
+x_1 = 2
+0 = 0</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><code>transpose_matrix(matrix)</code>
+                            <ul>
+                                <li>Ex: <code>transpose_matrix([ [1, 2, 3], [4, 5, 6], [7, 8, 9] ])</code> returns: [ [1, 4, 7], [2, 5, 8], [3, 6, 9] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>get_minor_matrix(matrix, row_in_matrix, col_in_matrix)</code>
+                            <ul>
+                                <li>Ex: <code>get_minor_matrix([ [1, 2, 3], [4, 5, 6], [7, 8, 9] ], 0, 2)</code> returns: [ [4, 5], [7, 8] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>get_determinant(matrix)</code>
+                            <ul>
+                                <li>Ex: <code>get_determinant([ [1, 2], [3, 5] ])</code> returns: -1</li>
+                                <li>Ex: <code>get_determinant([ [1, 0, 0], [2, -2, 0], [-2, 2, 4] ])</code> returns: -8</li>
+                            </ul>
+                        </li>
+                        <li><code>invert_matrix(matrix)</code>
+                            <ul>
+                                <li>Ex: <code>invert_matrix([ [1, 2], [3, 5] ])</code> returns: [ [-5, 2], [3, -1] ]</li>
+                                <li>Ex: <code>invert_matrix([ [0, 2, 3], [-1, 2, 1], [2, -3, 1] ])</code> returns: [ [1.66666, -3.66666, -1.33333], [1, -2, -1], [-0.33333, 1.33333, 0.66666] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>matrix_to_ints(matrix)</code>
+                            <ul>
+                                <li>Ex: <code>matrix_to_ints([ [1.0, 2.0], [-1.0, 0.0] ])</code> returns: [ [1, 2], [-1, 0] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>get_column_from_matrix_as_vector(matrix, column)</code>
+                            <ul>
+                                <li>Ex: <code>get_column_from_matrix_as_vector([ [1, 2, 3], [4, 5, 6], [7, 8, 9] ], 2)</code> returns: [2, 5, 8]</li>
+                            </ul>
+                        </li>
+                        <li><code>augment_vector_to_matrix_as_column(matrix, vector)</code>
+                            <ul>
+                                <li>Ex: <code>augment_vector_to_matrix_as_column([ [1, 0, 0], [0, 1, 0], [0, 0, 1] ], [1, 2, 3])</code> returns: [ [1, 0, 0, 1], [0, 1, 0, 2], [0, 0, 1, 3] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>augment_matrix_to_matrix(left_matrix, right_matrix)</code>
+                            <ul>
+                                <li>Ex: <code>augment_matrix_to_matrix([ [1, 0, 0], [0, 1, 0], [0, 0, 1] ], [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ])</code> returns: [ [1, 0, 0, 1, 2, 3], [0, 1, 0, 4, 5, 6], [0, 0, 1, 7, 8, 9] ]</li>
+                            </ul>
+                        </li>
+                        <li><code>make_random_rref_matrix(number_of_rows, number_of_columns, number_of_pivots, suppress_negative_numbers = False)</code> generates a random matrix in row reduced echelon form (rref) with a specified size and number of pivots. <code>supress_negative_numbers</code> is a flag to suppress the appearance of negative (defaults to no suppression).
+                            <ul>
+                                <li>Ex: <code>make_random_rref_matrix(3, 5, 2)</code> returns a random 3 x 5 matrix in row reduced echelon form with 2 pivots.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Material and Energy Balances module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from meb import &lt;function1&gt;, &lt;function2&gt;</code>, etc. Ex: <code>from meb import components, find_superheated_water</code></p>
+                    <ul>
+                        <li>
+                            <code>components</code> is a dictionary.
+                            <ul>
+                                <li>Access a component by name: <code>components['acetaldehydeg']</code></li>
+                                <li>Access a property of a component: <code>components['acetaldehydeg'].formula</code></li>
+                                <li>List of component names: acetaldehydeg, aceticacidl, aceticacidg, acetonel, acetoneg, acetyleneg, ammonial, ammoniag, ammoniumhydroxideaq, ammoniumnitrates, ammoniumnitrateaq, ammoniumsulfates, ammoniumsulfateaq, aniline, benzaldehydel, benzaldehydeg, benzenel, benzeneg, benzoicacid, benzylalcohol, brominel, A12butadiene, A13butadiene, nbutanel, nbutaneg, isobutanel, isobutaneg, A1buteneg, calciumcarbides, calciumcarbonate, calciumchlorides, calciumhydroxides, calciumoxides, calciumphosphates, calciumsilicates, calciumsulfates, calciumsulfateaq, calciumsulfategypsums, carbons, carbondioxidel, carbondioxideg, carbondisulfidel, carbondisulfideg, carbonmonoxideg, carbontetrachloridel, carbontetrachlorideg, chlorineg, chlorobenzene, chloroforml, coppers, cyclohexanel, cyclohexaneg, cyclopentanel, cyclopentaneg, ndecanel, ndecaneg, diethyletherl, ethaneg, ethylacetatel, ethylacetateg, ethanoll, ethanolg, ethylbenzenel, ethylbenzeneg, bromoethaneg, ethylchlorideg, A3ethylhexanel, A3ethylhexaneg, ethyleneg, ethyleneglycoll, ethyleneglycolg, ironIIIoxides, ironIIoxides, ironIIsulfides, formaldehydeg, formicacidl, formicacidg, glyceroll, heliumg, nheptanel, nheptaneg, nhexanel, nhexaneg, hydrogeng, hydrogenbromideg, hydrogenchlorideg, hydrogencyanideg, hydrogenfluorideg, hydrogenfluorideaq, hydrogensulfideg, iodines, irons, leads, leadoxides, magnesiums, magnesiumchlorides, magnesiumhydroxides, magnesiumoxides, mercurys, methaneg, methylacetatel, methanoll, methanolg, methylamineg, methylchlorideg, methylethylketone, naphthalene, nickels, nitricacidl, nitricacidaq, nitrobenzene, nitrogeng, nitrogendioxideg, nitricoxidel, nitricoxideg, nitrogenpentoxide, nitrogentetraoxideg, nitrousoxideg, nnonanel, nnonane, noctanel, noctaneg, oxalicacids, oxygeng, npentanel, npentaneg, isopentanel, isopentaneg, A1penteneg, phenoll, phenolg, phosphoricacids, phosphoricacidaq, phosphorusreds, phosphoruswhite, phosphoruspentoxide, propanel, propaneg, propyleneg, npropylalcoholl, npropylalcoholg, isopropylalcoholl, npropylbenzenel, npropylbenzeneg, silicondioxides, sodiumbicarbonates, sodiumbisulfates, sodiumcarbonates, sodiumchlorides, sodiumcyanides, sodiumhydroxides, sodiumhydroxideaq, sodiumnitrates, sodiumnitrites, sodiumsulfates, sodiumsulfides, sodiumsulfites, sodiumthiosulfates, sulfurrhombics, sulfurmonoclinics, sulfurdioxideg, sulfurtrioxideg, sulfuricacidl, sulfuricacidaq, toluenel, tolueneg, waterl, waterg, mxylenel, mxyleneg, oxylenel, oxyleneg, pxylenel, pxyleneg, zincs.</li>
+                                <li>List of component properties: name, formula, mw, psata, psatb, psatc, psatlowt, psathight, cpa, cpb, cpc, cpd, cptunit, cplowt, cphight, phase, density25c (g/cm3), tm (C), tv (C), hm (kJ/mol), hv (kJ/mol), hform (kJ/mol), tc (K), pc (atm), hcombwg (kJ/mol water gas product), hcombwl (kJ/mol water liquid product).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <code>find_superheated_water(property_values)</code> returns the row from a superheated water table with the given property values.
+                            <ul>
+                                <li>Lookup: <code>result = find_superheated_water({ 'P': 2500, 'T': 300 })</code> assigns <code>result</code> with the row for a pressure of 2500kPa and temperature of 300C.</li>
+                                <li>Access property from lookup: <code>result.v</code> is the volume value.</li>
+                                <li>List of properties:
+                                    <ul>
+                                        <li>phase: superheated vapor</li>
+                                        <li>P: pressure (kPa)</li>
+                                        <li>T: temperature (C)</li>
+                                        <li>v: volume (m3/kg)</li>
+                                        <li>u: internal energy (kJ/kg)</li>
+                                        <li>h: enthalpy (kJ/kg)</li>
+                                        <li>s: entropy (kJ/kg-K)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <code>find_supercooled_water(property_values)</code> returns the row from a supercooled water table with the given property values.
+                            <ul>
+                                <li>Ex: <code>result = find_supercooled_water({ 'P': 2500, 'T': 200 })</code></li>
+                                <li>See find_superheated_water above for more.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <code>find_saturated_water_T(property_values)</code> returns the row from a saturated water by temperature table with the given property values.
+                            <ul>
+                                <li>Ex: <code>result = find_saturated_water_T({ 'T': 300 })</code></li>
+                                <li>List of properties:
+                                    <ul>
+                                        <li>T: temperature (C)</li>
+                                        <li>P: pressure (kPa)</li>
+                                        <li>vf: specific volume liquid (m^3/kg)</li>
+                                        <li>vg: specific volume vapor (m^3/kg)</li>
+                                        <li>uf: internal energy liquid (kJ/kg)</li>
+                                        <li>ug: internal energy vapor (kJ/kg)</li>
+                                        <li>ufg: integer energy delta (kJ/kg)</li>
+                                        <li>hf: enthalpy liquid (kJ/kg)</li>
+                                        <li>hg: enthalpy vapor (kJ/kg)</li>
+                                        <li>hfg: enthalpy delta (kJ/kg)</li>
+                                        <li>sf: entropy liquid (kJ/kg*K)</li>
+                                        <li>sg: entropy vapor (kJ/kg*K)</li>
+                                        <li>sfg: entropy delta (kJ/kg*K)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <code>find_saturated_water_P(property_values)</code> returns the row from a saturated water by pressure table with the given property values.
+                            <ul>
+                                <li>Ex: <code>result = find_saturated_water_P({ 'P': 100 })</code></li>
+                                <li>See find_saturated_water_T above for more.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <code>periodic_elements</code> is a dictionary. Each element has properties: name, atomic_number, mw (molecular weight), and symbol.
+                            <ul>
+                                <li>Ex: <code>hydrogen_atom = periodic_elements['hydrogen']</code> assigns hydrogen_atom with the hydrogen element.</li>
+                                <li>Ex: <code>hydrogen_am = periodic_elements['hydrogen'].atomic_number</code> assigns hydrogen_am with hydrogen's atomic number.</li>
+                                <li>Ex: <code>hydrogen_mw = periodic_elements['hydrogen'].mw</code> assigns hydrogen_mw with hydrogen's molecular weight.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Statistics module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from statistics import &lt;function1&gt;, &lt;function2&gt;</code>, etc. Ex: <code>from statistics import mean, median, modes</code></p>
+                    <ul>
+                        <li><code>mean(data)</code> where <code>data</code> is a list of numbers
+                            <ul>
+                                <li>Ex: <code>mean([ 1, 2, 3, 4, 5 ])</code> returns <code>3</code></li>
+                            </ul>
+                        </li>
+                        <li><code>median(data)</code> where <code>data</code> is a list of numbers
+                            <ul>
+                                <li>Ex: <code>mean([ 1, 2, 3, 4 ])</code> returns <code>2.5</code></li>
+                            </ul>
+                        </li>
+                        <li><code>modes(data)</code> where <code>data</code> is a list of numbers. Returns a list of the most frequent numbers.
+                            <ul>
+                                <li>Ex: <code>modes([ 1, 2, 1, 4, 6 ])</code> returns <code>[ 1 ]</code>.</li>
+                                <li>Ex: <code>modes([ 1, 1, 2, 2, 4 ])</code> returns <code>[ 1, 2 ]</code>.</li>
+                                <li>Ex: <code>modes([ 1, 2, 3, 4 ])</code> returns <code>[ 1, 2, 3, 4 ]</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>variance(data, mean = None)</code> where <code>data</code> is a list of numbers, and <code>mean</code> is optional and the mean of data.
+                            <ul>
+                                <li>Ex: <code>variance([ 1, 2, 3 ])</code> returns <code>1</code>.</li>
+                                <li>Ex: <code>variance([ 1, 4, 7 ], 4)</code> returns <code>6</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>stdev(data, mean = None)</code> where <code>data</code> is a list of numbers, and <code>mean</code> is optional and the mean of data.
+                            <ul>
+                                <li>Ex: <code>stdev([ 1, 4, 7 ])</code> returns <code>2.449</code>.</li>
+                                <li>Ex: <code>stdev([ 2, 5, 7, 10 ], 6)</code> returns <code>2.915</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>mean_absolute_deviation(data, mean = None)</code> where <code>data</code> is a list of numbers, and <code>mean</code> is optional and the mean of data.
+                            <ul>
+                                <li>Ex: <code>mean_absolute_deviation([ 1, 4, 7])</code> returns <code>2</code>.</li>
+                                <li>Ex: <code>mean_absolute_deviation([ 2, 5, 7, 10 ], 6)</code> returns <code>2.5</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>find_p_from_z(z_score)</code> returns a p-value for the given z-score.
+                            <ul>
+                                <li>Ex: <code>find_p_from_z(0.35)</code> returns <code>0.137</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>find_p_range_from_df_and_chi(degree_of_freedom, chi_squared_statistic)</code> returns the lower and upper-bound p-values for the given degrees of freedom and chi-squared statistic.
+                            <ul>
+                                <li>Ex: <code>find_p_range_from_df_and_chi(3, 7)</code> returns <code>(0.05, 0.1)</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>find_p_range_from_df_and_t(degree_of_freedom, t_statistic)</code> returns the lower and upper-bound p-values for the given degrees of freedom and t statistic.
+                            <ul>
+                                <li>Ex: <code>find_p_range_from_df_and_t(23, 2.7)</code> returns <code>(0.005, 0.01)</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Polynomial module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from polynomial import Polynomial</code></p>
+                    <ul>
+                        <li><code>Polynomial(coefficients, variableName)</code> returns a Polynomial class instance. <code>coefficients</code> is a list of numbers. variableName is the name of the variable (default is 'x').
+                            <ul>
+                                <li>Ex: <code>Polynomial([ 1 ])</code> represents <code>1</code></li>
+                                <li>Ex: <code>Polynomial([ 2, 1 ])</code> represents <code>2x + 1</code></li>
+                                <li>Ex: <code>Polynomial([ 3, 2, 1 ])</code> represents <code>3x^2 + 2x + 1</code></li>
+                                <li>Ex: <code>Polynomial([ 3, 2, 1 ], 'y')</code> represents <code>3y^2 + 2y + 1</code></li>
+                            </ul>
+                        </li>
+                        <li>Two instances of the Polynomial class can be added (via +), subtracted (via -), and multipled (via *) together. The result is a new polynomial.
+                            <ul>
+                                <li>Ex: <code>result = poly_1 + poly_2</code>. <code>poly_1</code>, <code>poly_2</code>, and <code>result</code> are instances of the Polynomial class.</li>
+                                <li>Can also multiply by a scalar on the right-side. Ex: <code>result = poly_1 * 2</code>. <code>poly_1</code> and <code>result</code> are instances of the Polynomial class.
+                                    <ul>
+                                        <li>Note: Scalar cannot be on the left-side (if desired, ask for support).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>An instance of a Polynomial class can be printed as LaTex by converted to a string.
+                            <ul>
+                                <li>Ex: <code>str(poly_1)</code> returns a string of LaTex representing <code>poly_1</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>SI prefixes module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from si_prefix import &lt;function1&gt;, &lt;function2&gt;</code>, etc. Ex: <code>from si_prefix import micro, milli, kilo</code></p></code></p>
+                    <ul>
+                        <li>There are functions for <code>peta</code> (10^15), <code>tera</code> (10^12), <code>giga</code> (10^9), <code>mega</code> (10^6), <code>kilo</code> (10^3), <code>hecto</code> (10^2), <code>deca</code> (10^1), <code>deci</code> (10^-1), <code>centi</code> (10^-2), <code>milli</code> (10^-3), <code>micro</code> (10^-6), <code>nano</code> (10^-9), <code>pico</code> (10^-12), <code>femto</code> (10^-15).
+                            <ul>
+                                <li>Ex: <code>mega(31)</code> returns <code>31,000,000,000</code></li>
+                                <li>Ex: <code>kilo(15)</code> returns <code>15,000</code></li>
+                                <li>Ex: <code>kilo(0.5)</code> returns <code>500</code></li>
+                                <li>Ex: <code>centi(2)</code> returns <code>0.02</code></li>
+                                <li>Ex: <code>milli(0.54)</code> returns <code>0.00054</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Quantitative reasoning module</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from qr import &lt;function1&gt;, &lt;function2&gt;</code>, etc. Ex: <code>from qr import number_with_commas, multiply_symbol</code></p></code></p>
+                    <ul>
+                        <li><code>number_with_commas(number)</code> returns a string of the number with commas. Ex: 1, 234.56
+                            <ul>
+                                <li>Ex: <code>number_with_commas(1234.56)</code> returns <code>'1,234.56'</code></li>
+                                <li>Ex: <code>number_with_commas(50)</code> returns <code>'50'</code></li>
+                                <li>Ex: <code>number_with_commas(1234567)</code> returns <code>'1,234,567'</code></li>
+                            </ul>
+                        </li>
+                        <li><code>multiply_symbol</code> is the unicode string ×, which is the multiplication symbol used in the Quantitative Reasoning zyBook.
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+            <li class='zb-simple-expandable'>
+                <div class='flex-row align-items-center title-container'>
+                    <p class='clickable'>Datasets</p>
+                    <button aria-label='Click to expand' class='toggle-button zb-button icon-button left'>
+                        <i aria-hidden='true' class='button-icon material-icons zb-icon grey med'>keyboard_arrow_down</i>
+                    </button>
+                </div>
+                <div class='expandable-content'>
+                    <p>Import notation: <code>from datasets import country_stats</code></p>
+                    <ul>
+                        <li><code>country_stats</code> is a dictionary with 3 keys:
+                            <ul>
+                                <li><code>data</code> is a 2D list. <code>data[0]</code> is a list of country data.</li>
+                                <li><code>column_names</code> is a list with the same order as each element in data:
+                                    <table border='1'>
+                                        <tr><th>index</th><th>name</th></tr>
+                                        <tr><td>0</td><td>ISOCode2</td></tr>
+                                        <tr><td>1</td><td>ISOCode3</td></tr>
+                                        <tr><td>2</td><td>Code</td></tr>
+                                        <tr><td>3</td><td>TLD</td></tr>
+                                        <tr><td>4</td><td>Name</td></tr>
+                                        <tr><td>5</td><td>Capital</td></tr>
+                                        <tr><td>6</td><td>IndepDate</td></tr>
+                                        <tr><td>7</td><td>IndepYear</td></tr>
+                                        <tr><td>8</td><td>Area</td></tr>
+                                        <tr><td>9</td><td>PopDensity</td></tr>
+                                        <tr><td>10</td><td>Population</td></tr>
+                                        <tr><td>11</td><td>Under14PopPct</td></tr>
+                                        <tr><td>12</td><td>15to64PopPct</td></tr>
+                                        <tr><td>13</td><td>Over65PopPct</td></tr>
+                                        <tr><td>14</td><td>Continent</td></tr>
+                                        <tr><td>15</td><td>ContinentCode</td></tr>
+                                    </table>
+                                </li>
+                                <li><code>SQL_data_types</code> is a list of suggested SQL data types for each element in column_names</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+</div>

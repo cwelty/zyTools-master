@@ -1,0 +1,10 @@
+<div class='state1-self-condition'>(!A{{inputBitOne}} && !A{{inputBitTwo}}) || (A{{inputBitOne}} && A{{inputBitTwo}})</div>
+<div class='state1-action'>B = 0;</div>
+<div class='state1-transition1'>A{{inputBitOne}} && !A{{inputBitTwo}}</div>
+<div class='state1-transition2'>!A{{inputBitOne}} && A{{inputBitTwo}}</div>
+<div class='state2-self-condition'>A{{inputBitOne}} && !A{{inputBitTwo}}</div>
+<div class='state2-action'>B{{outputBitOne}} = 1;</div>
+<div class='state2-transition'>!(A{{inputBitOne}} && !A{{inputBitTwo}})</div>
+<div class='state3-self-condition'>!A{{inputBitOne}} && A{{inputBitTwo}}</div>
+<div class='state3-action'>B{{outputBitTwo}} = 1;</div>
+<div class='state3-transition'>!(!A{{inputBitOne}} && A{{inputBitTwo}})</div>

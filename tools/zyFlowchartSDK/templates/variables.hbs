@@ -1,0 +1,33 @@
+{{!
+    Render a table of variables.
+    @param {Boolean} hasArray Whether the variables include an array.
+    @param {String} variablesName Name of the variables table.
+    @param {Array} variableRenderList Array of {MemoryCellRender}. The variables to print in the table.
+}}
+<div class='variables-container{{#unless hasArray}} no-arrays{{/unless}}'>
+    <div class='variable-or-IO-label'>{{variablesName}}</div>
+    <table>
+        {{#each variableRenderList}}
+            <tr>
+                {{#if isArraySizeComment}}
+                    <td class='variable-size-comment'><span>{{comment}}</span></td>
+                    <td></td>
+                {{else}}
+                    <td class='variable-value{{#if wasWrittenTo}} highlight-value{{/if}}'>{{value}}</td>
+                    <td class='variable-name'>{{name}}</td>
+                    {{#if isArray}}
+                        {{#if isFirstOfArray}}
+                            <td class='variable-type-container array-divider' rowspan='{{numberOfElements}}'>
+                                <span class='array-name'>{{arrayName}}</span>
+                                <br>
+                                <span class='variable-type'>{{type}} array</span>
+                            </td>
+                        {{/if}}
+                    {{else}}
+                        <td class='variable-type-container variable-type'>{{type}}</td>
+                    {{/if}}
+                {{/if}}
+            </tr>
+        {{/each}}
+    </table>
+</div>

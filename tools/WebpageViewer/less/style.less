@@ -1,0 +1,56 @@
+@import "../../../zyWeb/less/buttons.less";
+@import "../../../zyWeb/less/constants.less";
+
+.WebpageViewer {
+    width: 900px;
+
+    @border: 1px solid @zyante-light-gray;
+
+    div.file-editor {
+        border:     @border;
+        box-sizing: border-box;
+        display:    inline-block;
+        height:     300px;
+        width:      100%;
+    }
+
+    @margin-top-bottom: 10px;
+    button {
+        margin-bottom: @margin-top-bottom;
+        margin-top:    @margin-top-bottom;
+
+        &.button {
+            margin-right: 30px;
+        }
+    }
+
+    div.webpage-container {
+        &.not-stacked {
+            display: inline-block;
+        }
+
+        &.half-width {
+            width: 50%;
+        }
+
+        &.add-margin-top {
+            margin-top: @margin-top-bottom;
+        }
+
+        div.iframe-container {
+            height: 300px;
+
+            div.ui-resizable-se {
+                cursor: nwse-resize;
+            }
+
+            div.ui-resizable-e {
+                cursor: ew-resize;
+            }
+
+            div.ui-resizable-s {
+                cursor: ns-resize;
+            }
+        }
+    }
+}

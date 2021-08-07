@@ -1,0 +1,17 @@
+{{!
+    Render a row of bits with the following inputs:
+    * |prefixBit| and |numberValue| are required and a number.
+    * |suffixBits| is required and an array of numbers.
+    * |buttonClass| and |label| are required and a string.
+}}
+{{#range 2}}
+    <td><button class='button number-bit prefix-bit'>{{../prefixBit}}</button></td>
+{{/range}}
+<td><button class='button number-bit ellipse'>&middot;&middot;&middot;</button></td>
+{{#each suffixBits}}
+    <td>
+        <button class='button suffix-bit {{../buttonClass}}'>{{this}}</button>
+    </td>
+{{/each}}
+<td class='number-value'>{{numberValue}}</td>
+<td class='bits-label'>{{label}}</td>

@@ -1,0 +1,154 @@
+@import "../../../zyWeb/less/constants.less";
+
+.zySpreadsheet {
+    @border-thickness:      3px;
+    @cell-highlight-color:  @zyante-darker-blue;
+    @cell-width:            85px;
+    @cell-height:           20px;
+    @highlight-border:      @border-thickness solid @cell-highlight-color;
+    @outline-thickness:     2px;
+    @row-header-width:      20px;
+
+    .cell-contents-bar {
+        color:       @cell-highlight-color;
+        font-size:   20px;
+        font-weight: bold;
+        margin:      10px;
+        white-space: nowrap;
+
+        .cell-label {
+            display:   inline-block;
+            min-width: 57px;
+        }
+
+        .current-selected-cell {
+            color:       @zyante-gray;
+            display:     inline-block;
+            font-weight: normal;
+            font-size:   15px;
+            min-width:   20px;
+            text-align:  center;
+        }
+
+        .equation-field {
+            font-size:   15px;
+            height:      @cell-height + 5px;
+            width:       85%;
+        }
+    }
+
+    .spreadsheet-container {
+        border: 1px solid @zyante-cancel-gray;
+
+        .disabled-sheet {
+            cursor:  not-allowed;
+            opacity: 0.8;
+        }
+
+        .spreadsheet {
+            border-collapse: collapse;
+            cursor:          cell;
+
+            .header-label-style {
+                font-family: Helvetica;
+                padding:     5px 3px;
+                text-align:  center;
+            }
+
+            .highlighted-header {
+                color:       @cell-highlight-color;
+                font-weight: bold;
+                padding:     0 1px;
+            }
+
+            tr:first-child {
+                td {
+                    .header-label-style;
+                    border-top: none;
+                    width:      @row-header-width;
+
+                    &.selected-column {
+                        .highlighted-header;
+                        border-bottom: @highlight-border;
+                        padding:       4px 2px 2px;
+                        height:        (@cell-height - @border-thickness);
+                    }
+                }
+            }
+
+            td {
+                border:     1px solid @zyante-table-gray;
+                overflow:   hidden;
+                padding:    0;
+                text-align: center;
+                width:      @cell-width;
+
+                &:first-child {
+                    .header-label-style;
+                    border-left: none;
+                    width:       @row-header-width + @border-thickness;
+                }
+
+                &.selected-row {
+                    .highlighted-header;
+                    border-right: @highlight-border;
+                    padding:      5px 0;
+                    width:        (@row-header-width);
+                }
+            }
+
+            input.cells {
+                border:           none;
+                box-shadow:       none;
+                font-size:        14px;
+                padding-left:     4px;
+                padding-right:    2px;
+                height:           100%;
+                width:            85px;
+
+                &:disabled {
+                    background-color: white;
+                    cursor: cell;
+                }
+
+                &.focused {
+                    background-color: white;
+                    height:           100%;
+                    padding:          0 0 0 2px;
+                    border:           @outline-thickness solid @cell-highlight-color;
+
+                    &:not(:disabled) {
+                        text-align: left;
+                    }
+                }
+
+                &:not(:focus) {
+                    text-align: right;
+                }
+
+                &.locked {
+                    color: @zyante-light-blue;
+                }
+
+                &.expected-answer {
+                    border: @outline-thickness solid @zyante-orange;
+                }
+
+                &.correctly-answered {
+                    border: @outline-thickness solid @zyante-green;
+                }
+            }
+        }
+    }
+
+    .instructions-container {
+        margin-top: 10px;
+        min-height: 25px;
+        text-align: center;
+
+        .instructions {
+            color:     @zyante-dark-blue;
+            font-size: 20px;
+        }
+    }
+}

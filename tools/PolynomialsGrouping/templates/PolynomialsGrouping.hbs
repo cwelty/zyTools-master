@@ -1,0 +1,26 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.placeholder Input box's placeholder.
+    @param {String} question.toolID The tool's unique id.
+}}
+<div class='container'>
+    <div>
+        <div class='prompt'>
+            {{{question.prompt}}}
+            <div>
+                <button id='{{question.toolID}}-copy-button'>Copy to scratch pad</button>
+            </div>
+        </div>
+        {{{question.inputPrefix}}}
+            <input type='text' placeholder='{{question.placeholder}}'></input>
+        {{{question.inputPostfix}}}
+    </div>
+    <div>
+        <div>
+            <textarea id='{{question.toolID}}-scratchpad' autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                      rows='6' cols='28' placeholder='Scratch pad - This area is not graded.'></textarea>
+        </div>
+    </div>
+</div>

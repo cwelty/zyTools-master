@@ -1,0 +1,31 @@
+{{!
+    Render the bits along with the decimal value.
+    @param {Array} bits Array of {Bit}. The bits to render.
+    @param {Boolean} useNewStyling Whether to use the new styling.
+}}
+<div class='bit-decimal-container{{#if useNewStyling}} new-styling{{/if}}'>
+    <table>
+        <tbody>
+            <tr>
+                {{#each bits}}
+                    <td><div class='button bit zero-bit-color'>0</div></td>
+                {{/each}}
+            </tr>
+            <tr>
+                {{#each bits}}
+                    <td>{{this.decimalValue}}</td>
+                {{/each}}
+            </tr>
+            <tr>
+                {{#each bits}}
+                    <td>2<sup>{{this.bitIndex}}</sup></td>
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
+
+    <div class='decimal-container'>
+        <div class='decimal-value'>0</div>
+        <div class='decimal-value-label'>(decimal value)</div>
+    </div>
+</div>

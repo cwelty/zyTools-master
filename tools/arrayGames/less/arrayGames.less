@@ -1,0 +1,197 @@
+@import "../../../zyWeb/less/constants.less";
+
+@large-z-index: 10000;
+
+.arrayGames {
+    font-family: @zyante-font;
+
+    min-width: 415px; /* min width for reset modal to look nice */
+
+    div.zyante-array-games-reset-confirm-container {
+        left:       50%;
+        text-align: center;
+        position:   absolute;
+        z-index:    @large-z-index;
+
+        div.zyante-array-games-reset-confirm-container-center {
+            left:     -50%;
+            position: relative;
+
+            div.zyante-array-games-reset-confirm-label {
+                font-size:     18px;
+                margin-bottom: 15px;
+            }
+
+            button.zyante-array-games-confirm-reset-button {
+                margin-left: 25px;
+            }
+        }
+    }
+
+    div.zyante-array-games-modal-cover {
+        height:  100%;
+        width:   100%;
+        z-index: (@large-z-index - 1);
+
+        &.active-cover {
+            opacity: 0.1;
+        }
+    }
+
+    .clear-best-button {
+        border:           0;
+        background-color: white;
+        color:            @zyante-dark-blue;
+        cursor:           pointer;
+        display:          inline-block;
+        font-weight:      700;
+
+        &.disabled {
+            cursor:  default;
+            opacity: 0.5;
+        }
+    }
+
+    table {
+        border-collapse: collapse;
+
+        td {
+            text-align: center;
+        }
+
+        &.array-game-table > tbody > tr {
+            & > td:first-child {
+                width: 290px;
+            }
+
+            & > td:nth-child(2) {
+                width: 130px;
+            }
+        }
+
+        &.tool-table {
+            margin: auto;
+
+            div.start-reset-button-container {
+                float:  left;
+                height: 55px;
+                width:  55px;
+
+                button.reset {
+                    background-color: white;
+                    color:            @zyante-dark-blue;
+                }
+            }
+        }
+
+        &.array-table {
+            @table-border-style: 1px solid black;
+
+            border:    @table-border-style;
+            float:     right;
+            font-size: 20px;
+
+            td.pre-window-element, td.array-element{
+                padding: 5px;
+                border:  @table-border-style;
+            }
+
+            td.pre-window-element {
+                color:   black;
+                opacity: 0.5;
+                width:   30px;
+            }
+
+            td.array-element {
+                background-color: white;
+                color:            white;
+                width:            30px;
+
+                &.array-element-is-active {
+                    background-color: white;
+                    color:            black;
+
+                    &.highlighted {
+                        background-color: @zyante-lighter-blue;
+                        color:            white;
+                    }
+
+                    &.clickable:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                &.disabled {
+                    background-color: @zyante-light-gray;
+                    opacity:          0.5;
+                }
+
+                &.correct {
+                    background-color: @zyante-green;
+                    color:            white;
+                }
+
+                &.wrong {
+                    background-color: @zyante-medium-red;
+                    color:            white;
+                }
+            }
+        }
+    }
+
+    .show-sorted {
+        color:       @zyante-dark-blue;
+        font-size:   20px;
+        font-weight: bold;
+        text-align:  center;
+    }
+
+    .show-value-container {
+        color:          @zyante-dark-blue;
+        display:        inline-block;
+        text-align:     center;
+        vertical-align: text-top;
+
+        .show-value {
+            display: inline-block;
+            font-size: 20px;
+            height: 30px;
+            padding: 6px;
+            width: 28px;
+
+            &.value-border {
+                border: 1px solid black;
+                padding: 5px;
+            }
+        }
+
+        .show-value-label {
+            font-weight: bold;
+        }
+    }
+
+    .next-button-column {
+        text-align: right;
+    }
+
+    .time-row {
+        padding-top: 10px;
+        text-align:  left;
+    }
+
+    .time-output {
+        display:      inline-block;
+        margin-right: 10px;
+        text-align:   left;
+        width:        35px;
+    }
+
+    .feedback-area {
+        height: 20px;
+        width:  300px;
+
+        .feedback {
+            color: @zyante-medium-red;
+        }
+    }
+}

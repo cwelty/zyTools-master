@@ -1,0 +1,125 @@
+@import "../../../zyWeb/less/constants.less";
+
+.TroubleshootingElectricalSystem {
+    min-width: 958px;
+
+    div.instructions {
+        font-size: 18px;
+    }
+
+    div.level-container {
+        color: @zyante-dark-blue;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    div.small-note {
+        font-size: 12px;
+    }
+
+    span.right-arrow:before {
+        content: "→";
+        font-size: 17px;
+    }
+
+    @electrical-system-width: 280px;
+    @table-margin-left: 40px;
+
+    div.troubleshooting-container {
+        display: flex;
+        margin-top: 15px;
+        min-height: 100px;
+
+        div.electrical-system-container {
+            width: @electrical-system-width;
+
+            div.electrical-system-label {
+                font-weight: bold;
+            }
+
+            div.electrical-system-sub-label {
+                margin-bottom: 15px;
+            }
+
+            div.electrical-system {
+                button.component:not(:first-of-type) {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        table {
+            margin-left: @table-margin-left;
+            text-align: center;
+
+            th, td {
+                border-bottom: 1px solid @zyante-table-gray;
+                padding: 5px 8px;
+
+                &.result-column {
+                    min-width: 90px;
+                    text-align: center;
+
+                    div.result-label {
+                        font-size: 18px;
+                        font-weight: bold;
+
+                        &.running-test {
+                            color: @zyante-dark-blue;
+                        }
+                    }
+
+                    div.result-note-label {
+                        font-size: 9px;
+                    }
+                }
+            }
+
+            td.cause-found-container {
+                color: @zyante-light-red;
+                font-weight: bold;
+                margin-top: 88px;
+                text-align: right;
+            }
+        }
+    }
+
+    div.footer {
+        color: @zyante-gray;
+        margin-left: @electrical-system-width + @table-margin-left;
+        margin-top: 35px;
+
+        div.score-container {
+            align-items: center;
+            display: flex;
+            font-size: 18px;
+
+            div.total-score {
+                color: @zyante-dark-blue;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+
+            div.small-note {
+                margin-left: 10px;
+            }
+        }
+
+        div.done-container {
+            align-items: center;
+            display: flex;
+            margin-top: 30px;
+
+            button.play-again {
+                margin-left: 30px;
+            }
+
+            div.done-label {
+                color: @zyante-green;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+}

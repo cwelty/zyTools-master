@@ -1,0 +1,4 @@
+{
+    type: 'addiAdd',
+    instructionSet: 'MIPSzy'
+}

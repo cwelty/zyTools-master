@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <title>zyAnimator</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="">
+    </head>
+    <body>
+        <div id="1" class="zyAnimator"></div>
+        <script type='text/javascript' src='https://mathjax.zybooks.com/2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML' id='mathjax'></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../vendor/common.js"></script>
+        <script type="text/javascript" src="../vendor/handlebars.runtime.js"></script>
+        <script type="text/javascript" src="rsvp.js"></script>
+        <script type="text/javascript" src="../vendor/zyWebEventManager.js"></script>
+        <script type="text/javascript" src="../vendor/zyWebResourceManager.js"></script>
+        <script type="text/javascript" src="../vendor/zyWebParentResource.js"></script>
+        <script type="text/javascript" src="../vendor/namespaced-require.js"></script>
+        <script src="js/zyAnimator.js"></script>
+        <script>
+            Ember = {};
+            Ember.RSVP = RSVP;
+
+            var parentResource  = require('zyWebParentResource');
+            var resourceManager = require('zyWebResourceManager');
+
+            var tool = require('zyAnimator');
+            var dependencies = tool.dependencies;
+            resourceManager.getDependencies(dependencies).then(function() {
+                tool.create().init(1, parentResource, {
+                    canEdit:       true,
+                    isEditorShown: true
+                });
+            });
+        </script>
+    </body>
+</html>

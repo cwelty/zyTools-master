@@ -1,0 +1,94 @@
+@import "../../../zyWeb/less/constants.less";
+
+@table-border: 1px solid @zyante-gray;
+
+.kMap {
+    font-size:  18px;
+
+    .diagonal {
+        border-left:       @table-border;
+        height:            70px;
+        left:              27px;
+        position:          absolute;
+        top:               3px;
+        transform:         rotate(-45deg);
+        -ms-transform:     rotate(-45deg); /* IE 9 */
+        -webkit-transform: rotate(-45deg); /* Opera, Chrome, and Safari */
+    }
+
+    .input-a {
+        left: 5px;
+        position: absolute;
+        top: 33px;
+    }
+
+    .input-b-c {
+        left: 33px;
+        position: absolute;
+        top: 10px
+    }
+
+    .minterm-prompt {
+        font-size:     28px;
+        margin-bottom: 15px;
+        text-align:    center;
+    }
+
+    div.k-table-container {
+        display: flex;
+        justify-content: center;
+
+        table.k-map-table {
+            td {
+                height:     60px;
+                min-width:  50px;
+                text-align: center;
+
+                &.kmap-cell {
+                    border:                @table-border;
+                    vertical-align:        bottom;
+                    width:                 100px;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select:   none;
+                    -khtml-user-select:    none;
+                    -moz-user-select:      none;
+                    -ms-user-select:       none;
+                    user-select:           none;
+
+                    &.correct {
+                        background-color: lighten(@zyante-green, 50%);
+                    }
+
+                    .kmap-cell-contents {
+                        visibility: hidden;
+
+                        &.selected {
+                            visibility: visible;
+                        }
+                    }
+
+                    .kmap-cell-minterm, .kmap-cell-value {
+                        font-size: 14px;
+                    }
+
+                    .kmap-cell-minterm {
+                        color:       @zyante-dark-blue;
+                        margin-left: 10px;
+                    }
+
+                    .kmap-cell-value {
+                        color: @zyante-light-gray;
+                    }
+
+                    &.active:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .table-header-container {
+        position: relative;
+    }
+}

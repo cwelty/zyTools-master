@@ -1,0 +1,58 @@
+<!-- bootstrap may have some nice styles for drop down menu -->
+
+<div class="start-reset-buttons-container">
+    <button id="startButton_{{id}}" class="button">Start</button>
+    <button id="resetButton_{{id}}" class="button">Reset</button>
+</div>
+
+<div class="pre-execution-box"></div>
+
+<div>
+    <table class="instr-block">
+        {{#each instructions}}
+            <tr>
+                <td>
+                    Instruction {{index}}
+                </td>
+                <td>
+                    <select id="opCode_{{index}}_{{../id}}">
+                        {{#each ../opCodes}}
+                            <option value="{{opCode}}">{{opCode}}</option>
+                        {{/each}}
+                    </select>
+                    <select id="destination_{{index}}_{{../id}}">
+                        {{#each ../registers}}
+                            <option value="{{name}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                    <select id="source1_{{index}}_{{../id}}">
+                        {{#each ../registers}}
+                            <option value="{{name}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                    <select id="source2_{{index}}_{{../id}}">
+                        {{#each ../registers}}
+                            <option value="{{name}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+
+    <table class="register-block">
+        <tr>
+            <td>Registers</td>
+            <td></td>
+        </tr>
+        {{#each registers}}
+            <tr>
+                <!-- registers should have a min="-2147483648" and max="2147483647" -->
+                <td class="register-address"><input id="register_{{name}}_{{../id}}" class="register-input" type="text" maxlength="11" size="11" value="{{initialValue}}"></td>
+                <td class="register-name">{{name}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</div>
+
+<div id="executeNext_{{id}}" class="button execute-next">Execute first instruction</div>

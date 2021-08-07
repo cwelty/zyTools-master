@@ -1,0 +1,11 @@
+{{!
+    Print a list of elements.
+    @param {Array} of {Element} elements The elements to print.
+}}
+<div class='list'>
+    {{#each elements}}
+        <div class='object-list-element{{#if isSelected}} selected{{/if}}'>{{name}}</div>
+    {{else}}
+        <div class='no-objects-message'>No objects exist.</div>
+    {{/each}}
+</div>

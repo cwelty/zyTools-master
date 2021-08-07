@@ -1,0 +1,25 @@
+{{!
+    Render a question with the following inputs:
+    * |prompt| is required and a string.
+    * |carryBitsHTML|, |firstNumberBitsHTML|, |secondNumberBitsHTML|, and |resultBitsHTML| are
+        required and HTML generated from bits.hbs.
+}}
+<div class='prompt'>{{prompt}}</div>	
+<table>
+    <tr class='carry-bits'>
+        <td></td>
+        {{{carryBitsHTML}}}
+    </tr>
+    <tr>
+        <td></td>
+        {{{firstNumberBitsHTML}}}
+    </tr>
+    <tr>
+        <td>+</td>
+        {{{secondNumberBitsHTML}}}
+    </tr>
+    <tr class='line-above result-bits'>
+        <td></td>
+        {{{resultBitsHTML}}}
+    </tr>
+</table>

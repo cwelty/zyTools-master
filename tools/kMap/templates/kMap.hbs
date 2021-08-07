@@ -1,0 +1,51 @@
+{{!
+    @param {Array} mintermRow1 Array of {Object}. Top row of table. Each Object has properties minterm and value.
+    @param {Array} mintermRow2 Array of {Object}. Bottom row of table. Each Object has properties minterm and value.
+    @param {Boolean} useTwoVariables Whether to use two variables. If true, then variables are a and b. Otherwise, variables are a, b, and c.
+}}
+<div class='minterm-prompt'></div>
+<div class='k-table-container'>
+    <div class='table-header-container'>
+        <div class='diagonal'></div>
+        <div class='input-a'>a</div>
+        <div class='input-b-c'>b{{#unless useTwoVariables}}c{{/unless}}</div>
+    </div>
+    <table class='k-map-table'>
+        <tr>
+            <td></td>
+            {{#if useTwoVariables}}
+                <td>0</td>
+                <td>1</td>
+            {{else}}
+                <td>00</td>
+                <td>01</td>
+                <td>11</td>
+                <td>10</td>
+            {{/if}}
+        </tr>
+        <tr>
+            <td>0</td>
+            {{#each mintermRow1}}
+                <td class='kmap-cell active'>
+                    <div class='kmap-cell-contents'>
+                        <span>1</span><br/>
+                        <span class='kmap-cell-value active'>{{this.value}}</span><!--
+                        --><span class='kmap-cell-minterm'>{{this.minterm}}</span>
+                    </div>
+                </td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>1</td>
+            {{#each mintermRow2}}
+                <td class='kmap-cell active'>
+                    <div class='kmap-cell-contents'>
+                        <span>1</span><br/>
+                        <span class='kmap-cell-value'>{{this.value}}</span><!--
+                        --><span class='kmap-cell-minterm'>{{this.minterm}}</span>
+                    </div>
+                </td>
+            {{/each}}
+        </tr>
+    </table>
+</div>

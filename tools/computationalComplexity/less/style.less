@@ -1,0 +1,30 @@
+@import "../../../zyWeb/less/constants.less";
+
+.computationalComplexity {
+    input[type=checkbox].complexityCheckbox {
+        float: none;
+    }
+
+    div.graph-container {
+        position:   relative;
+        text-align: center;
+
+        div.graph {
+            height: 300px;
+            width:  600px;
+
+            .jqplot-table-legend-label {
+                white-space: nowrap;
+            }
+        }
+
+        div.helper-text {
+            font-size:  20px;
+            left:       0;
+            margin-top: -10px;
+            position:   absolute;
+            right:      0;
+            top:        50%;
+        }
+    }
+}

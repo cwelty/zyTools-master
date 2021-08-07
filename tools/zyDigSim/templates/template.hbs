@@ -1,0 +1,48 @@
+<button id='resetButton_{{id}}' class='reset-button button'>Reset</button>
+
+{{#if isProgressionTool}}
+    <div class='progression-container'>
+        <div id='progressionPrompt_{{id}}' class='progression-prompt'></div>
+        <div id='progressionImageContainer_{{id}}' class='progression-image-container'>
+            <img id='progressionImage1_{{id}}' class='progression-image'></img>
+            <img id='progressionImage2_{{id}}' class='progression-image'></img>
+            <img id='progressionImage3_{{id}}' class='progression-image'></img>
+            <img id='progressionImage4_{{id}}' class='progression-image'></img>
+            <img id='progressionImage5_{{id}}' class='progression-image'></img>
+        </div>
+    </div>
+{{/if}}
+
+<div class='middle-container-cover'>
+    <div class='middle-container'>
+        <input type='number' class='component-input'/>
+        <canvas id='legendCanvas_{{id}}' width='120' height='30' class='legend-canvas'></canvas>
+        <div id='logicCanvasContainer_{{id}}' class='logic-canvas-container'>
+            <canvas id='logicCanvas_{{id}}' width='1600' height='960'></canvas>
+        </div>
+        <div class='toolbox-container'>
+            <button id='deleteSelectedItemsButton_{{id}}' class='delete-selected-items-button button'>Delete selected item(s)</button>
+            <button id='undoButton_{{id}}' class='undo-button button'>Undo</button>
+            <div class='instruction-label'>Click to add.</div>
+            <canvas id='toolBoxCanvas_{{id}}' class='toolbox-canvas' width='250' height='400'></canvas>
+        </div>
+    </div>
+</div>
+
+<div class='bottom-buttons'>
+    <button id='exportBtn_{{id}}' class='export-button button'>Export &darr;</button>
+    <button id='importBtn_{{id}}' class='import-button button'>Import &uarr;</button>
+    <select id='exampleDrop_{{id}}' class='example-drop'>
+        {{#each examples}}
+            <option>{{this}}</option>
+        {{/each}}
+    </select>
+    <br/>
+</div>
+
+<textarea id='JSONLoadSave_{{id}}' class='JSON-import-export textfield' rows='4' cols='50'></textarea>
+<div id='deleteContextMenu_{{id}}' class='logic-context-menu-container'>
+    <ul id='deleteOptions_{{id}}' class='logic-context-menu-items'>
+      <li class='logic-context-menu-item'>Delete wire</li>
+  </ul>
+</div>

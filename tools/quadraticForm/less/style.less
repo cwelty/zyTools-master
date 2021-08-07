@@ -1,0 +1,50 @@
+@import "../../../zyWeb/less/constants.less";
+
+.quadraticForm {
+    div.equation-area {
+        text-align: center;
+        
+        div.equation {
+            font-size:  18px;
+            margin-top: 30px;
+            
+            input.user-input {
+                text-align: right;
+                
+                @invalid-input-color: @zyante-medium-red;
+                &.invalid-input {
+                    border-color: @invalid-input-color;
+                    box-shadow:   inset 0 1px 2px fade(black, 7.5%), 0 0 5px fade(@invalid-input-color, 50%);
+                }
+            }
+        }
+    }
+    
+    div.instructions {
+        display   : inline-block;
+        text-align: left;
+        
+        span.main-instruction {
+            color:     @zyante-dark-blue;
+            font-size: 24px;
+        }
+        
+        span.sub-instruction {
+            color: @zyante-dark-blue;
+        }
+    }
+    
+    .border-across-bottom {
+        border-bottom: 1px solid @zyante-gray;
+    }
+    
+    td {
+        &.right-align {
+            text-align: right;
+        }
+    
+        &.center-align {
+            text-align: center;
+        }
+    }
+}

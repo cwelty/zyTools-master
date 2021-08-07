@@ -1,0 +1,42 @@
+{{!
+    Render an instruction using dropdown and inputs. Ex: add $s0, $s1, $s2
+
+    Input:
+        * |instructionDropdown|   - Required HTML of dropdown containing instruction option
+        * |instructionProperties| - Required array of objects that defines which properties need to
+                                    be printed for an instruction
+        * |registerDropdown|      - Optional HTML of dropdown containing register options
+        * |labelDropdown|         - Optional HTML of dropdown containing label options
+    @param {Boolean} useTextForOpcodes Whether the opcodes should be rendered as text.
+    @param {String} opcode The instruction's opcode.
+}}
+<div>
+    {{#if useTextForOpcodes}}
+        <span>{{opcode}}</span>
+    {{else}}
+        {{{instructionDropdown}}}
+    {{/if}}
+</div>
+
+{{#each instructionProperties}}
+    <div>
+        {{#if useRegister}}
+            {{#if alsoUseInput}}
+                    [{{{../registerDropdown}}}{{{../../../registerDropdown}}},
+                </div>
+                <div>
+                    #<input type='text' maxlength='4' size='4'></input>]
+            {{else}}
+                {{{../registerDropdown}}}{{{../../../registerDropdown}}}{{#if useComma}},{{/if}}
+            {{/if}}
+        {{/if}}
+
+        {{#if useInput}}
+            #<input type='text' maxlength='4' size='4'></input>
+        {{/if}}
+
+        {{#if useLabel}}
+            {{{../labelDropdown}}}{{{../../labelDropdown}}}
+        {{/if}}
+    </div>
+{{/each}}

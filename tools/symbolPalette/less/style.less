@@ -1,0 +1,40 @@
+@import "../../../zyWeb/less/constants.less";
+
+@padding: 10px;
+@border:  1px solid @zyante-light-gray;
+
+div.symbol-palette {
+    background-clip:  padding-box;
+    background-color: white;
+    border:           @border;
+    border-radius:    4px;
+    padding:          @padding @padding;
+    position:         absolute;
+    z-index:          100000;
+    
+    tr:not(:first-child) > td {
+        padding-top: @padding;
+    }
+    
+    td {
+        padding: 0;
+        
+        &:not(:first-child) {
+            padding-left: @padding;
+        }
+    }
+    
+    button {
+        background-color: white;
+        border:           @border;
+        color:            darken(@zyante-light-gray, 20%);
+        height:           45px;
+        padding:          0;
+        width:            50px; 
+        
+        &:hover:not(.disabled) {
+            background-color: @zyante-dark-blue;
+            color:            white;
+        }
+    }
+}

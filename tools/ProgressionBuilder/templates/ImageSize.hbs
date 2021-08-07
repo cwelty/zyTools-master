@@ -1,0 +1,12 @@
+{{!
+    Render an image size container.
+}}
+<div class='image-size-container{{#if isControlPerQuestionChecked}} image-size-control-per-question{{/if}}'>
+    {{#if isControlPerQuestionChecked}}<h3>Only this question</h3>{{/if}}
+    <div class='image-height-container'></div>
+    <div class='image-width-container'></div>
+    <label>
+        <input type='checkbox' {{#if isControlPerQuestionChecked}}checked {{/if}}></input>
+        Special case: Control height/width per question
+    </label>
+</div>

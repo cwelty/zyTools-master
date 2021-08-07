@@ -1,0 +1,4 @@
+{
+    simulateOnly: true,
+    JSONToLoad:  '{"globalCode":"","graphs":[{"name":"LoHi","prefix":"SM1","period":1000,"localCode":"","nodes":[{"id":"node_0","x":-16.5,"y":115.5,"name":"Dummy","init":false,"dummy":true,"actions":""},{"id":"node_1","x":71,"y":203,"name":"Lo","init":true,"dummy":false,"actions":"B0 = 0;"},{"id":"node_2","x":378,"y":211,"name":"Hi","init":false,"dummy":false,"actions":"B0 = 1;"}],"edges":[{"id":"edge_0","src":"node_1","dst":"node_2","priority":0,"actions":"","condition":"A0"},{"id":"edge_1","src":"node_2","dst":"node_1","priority":0,"actions":"","condition":"!A0"},{"id":"edge_2","src":"node_1","dst":"node_1","priority":1,"actions":"","condition":"!A0"},{"id":"edge_3","src":"node_2","dst":"node_2","priority":1,"actions":"","condition":"A0"},{"id":"edge_4","src":"node_0","dst":"node_1","priority":0,"actions":"B=0;","condition":""}]}]}'
+}

@@ -1,0 +1,25 @@
+{{!
+    Render a question.
+    @param {Question} question The question to render.
+    @param {String} question.prompt The question's prompt.
+    @param {String} question.inputPrefix A prefix for the input box.
+    @param {String} question.inputPostfix A postfix for the input box.
+    @param {Boolean} question.needScratchPad Whether the question would benefit from having a scratchpad for calculations.
+    @param {String} question.placeholder Input box's placeholder.
+}}
+<div class='container'>
+    <div>
+        <div class='prompt'>
+            {{{question.prompt}}}
+        </div>
+        {{{question.inputPrefix}}}
+        <input type='text' placeholder='{{question.placeholder}}'></input>
+        {{{question.inputPostfix}}}
+    </div>
+    {{#if question.needScratchPad}}
+        <div>
+            <div class='label'>Scratch pad (optional)</div>
+            <textarea rows='4' cols='30' placeholder='Use this area for your calculations if needed. This area will not be graded.'></textarea>
+        </div>
+    {{/if}}
+</div>
