@@ -1826,7 +1826,7 @@ function ZySMSim() {
                 $('#canvasTab_' + zyID + ' ul:first li:eq(' + (graphs.length - 1) + ') a').click();
             }, 10);
         }
-        // Find index of SM in graphs vy using the SM name
+        // Find index of SM in graphs by using the SM name
         function getTabIndex(smName) {
             for (var i = 0; i < graphs.length; i++) {
                 if (graphs[i].name === smName) {
@@ -1862,6 +1862,16 @@ function ZySMSim() {
 
         // Find out which SMs are ready and execute their current states actions and see what edge to take.
         function updateLoop() {
+            //Carson Welty 8/10/2021
+            //timerPercent = 0;
+            console.log('timerPercent: ', timerPercent);
+            console.log('gcdPeriod: ', gcdPeriod);
+            //for(let i = 0; i < 5; i++){
+                //updateTimerBar(timerPercent);
+                timerPercent = timerPercent + 20;
+            //}
+            //updateTimerBarID = setInterval(updateTimerBar(timerPercent), (gcdPeriod / 100));
+            
             for (var j = 0; j < graphs.length; j++) {
                 if (smElapsedTime[j] >= graphs[j].period) {
                     smElapsedTime[j] = 0;
@@ -1999,6 +2009,7 @@ function ZySMSim() {
             return { noErrors:noErrors, errorMessage:errorMes };
         }
         // Starts the execution of the SMs when first called. If state machines are already running this stops the execution
+        var timerPercent = 0;
         function simulate() {
             if (!simulateID && !$('#simulateButton_' + zyID).hasClass('disabled') && !paused) {
                 var prepareResult = prepareToSimulate();
@@ -2020,7 +2031,12 @@ function ZySMSim() {
                         gcdPeriod = GCD(gcdPeriod, graphs[j].period);
                         smElapsedTime.push(graphs[j].period);
                     }
-                    simulateID = setInterval(updateLoop, gcdPeriod);
+                    //Carson Welty 8/12/2021
+                    var speedChoice = $("#speed-choice option:selected").val();
+                
+                    simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
+                    updateTimerID = setInterval(updateTimerBar(timerPercent), 500);
+
                     $('#pauseButton_' + zyID).prop('disabled', false);
                     $('#pauseButton_' + zyID).removeClass('disabled');
                     // Test vectors are active, run that instead of using user input
@@ -2065,6 +2081,18 @@ function ZySMSim() {
                 updateB(0, false);
 
             }
+        }
+
+        //Carson 8/11/2021
+        function updateTimerBar(timerPercent) {
+            console.log('entered updateTimerBar');
+            timerBarCanvas = $('#timer-bar');
+            timerBarCanvas.attr({
+                width: timerPercent
+            })
+            
+            timerPercent = timerPercent + 10;
+            console.log('timerPercent: ', timerPercent);
         }
 
         // Processes the user's test vectors,
@@ -2798,6 +2826,8 @@ function ZySMSim() {
                 $('#deleteButton_' + zyID).prop('disabled', false);
                 $('#importButton_' + zyID).prop('disabled', false);
                 $('#exportButton_' + zyID).prop('disabled', false);
+                //Carson Welty 8/12/2021
+                $('#speed-choice').prop('disabled', false);
 
                 $('#exampleDrop_' + zyID).prop('disabled', false);
                 $('#insertStateButton_' + zyID).prop('disabled', false);
@@ -2854,6 +2884,8 @@ function ZySMSim() {
                 $('#exportToRimsButton_' + zyID).prop('disabled', true);
                 $('#period_' + zyID).prop('disabled', true);
                 $('#stateName_' + zyID).prop('disabled', true);
+                //Carson Welty 8/12/2021
+                $('#speed-choice').prop('disabled', true);
 
                 $('#deleteButton_' + zyID).addClass('disabled');
                 $('#importButton_' + zyID).addClass('disabled');
@@ -3813,8 +3845,6 @@ function ZySMSim() {
         }
         init();
     }
-
-
 }
 
 var zySMSimExport = {

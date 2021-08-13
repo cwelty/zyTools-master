@@ -13,6 +13,16 @@
     <button id='insertTransitionButton_{{id}}' type='button' class='button'>Insert transition</button>
     <button id='deleteButton_{{id}}' type='button' class='delete-button button'>Delete</button>
 </div>
+<div class='speed-container'>
+                <div class='speed-label'>Simulation speed:</div>
+                <select id='speed-choice'>
+                    <option value='5'>Slowest</option>
+                    <option value='2'>Slow</option>
+                    <option value='1' selected>Normal</option>
+                    <option value='.5'>Fast</option>
+                    <option value='.25'>Fastest</option>
+                </select>
+</div>
 <div class='middle-container'>
 
 <div id='inputContainer_{{id}}' class='input-menu'>
@@ -55,20 +65,23 @@
 </div>
 </div>
 <div class='bottom-container'>
-<div class='test-vector-button-container'>
-    <button id='testVectorButton_{{id}}' class='button'>Use test vectors</button>
-</div>
-<button id='exportToRimsButton_{{id}}' class='export-to-rims-button button'>Export to RIMS</button>
-<button id='exportButton_{{id}}' type='button' class='button export-button'>Export</button>
-<button id='importButton_{{id}}' type='button' class='button'>Import</button>
-<select id='exampleDrop_{{id}}'>
-<option>Lo hi</option>
-<option>Flight attendant</option>
-<option>Pacemaker</option>
-</select><br/>
-<textarea id='testVectorWindow_{{id}}' class='test-vector-window textfield'></textarea>
-<textarea id='JSONImportExport_{{id}}' class='JSON-import-export textfield' rows='4' cols='50' placeholder='Paste design here.'>
-</textarea>
+    <div class='test-vector-button-container'>
+        <button id='testVectorButton_{{id}}' class='button'>Use test vectors</button>
+    </div>
+    <div class='timing-info'>
+                <canvas id='timer-bar' width='200' height='20' style="background-color: orange;"></canvas>
+    </div>
+    <button id='exportToRimsButton_{{id}}' class='export-to-rims-button button'>Export to RIMS</button>
+    <button id='exportButton_{{id}}' type='button' class='button export-button'>Export</button>
+    <button id='importButton_{{id}}' type='button' class='button'>Import</button>
+    <select id='exampleDrop_{{id}}'>
+    <option>Lo hi</option>
+    <option>Flight attendant</option>
+    <option>Pacemaker</option>
+    </select><br/>
+    <textarea id='testVectorWindow_{{id}}' class='test-vector-window textfield'></textarea>
+    <textarea id='JSONImportExport_{{id}}' class='JSON-import-export textfield' rows='4' cols='50' placeholder='Paste design here.'>
+    </textarea>
 
 </div>
 </div>
