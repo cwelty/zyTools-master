@@ -584,7 +584,10 @@ function ZySMSim() {
             s = 0;
         var currentAction;
         var currentCondition;
-        var simulateID, testVectorID;
+        //Carson 8/16/2021
+        var simulateID, testVectorID, updateTimerBarID;
+        var timerPercent; //Carson 8/16/2021
+        var speedChoice;
 
         // In miliseconds
         var ANIMATION_DURATION = 200;
@@ -613,6 +616,8 @@ function ZySMSim() {
             transitionMode = false;
             simulateID = 0;
             testVectorID = 0;
+            updateTimerBarID = 0; //Carson 8/16/2021
+            timerPercent = 0; //Carson 8/16/2021
             currentIndex = 0;
             zySMSimActive = false;
             globalCode = '';
@@ -1862,16 +1867,14 @@ function ZySMSim() {
 
         // Find out which SMs are ready and execute their current states actions and see what edge to take.
         function updateLoop() {
+            
             //Carson Welty 8/10/2021
-            //timerPercent = 0;
+            timerPercent = 0;
+            clearInterval(updateTimerBarID);
             console.log('timerPercent: ', timerPercent);
             console.log('gcdPeriod: ', gcdPeriod);
-            //for(let i = 0; i < 5; i++){
-                //updateTimerBar(timerPercent);
-                timerPercent = timerPercent + 20;
-            //}
-            //updateTimerBarID = setInterval(updateTimerBar(timerPercent), (gcdPeriod / 100));
-            
+            updateTimerBarID = setInterval(updateTimerBar, 25);
+
             for (var j = 0; j < graphs.length; j++) {
                 if (smElapsedTime[j] >= graphs[j].period) {
                     smElapsedTime[j] = 0;
@@ -1889,13 +1892,11 @@ function ZySMSim() {
                             reDrawStateMachine = true;
                             break;
                         }
-
                     }
                     executeAction(executingNodes[j].actions, executingNodes[j].name);
                 }
                 smElapsedTime[j] += gcdPeriod;
             }
-
         }
         // If the state machine is running this will pause the state machine, leaving it in whatever state it was in and with the current inputs and outputs.
         // Calling this when the state machine is paused will resume the state machine which starts execution in the previously paused state.
@@ -1925,6 +1926,7 @@ function ZySMSim() {
             else {
                 clearInterval(simulateID);
                 clearInterval(testVectorID);
+                clearInterval(updateTimerBarID); //Carson 8/16/2021
                 simulateID = 0;
                 testVectorID = 0;
                 paused = true;
@@ -2009,7 +2011,6 @@ function ZySMSim() {
             return { noErrors:noErrors, errorMessage:errorMes };
         }
         // Starts the execution of the SMs when first called. If state machines are already running this stops the execution
-        var timerPercent = 0;
         function simulate() {
             if (!simulateID && !$('#simulateButton_' + zyID).hasClass('disabled') && !paused) {
                 var prepareResult = prepareToSimulate();
@@ -2032,10 +2033,9 @@ function ZySMSim() {
                         smElapsedTime.push(graphs[j].period);
                     }
                     //Carson Welty 8/12/2021
-                    var speedChoice = $("#speed-choice option:selected").val();
+                    speedChoice = $("#speed-choice option:selected").val();
                 
-                    simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
-                    updateTimerID = setInterval(updateTimerBar(timerPercent), 500);
+                    simulateID = setInterval(updateLoop, gcdPeriod * speedChoice); 
 
                     $('#pauseButton_' + zyID).prop('disabled', false);
                     $('#pauseButton_' + zyID).removeClass('disabled');
@@ -2066,6 +2066,7 @@ function ZySMSim() {
                 turnOnOffControls();
                 paused = false;
                 clearInterval(simulateID);
+                clearInterval(updateTimerBarID);
                 simulateID = 0;
                 selectedNode = null;
                 setTimeout(function() {
@@ -2083,16 +2084,24 @@ function ZySMSim() {
             }
         }
 
-        //Carson 8/11/2021
-        function updateTimerBar(timerPercent) {
-            console.log('entered updateTimerBar');
+        // Carson 8/11/2021
+        function updateTimerBar() {
             timerBarCanvas = $('#timer-bar');
             timerBarCanvas.attr({
                 width: timerPercent
             })
+            // Calculates new timerPercent value for the next time updateTimerBar() is called
+            if (timerPercent < 200) { // timing-info container width is 200px
+                timerPercent = timerPercent + (200 / ((gcdPeriod * speedChoice) / 25));
+            }
+            console.log('+timerPercent: ', timerPercent);
+
+            // Update percentage text
+            var periodPercent = (timerPercent / 2).toFixed(0); // Divided by 2 since 200px --> 100%
+            if (periodPercent <= 100){
+                $('#period-percent').text(periodPercent + '%');
+            }
             
-            timerPercent = timerPercent + 10;
-            console.log('timerPercent: ', timerPercent);
         }
 
         // Processes the user's test vectors,

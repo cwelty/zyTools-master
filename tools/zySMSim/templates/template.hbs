@@ -16,13 +16,18 @@
 <div class='speed-container'>
                 <div class='speed-label'>Simulation speed:</div>
                 <select id='speed-choice'>
-                    <option value='5'>Slowest</option>
+                    <option value='4'>Slowest</option>
                     <option value='2'>Slow</option>
                     <option value='1' selected>Normal</option>
                     <option value='.5'>Fast</option>
                     <option value='.25'>Fastest</option>
                 </select>
 </div>
+<!--Carson 8/14/2021-->
+    <div class='timing-info'>
+            <canvas id='timer-bar' width='200' height='20' style="background-color: olive"></canvas>
+            <span id="period-percent">100%</span>
+    </div>
 <div class='middle-container'>
 
 <div id='inputContainer_{{id}}' class='input-menu'>
@@ -67,9 +72,6 @@
 <div class='bottom-container'>
     <div class='test-vector-button-container'>
         <button id='testVectorButton_{{id}}' class='button'>Use test vectors</button>
-    </div>
-    <div class='timing-info'>
-                <canvas id='timer-bar' width='200' height='20' style="background-color: orange;"></canvas>
     </div>
     <button id='exportToRimsButton_{{id}}' class='export-to-rims-button button'>Export to RIMS</button>
     <button id='exportButton_{{id}}' type='button' class='button export-button'>Export</button>

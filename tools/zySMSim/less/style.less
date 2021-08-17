@@ -249,6 +249,8 @@
     .speed-container {
         display:       inline-block;
         margin-bottom: 15px;
+        margin-right: 25px;
+        margin-top: 0;
     }
 
     .speed-label {
@@ -303,6 +305,37 @@
         width:      250px;
     }
 
+    //Carson 8/16/2021
+
+    #timer-bar {
+        margin: 0;
+        padding: 0;
+    }
+
+    .timing-info {
+        border: 1px solid @zyante-gray;
+        background-color: lightgray;
+        margin: 0;
+        margin-top: 10px;
+        margin-right: 10px;
+        padding: 0;
+        position: relative;
+        resize: none;
+        width: 200px;
+        height: 20px;
+        display: inline-block;
+
+        span {
+            color: @zyante-gray;
+            text-align: center;
+            display: block;
+        }
+    }
+
+    // #period-percent {
+        
+    // }
+
     .JSON-import-export {
         .user-select(text);
         display:    inline-block;
@@ -320,3 +353,5 @@
     }
 
 }
+
+
