@@ -2017,8 +2017,8 @@ function ZySMSim() {
                 var noErrors = prepareResult.noErrors;
                 // No errors, time to simulate
                 if (noErrors) {
-                    $('#simulateButton_' + zyID).text('End');
-                    $('#simulateButton_' + zyID).removeClass('simulate-margin');
+                    $('#simulateButton_' + zyID).text(' End ');
+                    //$('#simulateButton_' + zyID).removeClass('simulate-margin');
                     // Have to disable all of the controls that modify a SM
                     turnOnOffControls();
                     if (selectedEdge != null) {
@@ -2059,8 +2059,8 @@ function ZySMSim() {
             else {
                 $('#pauseButton_' + zyID).prop('disabled', true);
                 $('#pauseButton_' + zyID).addClass('disabled');
-                $('#simulateButton_' + zyID).text('Simulate');
-                $('#simulateButton_' + zyID).addClass('simulate-margin');
+                $('#simulateButton_' + zyID).text('Start');
+                //$('#simulateButton_' + zyID).addClass('simulate-margin');
                 $('#pauseButton_' + zyID).text('Pause');
                 $('#pauseButton_' + zyID).addClass('pause-margin');
                 turnOnOffControls();
@@ -2101,6 +2101,8 @@ function ZySMSim() {
             if (periodPercent <= 100){
                 $('#period-percent').text(periodPercent + '%');
             }
+            // Update percentage text in canvas
+            //timerBarCanvas.text(periodPercent);
             
         }
 

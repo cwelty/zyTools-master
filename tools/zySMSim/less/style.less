@@ -92,7 +92,9 @@
     }
 
     .delete-button {
-        margin-left: 70px;
+        //margin-left: 70px;
+        margin-left: 0px;
+        float: right;
     }
 
     .drop {
@@ -137,7 +139,14 @@
     }
 
     .insert-state-button {
-        margin-left: 75px;
+        margin-left: 4px;
+        float: right; //Carson 8/18/2021
+    }
+
+    //Carson 8/18/2021
+    .insert-transition-button {
+        margin-left: 4px;
+        float: right;
     }
 
     .internal-variable-label {
@@ -168,7 +177,8 @@
     }
 
     .pause-margin {
-        margin-right: 12px;
+        //margin-right: 12px;
+        margin-right: 0px;
     }
 
     .period {
@@ -193,6 +203,16 @@
 
     .period-label {
         display: inline-block;
+    }
+
+    #period-percent {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        margin-left: 43%;
+        z-index: 1;
+        color: white;
+        font-weight: bold;
     }
 
     .progression-prompt {
@@ -238,8 +258,8 @@
         margin-left: 30px;
     }
 
-    .simulate-margin {
-        margin-right: 38px;
+    .simulate-margin { //Carson 8/18/2021
+        width: 75px;
     }
 
     .speed {
@@ -248,7 +268,7 @@
 
     .speed-container {
         display:       inline-block;
-        margin-bottom: 15px;
+        //margin-bottom: 15px;
         margin-right: 25px;
         margin-top: 0;
     }
@@ -310,6 +330,7 @@
     #timer-bar {
         margin: 0;
         padding: 0;
+        position: absolute;
     }
 
     .timing-info {
@@ -317,9 +338,9 @@
         background-color: lightgray;
         margin: 0;
         margin-top: 10px;
-        margin-right: 10px;
+        margin-left: 10px;
         padding: 0;
-        position: relative;
+        position: absolute;
         resize: none;
         width: 200px;
         height: 20px;
@@ -331,10 +352,6 @@
             display: block;
         }
     }
-
-    // #period-percent {
-        
-    // }
 
     .JSON-import-export {
         .user-select(text);

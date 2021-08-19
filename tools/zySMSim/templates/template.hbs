@@ -7,12 +7,13 @@
     <div id='progressionPrompt_{{id}}' class='progression-prompt'></div>
 {{/if}}
 <div id='controls_{{id}}' class='controls'>
-    <button id='simulateButton_{{id}}' type='button' class='button simulate-margin'>Simulate</button>
+    <button id='simulateButton_{{id}}' type='button' class='button simulate-margin'>Start</button>
     <button id='pauseButton_{{id}}' type='button' class='button pause-margin'>Pause</button>
     <button id='insertStateButton_{{id}}' type='button' class='button insert-state-button'>Insert state</button>
-    <button id='insertTransitionButton_{{id}}' type='button' class='button'>Insert transition</button>
+    <button id='insertTransitionButton_{{id}}' type='button' class='button insert-transition-button'>Insert transition</button>
     <button id='deleteButton_{{id}}' type='button' class='delete-button button'>Delete</button>
 </div>
+<!--Carson 8/7/2021-->
 <div class='speed-container'>
                 <div class='speed-label'>Simulation speed:</div>
                 <select id='speed-choice'>
@@ -23,12 +24,17 @@
                     <option value='.25'>Fastest</option>
                 </select>
 </div>
+<div class='period-container'>
+    <div class='period-label'>Period:</div><textarea id='period_{{id}}' class='period textfield' maxlength='6' rows='1'>1000</textarea><span class='ms-label'>ms</span>
+</div>
 <!--Carson 8/14/2021-->
-    <div class='timing-info'>
-            <canvas id='timer-bar' width='200' height='20' style="background-color: olive"></canvas>
-            <span id="period-percent">100%</span>
-    </div>
+<div class='timing-info'>
+        <span id='period-percent'>100%</span>
+        <canvas id='timer-bar' width='200' height='20' style="background-color:#738033"></canvas>
+</div>
+
 <div class='middle-container'>
+    
 
 <div id='inputContainer_{{id}}' class='input-menu'>
 </div>
@@ -49,9 +55,6 @@
     <div id='internalBlockJ_{{id}}' class='output-block'><div id='jLabel_{{id}}' class='output-label'>J(8)</div><input id='internalJ_{{id}}' class='output-field' disabled='disabled' maxlength='3'></div>
 </div>
 <div class='sidemenu sidemenu-margin'>
-    <div class='period-container'>
-        <div class='period-label'>Period:</div><textarea id='period_{{id}}' class='period textfield' maxlength='6' rows='1'>1000</textarea><span class='ms-label'>ms</span>
-    </div>
     <div class='state-info-label'>State/transition info</div>
 	<div class='state-name-container'><div class='state-name-label'>Name</div><textarea id='stateName_{{id}}' class='state-name' maxlength='10'></textarea></div>
 	</br>
