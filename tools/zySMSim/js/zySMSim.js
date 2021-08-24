@@ -586,7 +586,7 @@ function ZySMSim() {
         var currentCondition;
         //Carson 8/16/2021
         var simulateID, testVectorID, updateTimerBarID;
-        var timerPercent; //Carson 8/16/2021
+        var timerPercent;
         var speedChoice;
 
         // In miliseconds
@@ -1865,15 +1865,28 @@ function ZySMSim() {
             reDrawStateMachine = true;
         }
 
+        // Carson 8/23/2021 
+        // Used to dynamically change simulation speed
+        $("body").on("change", "#speed-choice", function updateSimSpeed(){
+            console.log('pooooo');
+            if(simulateID){ // if simulation already running
+                clearInterval(simulateID);
+                clearInterval(updateTimerBarID);
+                clearTimerBar();
+
+                speedChoice = $("#speed-choice option:selected").val();
+                simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
+                updateTimerBarID = setInterval(updateTimerBar, 20);
+            }
+        });
+
         // Find out which SMs are ready and execute their current states actions and see what edge to take.
         function updateLoop() {
             
             //Carson Welty 8/10/2021
             timerPercent = 0;
             clearInterval(updateTimerBarID);
-            console.log('timerPercent: ', timerPercent);
-            console.log('gcdPeriod: ', gcdPeriod);
-            updateTimerBarID = setInterval(updateTimerBar, 25);
+            updateTimerBarID = setInterval(updateTimerBar, 20);
 
             for (var j = 0; j < graphs.length; j++) {
                 if (smElapsedTime[j] >= graphs[j].period) {
@@ -1901,15 +1914,16 @@ function ZySMSim() {
         // If the state machine is running this will pause the state machine, leaving it in whatever state it was in and with the current inputs and outputs.
         // Calling this when the state machine is paused will resume the state machine which starts execution in the previously paused state.
         function pauseResume() {
-            if (paused) {
-                gcdPeriod = graphs[0].period;
+            if (paused) { // Resumes simulation
+                //gcdPeriod = graphs[0].period; c
                 smElapsedTime = [];
                 // Find gcd and intialize the elapsed time of each SM
                 for (var j = 0; j < graphs.length; j++) {
                     gcdPeriod = GCD(gcdPeriod, graphs[j].period);
                     smElapsedTime.push(graphs[j].period);
                 }
-                simulateID = setInterval(updateLoop, gcdPeriod);
+                console.log('speed choice: ', speedChoice);
+                simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
                 // Test vectors are active, run that instead of using user input
                 if ($('#testVectorWindow_' + zyID).css('visibility') == 'visible') {
                     // Process test vectors
@@ -1921,9 +1935,8 @@ function ZySMSim() {
                 }
                 paused = false;
                 $(this).text('Pause');
-                $(this).addClass('pause-margin');
             }
-            else {
+            else { // Pauses simulation
                 clearInterval(simulateID);
                 clearInterval(testVectorID);
                 clearInterval(updateTimerBarID); //Carson 8/16/2021
@@ -1931,7 +1944,6 @@ function ZySMSim() {
                 testVectorID = 0;
                 paused = true;
                 $(this).text('Resume');
-                $(this).removeClass('pause-margin');
             }
         }
 
@@ -2034,7 +2046,6 @@ function ZySMSim() {
                     }
                     //Carson Welty 8/12/2021
                     speedChoice = $("#speed-choice option:selected").val();
-                
                     simulateID = setInterval(updateLoop, gcdPeriod * speedChoice); 
 
                     $('#pauseButton_' + zyID).prop('disabled', false);
@@ -2085,6 +2096,17 @@ function ZySMSim() {
         }
 
         // Carson 8/11/2021
+        // Called when sim speed is changed dynamically
+        function clearTimerBar() {
+            timerBarCanvas = $('#timer-bar');
+            timerBarCanvas.attr({
+                width: timerPercent
+            })
+            timerPercent = 0;
+            $('#period-percent').text('0%');
+        }
+
+        // Used to synchronize the timer bar with the current sim speed
         function updateTimerBar() {
             timerBarCanvas = $('#timer-bar');
             timerBarCanvas.attr({
@@ -2092,18 +2114,15 @@ function ZySMSim() {
             })
             // Calculates new timerPercent value for the next time updateTimerBar() is called
             if (timerPercent < 200) { // timing-info container width is 200px
-                timerPercent = timerPercent + (200 / ((gcdPeriod * speedChoice) / 25));
+                timerPercent = timerPercent + (200 / ((gcdPeriod * speedChoice) / 20));
             }
-            console.log('+timerPercent: ', timerPercent);
+            //console.log('+timerPercent: ', timerPercent);
 
             // Update percentage text
             var periodPercent = (timerPercent / 2).toFixed(0); // Divided by 2 since 200px --> 100%
             if (periodPercent <= 100){
                 $('#period-percent').text(periodPercent + '%');
             }
-            // Update percentage text in canvas
-            //timerBarCanvas.text(periodPercent);
-            
         }
 
         // Processes the user's test vectors,
@@ -2837,8 +2856,6 @@ function ZySMSim() {
                 $('#deleteButton_' + zyID).prop('disabled', false);
                 $('#importButton_' + zyID).prop('disabled', false);
                 $('#exportButton_' + zyID).prop('disabled', false);
-                //Carson Welty 8/12/2021
-                $('#speed-choice').prop('disabled', false);
 
                 $('#exampleDrop_' + zyID).prop('disabled', false);
                 $('#insertStateButton_' + zyID).prop('disabled', false);
@@ -2895,8 +2912,6 @@ function ZySMSim() {
                 $('#exportToRimsButton_' + zyID).prop('disabled', true);
                 $('#period_' + zyID).prop('disabled', true);
                 $('#stateName_' + zyID).prop('disabled', true);
-                //Carson Welty 8/12/2021
-                $('#speed-choice').prop('disabled', true);
 
                 $('#deleteButton_' + zyID).addClass('disabled');
                 $('#importButton_' + zyID).addClass('disabled');
