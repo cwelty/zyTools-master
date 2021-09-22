@@ -1014,7 +1014,7 @@ function ZySMSim() {
             // CW 9/15/21
             // hide advanced menu when program starts
             $('#advancedButton_' + zyID).text('Show advanced controls');
-                $('.advanced-controls-container').hide();
+                $('.advanced-controls-grid').hide();
                 advancedControlsHidden = true;
         }
 
@@ -2000,13 +2000,13 @@ function ZySMSim() {
             // Reveal advanced controls
             if (advancedControlsHidden && !simulateID) {
                 $('#advancedButton_' + zyID).text('Hide advanced controls');
-                $('.advanced-controls-container').show()
+                $('.advanced-controls-grid').show()
                 advancedControlsHidden = false;
             }
             // Hide advanced controls
             else if(!advancedControlsHidden && !simulateID) {
                 $('#advancedButton_' + zyID).text('Show advanced controls');
-                $('.advanced-controls-container').hide();
+                $('.advanced-controls-grid').hide();
                 advancedControlsHidden = true;
             }
         });
@@ -2260,17 +2260,17 @@ function ZySMSim() {
         // Called when sim speed is changed dynamically
         function clearTimerBar() {
             console.log('clearTimerBar()');
-            timerBarCanvas = $('#timer-bar');
+            timerBarCanvas = $('#timerBar');
             timerBarCanvas.attr({
                 width: 0
             })
             timerPercent = 0;
-            $('#period-percent').text('0%');
+            $('#periodPercent').text('0%');
         }
 
         // Used to synchronize the timer bar with the current sim speed
         function updateTimerBar() {
-            timerBarCanvas = $('#timer-bar');
+            timerBarCanvas = $('#timerBar');
             timerBarCanvas.attr({
                 width: timerPercent
             })
@@ -2283,7 +2283,7 @@ function ZySMSim() {
             // Update percentage text
             var periodPercent = (timerPercent / 2).toFixed(0); // Divided by 2 since 200px --> 100%
             if (periodPercent <= 100){
-                $('#period-percent').text(periodPercent + '%');
+                $('#periodPercent').text(periodPercent + '%');
             }
         }
 
@@ -2647,7 +2647,6 @@ function ZySMSim() {
                             break;
                         }
                     }
-
                 }
                 // False -> true
                 if ($('#initStateCheck_' + zyID).is(':checked')) {
@@ -2800,7 +2799,6 @@ function ZySMSim() {
 
         // Helper to load all edge properties that a user can change. Called after an edge has been selected.
         function loadEdgeProperties() {
-            console.log('loadEdgeProperties()');
             $('#deleteButton_' + zyID).prop('disabled', false);
             $('#deleteButton_' + zyID).removeClass('disabled');
             $('#initStateCheck_' + zyID).prop('disabled', true);
@@ -2809,6 +2807,16 @@ function ZySMSim() {
             $('#stateName_' + zyID).val('');
             $('#stateName_' + zyID).prop('contentEditable', false);
             $('#stateName_' + zyID).css('background-color', BACKGROUND_GRAY);
+            
+            $('.actions-container').css('grid-row', 5);
+            $('.actions-label').css('grid-row', 5);
+            $('#stateActions_' + zyID).hide(); // CW 9/21/21
+            $('#actionsLabel_' + zyID).hide();
+            $('.condition-container').css('grid-row', 4);
+            $('.condition-label').css('grid-row', 4);
+            $('#stateConditions_' + zyID).show(); // CW 9/21/21
+            $('#conditionLabel_' + zyID).show();
+            
             if (!digDesignMode && !HLSM) {
                 $('#stateActions_' + zyID).val(selectedEdge.actions);
                 $('#stateActions_' + zyID).prop('disabled', false);
@@ -2828,7 +2836,6 @@ function ZySMSim() {
 
         // Helper to load all state properties that a user can change. Called after an state has been selected.
         function loadStateProperties() {
-            console.log('loadStateProperties()');
             $('#deleteButton_' + zyID).prop('disabled', false);
             $('#deleteButton_' + zyID).removeClass('disabled');
             $('#stateActions_' + zyID).css('background-color', '');
@@ -2841,6 +2848,16 @@ function ZySMSim() {
             $('#stateConditions_' + zyID).css('background-color', BACKGROUND_GRAY);
             $('#initStateCheck_' + zyID).prop('checked', selectedNode.initState);
             $('#stateName_' + zyID).val(selectedNode.name);
+            
+            $('.condition-container').css('grid-row', 5);
+            $('.condition-label').css('grid-row', 5);
+            $('#stateConditions_' + zyID).hide(); // CW 9/21/21
+            $('#conditionLabel_' + zyID).hide();
+            $('.actions-container').css('grid-row', 4);
+            $('.actions-label').css('grid-row', 4);
+            $('#stateActions_' + zyID).show(); // CW 9/21/21
+            $('#actionsLabel_' + zyID).show();
+            
             if (selectedNode.initState) {
                 $('#initStateCheck_' + zyID).prop('disabled', false);
                 $('#initStateCheck_' + zyID).prop('checked', true);
