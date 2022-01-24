@@ -285,7 +285,7 @@ function createRectangleAndTestCollision(px, py, p0, p1) {
     upperRight.y += BUFFER;
     return px >= lowerLeft.x && px <= upperRight.x && py >= lowerLeft.y && py <= upperRight.y;
 }
-// We can test for a collsion by breaking the line down into many regions
+// We can test for a collision by breaking the line down into many regions
 Edge.prototype.pointIntersect = function(px, py) {
     var points = [ this.bp1, this.bp2, this.bp3, this.bp4 ];
     var doesIntersect = false;
