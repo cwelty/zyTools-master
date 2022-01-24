@@ -10,15 +10,29 @@
 
 .zySMSim{
     .user-select(none);
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
     .sm-tool-canvas {
+        grid-row:    1;
+        grid-column: 2;
         display:     inline-block;
-        left:        0;
-        margin-left: 10px;
+        //left:        0;
+        //margin-left: 10px;
         position:    relative;
-        top:         5px;
+        //top:         5px;
+        //max-height:  100%;
+        //max-width:   100%;
     }
+
+    canvas {
+        grid-row: 1 !important;
+        grid-column: 2 !important; 
+        max-height:  100% !important;
+        max-width:   100% !important;
+        //margin: 0 !important;
+        padding: 0 !important;
+    }
+
 
     .action {
         .user-select(text);
@@ -38,7 +52,7 @@
         justify-self:   start;
         align-self:     end;
         height:         auto;
-        //width:          100px;
+        width:          80%;
     }
 
     .actions-label {
@@ -53,20 +67,22 @@
         padding-bottom: 10px;
 
         .advanced-button {
-            width:      160px;
-            font-size:  small;
-            padding:    5px 0px;
+            width:          160px;
+            font-size:      small;
+            padding:        5px 0px;
+            margin-left:    52%;
         }
     }
 
     .advanced-controls-grid {
         display:                grid;
-        background-color:       @zyante-gray;
-        width:                  48%;
+        background-color:       #EDEDED;
+        width:                  60%;
         grid-template-columns:  3fr 3fr 3fr;
-        grid-template-rows:     .2fr 1fr;
+        grid-template-rows:     .15fr 1fr;
         grid-gap:               10px;
         padding:                10px;
+        margin-left:            8.5%;
     }
 
     .bottom-container {
@@ -76,27 +92,30 @@
         grid-template-rows:     1fr .2fr;
         grid-row-gap:           15px;
         grid-column-gap:        15px;
+        padding-top:            10px;
     }
 
     .canvas-tab {
-        cursor:        pointer;
-        //display:       inline-block;
-        height:        390px;
-        margin-bottom: 5px;
-        width:         600px;
-
+        cursor:           pointer;
+        display:          inline-block; //maybe comment this out? 
+        height:           390px;
+        margin-bottom:    5px;
+        width:            600px;
         &.progression {
             border:    1px solid @zyante-gray;
+            
         }
-
         grid-row: 1;
         grid-column: 2;
     }
 
     .canvas-tab li .ui-icon-close {
         cursor:        pointer;
-        float:         left;
+        //float:         left;
+        float:          right;
         margin:        .4em .2em 0 0;
+        font-size:     small;
+
     }
 
     .condition {
@@ -117,7 +136,8 @@
         justify-self:   start;
         align-self:     end;
         height:         auto;
-        
+        padding:        0;
+        width:          80%;
     }
 
     .condition-label {
@@ -145,16 +165,24 @@
         text-align:       center;
     }
 
+    // CW 10/4/21
+    .elapsed-time-container {
+        justify-self:    end;
+        padding-right:   1%;
+    }
+
     // CW 9/2/201
     .error-console {
-        border:   1px solid @zyante-gray;
         height:   50px;
         width:    250px;
+        border:   1px solid @zyante-gray;
         left:     0;
         top:      0;
         resize:   none;
-        overflow: scroll;
+        overflow-y: hidden;
+        overflow-x: hidden;
         color:  red;
+        white-space: pre; //changes newlines in jquery to <br>
     }
     
     // CW 9/2/201
@@ -163,6 +191,9 @@
         grid-column:            2;
         vertical-align:         top;
         justify-self:           end;
+        padding:                0;
+        pointer-events: none;
+        cursor: default;
         
         .error-console-container::first-line {
             font-weight:        bold;
@@ -176,7 +207,9 @@
         p:empty:not(:focus)::before {
             content:            attr(data-placeholder);
             color:              @zyante-gray;
-            opacity:            .7;
+            background-color:   white;
+            opacity:            .8;
+            border:             none;
           }
     }
 
@@ -184,8 +217,9 @@
         grid-row:       1;
         grid-column:    3;
         justify-self:   center;
-        color:        white;
+        color:          @zyante-orange;
         font-size:      smaller;
+        font-weight:    500;
         p {
             text-align: center;
         }
@@ -197,12 +231,6 @@
         justify-self:   center;
         color:        white;
         font-size:      smaller;
-    }
-
-    .io-button {
-        font-size:    smaller;
-        padding:      5px;
-        margin:       0px;
     }
 
     .export-import-top-container {
@@ -246,38 +274,88 @@
         justify-self: end;
     }
 
-    .insert-state-button {
+    // CW 1/7/2022
+    .instruction-console {
+        height:   55px;
+        width:    280px;
+        border:   1px solid @zyante-gray;
+        left:     0;
+        top:      0;
+        resize:   none;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        color:      @zyante-gray;
+        white-space: pre; //changes newlines in jquery to <br>
+    }
+
+    // CW 1/7/2022
+    .instruction-console-container {
+        grid-row:               1;
+        grid-column:            4;
+        vertical-align:         top;
+        justify-self:           end;
+        padding:                0;
+        pointer-events: none;
+        cursor: default;
+        
+        .instruction-console-container::first-line {
+            font-weight:        bold;
+        }
+        p { 
+            font-size:          smaller;
+            padding-left:       5px;
+            padding-top:        5px;
+        }
+        // adds 'Error messages will appear here.'
+        p:empty:not(:focus)::before {
+            content:            attr(data-placeholder);
+            color:              green; //used to be @zyante-gray 1/7/21
+            background-color:   white;
+            opacity:            .8;
+            border:             none;
+          }
+    }
+
+    .io-button {
+        font-size:    smaller;
+        padding:      5px;
+        margin:       0px;
+    }
+
+    .new-state-button {
         font-size:    small;
-        width:        90px;
+        //width:        90px;
+        width:        75px;
         height:       45px;
         padding:      0px;
         margin:       0px;
     }
 
-    .insert-state-container {
+    .new-state-container {
         grid-row:        1;
         grid-column:     5;
         justify-self:    end;
     }
 
     // CW 8/18/2021
-    .insert-transition-button {
+    .new-transition-button {
         font-size: small;
-        width:     90px;
+        //width:     90px;
+        width:     75px;
         height:    45px;
         padding:   0px;
         margin:    0px;
     }
 
-    .insert-transition-container {
+    .new-transition-container {
         grid-row:        1;
         grid-column:     6;
         justify-self:    center;
-        position:        relative;//for tooltip
+        position:        relative; //for tooltip (not used)
         display:         inline-block;
     }
 
-    .insert-transition-container .tooltip-text::after {
+    .new-transition-container .tooltip-text::after {
         content:      "";
         position:     absolute;
         top:          100%;
@@ -288,13 +366,55 @@
         border-color: @zyante-gray transparent transparent transparent;
     }
 
-    .insert-transition-container:hover .tooltip-text {
+    .new-transition-container:hover .tooltip-text {
         visibility: visible;
     }
 
     .internal-variable-label {
         border-top:  1px solid @zyante-gray;
         font-family: @zyante-font;
+    }
+
+    .item-info-label-selected {
+        color:          @zyante-gray;
+        margin-bottom:  10%;
+        opacity:            0.8;
+        font-size:          smaller;
+        padding-left:       5px;
+        padding-top:        5px;
+    }
+
+    .item-info-label-start {
+        color:              @zyante-gray;
+        opacity:            0.8;
+        font-size:          smaller;
+        padding-left:       5px;
+        padding-top:        5px;
+    }
+
+    .item-name {
+        .user-select(text);
+        border:   1px solid @zyante-gray;
+        display:  inline-block;
+        height:   18px;
+        left:     0;
+        overflow: hidden;
+        position: relative;
+        resize:   none;
+        top:      0;
+        width:    150px;
+    }
+
+    .item-name-container {
+        grid-row:      2;
+        grid-column:   1;
+        justify-self:  start;
+        align-self:    end;
+    }
+
+    .item-name-label {
+        display:      inline-block;
+        margin-right: 5px;
     }
 
     .JSON-import-export {
@@ -309,7 +429,7 @@
     .middle-grid {
         display:                grid;
         grid-template-columns:  70px 2fr 70px 1fr;
-        grid-template-rows:     1fr;
+        grid-template-rows:     1fr; //400px;
         grid-gap:               10px;
         .user-select(none);
     }
@@ -340,32 +460,46 @@
     }
 
     .pause-button {
-        width: 80px;  
+        width:     75px;
+        height:    45px;
+        padding:   0px;
+        margin:    0px;
     }
 
     .pause-button-container {
         grid-row:     1;
         grid-column:  2;
+
+        justify-content:    center;
+        //position:        relative; //for tooltip (not used)
+        //display:         inline-block;
     }
 
     .period-textfield {
         .user-select(text);
-        //display:        inline-block;
-        height:         20px;
+        display:        inline-block;
+        height:         15px;
         margin-left:    0px;
         margin-right:   12px;
         overflow:       hidden;
         resize:         none;
         top:            0;
         vertical-align: middle;
+        align-content:  space-around;
         width:          50px;
-        justify-self:   center;
+        //justify-self:   center;
     }
 
     .period-container {
-        grid-row:     2;
-        grid-column:  1;
-        justify-self: end;
+        //grid-row:     2;
+        //grid-column:  1;
+        //justify-self: end;
+        font-size:          small;
+        display:            block;
+        padding-left:       5px;
+        padding-top:        5px;
+        padding-bottom:     10px;
+        //padding-left:       40%;
     }
 
     .period-label {
@@ -423,15 +557,17 @@
         padding-left:           5px;
         padding-right:          5px;
         padding-bottom:         5px;
-        width:                  83%;
-        height:                 85%;
+        padding-right:          0px;
+        width:                  165px;
+        height:                 320px;
+        //background-color:       #EDEDED;
     }
 
     .sidemenu-inline {
         display: inline-block;
     }
 
-    .simulate-button {
+    .start-button {
         width:           75px;
         justify-content: flex-start;
     }
@@ -445,19 +581,19 @@
     }
 
     .size-button {
-        padding:     0;
-        margin:      0;
-        font-size:   15px;
+        padding:      0;
+        margin:       0;
+        font-size:    15px;
         justify-self: center;
     }
 
     ::placeholder {
         font-size:  small;
         color:      @zyante-gray;
-        opacity:    .7;
+        opacity:    .8;
     }
     .plus-width, .plus-height {
-        justify-self:       start;
+        justify-self:       start; //start
         button {
             padding-left:   5px;
             padding-right:  5px;
@@ -486,11 +622,15 @@
 
     .simulation-controls-grid {
         display:               grid;
-        grid-template-columns: 1fr 1fr 2fr .5fr 1.5fr 1.3fr 1.5fr;
+        grid-template-columns: .5fr .5fr 2fr 1.5fr 1.5fr .5fr .8fr;
         grid-template-rows:    1fr;
         grid-gap:              10px;
-        width:                 70%;
+        width:                 98%;
         margin-bottom:         10px;
+    }
+
+    .sm-period-label {
+        display: inline-block;
     }
 
     .speed {
@@ -504,35 +644,6 @@
 
     .speed-label {
         display: inline-block;
-    }
-
-    .state-info-label {
-        color: @zyante-dark-blue;
-    }
-
-    .item-name {
-        .user-select(text);
-        border:   1px solid @zyante-gray;
-        display:  inline-block;
-        height:   18px;
-        left:     0;
-        overflow: hidden;
-        position: relative;
-        resize:   none;
-        top:      0;
-        width:    150px;
-    }
-
-    .item-name-container {
-        grid-row:      2;
-        grid-column:   1;
-        justify-self:  start;
-        align-self:    end;
-    }
-
-    .item-name-label {
-        display:      inline-block;
-        margin-right: 5px;
     }
 
     .start-button-container {
@@ -651,5 +762,3 @@
     }
 
 }
-
-

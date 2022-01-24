@@ -514,14 +514,18 @@ function ZySMSim() {
         var outputDrawThreadId;
         var selectedNode;
         var selectedEdge;
+        var hoveredNode; //CW 1/23/22
+        var hoveredEdge; //CW 1/23/22
         var mousePos;
         var transitionMode;
+        var currSMIndex;
         var dragged;
         var canDrag;
         var canEdit;
         var currentIndex;
         var smElapsedTime;
         var executingNodes;
+        var loadSMName;
         var gcdPeriod;
         var tabInput;
         var tabInputIn;
@@ -587,10 +591,17 @@ function ZySMSim() {
         var currentAction;
         var currentCondition;
         // CW 8/16/2021
-        var simulateID, testVectorID, updateTimerBarID;
+        var simulateID, testVectorID;
         var timerPercent;
         var speedChoice;
         var advancedControlsHidden = true;
+        //init minusHeight and minusWidth buttons
+        $('#minusWidth_' + zyID).prop('disabled', true);
+        $('#minusWidth_' + zyID).addClass('disabled');
+        $('#minusWidth_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
+        $('#minusHeight_' + zyID).prop('disabled', true);
+        $('#minusHeight_' + zyID).addClass('disabled');
+        $('#minusHeight_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
 
         // In miliseconds
         var ANIMATION_DURATION = 200;
@@ -611,17 +622,26 @@ function ZySMSim() {
         };
 
         function init() {
-            console.log('init()');
+            console.log('init\n');
             canvas = $('#drawingArea_' + zyID)[0];
             context = canvas.getContext('2d');
             mousePos = null;
             selectedNode = null;
             selectedEdge = null;
+            hoveredNode = null;
+            hoveredEdge = null;
             transitionMode = false;
             simulateID = 0;
             testVectorID = 0;
-            updateTimerBarID = 0; // CW 8/16/2021
             timerPercent = 0; // CW 8/16/2021
+            periodPercent = 0; // CW 12/1/21
+            elapsedSimTime = 0; // CW 10/4/21
+            oldElapsedSimTime = 0;
+            customPeriod = 0; // CW 12/1/21
+            toggleTransition = 0; // CW 11/3/21
+            timerBarCanvas = $('#timerBar'); // CW 12/1/21
+            loadSMName = ""; //CW 1/15/22
+            currSMIndex = 0;
             currentIndex = 0;
             zySMSimActive = false;
             globalCode = '';
@@ -638,11 +658,11 @@ function ZySMSim() {
             HLSM = ((options && options.HLSM !== undefined) ? options.HLSM : false);
             generateRIMS = ((options && options.generateRIMS !== undefined) ? options.generateRIMS : false);
             graphs = [];
+            resetSidemenu(); // CW 9/23
             createInputs();
         }
 
         function functionIOLoadCompleted() {
-            console.log('functionIOLoadCompleted()');
             inputs = self.input.bitInputs;
             inputs.decimalInput = self.input.decimalInput;
             outputs = self.output.bitOutputs;
@@ -654,6 +674,7 @@ function ZySMSim() {
                     beforeActivate: function(event, ui) {
                         var newIndex = getTabIndex(ui.newTab.text());
                         // If simulating dont add or if not from a click
+                        
                         if ((newIndex == graphs.length && simulateID) || (event.originalEvent == undefined && newIndex == graphs.length) || simulateOnly || (newIndex == graphs.length && paused)) {
                             return false;
                         }
@@ -671,10 +692,11 @@ function ZySMSim() {
                         return false;
                     }
                 });
+                
                 // Add close icon to first tab
                 $('#canvasTab_' + zyID + ' ul:first li:eq(0)').append('<span class="ui-icon ui-icon-close" role="presentation"/>');
 
-                // Removing a tab when close icon is clicked
+                // Removing a tab when close icon is clicked, close tab, closing tab
                 $('#canvasTab_' + zyID).delegate('span.ui-icon-close', 'click', function() {
                     // Don't delete while running
                     if (simulateID || simulateOnly || paused) {
@@ -696,8 +718,9 @@ function ZySMSim() {
 
                 // Input for SM name used on tabs
                 tabInput = $('<div style="position: absolute; z-index: 9999; background: white"><input/></div>');
+                console.log('tabInput: ', tabInput);
                 tabInput.css('display', 'none');
-                tabInputIn = tabInput.find('input');
+                tabInputIn = tabInput.find('input');-
 
                 $('#canvasTab_' + zyID).append(tabInput);
                 // When user dblclicks a tab they can rename the SM
@@ -724,13 +747,13 @@ function ZySMSim() {
             $('#exampleDrop_' + zyID).change(function() {
                 executeFunctionAndSetReDraw(exampleChanged);
             });
-            $('#insertStateButton_' + zyID).click(function() {
+            $('#newStateButton_' + zyID).click(function() {
                 executeFunctionAndSetReDraw(createNode);
             });
-            $('#insertTransitionButton_' + zyID).click(function() {
+            $('#newTransitionButton_' + zyID).click(function() {
                 executeFunctionAndSetReDraw(insertTransitionClicked);
             });
-            $('#simulateButton_' + zyID).click(simulate);
+            $('#startButton_' + zyID).click(simulate);
             $('#pauseButton_' + zyID).click(pauseResume);
             $('#deleteButton_' + zyID).click(function() {
                 if (canEdit) {
@@ -771,7 +794,9 @@ function ZySMSim() {
                 if (((event.keyCode === 8) || (event.keyCode === 46)) && !($(event.target).is('.period, .condition, .action, .state-name, input, textarea') || $(event.target).prop('contentEditable') == 'true')) {
                     event.preventDefault();
                 }
+                //else if ((event.keyCode === 13) && event.target.nodeName == 'INPUT') {
             });
+
             $('#period_' + zyID).focus(focusFocusTracking);
             $('#stateName_' + zyID).focus(focusFocusTracking);
             $('#period_' + zyID).blur(blurFocusTracking);
@@ -851,8 +876,8 @@ function ZySMSim() {
                 $('#importButton_' + zyID).hide();
                 $('#exportButton_' + zyID).hide();
                 $('#exampleDrop_' + zyID).hide();
-                $('#insertStateButton_' + zyID).hide();
-                $('#insertTransitionButton_' + zyID).hide();
+                $('#newStateButton_' + zyID).hide();
+                $('#newTransitionButton_' + zyID).hide();
                 $('#testVectorWindow_' + zyID).hide();
                 $('#testVectorButton_' + zyID).hide();
                 $('#' + zyID + '.init-state-check').hide();
@@ -1016,6 +1041,20 @@ function ZySMSim() {
             $('#advancedButton_' + zyID).text('Show advanced controls');
                 $('.advanced-controls-grid').hide();
                 advancedControlsHidden = true;
+        }
+
+        // CW 9/27/21
+        // used to change canvas dimensions when program inits
+        // NOT IN USE
+        function initDrawingArea() {
+            console.log('initDrawingArea');
+            drawingCanvas = $('#drawingArea_' + zyID);
+            canvasTab = $('#canvasTab_' + zyID);
+            var canvasTabHeight = $(canvasTab).attr('width');
+            console.log('canvasTabHeight: ', drawingAreaWidth);
+            drawingCanvas.attr({
+                height: canvasTabHeight
+            })
         }
 
         // Creates the output objects for the different modes
@@ -1669,17 +1708,14 @@ function ZySMSim() {
 
         // Used to make sure deleting in a text field does not also delete the selected object
         function blurFocusTracking() {
-            console.log('blurFocusTracking()');
             fieldFocused = false;
         }
         // Used to make sure deleting in a text field does not also delete the selected object
         function focusFocusTracking() {
-            console.log('focusFocusTracking()');
             fieldFocused = true;
         }
         // Ticks all SMs
         function updateLoopNoPeriod() {
-            console.log('updateLoopNoPeriod()');
             for (var j = 0; j < graphs.length; j++) {
                 for (var i = 0; i < graphs[j].edges.length; i++) {
                     // This is the current node executing and one of it's edges's conditions is true
@@ -1714,8 +1750,7 @@ function ZySMSim() {
                     });
                 },
                 initExecute: function() {
-                    $('#simulateButton_' + zyID).text('End');
-                    $('#simulateButton_' + zyID).removeClass('simulate-margin');
+                    $('#startButton_' + zyID).text('End');
                     // Have to disable all of the controls that modify a SM
                     turnOnOffControls();
                     if (selectedEdge != null) {
@@ -1735,8 +1770,7 @@ function ZySMSim() {
                     return updateLoopNoPeriod();
                 },
                 cleanUp: function() {
-                    $('#simulateButton_' + zyID).text('Simulate');
-                    $('#simulateButton_' + zyID).addClass('simulate-margin');
+                    $('#startButton_' + zyID).text('Simulate');
                     simulateID = 1;
                     turnOnOffControls();
                     clearInterval(simulateID);
@@ -1762,7 +1796,6 @@ function ZySMSim() {
         }
         // Called when any input object is updated, Keeps the global A value up to date.
         function inputUpdated() {
-            console.log('inputUpdated()');
             if (!digDesignMode && !HLSM) {
                 A = (inputs[7].value << 7) | (inputs[6].value << 6) | (inputs[5].value << 5) | (inputs[4].value << 4) | (inputs[3].value << 3) | (inputs[2].value << 2) | (inputs[1].value << 1) | inputs[0].value;
                 inputs.decimalInput.setValue(A);
@@ -1771,7 +1804,9 @@ function ZySMSim() {
 
         // When a user double clicks a tab an input box appears that allows them to change the state machine's name
         function changeSMName(index) {
-            console.log('changeSMName()');
+            console.log('index: ' + index);
+            currSMIndex = index;
+            console.log('changeSMName currSMIndex: ' + currSMIndex);
             if (simulateOnly) {
                 return;
             }
@@ -1801,9 +1836,9 @@ function ZySMSim() {
             });
             tabInputIn.select();
         }
+
         // Add new SM and update tabs
         function addGraph() {
-            console.log('addGraph()');
             var newGraphIndex = graphs.length;
             graphs.push(new Graph());
             var nameIndex = 1;
@@ -1824,7 +1859,7 @@ function ZySMSim() {
             graphs[newGraphIndex].prefix = 'SM' + nameIndex;
             // Add new SM to our tabs along with dbl handler for renaming
             $('#canvasTab_' + zyID).find('li').last().before('<li><a href="#drawingArea_' + zyID + '">' + graphs[newGraphIndex].name + '</a></li>');
-            $('#canvasTab_' + zyID + ' ul:first li:eq(' + newGraphIndex + ')').append('<span class="ui-icon ui-icon-close" role="presentation"/>');
+            $('#canvasTab_' + zyID + ' ul:first li:eq(' + newGraphIndex + ')').append('<span class= "ui-icon ui-icon-close" role="presentation"/>');
             $('#canvasTab_' + zyID).tabs('refresh');
             var SMprefix = graphs[newGraphIndex].prefix;
             $('#canvasTab_' + zyID + ' ul:first li:eq(' + newGraphIndex + ') a').dblclick(function(e) {
@@ -1842,7 +1877,6 @@ function ZySMSim() {
         }
         // Create new SM and click on it's tab
         function genAndSwitchSM() {
-            console.log('genAndSwitchSM()');
             addGraph();
             // Need to add dummy state to new graph
             graphs[graphs.length - 1].nodes.push(new Node());
@@ -1857,7 +1891,7 @@ function ZySMSim() {
         }
         // Find index of SM in graphs by using the SM name
         function getTabIndex(smName) {
-            console.log('getTabIndex()');
+            console.log('smName: ', smName);
             for (var i = 0; i < graphs.length; i++) {
                 if (graphs[i].name === smName) {
                     return i;
@@ -1868,7 +1902,6 @@ function ZySMSim() {
         // Update period for the current SM when user changes the period
         // Have to make sure it's an integer MIN_PERIOD or above
         function periodChanged(e) {
-            console.log('periodChanged()');
             if (e.which !== 13) {
                 var re = /^([0-9]+)$/;
                 var period = '';
@@ -1892,107 +1925,158 @@ function ZySMSim() {
             reDrawStateMachine = true;
         }
 
-        // CW 8/23/2021 
+        // CW 8/23/21 
         // Used to dynamically change simulation speed
         $("body").on("change", "#speed-choice", function updateSimSpeed(){
             if(simulateID) { // if simulation already running
                 clearInterval(simulateID);
-                clearInterval(updateTimerBarID);
                 clearTimerBar();
-
                 speedChoice = $("#speed-choice option:selected").val();
-                simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
-                updateTimerBarID = setInterval(updateTimerBar, 20);
+                customPeriod = gcdPeriod * speedChoice;
+                oldElapsedSimTime += elapsedSimTime;
+                elapsedSimTime = 0;
+                console.log('new customPeriod: ' + customPeriod + '\n');
+                simulateID = setInterval(updateLoop, 100);
             }
         });
 
-        // CW 9/9/2021
+        // CW 9/9/21
         $("body").on("click", '#plusWidth_' + zyID, function increaseCanvasWidth() {
+            console.log('plusWidth');
             //increment width of drawing area
-            //$('#minusWidth_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
             console.log('increase canvas width');
             drawingCanvas = $('#drawingArea_' + zyID);
             var drawingAreaWidth = $(drawingCanvas).attr('width');
-            console.log('drawingAreaWidth: ', drawingAreaWidth);
-            drawingAreaWidth = parseFloat(drawingAreaWidth) + parseFloat(100);
-            console.log('new drawingAreaWidth: ', drawingAreaWidth);
-            drawingCanvas.attr({
-                width: drawingAreaWidth
-            });
+            console.log('drawingAreaWidth: ', parseFloat(drawingAreaWidth));
 
-            //increment width of canvas box to match the drawing area
-            canvasTab = $('.canvas-tab');
-            var canvasTabWidth = $(canvasTab).css('width');
-            console.log('canvasTabWidth: ', canvasTabWidth);
-            canvasTabWidth = parseFloat(canvasTabWidth) + parseFloat(100);
-            console.log('new canvasTabWidth: ', canvasTabWidth);
-            canvasTab.css({'width':canvasTabWidth})
+            if (parseFloat(drawingAreaWidth) <= 1100){
+                $('#minusWidth_' + zyID).prop('disabled', false);
+                $('#minusWidth_' + zyID).removeClass('disabled');
+                $('#minusWidth_' + zyID).css('background-color', ZYANTE_ORANGE);
 
-            reDrawStateMachine = true;
+                drawingAreaWidth = parseFloat(drawingAreaWidth) + parseFloat(100);
+                console.log('new drawingAreaWidth: ', drawingAreaWidth);
+                drawingCanvas.attr({
+                    width: drawingAreaWidth
+                });
+
+                //increments width of canvas box to match the drawing area
+                canvasTab = $('.canvas-tab');
+                canvasTab.css({'width':drawingAreaWidth})
+
+                reDrawStateMachine = true;
+
+                var sidemenuWidth = $('.sidemenuGrid').css('width');
+                console.log('sidemenuWidth: ', sidemenuWidth);
+            }
+            if (parseFloat(drawingAreaWidth) >= 1200) {
+                $('#plusWidth_' + zyID).prop('disabled', true);
+                $('#plusWidth_' + zyID).addClass('disabled');
+                $('#plusWidth_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
+            }
         });
         
         // CW 9/11/2021
         $("body").on("click", '#minusWidth_' + zyID, function decreaseCanvasWidth() {
-            //$('#minusWidth_' + zyID).css('background-color', BACKGROUND_GRAY);
-            //decrement width of drawing area
+            console.log('minusWidth');
+            // decrements width of drawing area
             console.log('increase canvas width');
             drawingCanvas = $('#drawingArea_' + zyID);
             var drawingAreaWidth = $(drawingCanvas).attr('width');
-            console.log('drawingAreaWidth: ', drawingAreaWidth);
-            drawingAreaWidth = parseFloat(drawingAreaWidth) - parseFloat(100);
-            console.log('new drawingAreaWidth: ', drawingAreaWidth);
-            drawingCanvas.attr({
-                width: drawingAreaWidth
-            });
+            console.log('drawingAreaWidth: ', parseFloat(drawingAreaWidth));
 
-            //decrement width of canvas box to match the drawing area
-            canvasTab = $('.canvas-tab');
-            var canvasTabWidth = $(canvasTab).css('width');
-            console.log('canvasTabWidth: ', canvasTabWidth);
-            canvasTabWidth = parseFloat(canvasTabWidth) - parseFloat(100);
-            console.log('new canvasTabWidth: ', canvasTabWidth);
-            canvasTab.css({'width':canvasTabWidth})
+            if (parseFloat(drawingAreaWidth) >= 700) {
+                $('#plusWidth_' + zyID).prop('disabled', false);
+                $('#plusWidth_' + zyID).removeClass('disabled');
+                $('#plusWidth_' + zyID).css('background-color', ZYANTE_ORANGE);
 
-            reDrawStateMachine = true;
+                drawingAreaWidth = parseFloat(drawingAreaWidth) - parseFloat(100);
+                console.log('new drawingAreaWidth: ', drawingAreaWidth);
+                drawingCanvas.attr({
+                    width: drawingAreaWidth
+                });
+
+                // decrements width of canvas box to match the drawing area
+                canvasTab = $('.canvas-tab');
+                canvasTab.css({'width':drawingAreaWidth})
+
+                reDrawStateMachine = true;
+            }
+            if (parseFloat(drawingAreaWidth) <= 600) {
+                $('#minusWidth_' + zyID).prop('disabled', true);
+                $('#minusWidth_' + zyID).addClass('disabled');
+                $('#minusWidth_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
+            }
         });
         
         // CW 9/11/2021
         $("body").on("click", '#plusHeight_' + zyID, function increaseCanvasHeight() {
-            //increment height of drawing area
+            console.log('plusHeight');
+            // increments height of drawing area
             drawingCanvas = $('#drawingArea_' + zyID);
             var drawingAreaHeight = $(drawingCanvas).attr('height');
-            drawingAreaWidth = parseFloat(drawingAreaHeight) + parseFloat(100);
-            drawingCanvas.attr({
-                height: drawingAreaHeight
-            });
+            console.log('drawingAreaHeight: ', drawingAreaHeight);
 
-            //increment width of canvas box to match the drawing area
-            canvasTab = $('.canvas-tab');
-            var canvasTabHeight = $(canvasTab).css('height');
-            canvasTabHeight = parseFloat(canvasTabHeight) + parseFloat(100);
-            canvasTab.css({'height':canvasTabHeight})
+            if(parseFloat(drawingAreaHeight) <= 610) {
+                $('#minusHeight_' + zyID).prop('disabled', false);
+                $('#minusHeight_' + zyID).removeClass('disabled');
+                $('#minusHeight_' + zyID).css('background-color', ZYANTE_ORANGE);
 
-            reDrawStateMachine = true;
+                drawingAreaHeight = parseFloat(drawingAreaHeight) + parseFloat(100);
+                console.log('new drawingAreaHeight: ', drawingAreaHeight);
+                drawingCanvas.attr({
+                    height: drawingAreaHeight
+                });
+            
+                // increments height of canvas box to match the drawing area
+                canvasTab = $('.canvas-tab');
+                var canvasTabHeight = $(canvasTab).css('height');
+                canvasTabHeight = parseFloat(canvasTabHeight) + parseFloat(100);
+                canvasTab.css({'height':canvasTabHeight})
+
+                reDrawStateMachine = true;
+            }
+            if (parseFloat(drawingAreaHeight) >= 600) {
+                $('#plusHeight_' + zyID).prop('disabled', true);
+                $('#plusHeight_' + zyID).addClass('disabled');
+                $('#plusHeight_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
+            }
         });
         
         // CW 9/11/2021
         $("body").on("click", '#minusHeight_' + zyID, function decreaseCanvasHeight() {
-            //decrement height of drawing area
+            console.log('minusHeight');
+            // increments height of drawing area
             drawingCanvas = $('#drawingArea_' + zyID);
             var drawingAreaHeight = $(drawingCanvas).attr('height');
-            drawingAreaWidth = parseFloat(drawingAreaHeight) - parseFloat(100);
-            drawingCanvas.attr({
-                height: drawingAreaHeight
-            });
+            console.log('drawingAreaHeight: ', drawingAreaHeight);
 
-            //decrement width of canvas box to match the drawing area
-            canvasTab = $('.canvas-tab');
-            var canvasTabHeight = $(canvasTab).css('height');
-            canvasTabHeight = parseFloat(canvasTabHeight) - parseFloat(100);
-            canvasTab.css({'height':canvasTabHeight})
+            if (parseFloat(drawingAreaHeight) >= 400) {
+                $('#plusHeight_' + zyID).prop('disabled', false);
+                $('#plusHeight_' + zyID).removeClass('disabled');
+                $('#plusHeight_' + zyID).css('background-color', ZYANTE_ORANGE);
 
-            reDrawStateMachine = true;
+                drawingAreaHeight = parseFloat(drawingAreaHeight) - parseFloat(100);
+                console.log('new drawingAreaHeight: ', parseFloat(drawingAreaHeight));
+                drawingCanvas.attr({
+                    height: drawingAreaHeight
+                });
+            
+                // decrements height of canvas box to match the drawing area
+                canvasTab = $('.canvas-tab');
+                var canvasTabHeight = $(canvasTab).css('height');
+                canvasTabHeight = parseFloat(canvasTabHeight) - parseFloat(100);
+                canvasTab.css({'height':canvasTabHeight})
+
+                reDrawStateMachine = true;
+            }
+            if (parseFloat(drawingAreaHeight) <= 310) {
+                $('#minusHeight_' + zyID).prop('disabled', true);
+                $('#minusHeight_' + zyID).addClass('disabled');
+                $('#minusHeight_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
+            }
         });
+        
 
         // CW 9/2/2021
         // Toggles view of the advanced controls menu
@@ -2012,36 +2096,69 @@ function ZySMSim() {
         });
 
         // Find out which SMs are ready and execute their current states actions and see what edge to take.
+        // called every gcdPeriod * speedChoice ms
         function updateLoop() {
-            console.log('updateLoop()');
-            // CW 8/10/2021
-            timerPercent = 0;
-            clearInterval(updateTimerBarID);
-            updateTimerBarID = setInterval(updateTimerBar, 20);
+            if(simulateID){
+                //elapsedSimTime += parseInt((customPeriod / 10).toFixed(0));
+                elapsedSimTime += 100;
+                $('#elapsedSimTime_' + zyID).text(parseInt(oldElapsedSimTime + elapsedSimTime)); // Updates total elapsed sim time text
+                console.log('updateLoop elapsedSimTime: ' + elapsedSimTime + '\n');
+                console.log('if condition: ' + elapsedSimTime % parseInt((customPeriod / 10).toFixed(0)) + '\n');
+                
+                // Updates time displays every 10th of a customPeriod
+                //if(elapsedSimTime % parseInt((customPeriod / 10).toFixed(0)) == 0) {
+                if(elapsedSimTime % parseInt((20).toFixed(0)) == 0) {
+                    console.log('update time displays w elapsedSimTime: ' + elapsedSimTime + '\n');
+                    if (timerPercent < 200) { 
+                        //timerPercent += (customPeriod / 10) * (200 / customPeriod); // multiply by 0.2 to normalize for 200px
+                        console.log('elapsedSimTime % customPeriod: ' + elapsedSimTime%customPeriod + '\n');
+                        console.log('elapsedSimTime % customPeriod / customPeriod*10: ' + ((elapsedSimTime%customPeriod)/customPeriod)*10 + '\n');
 
-            for (var j = 0; j < graphs.length; j++) {
-                if (smElapsedTime[j] >= graphs[j].period) {
-                    smElapsedTime[j] = 0;
-                    for (var i = 0; i < graphs[j].edges.length; i++) {
-                        if (!simulateID) {
-                            return;
-                        }
-                        // This is the current node executing and one of it's edges's conditions is true
-                        if (graphs[j].edges[i].head == executingNodes[j] && executeCondition(graphs[j].edges[i].condition)) {
-                            executeAction(graphs[j].edges[i].actions, executingNodes[j].name);
-                            executingNodes[j].executing = false;
-                            executingNodes[j] = graphs[j].edges[i].tail;
-                            graphs[j].edges[i].executing = true;
-                            setTimeout(turnOffAnimation, ANIMATION_DURATION, i, j);
-                            reDrawStateMachine = true;
-                            break;
+                        timerPercent = ((elapsedSimTime % customPeriod)/customPeriod) * 200;
+                        //timerPercent += (customPeriod / 10);
+                        timerBarCanvas.attr({
+                            width: timerPercent
+                        })
+                        
+                        // Update percentage text
+                        periodPercent = parseInt((timerPercent / 2)).toFixed(0); // Divided by 2 since 200px --> 100%
+                        if (periodPercent <= 100){
+                            $('#periodPercent').text(periodPercent + '%');
                         }
                     }
-                    executeAction(executingNodes[j].actions, executingNodes[j].name);
                 }
-                smElapsedTime[j] += gcdPeriod;
+            }
+            // graphical state machine update, add if statement around it to only call the for loop if we're at time we can mod by the sm update speed
+            if(elapsedSimTime % customPeriod == 0) { // CW 12/1/21
+                timerPercent = 0;
+                periodPercent = 0;
+                console.log('ENTERED sm update w elapsed: ' + elapsedSimTime + '\n');
+                for (var j = 0; j < graphs.length; j++) {
+                    if (smElapsedTime[j] >= graphs[j].period) {
+                        smElapsedTime[j] = 0;
+                        for (var i = 0; i < graphs[j].edges.length; i++) {
+                            if (!simulateID) {
+                                return;
+                            }
+                            // This is the current node executing and one of it's edges's conditions is true
+                            // add comment later --> graphical sm update
+                            if (graphs[j].edges[i].head == executingNodes[j] && executeCondition(graphs[j].edges[i].condition)) {
+                                executeAction(graphs[j].edges[i].actions, executingNodes[j].name);
+                                executingNodes[j].executing = false;
+                                executingNodes[j] = graphs[j].edges[i].tail;
+                                graphs[j].edges[i].executing = true;
+                                setTimeout(turnOffAnimation, ANIMATION_DURATION, i, j);
+                                reDrawStateMachine = true;
+                                break;
+                            }
+                        }
+                        executeAction(executingNodes[j].actions, executingNodes[j].name);
+                    }
+                    smElapsedTime[j] += gcdPeriod;
+                }
             }
         }
+
         // If the state machine is running this will pause the state machine, leaving it in whatever state it was in and with the current inputs and outputs.
         // Calling this when the state machine is paused will resume the state machine which starts execution in the previously paused state.
         function pauseResume() {
@@ -2055,7 +2172,8 @@ function ZySMSim() {
                     smElapsedTime.push(graphs[j].period);
                 }
                 console.log('speed choice: ', speedChoice);
-                simulateID = setInterval(updateLoop, gcdPeriod * speedChoice);
+                // simulateID = setInterval(updateLoop, customPeriod/10);
+                simulateID = setInterval(updateLoop, 100);
                 // Test vectors are active, run that instead of using user input
                 if ($('#testVectorWindow_' + zyID).css('visibility') == 'visible') {
                     // Process test vectors
@@ -2071,7 +2189,7 @@ function ZySMSim() {
             else { // Pauses simulation
                 clearInterval(simulateID);
                 clearInterval(testVectorID);
-                clearInterval(updateTimerBarID); //CW 8/16/2021
+                elapsedTimerOn = false;
                 simulateID = 0;
                 testVectorID = 0;
                 paused = true;
@@ -2145,9 +2263,11 @@ function ZySMSim() {
                 }
                 noErrors = noErrors && haveInit && !matchingStateNames && !matchingSMNames;
                 
+                // CW 9/2/2021
+                // Error messages that appear in the console
                 if (!noErrors) {
                     if (!period) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: Bad period.\n'); // CW 9/2/2021
+                        $('#errorConsole_' + zyID).prepend('ERROR: Period must be ' + MIN_PERIOD + ' or greater.\n');
                         if ($('#period_' + zyID).val().indexOf('.') != -1) {
                             $('#errorConsole_' + zyID).prepend('ERROR: Period should be an integer.\n');
                         }
@@ -2175,22 +2295,36 @@ function ZySMSim() {
                         }
                         reDrawStateMachine = true;
                     }, ANIMATION_DURATION);
-                    return { noErrors:noErrors, errorMessage:errorMes };
+                    return { noErrors:noErrors, errorMessage:errorMes }; // don't need this anymore now that we have error console
+                    
+                    $('')
                 }
+                
             }
             return { noErrors:noErrors, errorMessage:errorMes };
         }
         // Starts the execution of the SMs when first called. If state machines are already running this stops the execution
         function simulate() {
             console.log('simulate()');
-            $('#errorConsole_' + zyID).empty(); // CW 9/8 clear error console
-            if (!simulateID && !$('#simulateButton_' + zyID).hasClass('disabled') && !paused) {
+            elapsedSimTime = 0; // CW 10/5
+            oldElapsedSimTime = 0;
+            //elapsedTimerOn = true;
+            //updateElapsedTime();
+            //clearInterval(updateElapsedTime); // CW 10/5/21
+            $('#instructionConsole_' + zyID).empty(); // CW 1/7/22 clear instruction console
+            $('#instructionConsole_' + zyID).prepend('Click A inputs to set value 0 or 1.\nObserve B outputs.');
+            $('#newTransitionButton_' + zyID).text('New\ntransition');
+            $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
+            transitionMode = 0;
+
+            if (!simulateID && !$('#startButton_' + zyID).hasClass('disabled') && !paused) {
                 var prepareResult = prepareToSimulate();
                 var noErrors = prepareResult.noErrors;
                 // No errors, time to simulate
                 if (noErrors) {
-                    $('#simulateButton_' + zyID).text(' End ');
-                    //$('#simulateButton_' + zyID).removeClass('simulate-margin');
+                    $('#errorConsole_' + zyID).empty(); // CW 9/8/21 clear error console
+                    $('#startButton_' + zyID).text(' End ');
+                    //$('#startButton_' + zyID).removeClass('simulate-margin'); // CW removed because CSS simulate-margin class also removed
                     // Have to disable all of the controls that modify a SM
                     turnOnOffControls();
                     if (selectedEdge != null) {
@@ -2204,9 +2338,11 @@ function ZySMSim() {
                         gcdPeriod = GCD(gcdPeriod, graphs[j].period);
                         smElapsedTime.push(graphs[j].period);
                     }
-                    //CW 8/12/2021
+                    //CW 8/12/2021, Reads the sim speed selected by the user
                     speedChoice = $("#speed-choice option:selected").val();
-                    simulateID = setInterval(updateLoop, gcdPeriod * speedChoice); 
+                    customPeriod = gcdPeriod * speedChoice;
+                    simulateID = setInterval(updateLoop, 100); 
+                    // also fire off timer bar potentially
 
                     $('#pauseButton_' + zyID).prop('disabled', false);
                     $('#pauseButton_' + zyID).removeClass('disabled');
@@ -2221,7 +2357,7 @@ function ZySMSim() {
                     }
                 }
                 else {
-                    //alert(prepareResult.errorMessage); CW 9/9
+                    //alert(prepareResult.errorMessage); CW commented out 9/9
                     return;
                 }
 
@@ -2230,15 +2366,19 @@ function ZySMSim() {
             else {
                 $('#pauseButton_' + zyID).prop('disabled', true);
                 $('#pauseButton_' + zyID).addClass('disabled');
-                $('#simulateButton_' + zyID).text('Start');
-                //$('#simulateButton_' + zyID).addClass('simulate-margin');
+                $('#startButton_' + zyID).text('Start');
+                //$('#startButton_' + zyID).addClass('simulate-margin'); // CW removed because CSS simulate-margin class also removed
                 $('#pauseButton_' + zyID).text('Pause');
                 $('#pauseButton_' + zyID).addClass('pause-margin');
+
+                $('#instructionConsole_' + zyID).empty(); //CW
+                $('#newTransitionButton_' + zyID).text('New\ntransition');
+
                 turnOnOffControls();
                 paused = false;
                 clearInterval(simulateID);
-                clearInterval(updateTimerBarID);
                 clearTimerBar();
+                elapsedTimerOn = false;
                 simulateID = 0;
                 selectedNode = null;
                 setTimeout(function() {
@@ -2268,32 +2408,12 @@ function ZySMSim() {
             $('#periodPercent').text('0%');
         }
 
-        // Used to synchronize the timer bar with the current sim speed
-        function updateTimerBar() {
-            timerBarCanvas = $('#timerBar');
-            timerBarCanvas.attr({
-                width: timerPercent
-            })
-            // Calculates new timerPercent value for the next time updateTimerBar() is called
-            if (timerPercent < 200) { // timing-info container width is 200px
-                timerPercent = timerPercent + (200 / ((gcdPeriod * speedChoice) / 20));
-            }
-            //console.log('+timerPercent: ', timerPercent);
-
-            // Update percentage text
-            var periodPercent = (timerPercent / 2).toFixed(0); // Divided by 2 since 200px --> 100%
-            if (periodPercent <= 100){
-                $('#periodPercent').text(periodPercent + '%');
-            }
-        }
-
         // Processes the user's test vectors,
         // Currently you can:
         // Change A by giving a hex value: ex. 0xFA
         // Assert that B is a value: ex assert 0x05
         // Wait a specific amount of seconds or miliseconds: ex wait 5 s, wait 500 ms
         function processTestVectors(commands, index) {
-            console.log('processTestVectors()');
             currentTestVectorIndex = index;
             if (!simulateID) {
                 return;
@@ -2523,6 +2643,9 @@ function ZySMSim() {
                 selectedNode = graphs[currentIndex].nodes[1];
                 deleteButtonClicked();
             }
+
+            var newName = graphs[currentIndex].smName;
+            console.log('newName: ', newName);
             reDrawStateMachine = true;
         }
         // Deletes a node/edge from the current graph
@@ -2673,7 +2796,7 @@ function ZySMSim() {
                 selectedNode.initState = $('#initStateCheck_' + zyID).is(':checked');
             }
         }
-        // Update current node name when user chages data
+        // Update current node name when user changes data
         function stateNameChanged(e) {
             console.log('stateNameChanged()');
             if (e.which !== 13) {
@@ -2685,15 +2808,31 @@ function ZySMSim() {
                 e.preventDefault();
             }
         }
+
         // Enter transition mode
         function insertTransitionClicked(e) {
+            console.log('newTransitionClicked e: ', e);
             transitionMode = !transitionMode;
             selectedNode = null;
             if (selectedEdge != null) {
                 selectedEdge.deselect();
             }
             selectedEdge = null;
+
+            // CW Display initial new transition instruction in instruction console
+            if(transitionMode){
+                $('#instructionConsole_' + zyID).empty();
+                $('#instructionConsole_' + zyID).prepend('First, click starting state of new transition.');
+                $('#newTransitionButton_' + zyID).text('Cancel\ntransition');
+                $('#newTransitionButton_' + zyID).css({'background-color':'FireBrick'});
+            }
+            else{
+                $('#instructionConsole_' + zyID).empty();
+                $('#newTransitionButton_' + zyID).text('New\ntransition');
+                $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
+            }
         }
+
         // Returns the new mouse position for use in the canvas, the magic numbers offset it to the center
         function updateMousePos(e) {
             var xOffset = 25;
@@ -2724,21 +2863,29 @@ function ZySMSim() {
                 x: (initialX - rect.left - xOffset),
                 y: (initialY - rect.top - yOffset)
             };
+            checkHoveredNode();
+            checkHoveredEdge();
         }
         // Handles the creation of edges and the switching of all text fields when a new edge or node has been selected
         function canvasMouseDown(e) {
+            
             // No canvas mouse events while simulating
             if (simulateID || !canEdit || paused) {
                 return;
             }
+
             updateMousePos(e);
             dragged = false;
             canDrag = false;
             holdTimeout = setTimeout(function() {
                 canDrag = true;
             }, 100);
+
+            // Branches when second state is selected while in transition mode
             if (transitionMode && selectedNode != null) {
-                // We have already selected src, see if a dst is being clicked.
+                $('#instructionConsole_' + zyID).empty(); // Clears instruction console after second node is selected when inserting new transition
+                $('#newTransitionButton_' + zyID).text('New\ntransition');
+                $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
                 var dst = getClickedNode();
                 if (dst != null) {
                     var alreadyCreated = false;
@@ -2761,8 +2908,11 @@ function ZySMSim() {
 
                 }
             }
+            // Branches when an item is selected, or when not in transition mode
             else {
+
                 selectedNode = getClickedNode();
+                // Branches when selected item is identified as a state
                 if (selectedNode != null) {
                     if (selectedEdge != null) {
                         selectedEdge.deselect();
@@ -2770,6 +2920,12 @@ function ZySMSim() {
                     }
                     // Not null load properties of the state
                     loadStateProperties();
+                    // Displays second instruction when inserting new transition
+                    if(transitionMode){
+                        $('#instructionConsole_' + zyID).empty();
+                        $('#instructionConsole_' + zyID).prepend('Next, click ending state of new transition.');
+                        //$('#instructionConsole_' + zyID).css({'color':'purple'});
+                    }
                 }
                 else {
                     // Node not clicked, test edge
@@ -2783,6 +2939,7 @@ function ZySMSim() {
                     else {
                         selectedEdge = getClickedEdge();
                     }
+
                     // Edge was clicked must load edge properties
                     if (selectedEdge != null) {
                         selectedNode = null;
@@ -2790,11 +2947,70 @@ function ZySMSim() {
                     }
                     else {
                         // Nothing was clicked, clear all properties
-                        clearStateFields();
+                        console.log('nothing was clicked, clear all properties\n');
+                        clearStateFields(); 
+                        resetSidemenu();
                     }
 
                 }
             }
+        }
+
+        // CW 9/23/21
+        function resetSidemenu() {
+            $('#stateName_' + zyID).hide();
+            $('#stateNameLabel_' + zyID).hide();
+            $('#initStateCheck_' + zyID).hide();
+            $('#initStateLabel_' + zyID).hide();
+            $('#stateActions_' + zyID).hide();
+            $('#actionsLabel_' + zyID).hide();
+            $('#stateConditions_' + zyID).hide();
+            $('#conditionLabel_' + zyID).hide();
+            $('#itemInfoLabel_' + zyID).addClass('item-info-label-start');
+            $('#itemInfoLabel_' + zyID).removeClass('item-info-label-selected');
+            $('#itemInfoLabel_' + zyID).text('');
+        }
+
+        // CW 9/23/21
+        function loadEdgeSidemenu() {
+            $('.item-name-container').css('grid-row', 5)
+            $('.init-state-check').css('grid-row', 5);
+            $('.actions-container').css('grid-row', 2);
+            $('.condition-container').css('grid-row', 3);
+            
+            $('#stateName_' + zyID).hide();
+            $('#stateNameLabel_' + zyID).hide();
+            $('#initStateCheck_' + zyID).hide();
+            $('#initStateLabel_' + zyID).hide();
+            $('#stateActions_' + zyID).show();
+            $('#actionsLabel_' + zyID).show();
+            $('#stateConditions_' + zyID).show();
+            $('#conditionLabel_' + zyID).show();
+            $('#itemInfoLabel_' + zyID).text('Selected transition\'s properties');
+            $('#itemInfoLabel_' + zyID).removeClass('item-info-label-start');
+            $('#itemInfoLabel_' + zyID).addClass('item-info-label-selected');
+        }
+        
+        // CW 9/21/21
+        function loadStateSidemenu() {
+            $('.item-name-container').css('grid-row', 2)
+            $('.init-state-check').css('grid-row', 3);
+            $('.actions-container').css('grid-row', 4);
+            $('.condition-container').css('grid-row', 5);
+
+            $('#stateName_' + zyID).show();
+            $('#stateNameLabel_' + zyID).show();
+            $('#initStateCheck_' + zyID).show();
+            $('#initStateLabel_' + zyID).show();
+            $('#stateActions_' + zyID).show();
+            $('#actionsLabel_' + zyID).show();
+            $('#stateConditions_' + zyID).hide();
+            $('#conditionLabel_' + zyID).hide();
+            $('#itemInfoLabel_' + zyID).text('Selected state\'s properties');
+            $('#itemInfoLabel_' + zyID).removeClass('item-info-label-start');
+            $('#itemInfoLabel_' + zyID).addClass('item-info-label-selected');
+
+            console.log('loadStateSidemenu');
         }
 
         // Helper to load all edge properties that a user can change. Called after an edge has been selected.
@@ -2807,15 +3023,6 @@ function ZySMSim() {
             $('#stateName_' + zyID).val('');
             $('#stateName_' + zyID).prop('contentEditable', false);
             $('#stateName_' + zyID).css('background-color', BACKGROUND_GRAY);
-            
-            $('.actions-container').css('grid-row', 5);
-            $('.actions-label').css('grid-row', 5);
-            $('#stateActions_' + zyID).hide(); // CW 9/21/21
-            $('#actionsLabel_' + zyID).hide();
-            $('.condition-container').css('grid-row', 4);
-            $('.condition-label').css('grid-row', 4);
-            $('#stateConditions_' + zyID).show(); // CW 9/21/21
-            $('#conditionLabel_' + zyID).show();
             
             if (!digDesignMode && !HLSM) {
                 $('#stateActions_' + zyID).val(selectedEdge.actions);
@@ -2832,6 +3039,8 @@ function ZySMSim() {
                 $('#stateConditions_' + zyID).css('background-color', '');
             }
             $('#initStateCheck_' + zyID).prop('checked', false);
+
+            loadEdgeSidemenu();
         }
 
         // Helper to load all state properties that a user can change. Called after an state has been selected.
@@ -2848,16 +3057,7 @@ function ZySMSim() {
             $('#stateConditions_' + zyID).css('background-color', BACKGROUND_GRAY);
             $('#initStateCheck_' + zyID).prop('checked', selectedNode.initState);
             $('#stateName_' + zyID).val(selectedNode.name);
-            
-            $('.condition-container').css('grid-row', 5);
-            $('.condition-label').css('grid-row', 5);
-            $('#stateConditions_' + zyID).hide(); // CW 9/21/21
-            $('#conditionLabel_' + zyID).hide();
-            $('.actions-container').css('grid-row', 4);
-            $('.actions-label').css('grid-row', 4);
-            $('#stateActions_' + zyID).show(); // CW 9/21/21
-            $('#actionsLabel_' + zyID).show();
-            
+                        
             if (selectedNode.initState) {
                 $('#initStateCheck_' + zyID).prop('disabled', false);
                 $('#initStateCheck_' + zyID).prop('checked', true);
@@ -2866,6 +3066,8 @@ function ZySMSim() {
                 $('#initStateCheck_' + zyID).prop('disabled', false);
                 $('#initStateCheck_' + zyID).prop('checked', false);
             }
+
+            loadStateSidemenu();
         }
 
         // Clears all the fields and disables them
@@ -2890,12 +3092,14 @@ function ZySMSim() {
 
         // Updates position of elements being dragged
         function canvasMouseMove(e) {
+            console.log("canvasMouseMove\n");
             // No canvas mouse events while simulating
             if (simulateID || !canEdit || paused) {
                 return;
             }
             updateMousePos(e);
             // User is dragging, drag the currently selected node
+            // CW 777 curretly selected node
             if (selectedNode != null && canDrag) {
                 var oldX = selectedNode.rect.x;
                 var oldY = selectedNode.rect.y;
@@ -2944,18 +3148,18 @@ function ZySMSim() {
                 $('#exportButton_' + zyID).prop('disabled', false);
 
                 $('#exampleDrop_' + zyID).prop('disabled', false);
-                $('#insertStateButton_' + zyID).prop('disabled', false);
-                $('#insertTransitionButton_' + zyID).prop('disabled', false);
+                $('#newStateButton_' + zyID).prop('disabled', false);
+                $('#newTransitionButton_' + zyID).prop('disabled', false);
                 $('#testVectorButton_' + zyID).prop('disabled', false);
                 $('#exportToRimsButton_' + zyID).prop('disabled', false);
-                $('#simulateButton_' + zyID).prop('disabled', false);
+                $('#startButton_' + zyID).prop('disabled', false);
 
-                $('#simulateButton_' + zyID).removeClass('disabled');
+                $('#startButton_' + zyID).removeClass('disabled');
                 $('#deleteButton_' + zyID).removeClass('disabled');
                 $('#importButton_' + zyID).removeClass('disabled');
                 $('#exportButton_' + zyID).removeClass('disabled');
-                $('#insertStateButton_' + zyID).removeClass('disabled');
-                $('#insertTransitionButton_' + zyID).removeClass('disabled');
+                $('#newStateButton_' + zyID).removeClass('disabled');
+                $('#newTransitionButton_' + zyID).removeClass('disabled');
                 $('#testVectorButton_' + zyID).removeClass('disabled');
                 $('#exportToRimsButton_' + zyID).removeClass('disabled');
 
@@ -2993,8 +3197,8 @@ function ZySMSim() {
                 $('#importButton_' + zyID).prop('disabled', true);
                 $('#exportButton_' + zyID).prop('disabled', true);
                 $('#exampleDrop_' + zyID).prop('disabled', true);
-                $('#insertStateButton_' + zyID).prop('disabled', true);
-                $('#insertTransitionButton_' + zyID).prop('disabled', true);
+                $('#newStateButton_' + zyID).prop('disabled', true);
+                $('#newTransitionButton_' + zyID).prop('disabled', true);
                 $('#JSONImportExport_' + zyID).prop('disabled', true);
                 $('#testVectorWindow_' + zyID).prop('disabled', true);
                 $('#testVectorButton_' + zyID).prop('disabled', true);
@@ -3002,15 +3206,15 @@ function ZySMSim() {
                 $('#period_' + zyID).prop('disabled', true);
                 $('#stateName_' + zyID).prop('disabled', true);
 
-                $('#simulateButton_' + zyID).prop('disabled', true);
+                $('#startButton_' + zyID).prop('disabled', true);
                 $('#deleteButton_' + zyID).addClass('disabled');
                 $('#importButton_' + zyID).addClass('disabled');
                 $('#exportButton_' + zyID).addClass('disabled');
-                $('#insertStateButton_' + zyID).addClass('disabled');
-                $('#insertTransitionButton_' + zyID).addClass('disabled');
+                $('#newStateButton_' + zyID).addClass('disabled');
+                $('#newTransitionButton_' + zyID).addClass('disabled');
                 $('#testVectorButton_' + zyID).addClass('disabled');
                 $('#exportToRimsButton_' + zyID).addClass('disabled');
-                $('#simulateButton_' + zyID).addClass('disabled');
+                $('#startButton_' + zyID).addClass('disabled');
 
 
                 $('#period_' + zyID).css('background-color', BACKGROUND_GRAY);
@@ -3051,16 +3255,16 @@ function ZySMSim() {
                 $('#exportButton_' + zyID).prop('disabled', false);
 
                 $('#exampleDrop_' + zyID).prop('disabled', false);
-                $('#insertStateButton_' + zyID).prop('disabled', false);
-                $('#insertTransitionButton_' + zyID).prop('disabled', false);
+                $('#newStateButton_' + zyID).prop('disabled', false);
+                $('#newTransitionButton_' + zyID).prop('disabled', false);
                 $('#testVectorButton_' + zyID).prop('disabled', false);
                 $('#exportToRimsButton_' + zyID).prop('disabled', false);
 
                 $('#deleteButton_' + zyID).addClass('disabled');
                 $('#importButton_' + zyID).removeClass('disabled');
                 $('#exportButton_' + zyID).removeClass('disabled');
-                $('#insertStateButton_' + zyID).removeClass('disabled');
-                $('#insertTransitionButton_' + zyID).removeClass('disabled');
+                $('#newStateButton_' + zyID).removeClass('disabled');
+                $('#newTransitionButton_' + zyID).removeClass('disabled');
                 $('#testVectorButton_' + zyID).removeClass('disabled');
                 $('#exportToRimsButton_' + zyID).removeClass('disabled');
 
@@ -3097,8 +3301,8 @@ function ZySMSim() {
                 $('#importButton_' + zyID).prop('disabled', true);
                 $('#exportButton_' + zyID).prop('disabled', true);
                 $('#exampleDrop_' + zyID).prop('disabled', true);
-                $('#insertStateButton_' + zyID).prop('disabled', true);
-                $('#insertTransitionButton_' + zyID).prop('disabled', true);
+                $('#newStateButton_' + zyID).prop('disabled', true);
+                $('#newTransitionButton_' + zyID).prop('disabled', true);
                 $('#JSONImportExport_' + zyID).prop('disabled', true);
                 $('#testVectorWindow_' + zyID).prop('disabled', true);
                 $('#testVectorButton_' + zyID).prop('disabled', true);
@@ -3109,8 +3313,8 @@ function ZySMSim() {
                 $('#deleteButton_' + zyID).addClass('disabled');
                 $('#importButton_' + zyID).addClass('disabled');
                 $('#exportButton_' + zyID).addClass('disabled');
-                $('#insertStateButton_' + zyID).addClass('disabled');
-                $('#insertTransitionButton_' + zyID).addClass('disabled');
+                $('#newStateButton_' + zyID).addClass('disabled');
+                $('#newTransitionButton_' + zyID).addClass('disabled');
                 $('#testVectorButton_' + zyID).addClass('disabled');
                 $('#exportToRimsButton_' + zyID).addClass('disabled');
 
@@ -3138,6 +3342,22 @@ function ZySMSim() {
             return null;
         }
 
+        // set global hoveredNode if mouse intersects, otherwise keep hoveredNode as null
+        function checkHoveredNode() {
+            console.log('checkHoveredNode()');
+            for (var i = 0; i < graphs[currentIndex].nodes.length; i++) {
+                console.log('checkHoveredNode: checking node: ', graphs[currentIndex].nodes[i], '\n');
+                if (graphs[currentIndex].nodes[i].pointIntersect(mousePos.x, mousePos.y)) {
+                    hoveredNode = graphs[currentIndex].nodes[i];
+                    console.log('!!!!!!!!!!hovering over new node\nNode: ' + hoveredNode.name + '\n');
+                    break;
+                }
+                else {
+                    hoveredNode = null;
+                }
+            }
+        }
+
         // Goes through each edge and sees if any intersect with the current mouse position
         function getClickedEdge() {
             console.log('getClickedEdge()');
@@ -3148,6 +3368,21 @@ function ZySMSim() {
                 }
             }
             return null;
+        }
+
+        // CW change color of edge if mouse is hovering over it
+        function checkHoveredEdge() {
+            console.log('checkHoveredEdge()');
+            for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
+                currEdge = graphs[currentIndex].edges[i];
+                if (currEdge.pointIntersect(mousePos.x, mousePos.y) && hoveredNode == null) {
+                    currEdge.hovered = true;
+                    break;
+                }
+                else {
+                    currEdge.hovered = false;
+                }
+            }
         }
 
         function createNode() {
@@ -3230,62 +3465,14 @@ function ZySMSim() {
             if (reDrawStateMachine) {
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 for (var i = graphs[currentIndex].edges.length - 1; i >= 0; i--) {
-                    
-                    // CW 8/27/2021
-                    // handles edge boundaries
-                    /*const bpx = [];
-                    const bpy = [];
-                    if (graphs[currentIndex].edges[i].bp1 != null) {
-                        // console.log('not null!', i, graphs[currentIndex].edges[i].bp1.x)
-                        bpx[0] = graphs[currentIndex].edges[i].bp1.x
-                        bpy[0] = graphs[currentIndex].edges[i].bp1.y;
-                        bpx[1] = graphs[currentIndex].edges[i].bp2.x;
-                        bpy[1] = graphs[currentIndex].edges[i].bp2.y;
-                        bpx[2] = graphs[currentIndex].edges[i].bp3.x;
-                        bpy[2] = graphs[currentIndex].edges[i].bp3.y;
-                        bpx[3] = graphs[currentIndex].edges[i].bp4.x;
-                        bpy[3] = graphs[currentIndex].edges[i].bp4.y;
-
-                        for (var i = 0; i < 4; i ++) {
-                            if (bpx[i] > canvas.width - 60) {
-                                console.log('bpx > right boundary:', i);
-                            }
-                            else if (bpx[i] < 8) {
-                                console.log('bpx < left boundary:', i);
-                            }
-                            if (bpy[i] > canvas.height - 57) {
-                                console.log('bpy > bottom boundary:', i);
-                            }
-                            else if (bpy[i] < 10) {
-                                console.log('bpy < top boundary:', i)
-                            }
-                        }
-                    }
-                    else { // edge bp's are null when before an edge is clicked
-                        console.log('null:', graphs[currentIndex].edges[i]);
-                    }*/
-                    
                     graphs[currentIndex].edges[i].draw(context);
                 }
                 for (var i = graphs[currentIndex].nodes.length - 1; i >= 0; i--) {
-                    // CW 8/25/2021
-                    // handles node boundaries
-                    if (graphs[currentIndex].nodes[i].rect.x > canvas.width - 60) { // right boundary
-                        graphs[currentIndex].nodes[i].rect.x = canvas.width - 60;
-                    }
-                    else if (graphs[currentIndex].nodes[i].rect.x < 8) { // left boundary
-                        graphs[currentIndex].nodes[i].rect.x = 8;
-                    }
-                    if (graphs[currentIndex].nodes[i].rect.y > canvas.height - 57) { // bottom boundary
-                        graphs[currentIndex].nodes[i].rect.y = canvas.height - 57;
-                    }
-                    else if (graphs[currentIndex].nodes[i].rect.y < 10) { // top boundary
-                        graphs[currentIndex].nodes[i].rect.y = 10;
-                    }
                     graphs[currentIndex].nodes[i].draw(context);
                 }
-
+                
                 updateInitState(currentIndex);
+
                 // Draws selection box around current node
                 if (selectedNode != null && !simulateID && !paused) {
                     context.save();
@@ -3293,6 +3480,28 @@ function ZySMSim() {
                     context.strokeRect(selectedNode.rect.x + SELECTION_BOUNDING_BOX_OFFSETS.x, selectedNode.rect.y + SELECTION_BOUNDING_BOX_OFFSETS.y, selectedNode.rect.width + SELECTION_BOUNDING_BOX_OFFSETS.width, selectedNode.rect.height + SELECTION_BOUNDING_BOX_OFFSETS.height);
                     context.restore();
                 }
+
+                // checkHoveredNode
+                if (hoveredNode != null && !simulateID && !paused && (hoveredNode != selectedNode)) {
+                    console.log('drawLoop hoveredNode\n');
+                    context.save();
+                    context.strokeStyle = 'royalblue';
+                    context.strokeRect(hoveredNode.rect.x + SELECTION_BOUNDING_BOX_OFFSETS.x, hoveredNode.rect.y + SELECTION_BOUNDING_BOX_OFFSETS.y, hoveredNode.rect.width + SELECTION_BOUNDING_BOX_OFFSETS.width, hoveredNode.rect.height + SELECTION_BOUNDING_BOX_OFFSETS.height);
+                    context.restore();
+                }
+                // checkHoveredEdge
+                else if (hoveredEdge != null && !simulateID && !paused && (hoveredEdge != selectedEdge)) {
+                    /*for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
+                        currEdge = graphs[currentIndex].edges[i];
+                        if (currEdge == hoveredEdge) {
+                            currEdge.hovered = true;
+                        }
+                        else {
+                            currEdge.hovered = false;
+                        }
+                    }*/
+                }
+
 
                 if (DEBUG) {
                     // Display connected bezier points
@@ -3331,10 +3540,10 @@ function ZySMSim() {
 
             if (!usesSemicolon && !digDesignMode) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'SyntaxError: missing semicolon, \n' + action;
+                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".';
                 }
                 else {
-                    alert(stateName + ':' + 'SyntaxError: missing semicolon, \n' + action);
+                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".'); //CW 1/20/22
                     simulate();
                 }
 
@@ -3342,10 +3551,10 @@ function ZySMSim() {
             }
             else if (usesSemicolon && digDesignMode) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'SyntaxError: unexpected semicolon, \n' + action;
+                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".';
                 }
                 else {
-                    alert(stateName + ':' + 'SyntaxError: unexpected semicolon, \n' + action);
+                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".'); //CW 1/20/22
                     simulate();
                 }
 
@@ -3366,11 +3575,11 @@ function ZySMSim() {
                     if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                         // We have an assignement
                         if (self.isProgressionTool && !simulateID) {
-                            progressionExecutionErrorMessage = stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read';
+                            progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                             return false;
                         }
                         else {
-                            alert(stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read.\n');
+                            $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                             simulate();
                             return false;
                         }
@@ -3382,11 +3591,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read';
+                        progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                         return false;
                     }
                     else {
-                        alert(stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read.\n');
+                        $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3396,11 +3605,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read';
+                        progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                         return false;
                     }
                     else {
-                        alert(stateName + ':' + 'Error: Reading outputs is not allowed; only inputs/variables may be read.\n');
+                        $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3431,11 +3640,11 @@ function ZySMSim() {
                 }
                 if (endOfStatement == -1) {
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = stateName + ':' + 'SyntaxError: missing semicolon';
+                        progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nMissing semicolon.';
                         return false;
                     }
                     else {
-                        alert(stateName + ':' + 'SyntaxError: missing semicolon.\n');
+                        $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nMissing semicolon.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3447,11 +3656,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && outputIndex < equalIndex) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = stateName + ':' + 'SyntaxError: ' + matchedString + ' is not defined';
+                        progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\n' + matchedString + ' is not defined.';
                         return false;
                     }
                     else {
-                        alert(stateName + ':' + 'SyntaxError: ' + matchedString + ' is not defined.\n');
+                        $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + matchedString + ' is not defined.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3467,11 +3676,11 @@ function ZySMSim() {
             }
             catch (e) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'SyntaxError: ' + e.message + '\n' + action;
+                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\n' + e.message + '\n' + action + '.';
                     return false;
                 }
                 else {
-                    alert(stateName + ':' + 'SyntaxError: ' + e.message + '\n' + action);
+                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + e.message + '\n' + action + '.'); //CW 1/20/22
                     simulate();
                     return false;
                 }
@@ -3496,11 +3705,11 @@ function ZySMSim() {
             }
             if (oldAValues !== newAValues) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'Error: Not allowed to write to inputs.';
+                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
                     return false;
                 }
                 else {
-                    alert(stateName + ':' + 'Error: Not allowed to write to inputs.');
+                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to write to inputs.'); //CW 1/20/22
                     simulate();
                     return false;
                 }
@@ -3518,7 +3727,7 @@ function ZySMSim() {
             // Using eval, so we filter out bad input so only boolean expressions are executed
             var re = /B[0-7]?/;
             if (condition.match(re) && !HLSM && !digDesignMode) {
-                alert(stateName + ':' + 'Error: not allowed to read outputs.');
+                $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to read outputs.'); //CW 1/20/22
                 simulate();
                 return false;
             }
@@ -3532,12 +3741,12 @@ function ZySMSim() {
                 }
             }
             if (numParen < 0) {
-                alert(stateName + ':' + 'Syntax error: expected (');
+                $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nExpected (.');
                 simulate();
                 return false;
             }
             else if (numParen > 0) {
-                alert(stateName + ':' + 'Syntax error: expected )');
+                $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nExpected ).');
                 simulate();
                 return false;
             }
@@ -3549,11 +3758,11 @@ function ZySMSim() {
 
             if (assignmentTestAction.indexOf('=') != -1) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'Error: Can not execute assignments in conditions\n';
+                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.';
                     return false;
                 }
                 else {
-                    alert(stateName + ':' + 'Error: Can not execute assignments in conditions.\n');
+                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.');
                     simulate();
                     return false;
                 }
@@ -3615,7 +3824,7 @@ function ZySMSim() {
             }
 
             if (newcondition.length > 0) {
-                alert(stateName + ':' + 'Error: invalid transition');
+                $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nInvalid transition.');
                 simulate();
                 return false;
             }
@@ -3633,7 +3842,7 @@ function ZySMSim() {
                     return false;
                 }
                 else {
-                    alert(stateName + ':' + 'SyntaxError: ' + e.message);
+                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + e.message + '.');
                     simulate();
                     return false;
                 }
@@ -3646,11 +3855,11 @@ function ZySMSim() {
             }
             if (oldAValues !== newAValues) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = stateName + ':' + 'Error: Not allowed to write to inputs.';
+                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
                     return false;
                 }
                 else {
-                    alert(stateName + ':' + 'Error: Not allowed to write to inputs.');
+                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to write to inputs.');
                     simulate();
                     return false;
                 }

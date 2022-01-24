@@ -192,6 +192,7 @@ function Edge() {
     this.bp3 = null;
     this.bp4 = null;
     this.executing = false;
+    this.hovered = false;
     this.bp2HandleSelected = false;
     this.bp3HandleSelected = false;
     this.oldHeadInt = null;
@@ -228,6 +229,9 @@ Edge.prototype.drawArrow = function(context, tip, dxdt, dydt) {
 
     if (this.executing) {
         context.fillStyle = ZYANTE_GREEN;
+    }
+    else if (this.hovered) {
+        context.fillStyle = 'royalblue';
     }
     else if (this.selected) {
         context.fillStyle = ZYANTE_DARK_ORANGE;
@@ -442,6 +446,9 @@ Edge.prototype.draw = function(context) {
     var tailInt = computeLaunchPoint(this.tail, this.head);
     if (this.executing) {
         context.strokeStyle = ZYANTE_GREEN;
+    }
+    else if (this.hovered) {
+        context.strokeStyle = 'royalblue';
     }
     else if (this.selected) {
         context.strokeStyle = ZYANTE_DARK_ORANGE;
