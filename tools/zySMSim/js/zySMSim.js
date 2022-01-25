@@ -790,7 +790,6 @@ function ZySMSim() {
                 if (((event.keyCode === 8) || (event.keyCode === 46)) && !($(event.target).is('.period, .condition, .action, .state-name, input, textarea') || $(event.target).prop('contentEditable') == 'true')) {
                     event.preventDefault();
                 }
-                //else if ((event.keyCode === 13) && event.target.nodeName == 'INPUT') {
             });
 
             $('#period_' + zyID).focus(focusFocusTracking);
@@ -1816,9 +1815,18 @@ function ZySMSim() {
             tabInputIn.width(tabInput.width() + INPUT_ADJUST);
             tabInputIn.height(tabInput.height() + INPUT_ADJUST);
             tabInputIn.bind('blur', function() {
-                $('#canvasTab_' + zyID + ' ul:first li:eq(' + index + ') a').text(tabInputIn.val());
+                if(tabInputIn.val() == '') {
+                    $('#errorConsole_' + zyID).empty();
+                    $('#errorConsole_' + zyID).prepend('> ERROR: SM name cannot be empty.\n');
+                }
+                else {
+                    $('#canvasTab_' + zyID + ' ul:first li:eq(' + index + ') a').text(tabInputIn.val());
+                    graphs[index].name = tabInputIn.val();
+                    $('#errorConsole_' + zyID).empty();
+
+                }
                 tabInput.css('display', 'none');
-                graphs[index].name = tabInputIn.val();
+                
             });
             tabInputIn.select();
         }
@@ -2123,6 +2131,9 @@ function ZySMSim() {
                     gcdPeriod = GCD(gcdPeriod, graphs[j].period);
                     smElapsedTime.push(graphs[j].period);
                 }
+                //Reads the sim speed selected by the user
+                speedChoice = $("#speed-choice option:selected").val();
+                customPeriod = gcdPeriod * speedChoice;
                 simulateID = setInterval(updateLoop, 100);
                 // Test vectors are active, run that instead of using user input
                 if ($('#testVectorWindow_' + zyID).css('visibility') == 'visible') {
@@ -2283,7 +2294,6 @@ function ZySMSim() {
                     speedChoice = $("#speed-choice option:selected").val();
                     customPeriod = gcdPeriod * speedChoice;
                     simulateID = setInterval(updateLoop, 100); 
-                    // also fire off timer bar potentially
 
                     $('#pauseButton_' + zyID).prop('disabled', false);
                     $('#pauseButton_' + zyID).removeClass('disabled');
@@ -2732,7 +2742,14 @@ function ZySMSim() {
         function stateNameChanged(e) {
             if (e.which !== 13) {
                 if (selectedNode != null) {
-                    selectedNode.name = $('#stateName_' + zyID).val();
+                    newName = $('#stateName_' + zyID).val();
+                    $('#errorConsole_' + zyID).empty();
+                    if (newName == ''){
+                        $('#errorConsole_' + zyID).prepend('> ERROR: State name cannot be empty.\n');
+                    }
+                    else {
+                        selectedNode.name = $('#stateName_' + zyID).val();   
+                    }
                 }
             }
             else {
