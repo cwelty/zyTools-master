@@ -2210,24 +2210,25 @@ function ZySMSim() {
                 
                 // CW 9/2/2021
                 // Error messages that appear in the console
+                $('#errorConsole_' + zyID).empty();
                 if (!noErrors) {
                     if (!period) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: Period must be ' + MIN_PERIOD + ' or greater.\n');
+                        $('#errorConsole_' + zyID).prepend('> ERROR: Period must be ' + MIN_PERIOD + ' or greater.\n');
                         if ($('#period_' + zyID).val().indexOf('.') != -1) {
-                            $('#errorConsole_' + zyID).prepend('ERROR: Period should be an integer.\n');
+                            $('#errorConsole_' + zyID).prepend('> ERROR: Period should be an integer.\n');
                         }
                     }
                     else if ((period < MIN_PERIOD)) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: Period must be ' + MIN_PERIOD + ' or greater.\n');
+                        $('#errorConsole_' + zyID).prepend('> ERROR: Period must be ' + MIN_PERIOD + ' or greater.\n');
                     }
                     if (!haveInit) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: No intial state specified.\n');
+                        $('#errorConsole_' + zyID).prepend('> ERROR: No intial state specified.\n');
                     }
                     if (matchingStateNames) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: Two states cannot have the same name.\n');
+                        $('#errorConsole_' + zyID).prepend('> ERROR: Two states cannot have the\nsame name.\n');
                     }
                     if (matchingSMNames) {
-                        $('#errorConsole_' + zyID).prepend('ERROR: Two state machines cannot have the same name.\n');
+                        $('#errorConsole_' + zyID).prepend('> ERROR: Two state machines cannot\nhave the same name.\n');
                     }
 
                     setTimeout(function() {
@@ -2751,7 +2752,7 @@ function ZySMSim() {
             // CW Display initial new transition instruction in instruction console
             if(transitionMode){
                 $('#instructionConsole_' + zyID).empty();
-                $('#instructionConsole_' + zyID).prepend('First, click starting state of new transition.');
+                $('#instructionConsole_' + zyID).prepend('First, click the new transition\'s starting state.');
                 $('#newTransitionButton_' + zyID).text('Cancel\ntransition');
                 $('#newTransitionButton_' + zyID).css({'background-color':'FireBrick'});
             }
@@ -2852,7 +2853,7 @@ function ZySMSim() {
                     // Displays second instruction when inserting new transition
                     if(transitionMode){
                         $('#instructionConsole_' + zyID).empty();
-                        $('#instructionConsole_' + zyID).prepend('Next, click ending state of new transition.');
+                        $('#instructionConsole_' + zyID).prepend('Next, click the new transition\'s ending state.');
                     }
                 }
                 else {
@@ -3289,11 +3290,23 @@ function ZySMSim() {
         function checkHoveredEdge() {
             for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
                 currEdge = graphs[currentIndex].edges[i];
-                if (currEdge.pointIntersect(mousePos.x, mousePos.y) && hoveredNode == null) {
-                    currEdge.hovered = true;
+                if (currEdge.pointIntersect(mousePos.x, mousePos.y) && hoveredNode == null && !transitionMode && currEdge.selected == false) {
+                    console.log('highlight edge: ', i);
+                    soloHighlight(currEdge, i);
                     break;
                 }
                 else {
+                    currEdge.hovered = false;
+                }
+            }
+        }
+
+        function soloHighlight(hoveredEdge, index) {
+            hoveredEdge.hovered = true;
+            for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
+                currEdge = graphs[currentIndex].edges[i]
+                if (i != index) {
+                    console.log('deselect!\n');
                     currEdge.hovered = false;
                 }
             }
@@ -3436,10 +3449,10 @@ function ZySMSim() {
 
             if (!usesSemicolon && !digDesignMode) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".';
+                    progressionExecutionErrorMessage = '> ERROR (SYNTAX) in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".';
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".'); //CW 1/20/22
+                    $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\nMissing semicolon in: \"' + action + '\".'); //CW 1/20/22
                     simulate();
                 }
 
@@ -3447,10 +3460,10 @@ function ZySMSim() {
             }
             else if (usesSemicolon && digDesignMode) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".';
+                    progressionExecutionErrorMessage = '> ERROR (SYNTAX) in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".';
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".'); //CW 1/20/22
+                    $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\nUnexpected semicolon in: \"' + action + '\".'); //CW 1/20/22
                     simulate();
                 }
 
@@ -3471,11 +3484,11 @@ function ZySMSim() {
                     if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                         // We have an assignement
                         if (self.isProgressionTool && !simulateID) {
-                            progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
+                            progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                             return false;
                         }
                         else {
-                            $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
+                            $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                             simulate();
                             return false;
                         }
@@ -3487,11 +3500,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
+                        progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                         return false;
                     }
                     else {
-                        $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
+                        $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3501,11 +3514,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && (outputIndex > equalIndex)) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
+                        progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.';
                         return false;
                     }
                     else {
-                        $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
+                        $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nReading outputs is not allowed.\nOnly inputs/variables may be read.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3536,11 +3549,11 @@ function ZySMSim() {
                 }
                 if (endOfStatement == -1) {
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\nMissing semicolon.';
+                        progressionExecutionErrorMessage = '> ERROR (SYNTAX) in ' + stateName + ':\nMissing semicolon.';
                         return false;
                     }
                     else {
-                        $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nMissing semicolon.'); //CW 1/20/22
+                        $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\nMissing semicolon.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3552,11 +3565,11 @@ function ZySMSim() {
                 if ((equalIndex != -1) && (outputIndex != -1) && outputIndex < equalIndex) {
                     // We have an assignement
                     if (self.isProgressionTool && !simulateID) {
-                        progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\n' + matchedString + ' is not defined.';
+                        progressionExecutionErrorMessage = '> ERROR (SYNTAX) in ' + stateName + ':\n' + matchedString + ' is not defined.';
                         return false;
                     }
                     else {
-                        $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + matchedString + ' is not defined.'); //CW 1/20/22
+                        $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\n' + matchedString + ' is not defined.'); //CW 1/20/22
                         simulate();
                         return false;
                     }
@@ -3572,11 +3585,11 @@ function ZySMSim() {
             }
             catch (e) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'SYNTAX ERROR in ' + stateName + ':\n' + e.message + '\n' + action + '.';
+                    progressionExecutionErrorMessage = '> ERROR (SYNTAX) in ' + stateName + ':\n' + e.message + '\n' + action + '.';
                     return false;
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + e.message + '\n' + action + '.'); //CW 1/20/22
+                    $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\n' + e.message + '\n' + action + '.'); //CW 1/20/22
                     simulate();
                     return false;
                 }
@@ -3601,11 +3614,11 @@ function ZySMSim() {
             }
             if (oldAValues !== newAValues) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
+                    progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
                     return false;
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to write to inputs.'); //CW 1/20/22
+                    $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nNot allowed to write to inputs.'); //CW 1/20/22
                     simulate();
                     return false;
                 }
@@ -3622,7 +3635,7 @@ function ZySMSim() {
             // Using eval, so we filter out bad input so only boolean expressions are executed
             var re = /B[0-7]?/;
             if (condition.match(re) && !HLSM && !digDesignMode) {
-                $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to read outputs.'); //CW 1/20/22
+                $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nNot allowed to read outputs.'); //CW 1/20/22
                 simulate();
                 return false;
             }
@@ -3636,12 +3649,12 @@ function ZySMSim() {
                 }
             }
             if (numParen < 0) {
-                $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nExpected (.');
+                $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\nExpected (.');
                 simulate();
                 return false;
             }
             else if (numParen > 0) {
-                $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\nExpected ).');
+                $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\nExpected ).');
                 simulate();
                 return false;
             }
@@ -3653,11 +3666,11 @@ function ZySMSim() {
 
             if (assignmentTestAction.indexOf('=') != -1) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.';
+                    progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.';
                     return false;
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.');
+                    $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nCan\'t execute assignments in conditions.');
                     simulate();
                     return false;
                 }
@@ -3719,7 +3732,7 @@ function ZySMSim() {
             }
 
             if (newcondition.length > 0) {
-                $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nInvalid transition.');
+                $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nInvalid transition.');
                 simulate();
                 return false;
             }
@@ -3737,7 +3750,7 @@ function ZySMSim() {
                     return false;
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('SYNTAX ERROR in ' + stateName + ':\n' + e.message + '.');
+                    $('#errorConsole_' + zyID).prepend('> ERROR (SYNTAX) in ' + stateName + ':\n' + e.message + '.');
                     simulate();
                     return false;
                 }
@@ -3750,11 +3763,11 @@ function ZySMSim() {
             }
             if (oldAValues !== newAValues) {
                 if (self.isProgressionTool && !simulateID) {
-                    progressionExecutionErrorMessage = 'ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
+                    progressionExecutionErrorMessage = '> ERROR in ' + stateName + ':\nNot allowed to write to inputs.';
                     return false;
                 }
                 else {
-                    $('#errorConsole_' + zyID).prepend('ERROR in ' + stateName + ':\nNot allowed to write to inputs.');
+                    $('#errorConsole_' + zyID).prepend('> ERROR in ' + stateName + ':\nNot allowed to write to inputs.');
                     simulate();
                     return false;
                 }

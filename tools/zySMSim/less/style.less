@@ -173,16 +173,16 @@
 
     // CW 9/2/201
     .error-console {
-        height:   50px;
-        width:    250px;
-        border:   1px solid @zyante-gray;
-        left:     0;
-        top:      0;
-        resize:   none;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        color:  red;
-        white-space: pre; //changes newlines in jquery to <br>
+        height:         50px;
+        width:          250px;
+        border:         1px solid @zyante-gray;
+        left:           0;
+        top:            0;
+        resize:         none;
+        overflow-y:     scroll;
+        overflow-x:     hidden;
+        color:          #BB0404; // ZYANTE_MEDIUM_RED
+        white-space:    pre; // changes newlines in jquery to <br>
     }
     
     // CW 9/2/201
@@ -192,8 +192,8 @@
         vertical-align:         top;
         justify-self:           end;
         padding:                0;
-        pointer-events: none;
-        cursor: default;
+        //pointer-events:         none;
+        cursor:                 default;
         
         .error-console-container::first-line {
             font-weight:        bold;
@@ -309,7 +309,7 @@
         // adds 'Error messages will appear here.'
         p:empty:not(:focus)::before {
             content:            attr(data-placeholder);
-            color:              green; //used to be @zyante-gray 1/7/21
+            color:              #738033; // ZYANTE_GREEN
             background-color:   white;
             opacity:            .8;
             border:             none;
@@ -376,8 +376,8 @@
     }
 
     .item-info-label-selected {
-        color:          @zyante-gray;
-        margin-bottom:  10%;
+        color:              @zyante-gray;
+        margin-bottom:      10%;
         opacity:            0.8;
         font-size:          smaller;
         padding-left:       5px;
