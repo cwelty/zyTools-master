@@ -97,7 +97,7 @@
 
     .canvas-tab {
         cursor:           pointer;
-        display:          inline-block; //maybe comment this out? 
+        display:          inline-block; 
         height:           390px;
         margin-bottom:    5px;
         width:            600px;
@@ -252,6 +252,14 @@
         font-size:  small;
     }
 
+    .firebrick {
+        background-color: FireBrick;
+    }
+
+    .firebrick:hover {
+        background-color: darkred;
+    }
+
     .init-state-check {
         grid-row:       3;
         grid-column:    1;
@@ -380,7 +388,7 @@
         margin-bottom:      10%;
         opacity:            0.8;
         font-size:          smaller;
-        padding-left:       5px;
+        padding-left:       2px;
         padding-top:        5px;
     }
 
@@ -388,7 +396,7 @@
         color:              @zyante-gray;
         opacity:            0.8;
         font-size:          smaller;
-        padding-left:       5px;
+        padding-left:       2px;
         padding-top:        5px;
     }
 
@@ -649,6 +657,10 @@
     .start-button-container {
         grid-row:    1;
         grid-column: 1;
+    }
+
+    .tabs-list {
+        resize: none;
     }
 
     .test-vector-button {

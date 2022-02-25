@@ -507,6 +507,7 @@ function ZySMSim() {
     function initZySMSim(zyID, options) {
         var canvas;
         var context;
+        //context.font = '12px arial';
         var graphs;
         var drawThreadId;
         var outputDrawThreadId;
@@ -514,9 +515,9 @@ function ZySMSim() {
         var selectedEdge;
         var hoveredNode; //CW 1/23/22
         var hoveredEdge; //CW 1/23/22
+        var maxSMs;
         var mousePos;
         var transitionMode;
-        var currSMIndex;
         var dragged;
         var canDrag;
         var canEdit;
@@ -588,11 +589,11 @@ function ZySMSim() {
             s = 0;
         var currentAction;
         var currentCondition;
-        // CW 8/16/2021
         var simulateID, testVectorID;
         var timerPercent;
         var speedChoice;
         var advancedControlsHidden = true;
+
         //init minusHeight and minusWidth buttons
         $('#minusWidth_' + zyID).prop('disabled', true);
         $('#minusWidth_' + zyID).addClass('disabled');
@@ -635,10 +636,9 @@ function ZySMSim() {
             elapsedSimTime = 0; // CW 10/4/21
             oldElapsedSimTime = 0;
             customPeriod = 0; // CW 12/1/21
-            toggleTransition = 0; // CW 11/3/21
             timerBarCanvas = $('#timerBar'); // CW 12/1/21
-            loadSMName = ""; //CW 1/15/22
-            currSMIndex = 0;
+            loadSMName = ""; // CW 1/15/22
+            maxSMs = false;
             currentIndex = 0;
             zySMSimActive = false;
             globalCode = '';
@@ -676,14 +676,35 @@ function ZySMSim() {
                             return false;
                         }
                         selectedNode = null;
-
+                        // Add SM tab is clicked
                         if (newIndex == graphs.length) {
-                            genAndSwitchSM();
+                            if (graphs.length < 3) { // limit to 3 SM tabs
+                                // create new SM
+                                genAndSwitchSM();
+                            }
+                            else {
+                                // prevent creation of new SM, instruct user how they could create a new SM
+                                maxSMs = true;
+                                // Find newly added tab and click it, need to wait a few miliseconds because it can bug out and select two things
+                                setTimeout(function() {
+                                    $('#canvasTab_' + zyID + ' ul:first li:eq(' + (currentIndex) + ') a').click();
+                                }, 10);
+                                $('#period_' + zyID).val(graphs[currentIndex].period);
+                                reDrawStateMachine = true;
+                            }
                         }
-                        currentIndex = newIndex;
-                        $('#period_' + zyID).val(graphs[currentIndex].period);
-                        reDrawStateMachine = true;
-
+                        // Switching SM tabs
+                        $('#errorConsole_' + zyID).empty();
+                        if (!maxSMs) {
+                            transitionMode = false;
+                            $('#errorConsole_' + zyID).empty();
+                            currentIndex = newIndex;
+                            $('#period_' + zyID).val(graphs[currentIndex].period);
+                            reDrawStateMachine = true;
+                        }
+                        else {
+                            $('#errorConsole_' + zyID).prepend('Max number of SMs created.\nClose an SM to create a new one.\n');
+                        }
                     },
                     beforeLoad: function(event, ui) {
                         return false;
@@ -695,6 +716,11 @@ function ZySMSim() {
 
                 // Removing a tab when close icon is clicked, close tab, closing tab
                 $('#canvasTab_' + zyID).delegate('span.ui-icon-close', 'click', function() {
+                    // Remove instruction for max SMs created
+                    if (graphs.length <= 6){
+                        maxSMs = false;
+                        $('#errorConsole_' + zyID).empty();
+                    }
                     // Don't delete while running
                     if (simulateID || simulateOnly || paused) {
                         return;
@@ -716,7 +742,7 @@ function ZySMSim() {
                 // Input for SM name used on tabs
                 tabInput = $('<div style="position: absolute; z-index: 9999; background: white"><input/></div>');
                 tabInput.css('display', 'none');
-                tabInputIn = tabInput.find('input');-
+                tabInputIn = tabInput.find('input');
 
                 $('#canvasTab_' + zyID).append(tabInput);
                 // When user dblclicks a tab they can rename the SM
@@ -1036,18 +1062,6 @@ function ZySMSim() {
                 advancedControlsHidden = true;
         }
 
-        // CW 9/27/21
-        // used to change canvas dimensions when program inits
-        // NOT IN USE
-        function initDrawingArea() {
-            drawingCanvas = $('#drawingArea_' + zyID);
-            canvasTab = $('#canvasTab_' + zyID);
-            var canvasTabHeight = $(canvasTab).attr('width');
-            drawingCanvas.attr({
-                height: canvasTabHeight
-            })
-        }
-
         // Creates the output objects for the different modes
         function createOutputs() {
             outputs = [];
@@ -1146,7 +1160,7 @@ function ZySMSim() {
                     ],
                     output: 'B'
                 },
-                functionIOLoadCompleted);
+                functionIOLoadCompleted());
             }
             else if (HLSM) {
                 self.output.init('outputContainer_' + zyID, {
@@ -1792,7 +1806,6 @@ function ZySMSim() {
 
         // When a user double clicks a tab an input box appears that allows them to change the state machine's name
         function changeSMName(index) {
-            currSMIndex = index;
             if (simulateOnly) {
                 return;
             }
@@ -1819,6 +1832,10 @@ function ZySMSim() {
                     $('#errorConsole_' + zyID).empty();
                     $('#errorConsole_' + zyID).prepend('> ERROR: SM name cannot be empty.\n');
                 }
+                else if(tabInputIn.val().length > 10) {
+                    $('#errorConsole_' + zyID).empty();
+                    $('#errorConsole_' + zyID).prepend('> ERROR: SM name limited to 10\ncharacters.\n');
+                }
                 else {
                     $('#canvasTab_' + zyID + ' ul:first li:eq(' + index + ') a').text(tabInputIn.val());
                     graphs[index].name = tabInputIn.val();
@@ -1826,6 +1843,8 @@ function ZySMSim() {
 
                 }
                 tabInput.css('display', 'none');
+
+                //console.log('tabsListSpan height: ', $('#tabsListSpan_' + zyID).attr('height'), '\n');
                 
             });
             tabInputIn.select();
@@ -1836,7 +1855,7 @@ function ZySMSim() {
             var newGraphIndex = graphs.length;
             graphs.push(new Graph());
             var nameIndex = 1;
-            graphs[newGraphIndex].name = 'StateMachine' + nameIndex;
+            graphs[newGraphIndex].name = 'SM' + nameIndex;
             var nameTaken = true;
             // This ensures new default SM name is unique
             while (nameTaken) {
@@ -1844,7 +1863,7 @@ function ZySMSim() {
                 for (var i = 0; i < (graphs.length - 1); i++) {
                     if (graphs[i].prefix === graphs[newGraphIndex].prefix) {
                         nameIndex++;
-                        graphs[newGraphIndex].name = 'StateMachine' + nameIndex;
+                        graphs[newGraphIndex].name = 'SM' + nameIndex;
                         graphs[newGraphIndex].prefix = 'SM' + nameIndex;
                         nameTaken = true;
                     }
@@ -1855,6 +1874,7 @@ function ZySMSim() {
             $('#canvasTab_' + zyID).find('li').last().before('<li><a href="#drawingArea_' + zyID + '">' + graphs[newGraphIndex].name + '</a></li>');
             $('#canvasTab_' + zyID + ' ul:first li:eq(' + newGraphIndex + ')').append('<span class= "ui-icon ui-icon-close" role="presentation"/>');
             $('#canvasTab_' + zyID).tabs('refresh');
+
             var SMprefix = graphs[newGraphIndex].prefix;
             $('#canvasTab_' + zyID + ' ul:first li:eq(' + newGraphIndex + ') a').dblclick(function(e) {
                 var i;
@@ -1867,22 +1887,25 @@ function ZySMSim() {
                 // Start changing name of the state machine that was clicked
                 changeSMName(i);
             });
-
+            return 0;
         }
         // Create new SM and click on it's tab
         function genAndSwitchSM() {
-            addGraph();
-            // Need to add dummy state to new graph
-            graphs[graphs.length - 1].nodes.push(new Node());
-            graphs[graphs.length - 1].nodes[0].isDummyState = true;
-            graphs[graphs.length - 1].nodes[0].name = 'SMStart';
-            graphs[graphs.length - 1].nodes[0].rect.x = 0;
-            graphs[graphs.length - 1].nodes[0].rect.y = 0;
-            // Find newly added tab and click it, need to wait a few miliseconds because it can bug out and select two things
-            setTimeout(function() {
-                $('#canvasTab_' + zyID + ' ul:first li:eq(' + (graphs.length - 1) + ') a').click();
-            }, 10);
+            var failedBuild = addGraph(); // addGraph returns -1 if max number of SMs exist
+            if (!failedBuild){
+                // Need to add dummy state to new graph
+                graphs[graphs.length - 1].nodes.push(new Node());
+                graphs[graphs.length - 1].nodes[0].isDummyState = true;
+                graphs[graphs.length - 1].nodes[0].name = 'SMStart';
+                graphs[graphs.length - 1].nodes[0].rect.x = 0;
+                graphs[graphs.length - 1].nodes[0].rect.y = 0;
+                // Find newly added tab and click it, need to wait a few miliseconds because it can bug out and select two things
+                setTimeout(function() {
+                    $('#canvasTab_' + zyID + ' ul:first li:eq(' + (graphs.length - 1) + ') a').click();
+                }, 10);
+            }
         }
+
         // Find index of SM in graphs by using the SM name
         function getTabIndex(smName) {
             for (var i = 0; i < graphs.length; i++) {
@@ -2051,7 +2074,6 @@ function ZySMSim() {
                 $('#minusHeight_' + zyID).css('background-color', ZYANTE_DARK_ORANGE);
             }
         });
-        
 
         // CW 9/2/2021
         // Toggles view of the advanced controls menu
@@ -2150,7 +2172,6 @@ function ZySMSim() {
             else { // Pauses simulation
                 clearInterval(simulateID);
                 clearInterval(testVectorID);
-                elapsedTimerOn = false;
                 simulateID = 0;
                 testVectorID = 0;
                 paused = true;
@@ -2266,9 +2287,11 @@ function ZySMSim() {
             oldElapsedSimTime = 0;
             $('#instructionConsole_' + zyID).empty(); // CW 1/7/22 clear instruction console
             $('#instructionConsole_' + zyID).prepend('Click A inputs to set value 0 or 1.\nObserve B outputs.');
-            $('#newTransitionButton_' + zyID).text('New\ntransition');
-            $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
-            transitionMode = 0;
+            if(transitionMode) {
+                $('#newTransitionButton_' + zyID).text('New\ntransition');
+                $('#newTransitionButton_' + zyID).removeClass('firebrick');
+                transitionMode = false;
+            }
 
             if (!simulateID && !$('#startButton_' + zyID).hasClass('disabled') && !paused) {
                 var prepareResult = prepareToSimulate();
@@ -2328,7 +2351,6 @@ function ZySMSim() {
                 paused = false;
                 clearInterval(simulateID);
                 clearTimerBar();
-                elapsedTimerOn = false;
                 simulateID = 0;
                 selectedNode = null;
                 setTimeout(function() {
@@ -2613,6 +2635,7 @@ function ZySMSim() {
                 if (selectedNode == graphs[currentIndex].nodes[0]) {
                     return;
                 }
+                $('#errorConsole_' + zyID).empty(); // Removes max state error message
                 var i = 0;
                 // When deleting a node all edges connected to it must also be deleted
                 while (i < graphs[currentIndex].edges.length) {
@@ -2766,17 +2789,23 @@ function ZySMSim() {
             }
             selectedEdge = null;
 
-            // CW Display initial new transition instruction in instruction console
-            if(transitionMode){
-                $('#instructionConsole_' + zyID).empty();
-                $('#instructionConsole_' + zyID).prepend('First, click the new transition\'s starting state.');
-                $('#newTransitionButton_' + zyID).text('Cancel\ntransition');
-                $('#newTransitionButton_' + zyID).css({'background-color':'FireBrick'});
+            if (graphs[currentIndex].nodes.length == 1) { // default number of nodes is 1
+                $('#errorConsole_' + zyID).empty();
+                $('#errorConsole_' + zyID).prepend('> ERROR: Must be at least 1 state to insert\na transition.\n');
             }
-            else{
+            // CW Display initial new transition instruction in instruction console
+            else if (transitionMode){
+                $('#instructionConsole_' + zyID).empty();
+                $('#instructionConsole_' + zyID).prepend('First, click the new transition\'s starting state.\n');
+                $('#newTransitionButton_' + zyID).text('Cancel\ntransition');
+                $('#newTransitionButton_' + zyID).addClass('firebrick');
+            }
+            // Cancels transition
+            else {
                 $('#instructionConsole_' + zyID).empty();
                 $('#newTransitionButton_' + zyID).text('New\ntransition');
-                $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
+                $('#newTransitionButton_' + zyID).removeClass('firebrick');
+                $('#errorConsole_' + zyID).empty(); // Removes error message for inserting a transition with no states
             }
         }
 
@@ -2815,12 +2844,10 @@ function ZySMSim() {
         }
         // Handles the creation of edges and the switching of all text fields when a new edge or node has been selected
         function canvasMouseDown(e) {
-            
             // No canvas mouse events while simulating
             if (simulateID || !canEdit || paused) {
                 return;
             }
-
             updateMousePos(e);
             dragged = false;
             canDrag = false;
@@ -2832,7 +2859,7 @@ function ZySMSim() {
             if (transitionMode && selectedNode != null) {
                 $('#instructionConsole_' + zyID).empty(); // Clears instruction console after second node is selected when inserting new transition
                 $('#newTransitionButton_' + zyID).text('New\ntransition');
-                $('#newTransitionButton_' + zyID).css({'background-color':ZYANTE_ORANGE});
+                $('#newTransitionButton_' + zyID).removeClass('firebrick');
                 var dst = getClickedNode();
                 if (dst != null) {
                     var alreadyCreated = false;
@@ -2857,7 +2884,6 @@ function ZySMSim() {
             }
             // Branches when an item is selected, or when not in transition mode
             else {
-
                 selectedNode = getClickedNode();
                 // Branches when selected item is identified as a state
                 if (selectedNode != null) {
@@ -2868,7 +2894,7 @@ function ZySMSim() {
                     // Not null load properties of the state
                     loadStateProperties();
                     // Displays second instruction when inserting new transition
-                    if(transitionMode){
+                    if (transitionMode){
                         $('#instructionConsole_' + zyID).empty();
                         $('#instructionConsole_' + zyID).prepend('Next, click the new transition\'s ending state.');
                     }
@@ -2880,12 +2906,10 @@ function ZySMSim() {
                             selectedEdge.deselect();
                             selectedEdge = getClickedEdge();
                         }
-
                     }
                     else {
                         selectedEdge = getClickedEdge();
                     }
-
                     // Edge was clicked must load edge properties
                     if (selectedEdge != null) {
                         selectedNode = null;
@@ -3040,7 +3064,6 @@ function ZySMSim() {
             }
             updateMousePos(e);
             // User is dragging, drag the currently selected node
-            // CW 777 curretly selected node
             if (selectedNode != null && canDrag) {
                 var oldX = selectedNode.rect.x;
                 var oldY = selectedNode.rect.y;
@@ -3279,7 +3302,7 @@ function ZySMSim() {
             return null;
         }
 
-        // set global hoveredNode if mouse intersects, otherwise keep hoveredNode as null
+        // Set global hoveredNode if mouse intersects, otherwise keep hoveredNode as null
         function checkHoveredNode() {
             for (var i = 0; i < graphs[currentIndex].nodes.length; i++) {
                 if (graphs[currentIndex].nodes[i].pointIntersect(mousePos.x, mousePos.y)) {
@@ -3303,12 +3326,11 @@ function ZySMSim() {
             return null;
         }
 
-        // CW change color of edge if mouse is hovering over it
+        // Change color of edge if mouse is hovering over it
         function checkHoveredEdge() {
             for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
                 currEdge = graphs[currentIndex].edges[i];
                 if (currEdge.pointIntersect(mousePos.x, mousePos.y) && hoveredNode == null && !transitionMode && currEdge.selected == false) {
-                    console.log('highlight edge: ', i);
                     soloHighlight(currEdge, i);
                     break;
                 }
@@ -3318,18 +3340,26 @@ function ZySMSim() {
             }
         }
 
+        // Helper function for checkHoveredEdge, makes sure only one edge is set to hovered at a time
         function soloHighlight(hoveredEdge, index) {
             hoveredEdge.hovered = true;
             for (var i = 0; i < graphs[currentIndex].edges.length; i++) {
                 currEdge = graphs[currentIndex].edges[i]
                 if (i != index) {
-                    console.log('deselect!\n');
                     currEdge.hovered = false;
                 }
             }
         }
 
         function createNode() {
+            if(graphs[currentIndex].nodes.length >= 1 && graphs[currentIndex].nodes.length <= 20) {
+                $('#errorConsole_' + zyID).empty(); // Removes error message for inserting a transition with no states
+            }
+            if(graphs[currentIndex].nodes.length > 20) {
+                $('#errorConsole_' + zyID).empty();
+                $('#errorConsole_' + zyID).prepend('> ERROR: Max number of states created.\n');
+                return
+            }
             var node = new Node();
             // New node is generated in a random location in the center
             node.rect.x = canvas.width / 2 + (Math.random() * canvas.width / 4);
@@ -3401,6 +3431,7 @@ function ZySMSim() {
             selectedNode = null;
             loadEdgeProperties();
         }
+
         // Draws the current state machine
         function drawLoop() {
             if (reDrawStateMachine) {
@@ -3411,9 +3442,7 @@ function ZySMSim() {
                 for (var i = graphs[currentIndex].nodes.length - 1; i >= 0; i--) {
                     graphs[currentIndex].nodes[i].draw(context);
                 }
-                
                 updateInitState(currentIndex);
-
                 // Draws selection box around current node
                 if (selectedNode != null && !simulateID && !paused) {
                     context.save();
@@ -3421,7 +3450,6 @@ function ZySMSim() {
                     context.strokeRect(selectedNode.rect.x + SELECTION_BOUNDING_BOX_OFFSETS.x, selectedNode.rect.y + SELECTION_BOUNDING_BOX_OFFSETS.y, selectedNode.rect.width + SELECTION_BOUNDING_BOX_OFFSETS.width, selectedNode.rect.height + SELECTION_BOUNDING_BOX_OFFSETS.height);
                     context.restore();
                 }
-
                 // checkHoveredNode
                 if (hoveredNode != null && !simulateID && !paused && (hoveredNode != selectedNode)) {
                     context.save();

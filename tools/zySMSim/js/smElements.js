@@ -68,6 +68,9 @@ Node.prototype.draw = function(context) {
 
 // Point in rectangle collision
 Node.prototype.pointIntersect = function(px, py) {
+    px += 20; // Offsets added to make clicking more accurate
+    py += 15;
+
     // Don't allow collisions with dummy state
     if (this.isDummyState) {
         return false;
@@ -78,8 +81,8 @@ Node.prototype.pointIntersect = function(px, py) {
 Node.prototype.moveTo = function(px, py) {
     var oldx = this.rect.x;
     var oldy = this.rect.y;
-    this.rect.x = px - Node.NODE_RADIUS;
-    this.rect.y = py - Node.NODE_RADIUS;
+    this.rect.x = px+20 - Node.NODE_RADIUS; // Added offsets for more accurate clicking
+    this.rect.y = py+15 - Node.NODE_RADIUS;
     // true if point changed
     return (oldx != this.rect.x) && (oldy != this.rect.y);
 };
@@ -185,6 +188,7 @@ function Edge() {
     this.condition = '';
     this.actions = '';
     this.selected = false;
+    this.hovered = false;
     this.priority = 1;
     // Bezier points
     this.bp1 = null;
@@ -192,12 +196,11 @@ function Edge() {
     this.bp3 = null;
     this.bp4 = null;
     this.executing = false;
-    this.hovered = false;
     this.bp2HandleSelected = false;
     this.bp3HandleSelected = false;
     this.oldHeadInt = null;
     this.oldTailInt = null;
-    this.HANDLE_WIDTH = 10;
+    this.HANDLE_WIDTH = 12;
 }
 
 Edge.prototype.drawArrow = function(context, tip, dxdt, dydt) {
@@ -249,6 +252,8 @@ Edge.prototype.drawArrow = function(context, tip, dxdt, dydt) {
 
 
 Edge.prototype.singleLinePointIntersect = function(x1, y1, x2, y2, px, py) {
+    px += 20; // Added offsets for more accurate clicking
+    py += 15; 
     return (x1 <= px) && (px <= x2) && (y1 <= py) && (py <= y2);
 };
 
@@ -275,7 +280,7 @@ function pointLerp(p0, p1, t) {
 }
 
 function createRectangleAndTestCollision(px, py, p0, p1) {
-    var BUFFER = 5;
+    var BUFFER = 3;
     var minMax = findMinMax(p0, p1);
     var lowerLeft = minMax.min;
     var upperRight = minMax.max;
@@ -283,14 +288,17 @@ function createRectangleAndTestCollision(px, py, p0, p1) {
     lowerLeft.y -= BUFFER;
     upperRight.x += BUFFER;
     upperRight.y += BUFFER;
+
     return px >= lowerLeft.x && px <= upperRight.x && py >= lowerLeft.y && py <= upperRight.y;
 }
 // We can test for a collision by breaking the line down into many regions
-Edge.prototype.pointIntersect = function(px, py) {
+Edge.prototype.pointIntersect = function(px, py, context) {
+    px += 20; // adds offset for more accurate clicking
+    py += 15; 
     var points = [ this.bp1, this.bp2, this.bp3, this.bp4 ];
     var doesIntersect = false;
     for (var i = 0; i < points.length - 1; i++) {
-        var midPoint = pointLerp(points[i], points[i + 1], 0.5);
+        var midPoint = pointLerp(points[i], points[i + 1], 1); // originally 0.5 but that crippled the clicking
         doesIntersect = createRectangleAndTestCollision(px, py, points[i], midPoint);
         if (doesIntersect) {
             break;
@@ -373,19 +381,22 @@ Edge.prototype.moveBy = function(px, py) {
 };
 
 Edge.prototype.handleIntersect = function(px, py) {
+    px += 20; // Offset added so clicking is more accurate
+    py += 15;
+
     // Dont allow user to move intial transition
     if (this.head.isDummyState) {
         return false;
     }
     var squareDist = (this.bp2.x - px) * (this.bp2.x - px) + (this.bp2.y - py) * (this.bp2.y - py);
-    var isBp2 = squareDist <= (this.HANDLE_WIDTH * 2) * (this.HANDLE_WIDTH * 2);
+    var isBp2 = squareDist <= (this.HANDLE_WIDTH * 3.5) * (this.HANDLE_WIDTH * 3.5);
     if (isBp2) {
         this.bp2HandleSelected = true;
         this.bp3HandleSelected = false;
         return true;
     }
     squareDist = (this.bp3.x - px) * (this.bp3.x - px) + (this.bp3.y - py) * (this.bp3.y - py);
-    var isBp3 = squareDist <= (this.HANDLE_WIDTH * 2) * (this.HANDLE_WIDTH * 2);
+    var isBp3 = squareDist <= (this.HANDLE_WIDTH * 3.5) * (this.HANDLE_WIDTH * 3.5);
     if (isBp3) {
         this.bp3HandleSelected = true;
         this.bp2HandleSelected = false;
@@ -442,8 +453,11 @@ Edge.prototype.setBPs = function(bp1, bp2, bp3, bp4) {
     this.oldTailInt = computeLaunchPoint(this.tail, this.head);
 };
 Edge.prototype.draw = function(context) {
+    // finds out which box side of the node the edge collides with
     var headInt = computeLaunchPoint(this.head, this.tail);
     var tailInt = computeLaunchPoint(this.tail, this.head);
+
+    // choose color of edge
     if (this.executing) {
         context.strokeStyle = ZYANTE_GREEN;
     }
@@ -456,6 +470,7 @@ Edge.prototype.draw = function(context) {
     else {
         context.strokeStyle = 'black';
     }
+
     if (this.head === this.tail) {
         context.save();
         context.translate(this.head.center().x, this.head.center().y);
@@ -516,7 +531,6 @@ Edge.prototype.draw = function(context) {
 
     }
     else {
-
         context.lineWidth = 2;
         context.beginPath();
         var adjustX = (headInt.x < tailInt.x) ? tailInt.x - 4 : tailInt.x + 4; // keep line end in arrow
@@ -596,7 +610,7 @@ Edge.prototype.draw = function(context) {
     if (this.selected) {
         context.fillStyle = 'white';
         context.beginPath();
-        context.moveTo(this.bp1.x, this.bp1.y);
+        context.moveTo(this.bp1.x, this.bp1.y);        
         context.lineTo(this.bp2.x, this.bp2.y);
         context.stroke();
         context.beginPath();
